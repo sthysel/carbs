@@ -1,4 +1,4 @@
 dotfiles
 ========
 
-Dotfiles and the like
+Dotfiles and the like.
