@@ -1,0 +1,5 @@
+thys@xps:~/.local/share/applications$ tree
+.
+├── eclipse.desktop
+
+
