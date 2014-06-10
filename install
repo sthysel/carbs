@@ -9,6 +9,10 @@ echo "Installing from "$HERE
 for file in "${HERE}"/*
 do
      name="$(basename "$file" .md)"
-     echo $name
+     if ! [[ "apps install readme" =~ ${name} || -d ${file}/.git ]]
+     then
+	dotname=.${name}
+	ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
+     fi
 done
 
