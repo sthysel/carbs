@@ -1,0 +1,7 @@
+[user]
+	name = Thys Meintjes
+	email = tmeintjes@ccg.murdoch.edu.au
+[core]
+	editor = vim
+[push]
+	default = matching
