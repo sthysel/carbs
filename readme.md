@@ -7,7 +7,7 @@ Dotfiles and the like for bash, vim etc.
 Clone somewhere 
 
 ~~~ sh
-$ git clone https://github.com/sthysel/dotfiles.git ~/dotfiles
+$ git clone git@github.com:sthysel/dotfiles.git ~/dotfiles
 $ ~/dotfiles/install
 ~~~
 
