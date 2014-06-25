@@ -5,14 +5,13 @@ HERE=$(cd $(dirname $0) && pwd)
 
 echo "Installing from "$HERE
 
-
 for file in "${HERE}"/*
 do
-     name="$(basename "$file" .md)"
-     if ! [[ "apps install readme" =~ ${name} || -d ${file}/.git ]]
-     then
-	dotname=.${name}
-	ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
-     fi
+    name="$(basename "$file" .md)"
+    if ! [[ "apps install readme .gitignore" =~ ${name} || -d ${file}/.git ]]
+    then
+	    dotname=.${name}
+	    ln -sfnv ${file#$HOME/} "${HOME}/${dotname}"
+    fi
 done
 
