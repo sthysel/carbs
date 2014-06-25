@@ -9,7 +9,6 @@
 .powenv
 /doc/tags
 *.rbc
-syntax:glob
 *.swp
 *~
 *.pyc
@@ -33,5 +32,4 @@ htmlcov/
 bpam/static/
 syntax:regexp
 \.idea
-syntax:glob
-
+#*#
