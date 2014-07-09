@@ -123,9 +123,7 @@ function parse_hg_dirty {
     hg branch 2> /dev/null | sed -e "s/\(.*\)/[\1$(parse_hg_dirty)]/"
 }
  
- 
 export PS1='\u:\[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$(parse_hg_branch)$ '
-
 
 # readlines config
 # append to the history file, don't overwrite it
