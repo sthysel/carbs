@@ -66,22 +66,10 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -135,9 +123,7 @@ function parse_hg_dirty {
     hg branch 2> /dev/null | sed -e "s/\(.*\)/[\1$(parse_hg_dirty)]/"
 }
  
- 
 export PS1='\u:\[\033[1;33m\]\w\[\033[0m\]$(parse_git_branch)$(parse_hg_branch)$ '
-
 
 # readlines config
 # append to the history file, don't overwrite it
@@ -157,4 +143,3 @@ stty stop ^J
 shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
