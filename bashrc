@@ -143,3 +143,5 @@ stty stop ^J
 shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
+source .oscreds
