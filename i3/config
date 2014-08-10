@@ -14,9 +14,16 @@ set $mod Mod4
 exec --no-startup-id /usr/bin/gnome-settings-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id insync 
+
 # exec --no-startup-id udisks-glue
 exec --no-startup-id export $(gnome-keyring-daemon)
 
+# set startup volume
+exec --no-startup-id pactl set-sink-volume 0 '20%'
+
+## DPMS monitor setting (standby -> suspend -> off) (seconds)
+exec --no-startup-id xset dpms 300 600 900 
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
