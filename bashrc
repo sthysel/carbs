@@ -99,6 +99,7 @@ fi
 
 export WORKON_HOME=${HOME}/Envs
 export PATH=${PATH}:${HOME}/workspace/ccg/
+export PATH=${PATH}:${HOME}/dev/pycharm-3.4.1/bin/
 
 # http://henrik.nyh.se/2008/12/git-dirty-prompt
 # http://www.simplisticcomplexity.com/2008/03/13/show-your-git-branch-name-in-your-prompt/
