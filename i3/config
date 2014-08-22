@@ -14,7 +14,7 @@ set $mod Mod4
 exec --no-startup-id /usr/bin/gnome-settings-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
-exec --no-startup-id insync 
+exec --no-startup-id insync start
 
 # exec --no-startup-id udisks-glue
 exec --no-startup-id export $(gnome-keyring-daemon)
