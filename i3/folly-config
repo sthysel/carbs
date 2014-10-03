@@ -23,7 +23,8 @@
 
 set $mod Mod4
 
-exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id usr/libexec/gnome-settings-daemon 
+exec --no-startup-id export $(gnome-keyring-daemon)
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
@@ -105,7 +106,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+# bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+x focus mode_toggle
