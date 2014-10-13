@@ -1,0 +1,59 @@
+Host maas
+    User ubuntu
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    HostName 146.118.54.16 
+    ForwardAgent yes
+    ForwardX11 yes
+    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
+    LocalForward 8000 localhost:80 
+
+Host staging 
+    User ec2-user
+    IdentityFile ~/.ssh/ccg-syd-staging.pem
+    HostName staging.ccgapps.com.au
+
+Host minerva
+    User tmeintjes
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    HostName ccg.murdoch.edu.au
+    ServerAliveInterval 60
+
+Host nectar
+    User ccg-user
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    ForwardX11 yes
+    ForwardAgent yes
+    Compression yes
+    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
+
+Host backdoor
+    User ubuntu
+    HostName 192.168.1.250
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    ForwardX11 yes
+    ForwardAgent yes
+    Compression yes
+    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
+
+Host bigdisk
+    User ubuntu
+    HostName 192.168.1.210
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    ForwardX11 yes
+    ForwardAgent yes
+    Compression yes
+    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
+
+Host rdsi-ftp
+    HostName sftp.rdsi.intersect.org.au
+    User thys.meintjes
+    IdentityFile ~/.ssh/intersect
+    ServerAliveInterval 60
+
+Host rdsi
+    HostName rdsi-bpa-vm.intersect.org.au
+    # User thys.meintjes
+    User ccg-user
+    IdentityFile ~/.ssh/intersect
+    ServerAliveInterval 60
+    ForwardAgent yes
