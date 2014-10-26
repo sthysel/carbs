@@ -1,0 +1,86 @@
+# sedge config file 
+
+# some globals
+StrictHostKeyChecking no
+
+# variables
+@set work-username tmeintjes
+
+@key intersect 12:d5:b3:31:ec:95:89:ea:6c:60:6f:e5:ca:03:ff:64
+@key work-ccg d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
+@key pawsey d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
+
+@HostAttrs trusted
+    ForwardAgent yes
+
+@HostAttrs slow-network
+    Compression yes
+    TCPKeepAlive yes
+    ServerAliveInterval 60
+
+Host minerva
+    User <work-username>
+    @identity work-ccg
+    HostName ccg.murdoch.edu.au
+
+
+Host nectar
+    @identity work-ccg
+    User ccg-user
+    ForwardX11 yes
+    @is trusted
+    @is slow-network
+    @via minerva
+
+Host maas
+    @via minerva
+    @identity work-ccg
+    HostName 146.118.54.16
+    User ubuntu
+    @is slow-network
+    @is trusted
+    LocalForward 8000 localhost:80 
+
+@with i {10..25}
+Host service-r1-h<i>
+    HostName service-r1-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {12..19}
+Host compute-r2-h<i>
+    HostName compute-r2-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..9}
+Host storage-r1-h<i>
+    HostName storage-r1-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..11}
+Host storage-r2-h<i>
+    HostName storage-r2-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..19}
+Host storage-r3-h<i>
+    HostName storage-r3-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with r {4..5}
+@with i {1..19}
+Host compute-r<r>-h<i>
+    HostName compute-r<r>-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity work-ccg
+
