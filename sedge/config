@@ -18,6 +18,11 @@ StrictHostKeyChecking no
     TCPKeepAlive yes
     ServerAliveInterval 60
 
+Host rdsi
+    HostName rdsi-bpa-vm.intersect.org.au
+    User thys.meintjes
+    @identity intersect
+
 Host minerva
     User <work-username>
     @identity work-ccg
@@ -37,6 +42,7 @@ Host maas
     @identity work-ccg
     HostName 146.118.54.16
     User ubuntu
+    ForwardX11 yes
     @is slow-network
     @is trusted
     LocalForward 8000 localhost:80 
