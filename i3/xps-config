@@ -122,11 +122,11 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # switch to workspace
-bindsym $mod+1 workspace 1
-bindsym $mod+2 workspace 2
-bindsym $mod+3 workspace 3
-bindsym $mod+4 workspace 4
-bindsym $mod+5 workspace 5
+bindsym $mod+1 workspace 1 www
+bindsym $mod+2 workspace 2 nectar
+bindsym $mod+3 workspace 3 BPA
+bindsym $mod+4 workspace 4 colab
+bindsym $mod+5 workspace 5 
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
