@@ -1,3 +1,12 @@
+
+Host rcpuppet
+    User thys
+    IdentityFile ~/.ssh/id_rsa_ccgxps
+    HostName puppet.rc.nectar.org.au
+    ForwardAgent yes
+    ForwardX11 yes
+    ProxyCommand ssh maas exec nc %h %p 2>/dev/null
+
 Host maas
     User ubuntu
     IdentityFile ~/.ssh/id_rsa_ccgxps
@@ -5,7 +14,7 @@ Host maas
     ForwardAgent yes
     ForwardX11 yes
     ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
-    LocalForward 8000 localhost:80 
+    LocalForward 8000 localhost:80
 
 Host staging 
     User ec2-user
@@ -26,23 +35,6 @@ Host nectar
     Compression yes
     ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
 
-Host backdoor
-    User ubuntu
-    HostName 192.168.1.250
-    IdentityFile ~/.ssh/id_rsa_ccgxps
-    ForwardX11 yes
-    ForwardAgent yes
-    Compression yes
-    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
-
-Host bigdisk
-    User ubuntu
-    HostName 192.168.1.210
-    IdentityFile ~/.ssh/id_rsa_ccgxps
-    ForwardX11 yes
-    ForwardAgent yes
-    Compression yes
-    ProxyCommand ssh minerva exec nc %h %p 2>/dev/null
 
 Host rdsi-ftp
     HostName sftp.rdsi.intersect.org.au
