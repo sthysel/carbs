@@ -18,5 +18,7 @@ fi
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 # yes. some peace please
-alias peace='play -n synth 60:00 whitenoise'
-
+# alias peace='play -n synth 60:00 whitenoise'
+alias peace="play -n synth whitenoise"
+alias brownpeace="play -n synth brownnoise"
+alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
