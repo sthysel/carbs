@@ -23,7 +23,7 @@
 
 set $mod Mod4
 
-exec --no-startup-id gnome-settings-daemon 
+exec --no-startup-id unity-settings-daemon 
 exec --no-startup-id export $(gnome-keyring-daemon)
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
