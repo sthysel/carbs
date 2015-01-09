@@ -23,7 +23,7 @@
 
 set $mod Mod4
 
-exec --no-startup-id gnome-settings-daemon
+exec --no-startup-id unity-settings-daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id insync start
@@ -122,10 +122,10 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # switch to workspace
-bindsym $mod+1 workspace 1 www
-bindsym $mod+2 workspace 2 nectar
-bindsym $mod+3 workspace 3 BPA
-bindsym $mod+4 workspace 4 colab
+bindsym $mod+1 workspace 1 distraction
+bindsym $mod+2 workspace 2 www
+bindsym $mod+3 workspace 3 
+bindsym $mod+4 workspace 4 
 bindsym $mod+5 workspace 5 
 bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7

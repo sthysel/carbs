@@ -18,7 +18,6 @@ StrictHostKeyChecking no
     TCPKeepAlive yes
     ServerAliveInterval 60
 
-
 Host staging
    Hostname = staging.ccgapps.com.au
    User = ec2-user
@@ -26,8 +25,6 @@ Host staging
    IdentityFile = /home/thys/.ssh/ccg-syd-staging.pem
    ForwardAgent = yes
    Compression = yes
-
-
 
 Host scratch
    Hostname = brl-scratch.ccgapps.com.au
@@ -39,7 +36,6 @@ Host scratch
    Compression = yes
    TCPKeepAlive = yes
 
-
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
     User thys.meintjes
@@ -50,7 +46,6 @@ Host minerva
     @identity work-ccg
     HostName ccg.murdoch.edu.au
 
-
 Host nectar
     @identity work-ccg
     User ccg-user
@@ -59,3 +54,11 @@ Host nectar
     @is slow-network
     @via minerva
 
+# current bpa controller vm on swiftn7
+Host bpacontroller
+    @identity work-ccg
+    User bpaman
+    ForwardX11 yes
+    @is trusted
+    @is slow-network
+    @via nectar
