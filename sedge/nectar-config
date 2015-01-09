@@ -29,7 +29,7 @@ Host staging
 
 
 
-Host scratch
+Host brls
    Hostname = brl-scratch.ccgapps.com.au
    User = ubuntu
    IdentitiesOnly = yes
@@ -58,4 +58,57 @@ Host nectar
     @is trusted
     @is slow-network
     @via minerva
+
+Host maas
+    @via minerva
+    @identity work-ccg
+    HostName 146.118.54.16
+    User ubuntu
+    ForwardX11 yes
+    @is slow-network
+    @is trusted
+    LocalForward 8000 localhost:80 
+
+@with i {10..25}
+Host service-r1-h<i>
+    HostName service-r1-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {12..19}
+Host compute-r2-h<i>
+    HostName compute-r2-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..9}
+Host storage-r1-h<i>
+    HostName storage-r1-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..11}
+Host storage-r2-h<i>
+    HostName storage-r2-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with i {1..19}
+Host storage-r3-h<i>
+    HostName storage-r3-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity pawsey
+
+@with r {4..5}
+@with i {1..19}
+Host compute-r<r>-h<i>
+    HostName compute-r<r>-h<i>.maas
+    User ubuntu
+    @via maas
+    @identity work-ccg
 
