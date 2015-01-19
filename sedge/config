@@ -67,7 +67,7 @@ Host bpacontroller
 @with i {0..1}
 Host ccgcloud<i>
     HostName ccgcloud<i>.bpa.ccg 
-    # @identity work-ccg
+    @identity work-ccg
     User ubuntu
     ForwardX11 yes
     @is slow-network
