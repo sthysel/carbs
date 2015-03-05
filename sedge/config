@@ -70,6 +70,6 @@ Host ccgcloud<i>
     @identity work-ccg
     User ubuntu
     ForwardX11 yes
+    @is trusted
     @is slow-network
     @via nectar
-

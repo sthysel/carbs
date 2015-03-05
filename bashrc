@@ -33,7 +33,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -88,8 +88,6 @@ export WORKON_HOME=${HOME}/Envs
 export PATH=${PATH}:${HOME}/workspace/ccg/
 export PATH=${PATH}:${HOME}/dev/pycharm-3.4.1/bin/
 
-# git and mercurial repo status
-source .dvcs
 
 # readlines config
 # append to the history file, don't overwrite it
@@ -116,3 +114,11 @@ eval $(ssh-agent)
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+
+# 
+# source /home/thys/.oh-my-git/prompt.sh
+
+# git and mercurial repo status
+source .dvcs
+
