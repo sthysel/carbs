@@ -17,6 +17,7 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'flazz/vim-colorschemes'
+Plugin 'scrooloose/nerdtree'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
