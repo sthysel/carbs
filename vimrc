@@ -18,6 +18,8 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
+Plugin 'kien/ctrlp.vim'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -30,6 +32,11 @@ endif
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
+
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " Use :help 'option' to see the documentation for the given option.
 set autoindent
@@ -121,8 +128,6 @@ let g:airline_powerline_fonts = 1
 "  most in visual mode / selection (v or ⇧ v)
 "
 
-" Find
-map <C-f> /
 " indend / deindent after selecting the text with (⇧ v), (.) to repeat.
 vnoremap <Tab> >
 vnoremap <S-Tab> <
@@ -147,6 +152,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " lazy ':'
 map \ :
+map ; :
 
 let mapleader = ','
 nnoremap <Leader>p :set paste<CR>
