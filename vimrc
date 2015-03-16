@@ -23,6 +23,8 @@ Plugin 'kien/ctrlp.vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" auroload .vimrc on edit
+autocmd! bufwritepost .vimrc source
 
 colorscheme Monokai
 
@@ -141,18 +143,14 @@ vmap <C-w> S
 vmap <C-x> d
 vmap <C-v> p
 vmap <C-c> y
-" " Undo, Redo (broken)
-" nnoremap <C-z>  :undo<CR>
-" inoremap <C-z>  <Esc>:undo<CR>
-" nnoremap <C-y>  :redo<CR>
-" inoremap <C-y>  <Esc>:redo<CR>
-" Tabs
+
+
 let g:airline_theme='badwolf'
 let g:airline#extensions#tabline#enabled = 1
 
 " lazy ':'
 map \ :
-map ; :
+" map ; :
 
 let mapleader = ','
 nnoremap <Leader>p :set paste<CR>
