@@ -21,6 +21,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
+Plugin 'klen/python-mode'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -168,3 +169,5 @@ set guifont=Sauce\ Code\ Powerline\ Light\ 11
 set nofoldenable
 set hidden
 
+" indent file
+map <F7> mzgg=G`z<CR>
