@@ -19,6 +19,8 @@ Plugin 'majutsushi/tagbar'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
+Plugin 'PotatoesMaster/i3-vim-syntax'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
