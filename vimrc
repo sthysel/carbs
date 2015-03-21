@@ -23,13 +23,15 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'klen/python-mode'
+Plugin 'bling/vim-airline'
+Plugin 'pangloss/vim-javascript'
+Plugin 'davidhalter/jedi-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " auroload .vimrc on edit
-autocmd! bufwritepost .vimrc source
-
+autocmd! BufWritePost .vimrc source %
 colorscheme Monokai
 
 if has('autocmd')
@@ -115,8 +117,8 @@ set completeopt=menuone,longest,preview
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.gz,*.xz,*.bz2,protractor*.xml,karma*.xml,*.egg,*.log,*.rpm,*.deb
 
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](\.git|\.hg|\.svn|bower_components|node_modules|virt_.*|.*egg-info|data|log|biolark)'
-  \ }
+      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|bower_components|node_modules|virt_.*|.*egg-info|data|log|biolark)'
+      \ }
 
 " Ultisnip
 " NOTE: <f1> otherwise it overrides <tab> forever
@@ -128,8 +130,8 @@ let g:did_UltiSnips_vim_after = 1
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_theme='badwolf'
 
-"
 " Basic shortcuts definitions
 "  most in visual mode / selection (v or ⇧ v)
 "
@@ -148,13 +150,6 @@ vmap <C-x> d
 vmap <C-v> p
 vmap <C-c> y
 
-
-let g:airline_theme='badwolf'
-let g:airline#extensions#tabline#enabled = 1
-
-" lazy ':'
-map \ :
-" map ; :
 
 let mapleader = ','
 nnoremap <Leader>p :set paste<CR>
