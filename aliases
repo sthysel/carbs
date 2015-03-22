@@ -22,10 +22,3 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias peace="play -n synth whitenoise"
 alias brownpeace="play -n synth brownnoise"
 alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
-
-# docker
-alias docker-clean='docker-untagged || true && docker-stopped'
-alias docker-kill-all='docker kill $(docker ps -q)'
-alias docker-stopped='printf "\n>>> Deleting stopped containers\n\n" && docker rm $(docker ps -a -q)'
-alias docker-untagged='printf "\n>>> Deleting untagged images\n\n" && docker rmi $(docker images -q -f dangling=true)'
-

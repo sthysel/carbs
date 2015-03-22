@@ -1,0 +1,56 @@
+#!/bin/bash
+
+docker-build() {
+    docker build -t $1 .
+}
+alias dbld="docker-build"
+
+docker-delete-stopped() {
+    echo Deleting stopped containers
+    docker rm $(docker ps -a -q)
+}
+
+docker-delete-untagged() {
+    echo Deleting untagged images
+    docker rmi $(docker images -q -f dangling=true)
+}
+
+docker-clean() {
+    echo "Clean out untagged and stopped containers"
+    docker-delete-stopped 
+    docker-delete-untagged
+}
+alias dcl="docker-clean"
+
+
+docker-attach() {
+    docker start $1 && docker attach $1
+}
+alias da="docker-attach"
+
+alias dka='docker kill $(docker ps -q)'
+alias dps="docker ps"
+alias drm="docker rm"
+
+newbox() {
+    echo "Spinning up $1"
+    docker run --name $1 -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ${HOME}/.vimrc:/home/dev/.vimrc \
+    -v ${HOME}/.vim:/home/dev/.vim \
+    -v ${HOME}/.bashrc:/home/dev/.bashrc \
+    -v ${HOME}/dotfiles:/home/dev/dotfiles \
+    -e BOX_NAME=$1 sthysel/toolbox 
+}
+
+ddoc() {
+    echo "docker-build           dbld "
+    echo "docker-delete-stoped        "
+    echo "docker-delete-untaged       "
+    echo "docker-clean           dcl  "
+    echo "docker attach <name>   da   "
+    echo "                       dka  "
+    echo "                       dps  "
+    echo "                       drm  "
+    echo "newbox <name>               "
+}

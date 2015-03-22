@@ -63,7 +63,8 @@ xterm*|rxvt*)
 esac
 
 # load aliases
-if [ -f ~/.bash_aliases ]; then
+if [ -f ~/.aliases ]
+then
     . ~/.bash_aliases
 fi
 
@@ -108,17 +109,17 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-source .oscreds
-
 eval $(ssh-agent)
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
 
-
-# 
-# source /home/thys/.oh-my-git/prompt.sh
-
 # git and mercurial repo status
-source .dvcs
+source ${HOME}/dotfiles/dvcs
 
+# git repo coolness
+source ${HOME}/dotfiles/dvcs
+# docker aliases
+source ${HOME}/dotfiles/docker_aliases
+# random aliases
+source ${HOME}/dotfiles/aliases
