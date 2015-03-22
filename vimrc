@@ -23,12 +23,14 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'klen/python-mode'
+Plugin 'bling/vim-airline'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+" FIXME
 " auroload .vimrc on edit
-autocmd! bufwritepost .vimrc source
+" autocmd! bufwritepost .vimrc source
 
 colorscheme Monokai
 
@@ -130,6 +132,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 
 "
+let g:airline_theme='badwolf'
+let g:airline#extensions#tabline#enabled = 1
+
 " Basic shortcuts definitions
 "  most in visual mode / selection (v or ⇧ v)
 "
@@ -148,10 +153,6 @@ vmap <C-x> d
 vmap <C-v> p
 vmap <C-c> y
 
-
-let g:airline_theme='badwolf'
-let g:airline#extensions#tabline#enabled = 1
-
 " lazy ':'
 map \ :
 " map ; :
@@ -167,7 +168,7 @@ if filereadable(expand("~/.vimrc.local"))
 endif
 
 set guifont=Sauce\ Code\ Powerline\ Light\ 11
-set nofoldenable
+" set nofoldenable
 set hidden
 
 " indent file
