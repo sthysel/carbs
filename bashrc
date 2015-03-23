@@ -33,7 +33,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-force_color_prompt=yes
+# force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -62,12 +62,6 @@ xterm*|rxvt*)
     ;;
 esac
 
-# load aliases
-if [ -f ~/.aliases ]
-then
-    . ~/.bash_aliases
-fi
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -79,16 +73,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# devtools setup
-if [ -f /opt/devenv/devrc ]
-then
-    . /opt/devenv/devrc
-fi
-
 export WORKON_HOME=${HOME}/Envs
 export PATH=${PATH}:${HOME}/workspace/ccg/
 export PATH=${PATH}:${HOME}/dev/pycharm-3.4.1/bin/
-
 
 # readlines config
 # append to the history file, don't overwrite it
@@ -109,15 +96,7 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-eval $(ssh-agent)
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 # git and mercurial repo status
-source ${HOME}/dotfiles/dvcs
-
-# git repo coolness
 source ${HOME}/dotfiles/dvcs
 # docker aliases
 source ${HOME}/dotfiles/docker_aliases
