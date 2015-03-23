@@ -11,8 +11,12 @@ docker-delete-stopped() {
 }
 
 docker-delete-untagged() {
-    echo Deleting untagged images
-    docker rmi $(docker images -q -f dangling=true)
+    images=$(docker images -q -f dangling=true)
+    if [ $images ]
+    then
+	echo "Deleting untagged images: $images"
+	docker rmi $images 
+    fi
 }
 
 docker-clean() {
