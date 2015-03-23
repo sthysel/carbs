@@ -44,7 +44,7 @@ newbox() {
     -v ${HOME}/.vim:/home/dev/.vim \
     -v ${HOME}/.bashrc:/home/dev/.bashrc \
     -v ${HOME}/dotfiles:/home/dev/dotfiles \
-    -e BOX_NAME=$1 sthysel/toolbox 
+    -e HOSTNAME=$1 sthysel/toolbox 
 }
 
 ddoc() {
