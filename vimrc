@@ -26,6 +26,8 @@ Plugin 'klen/python-mode'
 Plugin 'bling/vim-airline'
 Plugin 'pangloss/vim-javascript'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'maksimr/vim-jsbeautify'
+Plugin 'einars/js-beautify'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
