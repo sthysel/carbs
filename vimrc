@@ -51,7 +51,6 @@ set backspace=indent,eol,start
 set complete-=i
 set showmatch
 set showmode
-set smarttab
 
 set nrformats-=octal
 set shiftround
@@ -72,8 +71,11 @@ set cmdheight=2
 
 set autoread
 
+" tabs
+set smarttab
+set tabstop=4 shiftwidth=4 expandtab
+
 set encoding=utf-8
-" set tabstop=4 shiftwidth=4 expandtab
 set listchars=tab:▒░,trail:▓
 set list
 
@@ -103,7 +105,7 @@ set history=50
 
 nmap F !}fmt^M
 
-" exit insert mode 
+" exit insert mode
 inoremap <C-c> <Esc>
 
 set completeopt=menuone,longest,preview
@@ -132,9 +134,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='badwolf'
 
 " Basic shortcuts definitions
-"  most in visual mode / selection (v or ⇧ v)
-"
-
+" most in visual mode / selection (v or ⇧ v)
 " indend / deindent after selecting the text with (⇧ v), (.) to repeat.
 vnoremap <Tab> >
 vnoremap <S-Tab> <
