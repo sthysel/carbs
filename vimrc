@@ -75,7 +75,7 @@ set cmdheight=2
 set autoread
 
 set encoding=utf-8
-" set tabstop=4 shiftwidth=4 expandtab
+set tabstop=4 shiftwidth=4 expandtab
 set listchars=tab:▒░,trail:▓
 set list
 
