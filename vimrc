@@ -1,3 +1,6 @@
+" ignore pep8 line length
+let g:pymode_lint_ignore="E501"
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
