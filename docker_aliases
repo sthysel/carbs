@@ -5,13 +5,13 @@ docker-build() {
 }
 alias dbld="docker-build"
 
-docker-delete-stopped() {
+docker-remove-stopped() {
     echo Deleting stopped containers
-    docker rm $(docker ps -a -q)
+    docker rm -v $(docker ps -a -f status=exited -q)
 }
 
-docker-delete-untagged() {
-    images=$(docker images -q -f dangling=true)
+docker-remove-untagged() {
+    images=rmi $(docker images --no-trunc | grep "<none>" | awk '{print $3}')
     if [[ $images ]]
     then
         echo "Deleting untagged images: $images"
@@ -19,10 +19,29 @@ docker-delete-untagged() {
     fi
 }
 
+docker-remove-unused() {
+    echo "Removing unused docker images"
+    images=($(docker images | awk '{print $1":"$2}'))
+    containers=($(docker ps -a | awk '{print $2}'))
+    
+    containers_reg=" ${containers[*]} "
+    remove=()
+    
+    for item in ${images[@]}; do
+    if [[ ! $containers_reg =~ " $item " ]]; then
+        remove+=($item)
+    fi
+    done
+    
+    remove_images=" ${remove[*]} "
+    
+    docker rmi ${remove_images}
+}
+
 docker-clean() {
     echo "Clean out untagged and stopped containers"
-    docker-delete-stopped 
-    docker-delete-untagged
+    docker-remove-stopped 
+    docker-remove-untagged
 }
 alias dcl="docker-clean"
 
@@ -49,8 +68,8 @@ newbox() {
 
 ddoc() {
     echo "docker-build           dbld "
-    echo "docker-delete-stoped        "
-    echo "docker-delete-untaged       "
+    echo "docker-remove-stoped        "
+    echo "docker-remove-untaged       "
     echo "docker-clean           dcl  "
     echo "docker attach <name>   da   "
     echo "                       dka  "
