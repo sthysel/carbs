@@ -1,7 +1,10 @@
 [user]
-	name = Thys Meintjes
-	email = tmeintjes@ccg.murdoch.edu.au
+    name = Thys Meintjes
+    email = tmeintjes@ccg.murdoch.edu.au
 [core]
-	editor = vim
+    editor = vim
 [push]
-	default = matching
+	default = current
+[alias]
+    ci = commit
+    s  = status

@@ -9,6 +9,9 @@ StrictHostKeyChecking no
 @key intersect 12:d5:b3:31:ec:95:89:ea:6c:60:6f:e5:ca:03:ff:64
 @key work-ccg d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
 @key pawsey d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
+@key ccg-ops-old e6:dd:45:9e:af:65:c5:6a:b4:a5:25:15:c8:6a:91:73
+@key ccg-ops 3a:ae:77:29:b4:9a:20:6a:32:45:4a:88:d6:e8:dd:7b
+
 
 @HostAttrs trusted
     ForwardAgent yes
@@ -20,21 +23,24 @@ StrictHostKeyChecking no
 
 Host staging
    Hostname = staging.ccgapps.com.au
-   User = ec2-user
+   User = ubuntu
    IdentitiesOnly = yes
-   IdentityFile = /home/thys/.ssh/ccg-syd-staging.pem
-   ForwardAgent = yes
-   Compression = yes
+   @identity ccg-ops
+   @is slow-network
+
+Host ccg
+   Hostname = ccg.ccgapps.com.au
+   User = ubuntu
+   IdentitiesOnly = yes
+   @identity ccg-ops
+   @is slow-network
 
 Host scratch
    Hostname = brl-scratch.ccgapps.com.au
    User = ubuntu
    IdentitiesOnly = yes
-   IdentityFile = /home/thys/.ssh/ccg-murdoch-ops.pem
-   ForwardAgent = yes
-   ForwardX11 = yes
-   Compression = yes
-   TCPKeepAlive = yes
+   @is trusted
+   @is slow-network
 
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au

@@ -1,3 +1,6 @@
+" ignore pep8 line length
+let g:pymode_lint_ignore="E501"
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -78,6 +81,7 @@ set smarttab
 set tabstop=4 shiftwidth=4 expandtab
 
 set encoding=utf-8
+set tabstop=4 shiftwidth=4 expandtab
 set listchars=tab:▒░,trail:▓
 set list
 

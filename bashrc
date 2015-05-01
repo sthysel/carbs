@@ -96,6 +96,7 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
+source ${HOME}/dotfiles/vim_aliases
 # git and mercurial repo status
 source ${HOME}/dotfiles/dvcs
 # docker aliases
