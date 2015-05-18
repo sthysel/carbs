@@ -41,6 +41,7 @@ Host scratch
    IdentitiesOnly = yes
    @is trusted
    @is slow-network
+   @identity ccg-ops-old
 
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
