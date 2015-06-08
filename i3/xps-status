@@ -14,20 +14,19 @@ order += "time"
 
 cpu_temperature 0 {
   format = "CPU: %degrees °C"
-  path = "/sys/devices/platform/coretemp.0/temp1_input"
+  path = "/sys/class/thermal/thermal_zone0/temp"
   max_threshold = 75
 }
 
 
 wireless wlan0 {
   format_up = "W: (%quality at %essid) %ip"
-  format_down = "W: down"
+  format_down = "W: X"
 }
 
 ethernet usb0 {
-  # sudo setcap cap_net_admin=ep $(which i3status)
-  format_up = "E: %ip (%speed)"
-  format_down = "E: down"
+  format_up = "%ip"
+  format_down = "E: X"
 }
 
 

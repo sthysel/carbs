@@ -57,13 +57,13 @@ alias drm="docker rm"
 
 newbox() {
     echo "Spinning up $1"
-    docker run --name $1 -it \
+    docker run --rm --name $1 -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v ${HOME}/.vimrc:/home/dev/.vimrc \
     -v ${HOME}/.vim:/home/dev/.vim \
     -v ${HOME}/.bashrc:/home/dev/.bashrc \
     -v ${HOME}/dotfiles:/home/dev/dotfiles \
-    -e HOSTNAME=$1 sthysel/toolbox 
+    -e HOSTNAME=$1 sthysel/toolbox
 }
 
 ddoc() {
