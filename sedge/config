@@ -43,6 +43,13 @@ Host scratch
    @is slow-network
    @identity ccg-ops-old
 
+Host docker1
+   Hostname = docker1.ccgapps.com.au
+   User = ubuntu
+   IdentitiesOnly = yes
+   @is trusted
+   @identity ccg-ops-old
+
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
     User thys.meintjes
