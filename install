@@ -5,6 +5,8 @@ HERE=$(cd $(dirname $0) && pwd)
 
 echo "Installing from "$HERE
 
+dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
+
 for file in "${HERE}"/*
 do
     name="$(basename "$file" .md)"
