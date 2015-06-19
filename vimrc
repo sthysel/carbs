@@ -16,6 +16,7 @@ Plugin 'vim-scripts/supertab'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'majutsushi/tagbar'
@@ -168,6 +169,11 @@ endif
 set guifont=Sauce\ Code\ Powerline\ Light\ 11
 " set nofoldenable
 set hidden
+
+" html
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
 
 " indent file
 map <F7> mzgg=G`z<CR>
