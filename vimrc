@@ -1,4 +1,5 @@
 " ignore pep8 line length
+"
 let g:pymode_lint_ignore="E501"
 
 set nocompatible              " be iMproved, required
@@ -28,8 +29,10 @@ Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'klen/python-mode'
 Plugin 'bling/vim-airline'
-Plugin 'pangloss/vim-javascript'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'Chiel92/vim-autoformat'
+" wot
+Plugin 'pangloss/vim-javascript'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
 
@@ -39,19 +42,35 @@ filetype plugin indent on    " required
 autocmd! BufWritePost .vimrc source %
 colorscheme Monokai
 
-if has('autocmd')
-  filetype plugin indent on
-endif
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
+" No arrow keys for you
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
 " Use :help 'option' to see the documentation for the given option.
+noremap ; :
+set nowrap        " don't wrap lines
+set tabstop=4     " a tab is four spaces
+set backspace=indent,eol,start
+                    " allow backspacing over everything in insert mode
+set autoindent    " always set autoindenting on
+set copyindent    " copy the previous indentation on autoindenting
+set number        " always show line numbers
+set shiftwidth=4  " number of spaces to use for autoindenting
+set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
+set showmatch     " set show matching parenthesis
+set ignorecase    " ignore case when searching
+set smartcase     " ignore case if search pattern is all lowercase,
+                    "    case-sensitive otherwise
+set smarttab      " insert tabs on the start of a line according to
+                    "    shiftwidth, not tabstop
+set hlsearch      " highlight search terms
+set incsearch     " show search matches as you type
 set autoindent
 set backspace=indent,eol,start
 set complete-=i
@@ -64,11 +83,6 @@ set shiftround
 set ttimeout
 set ttimeoutlen=50
 
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endif
-
 set laststatus=2
 set ruler
 set showcmd
@@ -76,21 +90,18 @@ set wildmenu
 set cmdheight=2
 
 set autoread
-
-" tabs
-set smarttab
-set tabstop=4 shiftwidth=4 expandtab
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
 set encoding=utf-8
-set tabstop=4 shiftwidth=4 expandtab
 set listchars=tab:▒░,trail:▓
 set list
 
 inoremap <C-U> <C-G>u<C-U>
 
 set number
-set hlsearch
-set ignorecase
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -98,11 +109,6 @@ map Q gq
 if has('mouse')
   set mouse=a
 endif
-
-" FIXME: (broken) ctrl s to save
-noremap  <C-S> :update<CR>
-vnoremap <C-S> <C-C>:update<CR>
-inoremap <C-S> <Esc>:update<CR>
 
 set nobackup
 set nowritebackup
@@ -151,29 +157,34 @@ vmap <C-m> gc
 let g:tcomment#replacements_xml={}
 " Text wrap simpler, then type the open tag or ',"
 vmap <C-w> S
-" Cut, Paste, Copy
-vmap <C-x> d
-vmap <C-v> p
-vmap <C-c> y
-
-let mapleader = ','
-nnoremap <Leader>p :set paste<CR>
-nnoremap <Leader>o :set nopaste<CR>
-noremap  <Leader>g :GitGutterToggle<CR>
-
-" this machine config
-if filereadable(expand("~/.vimrc.local"))
-  source ~/.vimrc.local
-endif
 
 set guifont=Sauce\ Code\ Powerline\ Light\ 11
 " set nofoldenable
+
+" One particularly useful setting is hidden. Its name isn’t too descriptive,
+" though. It hides buffers instead of closing them. This means that you can
+" have unwritten changes to a file and open a new file using :e, without being
+" forced to write or undo your changes first. Also, undo buffers and marks are
+" preserved while the buffer is open.
 set hidden
 
 " html
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 
-
 " indent file
 map <F7> mzgg=G`z<CR>
+
+" Explore mode
+let g:netrw_liststyle=3
+
+" pasting text into vim
+set pastetoggle=<F2>
+
+let mapleader = ' '
+nnoremap <Leader>p :set paste<CR>
+nnoremap <Leader>o :set nopaste<CR>
+noremap  <Leader>g :GitGutterToggle<CR>
+
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+nmap <silent> <leader>sv :so $MYVIMRC<CR>
