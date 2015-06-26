@@ -1,15 +1,27 @@
-" ignore pep8 line length
+" sthysel's .vimrc
+" Maintained by sthysel@gmail.com
 "
-let g:pymode_lint_ignore="E501"
+"" To start vim without using this .vimrc file, use:
+"     vim -u NORC
+"
+" To start vim without loading any .vimrc or plugins, use:
+"     vim -u NONE
+"
+" Almost nothing here is unique or controversial.
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" I don't care about vi, this must be first
+set nocompatible
+filetype off
 
-" set the runtime path to include Vundle and initialize
+" Vundle is my plugin manager, there are many others, but this one is mine.
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
+" orgmode
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
+
 Plugin 'Raimondi/delimitMate'
 Plugin 'kevinw/pyflakes'
 Plugin 'scrooloose/nerdcommenter'
@@ -36,8 +48,69 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+call vundle#end()
+filetype plugin indent on
+
+" Use :help 'option' to see the documentation for the given option.
+" Editing behaviour {{{
+set showmode                    " always show what mode we're currently editing in
+set nowrap                      " don't wrap lines
+set tabstop=4                   " a tab is four spaces
+set softtabstop=4               " when hitting <BS>, pretend like a tab is removed, even if spaces
+set expandtab                   " expand tabs by default (overloadable per file type later)
+set shiftwidth=4                " number of spaces to use for autoindenting
+set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set autoindent                  " always set autoindenting on
+set copyindent                  " copy the previous indentation on autoindenting
+set number                      " always show line numbers
+set showmatch                   " set show matching parenthesis
+set ignorecase                  " ignore case when searching
+set smartcase                   " ignore case if search pattern is all lowercase,
+                                " case-sensitive otherwise
+set smarttab                    " insert tabs on the start of a line according to
+                                " shiftwidth, not tabstop
+set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+set virtualedit=all             " allow the cursor to go in to "invalid" places
+set hlsearch                    " highlight search terms
+set incsearch                   " show search matches as you type
+set gdefault                    " search/replace "globally" (on a line) by default
+set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
+
+set nolist                      " don't show invisible characters by default,
+                                " but it is enabled for some file types (see later)
+set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
+                                "    paste mode, where you can paste mass data
+                                "    that won't be autoindented
+set mouse=a                     " enable using the mouse if terminal emulator
+                                "    supports it (xterm does)
+set fileformats="unix,dos,mac"
+set formatoptions+=1            " When wrapping paragraphs, don't end lines
+                                "    with 1-letter words (looks stupid)
+
+set nrformats=                  " make <C-a> and <C-x> play well with
+                                "    zero-padded numbers (i.e. don't consider
+                                "    them octal or hex)
+
+set shortmess+=I                " hide the launch screen
+set clipboard=unnamed           " normal OS clipboard interaction
+set autoread                    " automatically reload files changed outside of Vim
+
+" Toggle show/hide invisible chars
+nnoremap <leader>i :set list!<cr>
+
+" Toggle line numbers
+nnoremap <leader>N :setlocal number!<cr>
+
+" Thanks to Steve Losh for this liberating tip
+" See http://stevelosh.com/blog/2010/09/coming-home-to-vim
+nnoremap / /\v
+vnoremap / /\v
+
+" Speed up scrolling of the viewport slightly
+nnoremap <C-e> 2<C-e>
+nnoremap <C-y> 2<C-y>
+" }}}
 
 autocmd! BufWritePost .vimrc source %
 colorscheme Monokai
@@ -46,7 +119,7 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-" No arrow keys for you
+" You will use hjkl and you will like it.
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
@@ -114,7 +187,7 @@ set nobackup
 set nowritebackup
 set fileformats=unix,dos,mac
 set viminfo='20,\"50
-set history=50
+set history=100
 
 nmap F !}fmt^M
 
@@ -123,23 +196,12 @@ inoremap <C-c> <Esc>
 
 set completeopt=menuone,longest,preview
 
-"
 " Plugins config
-"
-
 " CtrlP
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.gz,*.xz,*.bz2,protractor*.xml,karma*.xml,*.egg,*.log,*.rpm,*.deb
-
 let g:ctrlp_custom_ignore = {
       \ 'dir':  '\v[\/](\.git|\.hg|\.svn|bower_components|node_modules|virt_.*|.*egg-info|data|log|biolark)'
       \ }
-
-" Ultisnip
-" NOTE: <f1> otherwise it overrides <tab> forever
-let g:UltiSnipsExpandTrigger="<f1>"
-let g:UltiSnipsJumpForwardTrigger="<f1>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:did_UltiSnips_vim_after = 1
 
 " vim-airline
 let g:airline#extensions#tabline#enabled = 1
@@ -188,3 +250,7 @@ noremap  <Leader>g :GitGutterToggle<CR>
 
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
+
+" Python
+" Ignore pep8 line length
+let g:pymode_lint_ignore="E501"
