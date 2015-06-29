@@ -23,4 +23,5 @@ alias peace="play -n synth whitenoise"
 alias brownpeace="play -n synth brownnoise"
 alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 alias e="vim --remote-silent"
-alias od="sudo ssh -L 80:localhost:80 ccgcloud1 -v"
+# cloud tunnel
+alias ct="sudo ssh -L 80:localhost:80 ccgcloud1 -v"
