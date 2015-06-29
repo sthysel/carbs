@@ -25,3 +25,5 @@ alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass
 alias e="vim --remote-silent"
 # cloud tunnel
 alias ct="sudo ssh -L 80:localhost:80 ccgcloud1 -v"
+# dev cache
+alias devcache="fig -f ${HOME}/dotfiles/dev/dev-cache.yml up"
