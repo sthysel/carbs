@@ -49,6 +49,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'einars/js-beautify'
 Plugin 'rstacruz/sparkup'
+Plugin 'vim-scripts/closetag.vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -400,7 +401,7 @@ if has("autocmd")
         " Auto-closing of HTML/XML tags
         let g:closetag_default_xml=1
         autocmd filetype html,htmldjango let b:closetag_html_style=1
-        autocmd filetype html,xhtml,xml source ~/.vim/scripts/closetag.vim
+        autocmd filetype html,xhtml,xml source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
     augroup end " }}}
 
     augroup python_files "{{{

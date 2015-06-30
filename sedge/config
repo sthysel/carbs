@@ -67,30 +67,23 @@ Host minerva
     @identity work-ccg
     HostName ccg.murdoch.edu.au
 
-Host nectar
-    @identity work-ccg
-    User ccg-user
-    ForwardX11 yes
-    @is trusted
-    @is slow-network
-    @via minerva
-
-# current bpa controller vm on swiftn7
-Host bpacontroller
-    @identity work-ccg
-    User bpaman
-    ForwardX11 yes
-    @is trusted
-    @is slow-network
-    @via nectar
 
 # ccg cloud controllers 
 @with i {0..1}
 Host ccgcloud<i>
-    HostName ccgcloud<i>.bpa.ccg 
-    @identity work-ccg
+    HostName ccgcloud<i>.ccgapps.com.au
+    @identity ccg-ops-old
     User ubuntu
     ForwardX11 yes
     @is trusted
     @is slow-network
-    @via nectar
+
+
+@with i {0..2}
+Host ccgcompute<i>
+    @identity ccg-ops-old
+    User ubuntu
+    ForwardX11 yes
+    @is trusted
+    @is slow-network
+    @via ccgcloud0
