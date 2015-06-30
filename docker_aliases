@@ -11,7 +11,8 @@ docker-remove-stopped() {
 }
 
 docker-remove-untagged() {
-    images=rmi $(docker images --no-trunc | grep "<none>" | awk '{print $3}')
+    images=$(docker images --no-trunc | grep "<none>" | awk '{print $3}')
+    echo "Removing ${images}"
     if [[ $images ]]
     then
         echo "Deleting untagged images: $images"
@@ -23,24 +24,24 @@ docker-remove-unused() {
     echo "Removing unused docker images"
     images=($(docker images | awk '{print $1":"$2}'))
     containers=($(docker ps -a | awk '{print $2}'))
-    
+
     containers_reg=" ${containers[*]} "
     remove=()
-    
+
     for item in ${images[@]}; do
     if [[ ! $containers_reg =~ " $item " ]]; then
         remove+=($item)
     fi
     done
-    
+
     remove_images=" ${remove[*]} "
-    
+
     docker rmi ${remove_images}
 }
 
 docker-clean() {
     echo "Clean out untagged and stopped containers"
-    docker-remove-stopped 
+    docker-remove-stopped
     docker-remove-untagged
 }
 alias dcl="docker-clean"
