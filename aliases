@@ -23,7 +23,9 @@ alias peace="play -n synth whitenoise"
 alias brownpeace="play -n synth brownnoise"
 alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 alias e="vim --remote-silent"
-# cloud tunnel
-alias ct="sudo ssh -L 80:localhost:80 ccgcloud1 -v"
+
+# redneck ccg cloud tunnel, cause this is how we roll
+alias ct="sudo -E ssh -L 80:localhost:80 ccgcloud1 -v"
+
 # dev cache
 alias devcache="fig -f ${HOME}/dotfiles/dev/dev-cache.yml up"

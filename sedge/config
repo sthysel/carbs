@@ -57,6 +57,14 @@ Host docker1
    @is trusted
    @identity ccg-ops-old
 
+
+Host = docker2
+    Hostname = 192.168.4.6
+    User = ubuntu
+    ProxyCommand = ssh docker1 nc %h %p 2> /dev/null
+    IdentitiesOnly = yes
+    @identity ccg-ops-old
+
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
     User thys.meintjes
