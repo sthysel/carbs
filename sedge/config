@@ -89,6 +89,7 @@ Host ccgcloud<i>
 
 @with i {0..2}
 Host ccgcompute<i>
+    HostName ccgcompute<i>.ccgapps.com.au
     @identity ccg-ops-old
     User ubuntu
     ForwardX11 yes
