@@ -230,9 +230,6 @@ if maparg('<C-L>', 'n') ==# ''
 endif
 
 set encoding=utf-8
-set listchars=tab:▒░,trail:▓
-set list
-
 inoremap <C-U> <C-G>u<C-U>
 
 " In many terminal emulators the mouse works just fine, thus enable it.
@@ -503,7 +500,7 @@ if has("autocmd")
         au!
 
         autocmd filetype javascript setlocal expandtab
-        autocmd filetype javascript setlocal listchars=trail:·,extends:#,nbsp:·
+        autocmd filetype javascript setlocal listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
         autocmd filetype javascript setlocal foldmethod=marker foldmarker={,}
 
         " Toggling True/False

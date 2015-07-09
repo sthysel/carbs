@@ -101,6 +101,9 @@ set $tag_beach "4: beach"
 set $tag_mountain "5: mountain"
 set $tag_rivendell "6: rivendell"
 set $tag_shire "7: shire"
+set $tag_shire "8: dispairpit"
+set $tag_shire "9: hell"
+set $tag_shire "10: heaven"
 
 # switch to workspace
 bindsym $mod+1 workspace $tag_www
@@ -180,5 +183,23 @@ bar {
 
 # start the session
 exec --no-startup-id ~/.i3/autostart
+
+# Audio controls
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+bindsym XF86TouchpadToggle exec ~/.i3/toggletouchpad.sh # toggle touchpad
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
 
 # vim:filetype=i3
