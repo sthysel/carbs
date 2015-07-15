@@ -347,11 +347,10 @@ let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
-
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checker_args = "--ignore=E501 --max-complexity 10"
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_checker_args="--ignore=E501 --max-complexity 10"
 
 " Filetype specific handling
 " only do this part when compiled with support for autocommands
