@@ -11,7 +11,7 @@ docker-remove-stopped() {
 }
 
 docker-remove-untagged() {
-    images=$(docker images --no-trunc | grep "<none>" | awk '{print $3}:wq')
+    images=$(docker images --no-trunc | grep "<none>" | awk '{print $3}')
     echo "Removing untagged: ${images}"
     if [[ $images ]]
     then
