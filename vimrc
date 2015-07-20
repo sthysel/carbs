@@ -8,13 +8,14 @@
 "     vim -u NONE
 "
 " Almost nothing here is unique or controversial.
-" By and large a curated version of this: https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
+" By and large a curated version of this:
+" https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
 
 " I don't care about vi, this must be first
 set nocompatible
 filetype off
 
-" Vundle is my plugin manager, there are many others, but this one is mine.
+" Vundle is my plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -348,7 +349,7 @@ let g:syntastic_check_on_wq=0
 let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_checker_args = "--ignore=E501 --max-complexity 10"
+let g:syntastic_python_flake8_args = "--ignore=E501 --maxcomplexity 10"
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
 
