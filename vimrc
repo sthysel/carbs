@@ -151,7 +151,7 @@ nnoremap z3 :set foldlevel=3<cr>
 nnoremap z4 :set foldlevel=4<cr>
 nnoremap z5 :set foldlevel=5<cr>
 
-" Vim behaviour 
+" Vim behaviour
 set hidden                      " hide buffers instead of closing them this
                                 "    means that the current buffer can be put
                                 "    to background without being written; and
@@ -318,9 +318,9 @@ let g:netrw_liststyle=3
 " pasting text into vim
 set pastetoggle=<F2>
 
-nnoremap <Leader>p :set paste<CR>
-nnoremap <Leader>o :set nopaste<CR>
-noremap  <Leader>g :GitGutterToggle<CR>
+nnoremap <leader>p :set paste<CR>
+nnoremap <leader>o :set nopaste<CR>
+noremap  <leader>g :GitGutterToggle<CR>
 
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
@@ -345,6 +345,15 @@ let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = "--ignore=E501 --maxcomplexity 10"
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
+
+" Run commands that require an interactive shell
+nnoremap <leader>r :RunInInteractiveShell<space>
+
+" Windows, splits
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
 
 " Filetype specific handling
 " only do this part when compiled with support for autocommands
@@ -445,16 +454,6 @@ if has("autocmd")
         autocmd filetype python nnoremap <leader>s mX:%! isort -<cr>`X
     augroup end
 
-    augroup clojure_files
-        au!
-
-        " Set up <leader>r to run the entire file with vim-fireplace
-        autocmd filetype clojure nnoremap <leader>r :%Eval<cr>
-        autocmd filetype clojure RainbowParenthesesActivate
-        autocmd filetype clojure RainbowParenthesesLoadRound
-        autocmd filetype clojure RainbowParenthesesLoadSquare
-        autocmd filetype clojure RainbowParenthesesLoadBraces
-    augroup end
 
     augroup supervisord_files
         au!
@@ -512,11 +511,4 @@ if has("autocmd")
         autocmd filetype textile highlight link frontmatter Comment
     augroup end
 
-    augroup git_files
-        au!
-
-        " Don't remember the last cursor position when editing commit
-        " messages, always start on line 1
-        autocmd filetype gitcommit call setpos('.', [0, 1, 1, 0])
-    augroup end
 endif
