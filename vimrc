@@ -117,11 +117,9 @@ nnoremap <leader>N :setlocal number!<cr>
 nnoremap / /\v
 vnoremap / /\v
 
-nnoremap <C-e> 2<C-e>
-nnoremap <C-y> 2<C-y>
-" Editing behaviour }}}
 
-" Folding rules {{{
+" Editing behaviour 
+" Folding rules
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
 set foldmethod=marker           " detect triple-{ style fold markers
@@ -202,12 +200,11 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-" You will use hjkl only, and you will like it.
-" Diables arrow keys.
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
+" non patronising possitive enforcement
+nnoremap <Left> :echoe "No sunshine, use h"<CR>
+nnoremap <Right> :echoe "*head pat* no cutie, use l"<CR>
+nnoremap <Up> :echoe "Use k noob"<CR>
+nnoremap <Down> :echoe "Bitch please, just use j"<CR>
 
 set complete-=i
 set completeopt=menuone,longest,preview
@@ -255,18 +252,16 @@ nnoremap <leader>ft Vatzf
 " Plugins config
 " CtrlP
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.gz,*.xz,*.bz2,protractor*.xml,karma*.xml,*.egg,*.log,*.rpm,*.deb
-let g:ctrlp_custom_ignore={
-      \ 'dir':  '\v[\/](\.git|\.hg|\.svn|bower_components|node_modules|virt_.*|.*egg-info|data|log|biolark)'
-      \ }
+let g:ctrlp_custom_ignore = {'dir': '\v[\/](\.git|\.hg|\.svn|bower_components|node_modules|virt_.*|.*egg-info|data|log|biolark)'}
 
 " Use The Silver Searcher (ag) over grep, if possible
 if executable('ag')
    " Use ag over grep
    set grepprg=ag\ --nogroup\ --nocolor
    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-   let g:ctrlp_user_command='ag %s -l --nocolor -g ""'
+   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
    " ag is fast enough that CtrlP doesn't need to cache
-   let g:ctrlp_use_caching=0
+   let g:ctrlp_use_caching = 0
 endif
 
 " NERDTree
