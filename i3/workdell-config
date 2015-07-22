@@ -101,9 +101,9 @@ set $tag_beach "4: beach"
 set $tag_mountain "5: mountain"
 set $tag_rivendell "6: rivendell"
 set $tag_shire "7: shire"
-set $tag_shire "8: dispairpit"
-set $tag_shire "9: hell"
-set $tag_shire "10: heaven"
+set $tag_dispairpit "8: dispairpit"
+set $tag_hell "9: hell"
+set $tag_heaven "10: heaven"
 
 # switch to workspace
 bindsym $mod+1 workspace $tag_www
@@ -113,9 +113,9 @@ bindsym $mod+4 workspace $tag_beach
 bindsym $mod+5 workspace $tag_mountain
 bindsym $mod+6 workspace $tag_rivendell
 bindsym $mod+7 workspace $tag_shire
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+8 workspace $tag_dispairpit 
+bindsym $mod+9 workspace $tag_hell 
+bindsym $mod+0 workspace $tag_heaven 
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $tag_www
@@ -125,9 +125,9 @@ bindsym $mod+Shift+4 move container to workspace $tag_beach
 bindsym $mod+Shift+5 move container to workspace $tag_mountain
 bindsym $mod+Shift+6 move container to workspace $tag_rivendell
 bindsym $mod+Shift+7 move container to workspace $tag_shire
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+8 move container to workspace $tag_dispairpit
+bindsym $mod+Shift+9 move container to workspace $tag_hell 
+bindsym $mod+Shift+0 move container to workspace $tag_heaven
 
 # eDP1  laptop
 # HDMI1 Dell
@@ -138,6 +138,9 @@ workspace $tag_beach output HDMI1
 workspace $tag_mountain output HDMI1
 workspace $tag_rivendell output HDMI1
 workspace $tag_shire output HDMI1
+workspace $tag_dispairpit output HDMI1
+workspace $tag_hell output HDMI1
+workspace $tag_heaven output HDMI1
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
