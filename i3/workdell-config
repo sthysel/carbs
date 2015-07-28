@@ -88,7 +88,6 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindsym $mod+d focus child
 
-
 # scratchpad
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
