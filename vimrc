@@ -200,7 +200,7 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-" non patronising possitive enforcement
+" non patronising positive enforcement
 nnoremap <Left> :echoe "No sunshine, use h"<CR>
 nnoremap <Right> :echoe "*head pat* no cutie, use l"<CR>
 nnoremap <Up> :echoe "Use k noob"<CR>
