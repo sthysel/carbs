@@ -9,9 +9,8 @@ StrictHostKeyChecking no
 @key intersect 12:d5:b3:31:ec:95:89:ea:6c:60:6f:e5:ca:03:ff:64
 @key work-ccg d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
 @key pawsey d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
-@key ccg-ops-old e6:dd:45:9e:af:65:c5:6a:b4:a5:25:15:c8:6a:91:73
-@key ccg-ops 3a:ae:77:29:b4:9a:20:6a:32:45:4a:88:d6:e8:dd:7b
 @key golden fa:f8:25:19:7a:ec:89:cd:b3:07:aa:71:95:75:d6:3e
+@key ccg-ops 61:f1:86:12:de:b7:c1:95:e9:14:66:b3:e1:d5:78:22
 
 @HostAttrs trusted
     ForwardAgent yes
@@ -20,6 +19,47 @@ StrictHostKeyChecking no
     Compression yes
     TCPKeepAlive yes
     ServerAliveInterval 60
+
+@with i 0 1
+Host ccgcloud<i>
+    Hostname ccgcloud<i>.ccgapps.com.au
+    User ubuntu
+    @is trusted
+    @identity ccg-ops
+
+@with i {0..13}
+Host ceph<i>
+    User ubuntu
+    HostName ceph<i>.bpa.ccg
+    @via ccgcloud0
+    @identity ccg-ops
+
+@with i {0..2}
+Host compute<i>
+    User ubuntu
+    HostName compute<i>.bpa.ccg
+    @via ccgcloud0
+    @identity ccg-ops
+
+@with i brlscratch brl-scratch
+Host <i>
+    Hostname brl-scratch.ccgapps.com.au
+    User ubuntu
+    @identity ccg-ops
+    @is slow-network
+
+Host sshbounce
+    Hostname ccg.murdoch.edu.au
+    User ubuntu
+    @identity ccg-ops
+
+@with i utility1 utility2 docker1 docker2
+Host <i>
+    Hostname <i>.ccgint.ccgapps.com.au
+    User ubuntu
+    @identity ccg-ops
+    @via sshbounce
+
 
 Host folly
    Hostname = sthysel.net
@@ -48,39 +88,40 @@ Host scratch
    IdentitiesOnly = yes
    @is trusted
    @is slow-network
-   @identity ccg-ops-old
+   @identity ccg-ops
 
 Host docker1
    Hostname = docker1.ccgapps.com.au
    User = ubuntu
    IdentitiesOnly = yes
    @is trusted
-   @identity ccg-ops-old
+   @identity ccg-ops
 
+Host sdocker
+   Hostname = docker1.ccgapps.com.au
+   User = ubuntu
+   IdentitiesOnly = yes
+   @via scratch
+   @is trusted
+   @identity ccg-ops
 
 Host = docker2
     Hostname = 192.168.4.6
     User = ubuntu
     ProxyCommand = ssh docker1 nc %h %p 2> /dev/null
     IdentitiesOnly = yes
-    @identity ccg-ops-old
+    @identity ccg-ops
 
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
     User thys.meintjes
     @identity intersect
 
-Host minerva
-    User <work-username>
-    @identity work-ccg
-    HostName ccg.murdoch.edu.au
-
-
 # ccg cloud controllers 
 @with i {0..1}
 Host ccgcloud<i>
     HostName ccgcloud<i>.ccgapps.com.au
-    @identity ccg-ops-old
+    @identity ccg-ops
     User ubuntu
     ForwardX11 yes
     @is trusted
@@ -90,7 +131,7 @@ Host ccgcloud<i>
 @with i {0..2}
 Host ccgcompute<i>
     HostName ccgcompute<i>.ccgapps.com.au
-    @identity ccg-ops-old
+    @identity ccg-ops
     User ubuntu
     ForwardX11 yes
     @is trusted
