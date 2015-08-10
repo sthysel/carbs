@@ -52,6 +52,7 @@ Plugin 'einars/js-beautify'
 
 Plugin 'rstacruz/sparkup'
 Plugin 'vim-scripts/closetag.vim'
+Plugin 'jeetsukumaran/vim-buffergator'
 
 call vundle#end()
 filetype plugin indent on
@@ -81,7 +82,6 @@ set smartcase                   " ignore case if search pattern is all lowercase
 set smarttab                    " insert tabs on the start of a line according to
                                 " shiftwidth, not tabstop
 set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
-" set virtualedit=all             " allow the cursor to go in to "invalid" places
 set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
@@ -92,7 +92,7 @@ set nolist                      " don't show invisible characters by default,
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
-" set mouse=a                     " enable using the mouse if terminal emulator
+set mouse=a                     " enable using the mouse if terminal emulator
                                 "    supports it (xterm does)
 set fileformats="unix,dos,mac"
 set formatoptions+=1            " When wrapping paragraphs, don't end lines
@@ -355,6 +355,32 @@ nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
 
+" buffers
+" nmap <leader>T :enew<CR>           " To open a new empty buffer
+" nmap <leader>l :bnext<CR>          " Move to the next buffer
+" nmap <leader>h :bprevious<CR>      " Move to the previous buffer
+" nmap <leader>bq :bp <BAR> bd #<CR> " Close the current buffer and move to the previous one
+" nmap <leader>bl :ls<CR>            " Show all open buffers and their status
+
+" buffergator setup
+" Use the right side of the screen
+let g:buffergator_viewport_split_policy = 'R'
+" I want my own keymappings...
+let g:buffergator_suppress_keymaps = 1
+" Looper buffers
+"let g:buffergator_mru_cycle_loop = 1
+" Go to the previous buffer open
+nmap <leader>jj :BuffergatorMruCyclePrev<cr>
+" Go to the next buffer open
+nmap <leader>kk :BuffergatorMruCycleNext<cr>
+" View the entire list of buffers open
+nmap <leader>bl :BuffergatorOpen<cr>
+
+" Shared bindings from Solution #1 from earlier
+nmap <leader>T :enew<cr>
+nmap <leader>bq :bp <BAR> bd #<cr>
+
+
 " Filetype specific handling
 " only do this part when compiled with support for autocommands
 if has("autocmd")
@@ -498,7 +524,7 @@ if has("autocmd")
         autocmd filetype javascript nnoremap <silent> <C-t> mmviw:s/true\\|false/\={'true':'false','false':'true'}[submatch(0)]/<CR>`m:nohlsearch<CR>
 
         " Enable insertion of "debugger" statement in JS files
-        autocmd filetype javascript nnoremap <leader>b Odebugger;<esc>
+        autocmd filetype javascript nnoremap <leader>jdb Odebugger;<esc>
     augroup end
 
     augroup textile_files
