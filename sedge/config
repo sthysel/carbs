@@ -20,11 +20,19 @@ StrictHostKeyChecking no
     TCPKeepAlive yes
     ServerAliveInterval 60
 
+Host thysdocker
+   Hostname docker.sthysel.net
+   User thys
+   @identity golden
+   @is trusted
+   @is slow-network
+
 @with i 0 1
 Host ccgcloud<i>
     Hostname ccgcloud<i>.ccgapps.com.au
     User ubuntu
     @is trusted
+    @is slow-network
     @identity ccg-ops
 
 @with i {0..13}
