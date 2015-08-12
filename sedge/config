@@ -11,6 +11,7 @@ StrictHostKeyChecking no
 @key pawsey d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
 @key golden fa:f8:25:19:7a:ec:89:cd:b3:07:aa:71:95:75:d6:3e
 @key ccg-ops 61:f1:86:12:de:b7:c1:95:e9:14:66:b3:e1:d5:78:22
+@key prod 3a:ae:77:29:b4:9a:20:6a:32:45:4a:88:d6:e8:dd:7b 
 
 @HostAttrs trusted
     ForwardAgent yes
@@ -87,7 +88,7 @@ Host ccg
    Hostname = ccg.ccgapps.com.au
    User = ubuntu
    IdentitiesOnly = yes
-   @identity ccg-ops
+   @identity prod
    @is slow-network
 
 Host scratch
