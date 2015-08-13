@@ -31,3 +31,4 @@ alias ct="sudo -E ssh -L 80:localhost:80 ccgcloud1 -v"
 alias devcache="fig -f ${HOME}/dotfiles/dev/dev-cache.yml up"
 
 alias fig="docker-compose"
+alias sget='wget -r -nH --cut-dirs=10 --no-parent --reject="index.html*"'
