@@ -58,7 +58,9 @@ call vundle#end()
 filetype plugin indent on
 
 autocmd! BufWritePost .vimrc source %
+
 colorscheme Monokai
+
 " space for mapleader
 let mapleader=' '
 
@@ -218,10 +220,6 @@ set laststatus=2
 set ruler
 set cmdheight=2
 set autoread
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endif
 
 set encoding=utf-8
 inoremap <C-U> <C-G>u<C-U>
@@ -354,6 +352,7 @@ nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
+
 
 " buffers
 " nmap <leader>T :enew<CR>           " To open a new empty buffer
