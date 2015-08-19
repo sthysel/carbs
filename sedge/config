@@ -35,7 +35,8 @@ Host ccgcloud<i>
     @is trusted
     @is slow-network
     @identity ccg-ops
-
+    ForwardX11 yes
+    
 @with i {0..13}
 Host ceph<i>
     User ubuntu
@@ -43,7 +44,7 @@ Host ceph<i>
     @via ccgcloud0
     @identity ccg-ops
 
-@with i {0..2}
+@with i 0 1 2
 Host compute<i>
     User ubuntu
     HostName compute<i>.bpa.ccg
@@ -99,13 +100,6 @@ Host scratch
    @is slow-network
    @identity ccg-ops
 
-Host docker1
-   Hostname = docker1.ccgapps.com.au
-   User = ubuntu
-   IdentitiesOnly = yes
-   @is trusted
-   @identity ccg-ops
-
 Host sdocker
    Hostname = docker1.ccgapps.com.au
    User = ubuntu
@@ -114,30 +108,14 @@ Host sdocker
    @is trusted
    @identity ccg-ops
 
-Host = docker2
-    Hostname = 192.168.4.6
-    User = ubuntu
-    ProxyCommand = ssh docker1 nc %h %p 2> /dev/null
-    IdentitiesOnly = yes
-    @identity ccg-ops
 
 Host rdsi
     HostName rdsi-bpa-vm.intersect.org.au
     User thys.meintjes
     @identity intersect
 
-# ccg cloud controllers 
-@with i {0..1}
-Host ccgcloud<i>
-    HostName ccgcloud<i>.ccgapps.com.au
-    @identity ccg-ops
-    User ubuntu
-    ForwardX11 yes
-    @is trusted
-    @is slow-network
 
-
-@with i {0..2}
+@with i 0 1 2
 Host ccgcompute<i>
     HostName ccgcompute<i>.ccgapps.com.au
     @identity ccg-ops
