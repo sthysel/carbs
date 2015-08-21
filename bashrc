@@ -96,10 +96,12 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-source ${HOME}/dotfiles/vim_aliases
-# git and mercurial repo status
-source ${HOME}/dotfiles/dvcs
-# docker aliases
-source ${HOME}/dotfiles/docker_aliases
-# random aliases
-source ${HOME}/dotfiles/aliases
+ALIAS_HOME=${HOME}/dotfiles/alias.d 
+if [ -d ${ALIAS_HOME} ]
+then
+  for a in $(find ${ALIAS_HOME} -type f -name "*.alias")
+  do
+    echo "Loading $a"
+    source $a
+  done
+fi
