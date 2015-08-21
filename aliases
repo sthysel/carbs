@@ -27,8 +27,8 @@ alias e="vim --remote-silent"
 # redneck ccg cloud tunnel, cause this is how we roll
 alias ct="sudo -E ssh -L 80:localhost:80 ccgcloud1 -v"
 
-# dev cache
-alias devcache="fig -f ${HOME}/dotfiles/dev/dev-cache.yml up"
-
 alias fig="docker-compose"
 alias sget='wget -r -nH --cut-dirs=10 --no-parent --reject="index.html*"'
+
+alias etodo='vim ~/gdrive/planning/todo.org'
+alias eplans='vim ~/gdrive/planning/sfplans.org'

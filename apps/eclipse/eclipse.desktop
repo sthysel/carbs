@@ -1,8 +1,0 @@
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Version=1.0
-Type=Application
-Terminal=false
-Icon=/home/thys/devtools/eclipse/icon32x32.png
-Exec=/home/thys/devtools/eclipse/eclipse -vm /home/thys/devtools/jdk/bin/java
-Name=Eclipse
