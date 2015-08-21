@@ -102,7 +102,6 @@ if [ -d ${ALIAS_HOME} ]
 then
   for a in $(find -L ${ALIAS_HOME} -type f -name "*.alias")
   do
-    echo "Loading $a"
     source $a
   done
 fi
