@@ -25,7 +25,7 @@ alias dki="docker run -it -P"
 alias dex="docker exec -i -t"
 
 # stop and Remove all containers
-alias drmf="docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)"
+alias dsrm="docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)"
 
 # stop all containers
 dstop() { docker stop $(docker ps -a -q); }
@@ -36,15 +36,15 @@ drma() { docker rm $(docker ps -a -q); }
 # remove all images
 drmi() { docker rmi $(docker images -q); }
 
-# dockerfile build, e.g., $dbu sthysel/test 
-dbu() { 
+# dockerfile build, e.g., $dbc sthysel/test 
+dbc() { 
     if [[ $1 == "" ]]
     then
         echo "Provide tag name"
-        echo "e.g: dbu sthysel/foobox"
-        exit
+        echo "e.g: dbc sthysel/foobox"
+    else
+        docker build -t=$1 .; 
     fi
-    docker build -t=$1 .; 
 }
 
 # remove all stopped containers
@@ -59,8 +59,8 @@ drmut() {
     fi
 }
 
+# remove unused docker images
 drmu() {
-    echo "Removing unused docker images"
     images=($(docker images | awk '{print $1":"$2}'))
     containers=($(docker ps -a | awk '{print $2}'))
 
