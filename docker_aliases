@@ -1,0 +1,99 @@
+#!/bin/bash
+
+# list latest container ID
+alias dl="docker ps -l -q"
+
+# list processes
+alias dps="docker ps"
+
+# list processes including stoped containers
+alias dpa="docker ps -a"
+
+# list images
+alias di="docker images"
+
+# list container IP
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+
+# run deamonized container, e.g., $dkd sthysel/foobox /bin/echo hello
+alias dkd="docker run -d -P"
+
+# run interactive container, e.g., $dki sthysel/foobox /bin/bash
+alias dki="docker run -it -P"
+
+# execute in interactive container, e.g., $dex sthysel/foobox /bin/bash
+alias dex="docker exec -i -t"
+
+# stop and Remove all containers
+alias drmf="docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)"
+
+# stop all containers
+dstop() { docker stop $(docker ps -a -q); }
+
+# remove all containers
+drma() { docker rm $(docker ps -a -q); }
+
+# remove all images
+drmi() { docker rmi $(docker images -q); }
+
+# dockerfile build, e.g., $dbu sthysel/test 
+dbu() { 
+    if [[ $1 == "" ]]
+    then
+        echo "Provide tag name"
+        echo "e.g: dbu sthysel/foobox"
+        exit
+    fi
+    docker build -t=$1 .; 
+}
+
+# remove all stopped containers
+drms() { docker rm -v $(docker ps -a -f status=exited -q); }
+
+# remove untagged images
+drmut() {
+    images=$(docker images --no-trunc | grep "<none>" | awk '{print $3}')
+    if [[ $images ]]
+    then
+        docker rmi $images 
+    fi
+}
+
+drmu() {
+    echo "Removing unused docker images"
+    images=($(docker images | awk '{print $1":"$2}'))
+    containers=($(docker ps -a | awk '{print $2}'))
+
+    containers_reg=" ${containers[*]} "
+    remove=()
+
+    for item in ${images[@]}; do
+    if [[ ! $containers_reg =~ " $item " ]]; then
+        remove+=($item)
+    fi
+    done
+
+    remove_images=" ${remove[*]} "
+
+    docker rmi ${remove_images}
+}
+
+dcl() {
+    drms
+    drmut
+}
+
+newbox() {
+    echo "Spinning up $1"
+    docker run --rm --name $1 -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ${HOME}/.vimrc:/home/dev/.vimrc \
+    -v ${HOME}/.vim:/home/dev/.vim \
+    -v ${HOME}/.bashrc:/home/dev/.bashrc \
+    -v ${HOME}/dotfiles:/home/dev/dotfiles \
+    -e HOSTNAME=$1 sthysel/toolbox
+}
+
+# show all docker aliases
+ddoc() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+
