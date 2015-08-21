@@ -96,10 +96,11 @@ shopt -s histappend
 # Append unsaved commands to history file.
 PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
+# source all alias and function files in ${ALIAS_HOME} ending in .alias
 ALIAS_HOME=${HOME}/dotfiles/alias.d 
 if [ -d ${ALIAS_HOME} ]
 then
-  for a in $(find ${ALIAS_HOME} -type f -name "*.alias")
+  for a in $(find -L ${ALIAS_HOME} -type f -name "*.alias")
   do
     echo "Loading $a"
     source $a
