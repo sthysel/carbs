@@ -316,12 +316,16 @@ let g:netrw_liststyle=3
 " pasting text into vim
 set pastetoggle=<F2>
 
+" paste mode, get rid of staircase copy
 nnoremap <leader>p :set paste<CR>
 nnoremap <leader>o :set nopaste<CR>
+
 noremap  <leader>g :GitGutterToggle<CR>
 
+" edit vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" load the vimrc file
+nmap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " Switch from block-cursor to vertical-line-cursor when going into/out of
 " insert mode
@@ -341,6 +345,10 @@ let g:syntastic_error_symbol = "✗"
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = "--ignore=E501 --maxcomplexity 10"
+" html tidy does not understand django templates
+let syntastic_mode_map = { 'passive_filetypes': ['html'] }
+
+
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
 
