@@ -1,13 +1,13 @@
 alias
 =====
-display this file                        vn
+display this file                        en
 spin up a new container                  newbox [name]
-white noise                              pease
-brown noise                              brownpease
+white noise                              peace
+brown noise                              brownpeace
 enterprise noise                         engage
 wget with better defaults                sget
 edit todo                                etodo
-edit plans                               eplans
+Dokcer docs                              ddoc
 
 vim
 ===
