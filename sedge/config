@@ -21,6 +21,21 @@ StrictHostKeyChecking no
     TCPKeepAlive yes
     ServerAliveInterval 60
 
+Host folly
+   Hostname = sthysel.net
+   User = thys
+   IdentitiesOnly = yes
+   @identity golden
+   @is slow-network
+
+
+Host davis
+   Hostname = davis
+   User = pi
+   IdentitiesOnly = yes
+   @identity golden
+   @is slow-network
+
 Host thysdocker
    Hostname docker.sthysel.net
    User thys
@@ -71,12 +86,6 @@ Host <i>
     @via sshbounce
 
 
-Host folly
-   Hostname = sthysel.net
-   User = thys
-   IdentitiesOnly = yes
-   @identity golden
-   @is slow-network
 
 Host staging
    Hostname = staging.ccgapps.com.au
