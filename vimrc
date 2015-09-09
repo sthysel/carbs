@@ -54,6 +54,8 @@ Plugin 'rstacruz/sparkup'
 Plugin 'vim-scripts/closetag.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 
+Plugin 'tmhedberg/SimpylFold'
+
 call vundle#end()
 filetype plugin indent on
 
