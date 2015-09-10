@@ -85,8 +85,6 @@ Host <i>
     @identity ccg-ops
     @via sshbounce
 
-
-
 Host staging
    Hostname = staging.ccgapps.com.au
    User = ubuntu
@@ -98,7 +96,7 @@ Host ccg
    Hostname = ccg.ccgapps.com.au
    User = ubuntu
    IdentitiesOnly = yes
-   @identity prod
+   @identity ccg-ops 
    @is slow-network
 
 Host scratch
