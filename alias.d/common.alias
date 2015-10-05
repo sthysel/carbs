@@ -24,8 +24,10 @@ alias brownpeace="play -n synth brownnoise"
 alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 alias e="vim --remote-silent"
 
-# redneck ccg cloud tunnel, cause this is how we roll
-alias ct="sudo -E ssh -L 80:localhost:80 ccgcloud1 -v"
+# taxpayers
+alias ct="ssh -L 8222:localhost:80 ccgcloud0 -v"
+# fw
+alias fw="ssh -L 8111:localhost:443 ccgcloud0 -v"
 
 alias fig="docker-compose"
 alias sget='wget -r -nH --cut-dirs=10 --no-parent --reject="index.html*"'

@@ -7,7 +7,8 @@
 " To start vim without loading any .vimrc or plugins, use:
 "     vim -u NONE
 "
-" Almost nothing here is unique or controversial.
+" This vimrc is both good and original, the original bits are not good
+" and the good bits are not original.
 " By and large a curated version of this:
 " https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
 
@@ -55,6 +56,7 @@ Plugin 'vim-scripts/closetag.vim'
 Plugin 'jeetsukumaran/vim-buffergator'
 
 Plugin 'tmhedberg/SimpylFold'
+Plugin 'chrisbra/csv.vim'
 
 call vundle#end()
 filetype plugin indent on

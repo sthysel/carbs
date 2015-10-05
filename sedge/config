@@ -6,6 +6,7 @@ StrictHostKeyChecking no
 # variables
 @set work-username tmeintjes
 
+# ssh-keygen -lf /path/to/key.pub
 @key intersect 12:d5:b3:31:ec:95:89:ea:6c:60:6f:e5:ca:03:ff:64
 @key work-ccg d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
 @key pawsey d0:bf:57:b6:0e:d7:20:53:3f:26:f2:fe:21:43:83:da
@@ -20,6 +21,35 @@ StrictHostKeyChecking no
     Compression yes
     TCPKeepAlive yes
     ServerAliveInterval 60
+
+
+@HostAttrs multiplexing
+    ControlMaster auto
+    ControlPersist 1
+    ControlPath ~/.ssh/control-%r@%h:%p
+
+# some common host options
+@HostAttrs common
+    PasswordAuthentication no
+    ChallengeResponseAuthentication no
+    GSSAPIAuthentication no
+    PubkeyAuthentication yes
+    ForwardAgent no
+    ForwardX11 no
+    ForwardX11Trusted yes
+    User ubuntu
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/ccg-ops-2015.pem
+    Port 22
+    Protocol 2
+    Compression yes
+    ServerAliveInterval 60
+    ServerAliveCountMax 30
+    TCPKeepAlive yes
+    HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-rsa-cert-v00@openssh.com,ssh-ed25519,ssh-rsa
+    Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+    MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-ripemd160-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160,umac-128@openssh.com
+
 
 Host folly
    Hostname = sthysel.net
@@ -77,6 +107,8 @@ Host sshbounce
     Hostname ccg.murdoch.edu.au
     User ubuntu
     @identity ccg-ops
+    @is common 
+    @is multiplexing
 
 @with i utility1 utility2 docker1 docker2
 Host <i>
@@ -131,3 +163,77 @@ Host ccgcompute<i>
     @is trusted
     @is slow-network
     @via ccgcloud0
+
+
+# oldschool
+## EBI
+Host ebiyabi yabi.ebi.ccgapps.com.au
+    Hostname yabi.ebi.ccgapps.com.au
+    User centos
+    ControlMaster auto
+    ControlPersist 1
+    ControlPath ~/.ssh/control-%r@%h:%p
+
+Host ebiweb web.ebiint.ccgapps.com.au
+    Hostname web.ebiint.ccgapps.com.au
+    User centos
+    ProxyCommand ssh ebiyabi -W %h:%p
+
+Host ebidb db.ebiint.ccgapps.com.au
+    Hostname db.ebiint.ccgapps.com.au
+    User centos
+    ProxyCommand ssh ebiyabi -W %h:%p
+
+## CCG Internal
+Host sshbounce ccg.murdoch.edu.au
+    Hostname ccg.murdoch.edu.au
+    ControlMaster auto
+    ControlPersist 1
+    ControlPath ~/.ssh/control-%r@%h:%p
+
+Host *.ccgint.ccgapps.com.au brl-scratch brlscratch brl-priority brlpriority rdrf1 rdrf2 docker1 docker2 utility1 utility2
+    ProxyCommand ssh sshbounce -W %h:%p
+
+## CCG Cloud
+Host ccgcloud0 ccgcloud0.ccgapps.com.au
+    HostName ccgcloud0.ccgapps.com.au
+    LocalForward 8000 127.0.0.1:80
+
+Host ccgcloud1 ccgcloud1.ccgapps.com.au ccgcloud-sshbounce
+    HostName ccgcloud1.ccgapps.com.au
+    LocalForward 8001 127.0.0.1:80
+
+Host compute0 compute1 compute2
+    ProxyCommand ssh ccgcloud-sshbounce -W %h:%p
+
+Host ceph1 ceph2 ceph3 ceph4 ceph5 ceph6 ceph7 ceph8 ceph9 ceph10 ceph11 ceph12
+    ProxyCommand ssh ccgcloud-sshbounce -W %h:%p
+
+# AWS
+Host staging staging.ccgapps.com.au rdrf rdrf.ccgapps.com.au
+    Hostname staging.ccgapps.com.au
+
+Host ccg ccg.ccgapps.com.au ccgapps.com.au
+    Hostname ccg.ccgapps.com.au
+
+Host master master.sc.ccgapps.com.au
+    Hostname master.sc.ccgapps.com.au
+    User root
+
+# AWS VPC
+Host nat nat.ccgapps.com.au
+    Hostname nat.ccgapps.com.au
+    User ec2-user
+    LocalForward 8000 127.0.0.1:8000
+
+## CCG Legacy
+Host *.legacy.ccgapps.com.au minerva wallace5 fds1 fds2 fds3 mascot rizzo gonzo www5 ccgnginx zoneminder faramir denethor scratchy itchy fozzy xenserver5 boromir ccg5 digger carah eowyn lucien sooty yabi6
+    User root
+    ProxyCommand ssh sshbounce -W %h:%p
+
+# special case, need to hop via minerva
+Host calliope
+    User root
+    ProxyCommand ssh minerva -W %h:%p
+
+
