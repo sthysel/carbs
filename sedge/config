@@ -26,7 +26,7 @@ StrictHostKeyChecking no
 @HostAttrs multiplexing
     ControlMaster auto
     ControlPersist 1
-    ControlPath ~/.ssh/control-%r@%h:%p
+    ControlPath /tmp/ssh/control-%r@%h:%p
 
 # some common host options
 @HostAttrs common
@@ -73,6 +73,15 @@ Host thysdocker
    @is trusted
    @is slow-network
 
+
+# CCG
+Host sshbounce
+    Hostname ccg.murdoch.edu.au
+    User ubuntu
+    @identity ccg-ops
+    # @is common 
+    # @is multiplexing
+
 @with i 0 1
 Host ccgcloud<i>
     Hostname ccgcloud<i>.ccgapps.com.au
@@ -96,19 +105,17 @@ Host compute<i>
     @via ccgcloud0
     @identity ccg-ops
 
-@with i brlscratch brl-scratch
-Host <i>
-    Hostname brl-scratch.ccgapps.com.au
-    User ubuntu
-    @identity ccg-ops
-    @is slow-network
 
-Host sshbounce
-    Hostname ccg.murdoch.edu.au
-    User ubuntu
-    @identity ccg-ops
-    @is common 
-    @is multiplexing
+@with i scratch brlscratch brl-scratch
+Host <i>
+   Hostname = brl-scratch.ccgapps.com.au
+   User = ubuntu
+   IdentitiesOnly = yes
+   @is trusted
+   @is slow-network
+   @identity ccg-ops
+   @via sshbounce
+
 
 @with i utility1 utility2 docker1 docker2
 Host <i>
@@ -131,13 +138,6 @@ Host ccg
    @identity ccg-ops 
    @is slow-network
 
-Host scratch
-   Hostname = brl-scratch.ccgapps.com.au
-   User = ubuntu
-   IdentitiesOnly = yes
-   @is trusted
-   @is slow-network
-   @identity ccg-ops
 
 Host sdocker
    Hostname = docker1.ccgapps.com.au
