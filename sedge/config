@@ -75,12 +75,22 @@ Host thysdocker
 
 
 # CCG
-Host sshbounce
+@with h sshbounce ccg.murdoch.edu.au
+Host <h>
     Hostname ccg.murdoch.edu.au
-    User ubuntu
-    @identity ccg-ops
-    # @is common 
-    # @is multiplexing
+    ControlMaster auto
+    ControlPersist 1
+    ControlPath ~/.ssh/control-%r@%h:%p
+
+
+#Host sshbounce
+#    Hostname ccg.murdoch.edu.au
+#    User ubuntu
+#    @identity ccg-ops
+#    # @is common 
+#    # @is multiplexing
+
+
 
 @with i 0 1
 Host ccgcloud<i>

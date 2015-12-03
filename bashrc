@@ -105,3 +105,5 @@ then
     source $a
   done
 fi
+
+set -o vi

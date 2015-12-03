@@ -1,4 +1,4 @@
-" sthysel's .vimrc
+" sthysel's .nvimrc
 " Maintained by sthysel@gmail.com
 "
 "" To start vim without using this .vimrc file, use:
@@ -9,8 +9,6 @@
 "
 " This vimrc is both good and original, the original bits are not good
 " and the good bits are not original.
-" By and large a curated version of this:
-" https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
 
 " I don't care about vi, this must be first
 set nocompatible
