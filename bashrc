@@ -73,9 +73,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export WORKON_HOME=${HOME}/Envs
-export PATH=${PATH}:${HOME}/workspace/ccg/
-export PATH=${PATH}:${HOME}/dev/pycharm-3.4.1/bin/
 
 # readlines config
 # append to the history file, don't overwrite it
@@ -106,4 +103,6 @@ then
   done
 fi
 
+# python --user
+export PATH=${PATH}:${HOME}/.local/bin
 set -o vi
