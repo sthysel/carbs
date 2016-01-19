@@ -24,7 +24,7 @@ exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id udisks-glue
 
 # set startup volume
-exec --no-startup-id pactl set-sink-volume 0 '20%'
+exec --no-startup-id pactl set-sink-volume 2 '6666660%'
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900 
@@ -187,9 +187,9 @@ bar {
 exec --no-startup-id ~/.i3/autostart
 
 # Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 2 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume 2 -5% #decrease sound volume
+bindsym XF86AudioMute exec pactl set-sink-mute 2 toggle # mute sound
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
