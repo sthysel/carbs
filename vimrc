@@ -7,7 +7,7 @@
 " To start vim without loading any .vimrc or plugins, use:
 "     vim -u NONE
 "
-" This vimrc is both good and original, the original bits are not good
+" This vimrc is both good and original, however, the original bits are not good
 " and the good bits are not original.
 " By and large a curated version of this:
 " https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
@@ -21,28 +21,26 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 " orgmode
 Plugin 'jceb/vim-orgmode'
-Plugin 'tpope/vim-speeddating'
-Plugin 'Raimondi/delimitMate'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'vim-scripts/supertab'
+" Plugin 'tpope/vim-speeddating'
+" Plugin 'Raimondi/delimitMate'
+" Plugin 'scrooloose/nerdcommenter'
+" Plugin 'vim-scripts/supertab'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'ekalinin/Dockerfile.vim'
-Plugin 'majutsushi/tagbar'
+" Plugin 'majutsushi/tagbar'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 " ag-silversurfer
 Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
-" Plugin 'klen/python-mode'
-Plugin 'bling/vim-airline'
 Plugin 'davidhalter/jedi-vim'
 
 Plugin 'Chiel92/vim-autoformat'
@@ -59,6 +57,13 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'chrisbra/csv.vim'
 
 call vundle#end()
+
+" powerline ------------------------
+python from powerline.vim import setup as powerline_setup
+python powerline_setup()
+python del powerline_setup
+
+
 filetype plugin indent on
 
 autocmd! BufWritePost .vimrc source %
@@ -124,7 +129,7 @@ nnoremap / /\v
 vnoremap / /\v
 
 
-" Editing behaviour 
+" Editing behaviour ---------------------------
 " Folding rules
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
@@ -167,13 +172,9 @@ set switchbuf=useopen           " reveal already opened files from the
                                 " buffers
 set history=1000                " remember more commands and search history
 set undolevels=1000             " use many muchos levels of undo
-if v:version >= 730
-    set undofile                " keep a persistent backup file
-    set undodir=~/.vim/.undo,~/tmp,/tmp
-endif
+set undofile                " keep a persistent backup file
+set undodir=~/.vim/.undo,~/tmp,/tmp
 set nobackup                    " do not keep backup files, it's 70's style cluttering
-set noswapfile                  " do not write annoying intermediate swap files,
-                                "    who did ever restore from swap files anyway?
 set directory=~/.vim/.tmp,~/tmp,/tmp
                                 " store swap files in one of these directories
                                 "    (in case swapfile is ever turned on)
@@ -227,11 +228,6 @@ set autoread
 
 set encoding=utf-8
 inoremap <C-U> <C-G>u<C-U>
-
-" In many terminal emulators the mouse works just fine, thus enable it.
-if has('mouse')
-  set mouse=a
-endif
 
 set nobackup
 set nowritebackup
@@ -290,6 +286,7 @@ let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$
 " vim-airline
 let g:airline#extensions#tabline#enabled=1
 let g:airline_powerline_fonts=1
+let g:Powerline_symbols='unicode'
 let g:airline_theme='badwolf'
 
 " Basic shortcuts definitions
@@ -337,9 +334,9 @@ let &t_SI="\<Esc>]50;CursorShape=1\x7"
 let &t_EI="\<Esc>]50;CursorShape=0\x7"
 
 " syntaxic n00b defaults for me
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 let g:syntastic_always_populate_loc_list=1
 let g:syntastic_auto_loc_list=1
