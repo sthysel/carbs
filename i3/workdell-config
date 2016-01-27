@@ -1,6 +1,6 @@
-# i3 config file (v4)
-#
+# vim:filetype=i3
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
 # To give a presentation do:
 # # xrandr (and determine active outputs and resolutions)
 # #
@@ -13,6 +13,11 @@
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 
+# HDMI1 Dell
+set $DELL_SCREEN HDMI1
+# eDP1  laptop
+set $LAPTOP_SCREEN eDP1
+
 set $mod Mod4
 
 exec --no-startup-id unity-settings-daemon
@@ -23,8 +28,8 @@ exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id udisks-glue
 
-# set startup volume
-exec --no-startup-id pactl set-sink-volume 2 '6666660%'
+# volume control icon
+exec --no-startup-id volumeicon
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900 
@@ -128,25 +133,20 @@ bindsym $mod+Shift+8 move container to workspace $tag_dispairpit
 bindsym $mod+Shift+9 move container to workspace $tag_hell 
 bindsym $mod+Shift+0 move container to workspace $tag_heaven
 
-# eDP1  laptop
-# HDMI1 Dell
-workspace $tag_people output eDP1
-workspace $tag_www output HDMI1
-workspace $tag_bpa output HDMI1
-workspace $tag_beach output HDMI1
-workspace $tag_mountain output HDMI1
-workspace $tag_rivendell output HDMI1
-workspace $tag_shire output HDMI1
-workspace $tag_dispairpit output HDMI1
-workspace $tag_hell output HDMI1
-workspace $tag_heaven output HDMI1
+workspace $tag_people output $LAPTOP_SCREEN
+workspace $tag_www output $DELL_SCREEN
+workspace $tag_bpa output $DELL_SCREEN
+workspace $tag_beach output $DELL_SCREEN
+workspace $tag_mountain output $DELL_SCREEN
+workspace $tag_rivendell output $DELL_SCREEN
+workspace $tag_shire output $DELL_SCREEN
+workspace $tag_dispairpit output $DELL_SCREEN
+workspace $tag_hell output $DELL_SCREEN
+workspace $tag_heaven output $DELL_SCREEN
 
-# reload the configuration file
-bindsym $mod+Shift+C reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+R restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+E exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+w reload
+bindsym $mod+Shift+e exit
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -183,25 +183,21 @@ bar {
         modifier $mod
 }
 
-# start the session
-exec --no-startup-id ~/.i3/autostart
+# show battery stats
+bindsym XF86Battery exec gnome-power-statistics
 
-# Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 2 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 2 -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute 2 toggle # mute sound
+# volume control
+exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 
 
-# Touchpad controls
-bindsym XF86TouchpadToggle exec ~/.i3/toggletouchpad.sh # toggle touchpad
-
-# Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# start the session
+exec --no-startup-id ~/.i3/autostart
 
 # vim:filetype=i3

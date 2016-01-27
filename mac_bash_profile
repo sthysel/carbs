@@ -1,4 +1,0 @@
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
-
-alias ls='ls -GpFh'
