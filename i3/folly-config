@@ -31,7 +31,7 @@ bindsym Control+Mod1+s exec sleep 5 && xset dpms force standby
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+Q kill
+bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec dmenu_run

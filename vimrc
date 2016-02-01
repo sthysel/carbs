@@ -19,9 +19,9 @@ filetype off
 " Vundle plugin manager
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 Plugin 'gmarik/Vundle.vim'
 " Plugin 'scrooloose/syntastic'
+Plugin 'wincent/command-t'
 " orgmode
 Plugin 'jceb/vim-orgmode'
 " Plugin 'tpope/vim-speeddating'
@@ -70,8 +70,59 @@ autocmd! BufWritePost .vimrc source %
 
 colorscheme Monokai
 
+" here be all the leader keys
 " space for mapleader
 let mapleader=' '
+nnoremap <leader>w :w<CR>
+" Toggle show/hide invisible chars
+nnoremap <leader>i :set list!<cr>
+" Toggle line numbers
+nnoremap <leader>N :setlocal number!<cr>
+
+" grep/Ack/Ag for the word under cursor
+vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr>
+nnoremap <leader>a :grep! "\b<c-r><c-w>\b"
+nnoremap K *N:grep! "\b<c-r><c-w>\b"<cr>:cw<cr>
+
+" Creating folds for tags in HTML
+nnoremap <leader>ft Vatzf
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+nnoremap <leader>N :NERDTreeClose<CR>
+
+noremap  <leader>g :GitGutterToggle<CR>
+
+" edit vimrc file
+nmap <silent> <leader>ev :e $MYVIMRC<CR>
+" load the vimrc file
+nmap <silent> <leader>sv :source $MYVIMRC<CR>
+
+" buffers
+" nmap <leader>T :enew<CR>           " To open a new empty buffer
+" nmap <leader>l :bnext<CR>          " Move to the next buffer
+" nmap <leader>h :bprevious<CR>      " Move to the previous buffer
+" nmap <leader>bq :bp <BAR> bd #<CR> " Close the current buffer and move to the previous one
+" nmap <leader>bl :ls<CR>            " Show all open buffers and their status
+
+" buffergator setup
+" Use the right side of the screen
+let g:buffergator_viewport_split_policy = 'R'
+" I want my own keymappings...
+let g:buffergator_suppress_keymaps = 1
+" Looper buffers
+"let g:buffergator_mru_cycle_loop = 1
+" Go to the previous buffer open
+nmap <leader>jj :BuffergatorMruCyclePrev<cr>
+" Go to the next buffer open
+nmap <leader>kk :BuffergatorMruCycleNext<cr>
+" View the entire list of buffers open
+nmap <leader>bl :BuffergatorOpen<cr>
+
+" Shared bindings from Solution #1 from earlier
+nmap <leader>T :enew<cr>
+nmap <leader>bq :bp <BAR> bd #<cr>
+
 
 " Use :help 'option' to see the documentation for the given option.
 " Editing behaviour
@@ -118,11 +169,6 @@ set shortmess+=I                " hide the launch screen
 set clipboard=unnamed           " normal OS clipboard interaction
 set autoread                    " automatically reload files changed outside of Vim
 
-" Toggle show/hide invisible chars
-nnoremap <leader>i :set list!<cr>
-
-" Toggle line numbers
-nnoremap <leader>N :setlocal number!<cr>
 
 " use python/perl regex, not vim build-in
 nnoremap / /\v
@@ -192,13 +238,6 @@ set nomodeline                  " disable mode lines (security measure)
 set ttyfast                     " always use a fast terminal
 set cursorline                  " underline the current line, for quick orientation
 
-" Shortcuts
-" Since I never use the ; key anyway, this is a real optimization for almost
-" all Vim commands, as I don't have to press the Shift key to form chords to
-" enter ex mode.
-nnoremap ; :
-nnoremap <leader>; ;
-
 " Use Q for formatting the current paragraph (or visual selection)
 vnoremap Q gq
 nnoremap Q gqap
@@ -239,13 +278,6 @@ nmap F !}fmt^M
 " exit insert mode
 inoremap <C-c> <Esc>
 
-" grep/Ack/Ag for the word under cursor
-vnoremap <leader>a y:grep! "\b<c-r>"\b"<cr>:cw<cr>
-nnoremap <leader>a :grep! "\b<c-r><c-w>\b"
-nnoremap K *N:grep! "\b<c-r><c-w>\b"<cr>:cw<cr>
-
-" Creating folds for tags in HTML
-nnoremap <leader>ft Vatzf
 
 " Plugins config
 " CtrlP
@@ -263,9 +295,6 @@ if executable('ag')
 endif
 
 " NERDTree
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-nnoremap <leader>N :NERDTreeClose<CR>
 " Store the bookmarks file
 let NERDTreeBookmarksFile=expand("$HOME/.vim/NERDTreeBookmarks")
 " Show the bookmarks table on startup
@@ -317,16 +346,6 @@ let g:netrw_liststyle=3
 " pasting text into vim
 set pastetoggle=<F2>
 
-" paste mode, get rid of staircase copy
-nnoremap <leader>p :set paste<CR>
-nnoremap <leader>o :set nopaste<CR>
-
-noremap  <leader>g :GitGutterToggle<CR>
-
-" edit vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" load the vimrc file
-nmap <silent> <leader>sv :source $MYVIMRC<CR>
 
 " Switch from block-cursor to vertical-line-cursor when going into/out of
 " insert mode
@@ -353,8 +372,6 @@ let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
 
-" Run commands that require an interactive shell
-nnoremap <leader>r :RunInInteractiveShell<space>
 
 " Windows, splits
 nnoremap <c-j> <c-w><c-j>
@@ -363,30 +380,6 @@ nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
 
 
-" buffers
-" nmap <leader>T :enew<CR>           " To open a new empty buffer
-" nmap <leader>l :bnext<CR>          " Move to the next buffer
-" nmap <leader>h :bprevious<CR>      " Move to the previous buffer
-" nmap <leader>bq :bp <BAR> bd #<CR> " Close the current buffer and move to the previous one
-" nmap <leader>bl :ls<CR>            " Show all open buffers and their status
-
-" buffergator setup
-" Use the right side of the screen
-let g:buffergator_viewport_split_policy = 'R'
-" I want my own keymappings...
-let g:buffergator_suppress_keymaps = 1
-" Looper buffers
-"let g:buffergator_mru_cycle_loop = 1
-" Go to the previous buffer open
-nmap <leader>jj :BuffergatorMruCyclePrev<cr>
-" Go to the next buffer open
-nmap <leader>kk :BuffergatorMruCycleNext<cr>
-" View the entire list of buffers open
-nmap <leader>bl :BuffergatorOpen<cr>
-
-" Shared bindings from Solution #1 from earlier
-nmap <leader>T :enew<cr>
-nmap <leader>bq :bp <BAR> bd #<cr>
 
 " Be explicit about python settings
 autocmd FileType python set sw=4
