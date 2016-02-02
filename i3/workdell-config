@@ -66,10 +66,8 @@ bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-
 # split in horizontal orientation
-bindsym $mod+h split h
-
+bindsym $mod+q split h
 # split in vertical orientation
 bindsym $mod+v split v
 
