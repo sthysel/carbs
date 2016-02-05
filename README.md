@@ -26,6 +26,6 @@ then
 fi
 ```
 
-docker.alias is linked into ${ALIAS_HOME} and gets sourced by basrc when the terminal is initialised.
+docker.alias is linked into ${ALIAS_HOME} and gets sourced by basrc/zshrc when the terminal is initialised.
 
 
