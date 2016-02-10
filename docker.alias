@@ -1,0 +1,142 @@
+#!/bin/bash
+
+# list latest container ID
+alias dl="docker ps -l -q"
+
+# list processes
+alias dps="docker ps"
+
+# list processes including stoped containers
+alias dpa="docker ps -a"
+
+# list images
+alias di="docker images"
+
+# list container IP
+alias dip="docker inspect --format '{{ .NetworkSettings.IPAddress }}'"
+
+# run deamonized container, e.g., $dkd sthysel/foobox /bin/echo hello
+alias dkd="docker run -d -P"
+
+# run interactive container, e.g., $dki sthysel/foobox /bin/bash
+alias dki="docker run -it -P"
+
+# execute in interactive container, e.g., $dex sthysel/foobox /bin/bash
+alias dex="docker exec -i -t"
+
+# stop and Remove all containers
+alias dsrm="docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)"
+
+# stop all containers
+dstop() { docker stop $(docker ps -a -q); }
+
+# remove all containers
+drma() { docker rm $(docker ps -a -q); }
+
+# remove all images
+drmi() { docker rmi $(docker images -q); }
+
+# dockerfile build, e.g., $dbc sthysel/test 
+dbc() { 
+    if [[ $1 == "" ]]
+    then
+        echo "Provide tag name"
+        echo "e.g: dbc sthysel/foobox"
+    else
+        docker build -t=$1 .; 
+    fi
+}
+
+# remove all stopped containers
+drms() { docker rm -v $(docker ps -a -f status=exited -q); }
+
+# remove untagged images
+drmut() {
+    images=$(docker images --no-trunc | grep "<none>" | awk '{print $3}')
+    if [[ $images ]]
+    then
+        docker rmi $images 
+    fi
+}
+
+# remove unused docker images
+drmu() {
+    images=($(docker images | awk '{print $1":"$2}'))
+    containers=($(docker ps -a | awk '{print $2}'))
+
+    containers_reg=" ${containers[*]} "
+    remove=()
+
+    for item in ${images[@]}; do
+    if [[ ! $containers_reg =~ " $item " ]]; then
+        remove+=($item)
+    fi
+    done
+
+    remove_images=" ${remove[*]} "
+
+    docker rmi ${remove_images}
+}
+
+dcl() {
+    drms
+    drmut
+}
+
+newbox() {
+    echo "Spinning up $1"
+    docker run --rm --name $1 -it \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v ${HOME}/.vimrc:/home/dev/.vimrc \
+    -v ${HOME}/.vim:/home/dev/.vim \
+    -v ${HOME}/.bashrc:/home/dev/.bashrc \
+    -v ${HOME}/dotfiles:/home/dev/dotfiles \
+    -e HOSTNAME=$1 sthysel/toolbox
+}
+
+untagged_containers() {
+    # Print containers using untagged images: $1 is used with awk's print: 0=line, 1=column 1.
+    # NOTE: "[0-9a-f]{12}" does not work with GNU Awk 3.1.7 (RHEL6).
+    # Ref: https://github.com/blueyed/dotfiles/commit/a14f0b4b#commitcomment-6736470
+    docker ps -a | tail -n +2 | awk '$2 ~ "^[0-9a-f]+$" {print $'$1'}'
+}
+
+untagged_images() {
+    # Print untagged images: $1 is used with awk's print: 0=line, 3=column 3.
+    # NOTE: intermediate images (via -a) seem to only cause
+    # "Error: Conflict, foobarid wasn't deleted" messages.
+    # Might be useful sometimes when Docker messed things up?!
+    # docker images -a | awk '$1 == "<none>" {print $'$1'}'
+    docker images | tail -n +2 | awk '$1 == "<none>" {print $'$1'}'
+}
+
+docker-cleanup() {
+    if [ "$1" = "-n" ]
+    then
+        echo "Containers with uncommitted images:"
+        untagged_containers 0
+        echo
+        echo "Uncommitted images:"
+        untagged_images 0
+        exit
+    fi
+    if [ -n "$1" ]
+    then
+        echo "Cleanup docker files: remove untagged containers and images."
+        echo "Usage: ${0##*/} [-n]"
+        echo " -n: dry run: display what would get removed."
+        exit 1
+    fi
+
+    # Remove containers with untagged images.
+    echo "Removing containers:" >&2
+    untagged_containers 1 | xargs --no-run-if-empty docker rm --volumes=true
+
+    # Remove untagged images
+    echo "Removing images:" >&2
+    untagged_images 3 | xargs --no-run-if-empty docker rmi
+}
+
+# show all docker aliases
+ddoc() { alias | grep 'docker' | sed "s/^\([^=]*\)=\(.*\)/\1 => \2/"| sed "s/['|\']//g" | sort; }
+
