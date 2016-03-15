@@ -7,7 +7,7 @@
 " To start vim without loading any .vimrc or plugins, use:
 "     vim -u NONE
 "
-" This vimrc is both good and original, however, the original bits are not good
+" This vimrc is both good and original - the original bits are not good
 " and the good bits are not original.
 " By and large a curated version of this:
 " https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
@@ -55,14 +55,15 @@ Plugin 'jeetsukumaran/vim-buffergator'
 
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'chrisbra/csv.vim'
+Plugin 'kana/vim-textobj-user'
+Plugin 'kana/vim-textobj-line'
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+
+Plugin 'sickill/vim-monokai'
 
 call vundle#end()
-
-" powerline ------------------------
-python from powerline.vim import setup as powerline_setup
-python powerline_setup()
-python del powerline_setup
-
 
 filetype plugin indent on
 
@@ -148,7 +149,6 @@ set hlsearch                    " highlight search terms
 set incsearch                   " show search matches as you type
 set gdefault                    " search/replace "globally" (on a line) by default
 set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
-
 set nolist                      " don't show invisible characters by default,
                                 " but it is enabled for some file types (see later)
 set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
@@ -168,7 +168,6 @@ set nrformats=                  " make <C-a> and <C-x> play well with
 set shortmess+=I                " hide the launch screen
 set clipboard=unnamed           " normal OS clipboard interaction
 set autoread                    " automatically reload files changed outside of Vim
-
 
 " use python/perl regex, not vim build-in
 nnoremap / /\v
@@ -368,23 +367,14 @@ let g:syntastic_python_flake8_args = "--ignore=E501 --maxcomplexity 10"
 " html tidy does not understand django templates
 let syntastic_mode_map = { 'passive_filetypes': ['html'] }
 
-
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
-
 
 " Windows, splits
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
-
-
-
-" Be explicit about python settings
-autocmd FileType python set sw=4
-autocmd FileType python set ts=4
-autocmd FileType python set sts=4
 
 " Filetype specific handling
 " only do this part when compiled with support for autocommands
