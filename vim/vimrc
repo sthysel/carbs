@@ -35,7 +35,6 @@ Plugin 'ekalinin/Dockerfile.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
-" ag-silversurfer
 Plugin 'rking/ag.vim'
 Plugin 'PotatoesMaster/i3-vim-syntax'
 Plugin 'davidhalter/jedi-vim'
