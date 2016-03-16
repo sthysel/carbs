@@ -101,7 +101,7 @@ inoremap <C-c> <Esc> " exit insert mode
 set foldenable                  " enable folding
 set foldcolumn=2                " add a fold column
 set foldmethod=marker           " detect triple-{ style fold markers
-set foldlevelstart=0           " start out with everything unfolded
+set foldlevelstart=0            " start out with everything folded
 set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo
                                 " which commands trigger auto-unfold
 
@@ -168,6 +168,7 @@ Plugin 'kana/vim-textobj-line'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sickill/vim-monokai'
+Plugin 'tweekmonster/braceless.vim'
 call vundle#end()
 "}}}
 
@@ -281,7 +282,6 @@ if executable('ag')
    " ag is fast enough that CtrlP doesn't need to cache
    let g:ctrlp_use_caching = 0
 endif
-" }}}
 
 " Basic shortcuts definitions
 " most in visual mode / selection (v or ⇧ v)
@@ -315,7 +315,6 @@ set pastetoggle=<F2>
 let &t_SI="\<Esc>]50;CursorShape=1\x7"
 let &t_EI="\<Esc>]50;CursorShape=0\x7"
 
-
 " so pymode also does syntax checking and linting but I prefer syntastic
 let g:pymode_lint=0
 
@@ -325,3 +324,4 @@ nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
 
+autocmd FileType python BracelessEnable +indent +highlight
