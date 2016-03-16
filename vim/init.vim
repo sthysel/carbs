@@ -3,20 +3,60 @@
 "
 "" To start vim without using this .vimrc file, use:
 "     vim -u NORC
-"
 " To start vim without loading any .vimrc or plugins, use:
 "     vim -u NONE
 "
 " This vimrc is both good and original - the original bits are not good
 " and the good bits are not original.
-" By and large a curated version of this:
-" https://raw.githubusercontent.com/nvie/vimrc/master/vimrc
 
-" I don't care about vi, this must be first
-set nocompatible
+scriptencoding utf-8
 filetype off
 
-" Vundle plugin manager
+" Global settings {{{
+" Use :help 'option' to see the documentation for the given option.
+let mapleader=' '               " space for mapleader
+set showmode                    " always show what mode we're currently editing in
+set nowrap                      " don't wrap lines
+set tabstop=4                   " a tab is four spaces
+set softtabstop=4               " when hitting <BS>, pretend like a tab is removed, even if spaces
+set expandtab                   " expand tabs by default (overloadable per file type later)
+set shiftwidth=4                " number of spaces to use for autoindenting
+set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
+set backspace=indent,eol,start  " allow backspacing over everything in insert mode
+set autoindent                  " always set autoindenting on
+set copyindent                  " copy the previous indentation on autoindenting
+set number                      " always show line numbers
+set showmatch                   " set show matching parenthesis
+set ignorecase                  " ignore case when searching
+set smartcase                   " ignore case if search pattern is all lowercase,
+                                " case-sensitive otherwise
+set smarttab                    " insert tabs on the start of a line according to
+                                " shiftwidth, not tabstop
+set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
+set hlsearch                    " highlight search terms
+set incsearch                   " show search matches as you type
+set gdefault                    " search/replace "globally" (on a line) by default
+set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
+set nolist                      " don't show invisible characters by default,
+                                " but it is enabled for some file types (see later)
+set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
+                                "    paste mode, where you can paste mass data
+                                "    that won't be autoindented
+set mouse=a                     " enable using the mouse if terminal emulator
+                                "    supports it (xterm does)
+set fileformats="unix,dos,mac"
+set formatoptions+=1            " When wrapping paragraphs, don't end lines
+                                "    with 1-letter words (looks stupid)
+set nrformats=                  " make <C-a> and <C-x> play well with
+                                "    zero-padded numbers (i.e. don't consider
+                                "    them octal or hex)
+set nrformats-=octal
+set shortmess+=I                " hide the launch screen
+set clipboard=unnamed           " normal OS clipboard interaction
+set autoread                    " automatically reload files changed outside of Vim
+"}}}
+
+" Vundle plugin manager {{{
 set rtp+=~/.config/nvim/bundle/Vundle.vim
 call vundle#rc("~/.config/nvim/bundle/")
 call vundle#begin()
@@ -53,16 +93,31 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sickill/vim-monokai'
 call vundle#end()
+"}}}
 
 filetype plugin indent on
 
-autocmd! BufWritePost .vimrc source %
-
 colorscheme Monokai
 
+" vim-airline {{{
+let g:airline#extensions#tabline#enabled=1
+let g:airline_powerline_fonts=1
+let g:Powerline_symbols='unicode'
+let g:airline_theme='badwolf'
+" }}}
+
+
+" buffergator {{{
+let g:buffergator_viewport_split_policy = 'R' " Use the right side of the screen
+let g:buffergator_suppress_keymaps = 1
+let g:buffergator_mru_cycle_loop = 1
+nmap <leader>jj :BuffergatorMruCyclePrev<cr> " Go to the previous buffer open
+nmap <leader>kk :BuffergatorMruCycleNext<cr> " Go to the next buffer open
+nmap <leader>bl :BuffergatorOpen<cr> " View the entire list of buffers open
+" }}}
+
+
 " here be all the leader keys
-" space for mapleader
-let mapleader=' '
 nnoremap <leader>w :w<CR>
 " Toggle show/hide invisible chars
 nnoremap <leader>i :set list!<cr>
@@ -95,68 +150,12 @@ nmap <silent> <leader>sv :source $MYVIMRC<CR>
 " nmap <leader>bq :bp <BAR> bd #<CR> " Close the current buffer and move to the previous one
 " nmap <leader>bl :ls<CR>            " Show all open buffers and their status
 
-" buffergator setup
-" Use the right side of the screen
-let g:buffergator_viewport_split_policy = 'R'
-" I want my own keymappings...
-let g:buffergator_suppress_keymaps = 1
-" Looper buffers
-"let g:buffergator_mru_cycle_loop = 1
-" Go to the previous buffer open
-nmap <leader>jj :BuffergatorMruCyclePrev<cr>
-" Go to the next buffer open
-nmap <leader>kk :BuffergatorMruCycleNext<cr>
-" View the entire list of buffers open
-nmap <leader>bl :BuffergatorOpen<cr>
 
 " Shared bindings from Solution #1 from earlier
 nmap <leader>T :enew<cr>
 nmap <leader>bq :bp <BAR> bd #<cr>
 
 
-" Use :help 'option' to see the documentation for the given option.
-" Editing behaviour
-set showmode                    " always show what mode we're currently editing in
-set nowrap                      " don't wrap lines
-set tabstop=4                   " a tab is four spaces
-set softtabstop=4               " when hitting <BS>, pretend like a tab is removed, even if spaces
-set expandtab                   " expand tabs by default (overloadable per file type later)
-set shiftwidth=4                " number of spaces to use for autoindenting
-set shiftround                  " use multiple of shiftwidth when indenting with '<' and '>'
-set backspace=indent,eol,start  " allow backspacing over everything in insert mode
-set autoindent                  " always set autoindenting on
-set copyindent                  " copy the previous indentation on autoindenting
-set number                      " always show line numbers
-set showmatch                   " set show matching parenthesis
-set ignorecase                  " ignore case when searching
-set smartcase                   " ignore case if search pattern is all lowercase,
-                                " case-sensitive otherwise
-set smarttab                    " insert tabs on the start of a line according to
-                                " shiftwidth, not tabstop
-set scrolloff=4                 " keep 4 lines off the edges of the screen when scrolling
-set hlsearch                    " highlight search terms
-set incsearch                   " show search matches as you type
-set gdefault                    " search/replace "globally" (on a line) by default
-set listchars=tab:▸\ ,trail:·,extends:#,nbsp:·
-set nolist                      " don't show invisible characters by default,
-                                " but it is enabled for some file types (see later)
-set pastetoggle=<F2>            " when in insert mode, press <F2> to go to
-                                "    paste mode, where you can paste mass data
-                                "    that won't be autoindented
-set mouse=a                     " enable using the mouse if terminal emulator
-                                "    supports it (xterm does)
-set fileformats="unix,dos,mac"
-set formatoptions+=1            " When wrapping paragraphs, don't end lines
-                                "    with 1-letter words (looks stupid)
-
-set nrformats=                  " make <C-a> and <C-x> play well with
-                                "    zero-padded numbers (i.e. don't consider
-                                "    them octal or hex)
-" set nrformats-=octal
-
-set shortmess+=I                " hide the launch screen
-set clipboard=unnamed           " normal OS clipboard interaction
-set autoread                    " automatically reload files changed outside of Vim
 
 " use python/perl regex, not vim build-in
 nnoremap / /\v
@@ -300,11 +299,6 @@ let NERDTreeMouseMode=2
 " Don't display these kinds of files
 let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '__pycache__', '\.DS_Store' ]
 
-" vim-airline
-let g:airline#extensions#tabline#enabled=1
-let g:airline_powerline_fonts=1
-let g:Powerline_symbols='unicode'
-let g:airline_theme='badwolf'
 
 " Basic shortcuts definitions
 " most in visual mode / selection (v or ⇧ v)
