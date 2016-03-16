@@ -15,8 +15,8 @@ do
 done
 
 # vundle install for nvim
-mkdir -p ~/.config/nvim/bundle/ 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.config/nvim/bundle/Vundle.vim
-ln -s ./vim/vimrc ~/.config/nvim/init.vim
+git clone https://github.com/VundleVim/Vundle.vim.git ./vim/bundle/Vundle.vim
+ln -s ./vim ~/.config/nvim
+
 # caps to escape
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
