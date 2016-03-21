@@ -95,6 +95,10 @@ set fileformats=unix,dos,mac
 set viminfo='20,\"50
 nmap F !}fmt^M
 inoremap <C-c> <Esc> " exit insert mode
+
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
 "}}}
 
 " Folding rules {{{
@@ -169,6 +173,7 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'sickill/vim-monokai'
 Plugin 'tweekmonster/braceless.vim'
+Plugin 'Valloric/YouCompleteMe'
 call vundle#end()
 "}}}
 
@@ -263,9 +268,6 @@ vnoremap / /\v
 vnoremap Q gq
 nnoremap Q gqap
 
-if has('syntax') && !exists('g:syntax_on')
-  syntax enable
-endif
 
 " non patronising positive enforcement
 nnoremap <Left> :echoe "No sunshine, use h"<CR>
@@ -324,4 +326,4 @@ nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
 
-autocmd FileType python BracelessEnable +indent +highlight
+autocmd FileType python,yaml BracelessEnable +indent +highlight
