@@ -1,8 +1,8 @@
+#!/bin/bash
 
 HERE=$(cd $(dirname $0) && pwd) 
 
-echo "Installing from "$HERE
-
+echo "Installing from ${HERE} "
 
 for file in "${HERE}"/*
 do
@@ -14,6 +14,9 @@ do
     fi
 done
 
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+# vundle install for nvim
+git clone https://github.com/VundleVim/Vundle.vim.git ./vim/bundle/Vundle.vim
+ln -s ./vim ~/.config/nvim
 
+# caps to escape
 dconf write /org/gnome/desktop/input-sources/xkb-options "['caps:escape']"
