@@ -136,45 +136,44 @@ nnoremap z4 :set foldlevel=4<cr>
 nnoremap z5 :set foldlevel=5<cr>
 " }}}
 
-" Vundle plugin manager {{{
-set rtp+=~/.config/nvim/bundle/Vundle.vim
-call vundle#rc("~/.config/nvim/bundle/")
-call vundle#begin()
-Plugin 'gmarik/Vundle.vim'
-" Plugin 'scrooloose/syntastic'
-Plugin 'wincent/command-t'
+" Plug plugin manager {{{
+call plug#begin("~/.config/nvim/plugged")
+Plug 'gmarik/Vundle.vim'
+" Plug 'scrooloose/syntastic'
+Plug 'wincent/command-t'
 " orgmode
-Plugin 'jceb/vim-orgmode'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-sensible'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'ekalinin/Dockerfile.vim'
-" Plugin 'majutsushi/tagbar'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
-Plugin 'PotatoesMaster/i3-vim-syntax'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'Chiel92/vim-autoformat'
-Plugin 'pangloss/vim-javascript'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'einars/js-beautify'
-Plugin 'rstacruz/sparkup'
-Plugin 'vim-scripts/closetag.vim'
-Plugin 'jeetsukumaran/vim-buffergator'
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'chrisbra/csv.vim'
-Plugin 'kana/vim-textobj-user'
-Plugin 'kana/vim-textobj-line'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'sickill/vim-monokai'
-Plugin 'tweekmonster/braceless.vim'
-Plugin 'Valloric/YouCompleteMe'
-call vundle#end()
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-sensible'
+Plug 'airblade/vim-gitgutter'
+Plug 'ekalinin/Dockerfile.vim'
+" Plug 'majutsushi/tagbar'
+Plug 'flazz/vim-colorschemes'
+Plug 'scrooloose/nerdtree'
+Plug 'kien/ctrlp.vim'
+Plug 'rking/ag.vim'
+Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'davidhalter/jedi-vim'
+Plug 'Chiel92/vim-autoformat'
+Plug 'pangloss/vim-javascript'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'einars/js-beautify'
+Plug 'rstacruz/sparkup'
+Plug 'vim-scripts/closetag.vim'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'tmhedberg/SimpylFold'
+Plug 'chrisbra/csv.vim'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-textobj-line'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'sickill/vim-monokai'
+Plug 'tweekmonster/braceless.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'pearofducks/ansible-vim'
+call plug#end()
 "}}}
 
 " vim-airline {{{
