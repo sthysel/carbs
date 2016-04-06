@@ -7,7 +7,7 @@ brown noise                              brownpeace
 enterprise noise                         engage
 wget with better defaults                sget
 edit todo                                etodo
-Dokcer docs                              ddoc
+Docker docs                              ddoc
 
 vim
 ===
