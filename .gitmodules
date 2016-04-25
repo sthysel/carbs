@@ -4,3 +4,6 @@
 [submodule "vim"]
 	path = vim
 	url = git@github.com:sthysel/dotvim.git
+[submodule "alias.d/docker"]
+	path = alias.d/docker
+	url = git@github.com:sthysel/docker-alias.git
