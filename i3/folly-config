@@ -112,15 +112,14 @@ bindsym $mod+Shift+9 move container to workspace $tag_hell
 bindsym $mod+Shift+0 move container to workspace $tag_heaven
 
 # screens
-set $left DVI_I_1
-set $right DVI_D_0
-workspace $tag_smashing output $left
-workspace $tag_www output $right
-workspace $tag_bpa output $left
-workspace $tag_beach output $right
-workspace $tag_mountain output $right
-workspace $tag_rivendell output $left
-workspace $tag_shire output $left
+set $main DP-0
+workspace $tag_smashing output $main
+workspace $tag_www output $main
+workspace $tag_bpa output $main
+workspace $tag_beach output $main
+workspace $tag_mountain output $main
+workspace $tag_rivendell output $main
+workspace $tag_shire output $main
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
