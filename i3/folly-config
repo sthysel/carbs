@@ -76,50 +76,41 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # Name the workspaces
-set $tag_www "1: www"
-set $tag_people "2: people"
-set $tag_bpa "3: bpa"
-set $tag_beach "4: beach"
-set $tag_mountain "5: mountain"
-set $tag_rivendell "6: rivendell"
-set $tag_shire "7: shire"
-set $tag_dispairpit "8: dispairpit"
-set $tag_hell "9: hell"
-set $tag_heaven "10: heaven"
+set $tag_hat "1 hat"
+set $tag_hen "2 hen"
+set $tag_ham "3 ham"
+set $tag_hair "4 hair"
+set $tag_hill "5 hill"
+set $tag_hook "6 shoe"
+set $tag_hook "7 hook"
+set $tag_hoof "8 hoof"
+set $tag_hoop "9 hoop"
+set $tag_dice "10 dice"
 
 # switch to workspace
-bindsym $mod+1 workspace $tag_www
-bindsym $mod+2 workspace $tag_people
-bindsym $mod+3 workspace $tag_bpa
-bindsym $mod+4 workspace $tag_beach
-bindsym $mod+5 workspace $tag_mountain
-bindsym $mod+6 workspace $tag_rivendell
-bindsym $mod+7 workspace $tag_shire
-bindsym $mod+8 workspace $tag_dispairpit 
-bindsym $mod+9 workspace $tag_hell 
-bindsym $mod+0 workspace $tag_heaven 
+bindsym $mod+1 workspace $tag_hat
+bindsym $mod+2 workspace $tag_hen
+bindsym $mod+3 workspace $tag_ham
+bindsym $mod+4 workspace $tag_hair
+bindsym $mod+5 workspace $tag_hill
+bindsym $mod+6 workspace $tag_shoe
+bindsym $mod+7 workspace $tag_hook
+bindsym $mod+8 workspace $tag_hoof
+bindsym $mod+9 workspace $tag_hoop
+bindsym $mod+0 workspace $tag_dice
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $tag_www
-bindsym $mod+Shift+2 move container to workspace $tag_people
-bindsym $mod+Shift+3 move container to workspace $tag_bpa
-bindsym $mod+Shift+4 move container to workspace $tag_beach
-bindsym $mod+Shift+5 move container to workspace $tag_mountain
-bindsym $mod+Shift+6 move container to workspace $tag_rivendell
-bindsym $mod+Shift+7 move container to workspace $tag_shire
-bindsym $mod+Shift+8 move container to workspace $tag_dispairpit
-bindsym $mod+Shift+9 move container to workspace $tag_hell 
-bindsym $mod+Shift+0 move container to workspace $tag_heaven
+bindsym $mod+Shift+1 move container to workspace $tag_hat
+bindsym $mod+Shift+2 move container to workspace $tag_hen
+bindsym $mod+Shift+3 move container to workspace $tag_ham
+bindsym $mod+Shift+4 move container to workspace $tag_hair
+bindsym $mod+Shift+5 move container to workspace $tag_hill
+bindsym $mod+Shift+6 move container to workspace $tag_shoe
+bindsym $mod+Shift+7 move container to workspace $tag_hook
+bindsym $mod+Shift+8 move container to workspace $tag_hoof
+bindsym $mod+Shift+9 move container to workspace $tag_hoop
+bindsym $mod+Shift+0 move container to workspace $tag_dice
 
-# screens
-set $main DP-0
-workspace $tag_smashing output $main
-workspace $tag_www output $main
-workspace $tag_bpa output $main
-workspace $tag_beach output $main
-workspace $tag_mountain output $main
-workspace $tag_rivendell output $main
-workspace $tag_shire output $main
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
