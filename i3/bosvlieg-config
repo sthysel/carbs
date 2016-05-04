@@ -1,17 +1,5 @@
 # i3 config file (v4)
-#
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-# To give a presentation do:
-# # xrandr (and determine active outputs and resolutions)
-# #
-# # xrandr --output LVDS1 --mode 1024x768 --output DP1 --mode 1280x720 --same-as LVDS1
-# # xrandr --output VGA1 --mode 1024x768 --same-as LVDS1
-# #
-# # If you dont want clone then:
-# # xrandr --output VGA1 --mode 1024x768 --right-of LVDS1
-# #
-# # To switch back:
-# # xrandr --output VGA1 --right-of LVDS1 --auto
 
 set $mod Mod4
 
@@ -27,7 +15,7 @@ exec --no-startup-id udisks-glue
 exec --no-startup-id pactl set-sink-volume 0 '20%'
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
-exec --no-startup-id xset dpms 300 600 900 
+exec --no-startup-id xset dpms 300 600 900
 
 # chose a FreeType font, such as:
 font pango:DejaVu Sans Mono 10
@@ -43,7 +31,7 @@ bindsym Control+Mod1+s exec sleep 5 && xset dpms force standby
 bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
-bindsym $mod+Shift+Q kill
+bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
 bindsym $mod+space exec dmenu_run
@@ -54,13 +42,11 @@ bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
 
 # split in horizontal orientation
 bindsym $mod+- split h
@@ -85,56 +71,46 @@ bindsym $mod+x focus mode_toggle
 # focus the parent container
 bindsym $mod+a focus parent
 
-# focus the child container
-#bindsym $mod+d focus child
-
-
 # scratchpad
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # Name the workspaces
-set $tag_www "1: www"
-set $tag_people "2: people"
-set $tag_bpa "3: bpa"
-set $tag_beach "4: beach"
-set $tag_mountain "5: mountain"
-set $tag_rivendell "6: rivendell"
-set $tag_shire "7: shire"
+set $tag_hat "1 hat"
+set $tag_hen "2 hen"
+set $tag_ham "3 ham"
+set $tag_hair "4 hair"
+set $tag_hill "5 hill"
+set $tag_hook "6 shoe"
+set $tag_hook "7 hook"
+set $tag_hoof "8 hoof"
+set $tag_hoop "9 hoop"
+set $tag_dice "10 dice"
 
 # switch to workspace
-bindsym $mod+1 workspace $tag_www
-bindsym $mod+2 workspace $tag_people
-bindsym $mod+3 workspace $tag_bpa
-bindsym $mod+4 workspace $tag_beach
-bindsym $mod+5 workspace $tag_mountain
-bindsym $mod+6 workspace $tag_rivendell
-bindsym $mod+7 workspace $tag_shire
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace $tag_hat
+bindsym $mod+2 workspace $tag_hen
+bindsym $mod+3 workspace $tag_ham
+bindsym $mod+4 workspace $tag_hair
+bindsym $mod+5 workspace $tag_hill
+bindsym $mod+6 workspace $tag_shoe
+bindsym $mod+7 workspace $tag_hook
+bindsym $mod+8 workspace $tag_hoof
+bindsym $mod+9 workspace $tag_hoop
+bindsym $mod+0 workspace $tag_dice
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $tag_www
-bindsym $mod+Shift+2 move container to workspace $tag_people
-bindsym $mod+Shift+3 move container to workspace $tag_bpa
-bindsym $mod+Shift+4 move container to workspace $tag_beach
-bindsym $mod+Shift+5 move container to workspace $tag_mountain
-bindsym $mod+Shift+6 move container to workspace $tag_rivendell
-bindsym $mod+Shift+7 move container to workspace $tag_shire
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace $tag_hat
+bindsym $mod+Shift+2 move container to workspace $tag_hen
+bindsym $mod+Shift+3 move container to workspace $tag_ham
+bindsym $mod+Shift+4 move container to workspace $tag_hair
+bindsym $mod+Shift+5 move container to workspace $tag_hill
+bindsym $mod+Shift+6 move container to workspace $tag_shoe
+bindsym $mod+Shift+7 move container to workspace $tag_hook
+bindsym $mod+Shift+8 move container to workspace $tag_hoof
+bindsym $mod+Shift+9 move container to workspace $tag_hoop
+bindsym $mod+Shift+0 move container to workspace $tag_dice
 
-# eDP1  laptop
-# eDP1 Dell
-workspace $tag_people output eDP1
-workspace $tag_www output eDP1
-workspace $tag_bpa output eDP1
-workspace $tag_beach output eDP1
-workspace $tag_mountain output eDP1
-workspace $tag_rivendell output eDP1
-workspace $tag_shire output eDP1
 
 # reload the configuration file
 bindsym $mod+Shift+C reload
@@ -172,31 +148,13 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c ~/.i3/status
+        status_command i3status -c ~/.config/i3/status
         position top
         # mode hide
         modifier $mod
 }
 
 # start the session
-# exec --no-startup-id ~/.i3/autostart
-
-# Audio controls
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume 0 +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume 0 -5% #decrease sound volume
-bindsym XF86AudioMute exec pactl set-sink-mute 0 toggle # mute sound
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
-
-# Touchpad controls
-bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
-# Media player controls
-bindsym XF86AudioPlay exec playerctl play
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+exec --no-startup-id ~/.i3/autostart
 
 # vim:filetype=i3
