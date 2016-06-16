@@ -146,6 +146,7 @@ workspace $tag_dice output $DELL_SCREEN
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
+bindsym $win+e exec "emacsclient -c"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
