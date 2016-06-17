@@ -24,10 +24,10 @@ alias brownpeace="play -n synth brownnoise"
 alias engage="play -n -c1 synth whitenoise lowpass -1 120 lowpass -1 120 lowpass -1 120 gain +14"
 alias e="vim --remote-silent"
 
-# taxpayers ; google-chrome https://localhost:8222
-alias tp="ssh -L 8222:localhost:80 ccgcloud0 -v"
-# firewall ; google-chrome https://localhost:8111/index.php
-alias fw="ssh -L 8111:192.168.1.1:443 ccgcloud0 -v"
+# taxpayers 
+alias tp="ssh -N -L 8222:localhost:80 ccgcloud0 &; /usr/bin/google-chrome http://localhost:8222"
+# firewall 
+alias fw="ssh -N -L 8111:192.168.1.1:443 ccgcloud0 &;  /usr/bin/google-chrome https://localhost:8111/index.php"
 
 alias fig="docker-compose"
 alias sget='wget -r -nH --cut-dirs=10 --no-parent --reject="index.html*"'
