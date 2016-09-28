@@ -1,3 +1,4 @@
 # i want python3
-alias python="python3.5"
-alias ipython="ipython3"
+# this breaks virtualenv :-)
+# alias python="python3.5"
+# alias ipython="ipython3"
