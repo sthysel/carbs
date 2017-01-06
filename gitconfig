@@ -1,13 +1,13 @@
 [user]
     name = Thys Meintjes
-    email = tmeintjes@ccg.murdoch.edu.au
+    email = sthysel@gmail.com
 
 [core]
     editor = vim
 
 [push]
-	default = current
-	followTags = true
+    default = current
+    followTags = true
 
 [alias]
     ci = commit
