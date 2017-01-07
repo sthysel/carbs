@@ -13,6 +13,9 @@
 # # To switch back:
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 
+font pango:DejaVu Sans Mono 10
+# font pango:monospace 8
+
 # eDP1  laptop
 set $LAPTOP_SCREEN eDP1
 
@@ -32,8 +35,6 @@ exec --no-startup-id volumeicon
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900 
 
-# chose a FreeType font, such as:
-font pango:DejaVu Sans Mono 10
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -51,23 +52,40 @@ bindsym $mod+Shift+Q kill
 # start dmenu (a program launcher)
 bindsym $mod+space exec dmenu_run
 
-# change focus
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# aliases for movement
+set $up k
+set $down j
+set $left h
+set $right l 
 
+# focus
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+
+# focus window using arrows
+bindsym Mod1+Left focus left
+bindsym Mod1+Down focus down
+bindsym Mod1+Up focus up
+bindsym Mod1+Right focus right
 
 # move focused window
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# move window using arrows
+bindsym Mod1+Shift+Left move left
+bindsym Mod1+Shift+Down move down
+bindsym Mod1+Shift+Up move up
+bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+= split h
+bindsym $mod+equal split v 
 # split in vertical orientation
-bindsym $mod+\ split v
+bindsym $mod+backslash split h
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
