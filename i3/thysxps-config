@@ -17,7 +17,7 @@ font pango:DejaVu Sans Mono 10
 # font pango:monospace 8
 
 # eDP1  laptop
-set $LAPTOP_SCREEN eDP1
+set $LAPTOP_SCREEN eDP-1
 
 set $mod Mod4
 
@@ -29,8 +29,8 @@ exec --no-startup-id gnome-power-manager
 exec --no-startup-id gnome-keyring-daemon
 exec --no-startup-id udisks-glue
 
-# volume control icon
 exec --no-startup-id volumeicon
+exec --no-startup-id indicator-sound-switcher
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900 
@@ -88,12 +88,13 @@ bindsym $mod+equal split v
 bindsym $mod+backslash split h
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
+bindsym $mod+d layout toggle all
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -102,7 +103,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+x focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+# bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -111,17 +112,18 @@ bindsym $mod+a focus parent
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
+workspace_auto_back_and_forth yes
+
 # Name the workspaces
-set $tag_hat "1 hat"
-set $tag_hen "2 hen"
-set $tag_ham "3 ham"
-set $tag_hair "4 hair"
-set $tag_hill "5 hill"
-set $tag_shoe "6 shoe"
-set $tag_hook "7 hook"
-set $tag_hoof "8 hoof"
-set $tag_hoop "9 hoop"
-set $tag_dice "10 dice"
+set $tag_hat "1: ha<b>t</b>"
+set $tag_hen "2: he<b>n</b>"
+set $tag_ham "3: ha<b>m</b>"
+set $tag_hair "4: hai<b>r</b>"
+set $tag_hill "5: hi<b>ll</b>"
+set $tag_shoe "6: <b>sh</b>oe"
+set $tag_hook "7: hoo<b>k</b>"
+set $tag_hoof "8: hoo<b>f</b>"
+set $tag_hoop "9: hoo<b>p</b>"
 
 # switch to workspace
 bindsym $mod+1 workspace $tag_hat
@@ -133,7 +135,6 @@ bindsym $mod+6 workspace $tag_shoe
 bindsym $mod+7 workspace $tag_hook
 bindsym $mod+8 workspace $tag_hoof
 bindsym $mod+9 workspace $tag_hoop
-bindsym $mod+0 workspace $tag_dice
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $tag_hat
@@ -145,7 +146,6 @@ bindsym $mod+Shift+6 move container to workspace $tag_shoe
 bindsym $mod+Shift+7 move container to workspace $tag_hook
 bindsym $mod+Shift+8 move container to workspace $tag_hoof
 bindsym $mod+Shift+9 move container to workspace $tag_hoop
-bindsym $mod+Shift+0 move container to workspace $tag_dice
 
 workspace $tag_hat output $LAPTOP_SCREEN 
 workspace $tag_hen output $LAPTOP_SCREEN
@@ -156,13 +156,26 @@ workspace $tag_shoe output $LAPTOP_SCREEN
 workspace $tag_hook output $LAPTOP_SCREEN
 workspace $tag_hoof output $LAPTOP_SCREEN
 workspace $tag_hoop output $LAPTOP_SCREEN
-workspace $tag_dice output $LAPTOP_SCREEN
 
 
 bindsym $mod+Shift+r restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
-bindsym $win+e exec "emacsclient -c"
+bindsym $mod+Tab workspace next
+
+set $apps "Start apps: google-chrome emacs vim gitkraken pycharm" 
+mode $apps {
+        bindsym $mod+g exec google-chrome
+        bindsym $mod+e exec emacs
+        bindsym $mod+v exec vim
+        bindsym $mod+k exec gitkraken 
+        bindsym $mod+p exec pycharm.sh
+
+        # back to normal: Enter or Escape
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+a mode $apps
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -172,10 +185,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym $down resize shrink width 10 px or 10 ppt
+        bindsym $up resize grow height 10 px or 10 ppt
+        bindsym $right resize shrink height 10 px or 10 ppt
+        bindsym  resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -213,4 +226,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 # start the session
 exec --no-startup-id ~/.i3/autostart
 
+# Simulate ctrl+v upon pressing $mod+x
+# bindsym --release $mod+x exec --no-startup-id xdotool key --clearmodifiers ctrl+v
+
+# Take a screenshot upon pressing $mod+x (select an area)
+bindsym --release $mod+x exec --no-startup-id import /tmp/latest-screenshot.png
 # vim:filetype=i3
