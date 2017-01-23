@@ -174,8 +174,16 @@ mode $apps {
         # back to normal: Enter or Escape
         bindsym Escape mode "default"
 }
-
 bindsym $mod+a mode $apps
+
+set $suspend "Suspend" 
+mode $suspend {
+        bindsym $mod+x exec pm-suspend
+
+        # back to normal: Enter or Escape
+        bindsym Escape mode "default"
+}
+bindsym $mod+p mode $suspend
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
