@@ -1,9 +1,6 @@
-[submodule "docker-alias"]
-	path = docker-alias
-	url = git@github.com:sthysel/docker-alias.git
-[submodule "vim"]
-	path = vim
-	url = git@github.com:sthysel/dotvim.git
-[submodule "alias.d/docker"]
-	path = alias.d/docker
-	url = git@github.com:sthysel/docker-alias.git
+[submodule "compton-config"]
+	path = compton-config
+	url = git@github.com:sthysel/compton-config.git
+[submodule "vim-config"]
+	path = vim-config
+	url = git@github.com:sthysel/vim-config.git
