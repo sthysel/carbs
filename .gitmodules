@@ -1,3 +1,6 @@
 [submodule "compton"]
 	path = compton
 	url = https://github.com/sthysel/compton-config.git
+[submodule "vim"]
+	path = vim
+	url = git@github.com:sthysel/vim-config.git
