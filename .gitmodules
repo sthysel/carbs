@@ -7,3 +7,6 @@
 [submodule "zsh"]
 	path = zsh
 	url = git@github.com:sthyselzsh/zsh-config.git
+[submodule "i3"]
+	path = i3
+	url = git@github.com:sthysel/i3-config.git
