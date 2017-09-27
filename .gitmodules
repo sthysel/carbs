@@ -3,13 +3,13 @@
 	url = https://github.com/sthysel/compton-config.git
 [submodule "vim"]
 	path = vim
-	url = git@github.com:sthysel/vim-config.git
+	url = https://github.com/sthysel/vim-config.git
 [submodule "zsh"]
 	path = zsh
-	url = git@github.com:sthyselzsh/zsh-config.git
+	url = https://github.com/sthyselzsh/zsh-config.git
 [submodule "i3"]
 	path = i3
-	url = git@github.com:sthysel/i3-config.git
+	url = https://github.com/sthysel/i3-config.git
 [submodule "ranger"]
 	path = ranger
-	url = git@github.com:sthysel/ranger-config.git
+	url = https://github.com:sthysel/ranger-config.git
