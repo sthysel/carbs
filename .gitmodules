@@ -4,12 +4,12 @@
 [submodule "vim"]
 	path = vim
 	url = https://github.com/sthysel/vim-config.git
-[submodule "zsh"]
-	path = zsh
-	url = https://github.com/sthyselzsh/zsh-config.git
 [submodule "i3"]
 	path = i3
 	url = https://github.com/sthysel/i3-config.git
 [submodule "ranger"]
 	path = ranger
-	url = https://github.com:sthysel/ranger-config.git
+	url = https://github.com/sthysel/ranger-config.git
+[submodule "zsh"]
+	path = zsh
+	url = https://github.com/sthyselzsh/zsh-config.git
