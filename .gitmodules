@@ -7,6 +7,7 @@
 	url = https://github.com/sthysel/vim-config.git
     branch = master
 [submodule "i3"]
+    branch = master
 	path = i3
 	url = https://github.com/sthysel/i3-config.git
     branch = master
