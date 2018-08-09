@@ -20,5 +20,5 @@
     branch = master
 [submodule "spacemacs-systemd"]
 	  path = spacemacs-systemd
-	  url = git@github.com:sthysel/spacemacs-systemd
+	  url = https://github.com/sthysel/spacemacs-systemd.git
 	  branch = master
