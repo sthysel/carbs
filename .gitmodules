@@ -1,28 +1,24 @@
 [submodule "compton"]
     path = compton
-    url = git://github.com:sthysel/compton-config.git
+    url = https://github.com/sthysel/compton-config.git
     branch = master
 [submodule "vim"]
 	path = vim
-	url = git://github.com:sthysel/vim-config.git
+	url = https://github.com/sthysel/vim-config.git
     branch = master
 [submodule "i3"]
 	path = i3
-	url = git://github.com:sthysel/i3-config.git
+	url = https://github.com/sthysel/i3-config.git
     branch = master
 [submodule "ranger"]
 	path = ranger
-	url = git://github.com:sthysel/ranger-config.git
+	url = https://github.com/sthysel/ranger-config.git
     branch = master
 [submodule "zsh"]
 	path = zsh
-	url = git://github.com:sthyselzsh/zsh-config.git
+	url = https://github.com/sthyselzsh/zsh-config.git
     branch = master
 [submodule "spacemacs-systemd"]
 	path = spacemacs-systemd
-	url = git://github.com:sthysel/spacemacs-systemd
-	branch = master
-[submodule "bash"]
-	path = bash
-	url = git://github.com:sthysel/bash-config.git
+	url = https://github.com/sthysel/spacemacs-systemd.git
 	branch = master
