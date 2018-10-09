@@ -22,3 +22,7 @@
 	path = spacemacs-systemd
 	url = https://github.com/sthysel/spacemacs-systemd.git
 	branch = master
+[submodule "bash"]
+	path = bash
+	url = https://github.com/sthysel/bash-config.git
+	branch = master
