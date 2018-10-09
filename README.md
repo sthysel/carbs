@@ -25,5 +25,6 @@ doing a `stow -t ${HOME} dot` in the compton folder now links everything in
 dot/ to ${HOME}
 
 
+`$make update` fetches master branches of submodules.
 
 
