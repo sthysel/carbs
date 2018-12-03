@@ -1,12 +1,13 @@
 #!/bin/sh
 
 REPORT=~/.weatherreport
+TERMINAL=kitty
 
 ### If location isn't automatically detected set this
 location=""
 
 case $BLOCK_BUTTON in
-    1) $TERMINAL -e less -S ~/.weatherreport ;;
+    1) $TERMINAL -e less -R -S ${REPORT} ;;
     3) pgrep -x dunst >/dev/null && notify-send "<b>🌈 Weather module:</b>
 - Click for wttr.in forecast.
 ☔: Chance of rain
