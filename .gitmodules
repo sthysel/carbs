@@ -26,3 +26,6 @@
 	path = bash
 	url = https://github.com/sthysel/bash-config.git
 	branch = master
+[submodule "rofi"]
+	path = rofi
+	url = https://github.com/sthysel/rofi-config.git
