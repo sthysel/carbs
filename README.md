@@ -1,14 +1,4 @@
-# dotfiles
-
-This repo keeps all other dotfile trees in one repository as git
-submodules.  That way all dot are kept in a single `~/dotfiles` and you know
-what you got. Pick the things you need and install only them.
-
-I did it this way because I did not like having unrelated config in the same
-repo, and people generally only care about zsh or bash or ranger and they
-already have their own config the way they like it for the tools they care
-about. This way I can share specific dotfiles with coleages and friends and
-still keep everyhing I need together.
+# Comfy Arch
 
 
 ## install
