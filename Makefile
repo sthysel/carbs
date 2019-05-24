@@ -1,3 +1,3 @@
-update:
-	git submodule update --recursive --remote --init
+local:
+	stow -t ~/.local .local
 
