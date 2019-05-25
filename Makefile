@@ -5,3 +5,6 @@ install-scrips:
 install-config:
 	stow -t ~/.config config
 
+install-profile:
+	stow -t ~/ profile
+
