@@ -1,4 +1,4 @@
-command=~/.local/bin/$BLOCK_NAME
+command=~/.config/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
@@ -42,7 +42,6 @@ interval=5
 [battery]
 command=acpi | cut -d " " -f3-5 |  sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/❓/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g"
 interval=5
-
 
 [clock]
 label=📅
