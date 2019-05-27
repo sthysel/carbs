@@ -1,16 +1,18 @@
 spacevimrc=~/.SpaceVim.d/
 
-install-scrips:
+scrips:
 	cd scripts; stow -t ~/.local/bin/ tools
 	cd scripts; stow -t ~/.local/bin/ i3commands 
 
-install-config:
+config:
 	stow -t ~/.config config
 
-install-profile:
+profile:
 	stow -t ~/ profile
 
-install-spacevim: 
+spacevim: 
 	mkdir -p ${spacevimrc}
 	stow -t ${spacevimrc} spacevim
+
+all: config scrips profile spacevim
 

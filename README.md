@@ -1,31 +1,40 @@
-# Comfy Arch
+# CARBS
+
+Chad Arch Random Bootstrap Scripts, and also dots.
+
+![CARBS](pics/iregretnothing.jpeg)
+
+## Install
+
+Everything is installed using `stow`. The `Makefile` knows how to use it, so
+use that like so: `make all`
 
 
-## install
+## But how ?
 
-Clone this repo and do a `$ make update` to get the latest submodules.
-
-Then use `stow` to link those you need out to where the tool expects its config
-to be: typically `~.config/`.
-
-All config repos keeps the linkfarm gathered files in a `dot` directory, so a
-common ` $ stow -t ${HOME} dot ` command works for all dotfile repos.
-
-For example compton's config is stored like so
+So `scrips` is directory with usefull scrips, to link it into `~/.local/bin`
+where it belongs do `stow -t ~/.local/bin/ scripts`, or just `make scripts`
 
 ```zsh
-compton
-├── dot/
-│   └── .config/
-│       └── compton.conf
-├── LICENSE
-└── README.md
-``` 
+├── scripts/
+│   ├── i3commands/
+│   │   ├── clipboarder*
+│   │   ├── hover*
+│   │   ├── i3dropdownspawn*
+│   │   ├── i3resize*
+│   │   ├── pornmode*
+│   │   ├── prompt*
+│   │   ├── samedir*
+│   │   └── winresize*
+│   ├── tools/
+│   │   ├── avi2mp4.sh*
+│   │   └── mp4togif.sh*
+│   └── README.md
 
-doing a `stow -t ${HOME} dot` in the compton folder now links everything in
-`dot/` to `${HOME}`
+```
 
+This will link all the scripts in `scripts` into `~/.local/bin`. You are now done.
 
-`$make update` fetches master branches of submodules.
+![Shot](pics/screenshot1.jpg)
 
 
