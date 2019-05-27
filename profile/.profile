@@ -6,3 +6,4 @@ fi
 export PATH="$PATH:$HOME/.local/bin"
 
 export TERMINAL=kitty
+export BROWSER=google-chrome-stable
