@@ -4,16 +4,19 @@ Chad Arch Random Bootstrap Scripts, and also dots.
 
 ![CARBS](pics/iregretnothing.jpeg)
 
-## Install
+## Install CARBS dots right now
 
 Everything is installed using `stow`. The `Makefile` knows how to use it, so
-use that like so: `make all`
+use that like so: `make all`, thats all.
 
 
-## But how ?
+## stow shenanigans
 
-So `scrips` is directory with usefull scrips, to link it into `~/.local/bin`
-where it belongs do `stow -t ~/.local/bin/ scripts`, or just `make scripts`
+So `scripts` is a directory with usefull scrips. To link `scripts/tools` into
+`~/.local/bin` where it belongs, do `cd scripts; stow -t ~/.local/bin/ tools`, or just
+`make scripts`, which will do it for both `i3commands` and `tools`.
+
+So this tree will be linked into `~/.local/bin`
 
 ```zsh
 ├── scripts/
@@ -33,7 +36,7 @@ where it belongs do `stow -t ~/.local/bin/ scripts`, or just `make scripts`
 
 ```
 
-This will link all the scripts in `scripts` into `~/.local/bin`. You are now done.
+## Desktop fed on delightfull and moist CARBS
 
 ![Shot](pics/screenshot1.jpg)
 
