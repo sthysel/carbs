@@ -7,7 +7,7 @@ Chad Arch Random Bootstrap Scripts, and also dots.
 ## Install CARBS dots right now
 
 Everything is installed using `stow`. The `Makefile` knows how to use it, so
-use that like so: `make all`, thats all.
+use that like so: `make -B all`, thats all.
 
 
 ## stow shenanigans
@@ -36,7 +36,7 @@ So this tree will be linked into `~/.local/bin`
 
 ```
 
-## Desktop fed on delightfull and moist CARBS
+## Desktop fed on moist and delightfull CARBS
 
 ![Shot](pics/screenshot1.jpg)
 
