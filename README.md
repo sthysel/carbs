@@ -2,7 +2,7 @@
 
 Chad Arch Random Bootstrap Scripts, and also dots.
 
-![CARBS](pics/iregretnothing.jpeg)
+![Shot](pics/screenshot1.jpg)
 
 ## Install CARBS dots right now
 
@@ -38,6 +38,6 @@ So this tree will be linked into `~/.local/bin`
 
 ## Desktop fed on moist and delightfull CARBS
 
-![Shot](pics/screenshot1.jpg)
+![CARBS](pics/iregretnothing.jpeg)
 
 
