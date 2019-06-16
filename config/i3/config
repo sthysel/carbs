@@ -256,7 +256,7 @@ exec --no-startup-id udisks-glue
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 # Unclutter makes the mouse invisible after a brief period
 # exec_always--no-startup-id unclutter
-exec_always --no-startup-id feh --bg-scale ~/.wallpaper/wall
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/wall
 
 # things that need to run always
 # exec --no-startup-id google-chrome-stable
