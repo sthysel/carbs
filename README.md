@@ -9,6 +9,8 @@ Chad Arch Random Bootstrap Scripts, and also dots.
 Everything is installed using `stow`. The `Makefile` knows how to use it, so
 use that like so: `make -B all`, thats all.
 
+So in `stow` parlance most directories here are `packages`, `stow` links these into
+the appropiate target directories noted in the Makefile.
 
 ## stow shenanigans
 
