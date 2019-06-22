@@ -1,8 +1,10 @@
 spacevimrc=~/.SpaceVim.d/
 
-scrips:
-	cd scripts; stow -t ~/.local/bin/ tools
-	cd scripts; stow -t ~/.local/bin/ i3commands 
+.PHONEY: scripts config profile spacevim
+
+scripts:
+	stow -d ./scripts -t ~/.local/bin/ tools
+	stow -d ./scripts -t ~/.local/bin/ i3commands 
 
 config:
 	stow -t ~/.config config
