@@ -262,4 +262,8 @@ exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
 # exec --no-startup-id google-chrome-stable
 # exec --no-startup-id emacs
 
+for_window [window_role="About"] floating enable
+for_window [class="vlc"] floating enable
+for_window [title="Authy"] floating enable
+
 # vim:filetype=i3
