@@ -48,6 +48,9 @@ for_window [window_role="About"] floating enable
 for_window [class="vlc"] floating enable
 for_window [title="Authy"] floating enable
 
+# mqtt-spy
+for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
+
 
 bar {
   font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
