@@ -3,26 +3,39 @@
   vars:
     username: thys
   tasks:
-    - name: "All the tools"
+    - name: "Editors"
       become: yes
       pacman:
-        - wget
-        - curl
-        - git
-        - stow
-        - nvim
-        - emacs
-        - htop
-        - kitty
-        - docker
-        - rofi
-        - i3-gaps
-        - pavucontrol
-        - i3blocks
-        - xorg-server 
-        - xorg-apps 
-        - xorg-xinit 
-        - numlockx
-        - lightdm 
-        - lightdm-gtk-greeter
+        name:
+          - neovim
+          - emacs
+    - name: "Desktop environment"
+      become: yes
+      pacman:
+        name:
+          - lsd
+          - kitty
+          - rofi
+          - i3-gaps
+          - pavucontrol
+          - i3blocks
+          - xorg-server 
+          - xorg-apps 
+          - xorg-xinit 
+          - numlockx
+          - lightdm 
+          - lightdm-gtk-greeter
+    - name: "Tools"
+      become: yes
+      pacman:
+        name:
+          - python
+          - python-pip
+          - ansible
+          - wget
+          - curl
+          - git
+          - stow
+          - htop
+          - docker
 
