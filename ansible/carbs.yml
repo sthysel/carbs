@@ -3,39 +3,71 @@
   vars:
     username: thys
   tasks:
-    - name: "Editors"
+    - name: update the system
+      become: yes
+      pacman:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install some common tools
+      become: yes
+      pacman:
+        name:
+          - ansible
+          - curl
+          - docker
+          - git
+          - htop
+          - lsd
+          - python
+          - python-pip
+          - rsync
+          - stow
+          - wget
+        state: present
+
+    - name: Install code tools
       become: yes
       pacman:
         name:
           - neovim
           - emacs
-    - name: "Desktop environment"
+        state: present
+
+    - name: Install i3 and things it needs
       become: yes
       pacman:
         name:
-          - lsd
-          - kitty
-          - rofi
+          - acpi 
+          - bc 
           - i3-gaps
-          - pavucontrol
           - i3blocks
-          - xorg-server 
-          - xorg-apps 
-          - xorg-xinit 
-          - numlockx
+          - i3blocks 
+          - kitty
           - lightdm 
           - lightdm-gtk-greeter
-    - name: "Tools"
+          - numlockx
+          - openvpn
+          - pavucontrol
+          - playerctl
+          - rofi
+          - sysstat
+          - xorg-apps 
+          - xorg-server 
+          - xorg-xinit 
+        state: present
+
+    - name: Sweet fonts
       become: yes
       pacman:
         name:
-          - python
-          - python-pip
-          - ansible
-          - wget
-          - curl
-          - git
-          - stow
-          - htop
-          - docker
-
+          - noto-fonts 
+          - terminus-font 
+          - ttf-dejavu 
+          - ttf-droid 
+          - ttf-font-awesome
+          - ttf-inconsolata 
+          - ttf-liberation 
+          - ttf-roboto 
+          - ttf-ubuntu-font-family 
+        state: present
