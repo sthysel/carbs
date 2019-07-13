@@ -1,0 +1,28 @@
+---
+- hosts: all
+  vars:
+    username: thys
+  tasks:
+    - name: "All the tools"
+      become: yes
+      pacman:
+        - wget
+        - curl
+        - git
+        - stow
+        - nvim
+        - emacs
+        - htop
+        - kitty
+        - docker
+        - rofi
+        - i3-gaps
+        - pavucontrol
+        - i3blocks
+        - xorg-server 
+        - xorg-apps 
+        - xorg-xinit 
+        - numlockx
+        - lightdm 
+        - lightdm-gtk-greeter
+

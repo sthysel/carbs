@@ -13,18 +13,21 @@ profile=-t ~/ profile
 .PHONY: rm-all
 
 tools:
+	mkdir -p ~/.local/bin/
 	stow ${tools} 
 
 rm-tools:
 	stow -D ${tools} 
 
 scripts:
+	mkdir -p ~/.local/bin/
 	stow ${scripts}
 
 rm-scripts:
 	stow -D ${scripts}
 
 config:
+	mkdir -p ~/.config/
 	stow ${config}
 
 rm-config:
