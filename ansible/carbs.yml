@@ -24,6 +24,7 @@
           - rsync
           - stow
           - wget
+          - neofetch
         state: present
 
     - name: Install code tools
@@ -40,6 +41,8 @@
         name:
           - acpi 
           - bc 
+          - compton
+          - conky
           - i3-gaps
           - i3blocks
           - i3blocks 
