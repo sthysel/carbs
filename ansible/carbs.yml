@@ -64,6 +64,7 @@
       become: yes
       pacman:
         name:
+          - ttf-joypixels
           - noto-fonts 
           - terminus-font 
           - ttf-dejavu 
