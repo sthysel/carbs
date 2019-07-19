@@ -79,6 +79,7 @@
           - mpc
           - mpv
           - ncmpcpp
+        state: present
           
 
     - name: Sweet fonts
@@ -96,3 +97,11 @@
           - ttf-roboto 
           - ttf-ubuntu-font-family 
         state: present
+
+    - name: No annoying beeps please
+      become: yes
+      copy:
+        dest: "/etc/modprobe.d/nobeep.conf"
+        content: | 
+            # carbs
+            blacklist pcspkr
