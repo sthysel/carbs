@@ -19,13 +19,21 @@
           - git
           - htop
           - lsd
-          - python
-          - python-pip
           - rsync
           - stow
           - wget
           - neofetch
           - mu
+          - mplayer
+        state: present
+
+    - name: Install Python dev env
+      become: yes
+      pacman:
+        name:
+          - python
+          - python-pip
+          - python-virtualenvwrapper
         state: present
 
     - name: Install code tools
@@ -40,6 +48,8 @@
       become: yes
       pacman:
         name:
+          - dunst
+          - feh
           - acpi 
           - bc 
           - compton
@@ -52,14 +62,28 @@
           - lightdm-gtk-greeter
           - numlockx
           - openvpn
-          - pavucontrol
-          - playerctl
           - rofi
           - sysstat
           - xorg-apps 
           - xorg-server 
           - xorg-xinit 
+          - flameshot
         state: present
+
+    - name: Music and Video
+      become: yes
+      pacman:
+        name:
+          - mplayer
+          - pavucontrol
+          - playerctl
+          - mpd
+          # terminal interface for mpd
+          - mpc
+          - mpv
+          - ncmpcpp
+        state: present
+          
 
     - name: Sweet fonts
       become: yes
@@ -76,3 +100,12 @@
           - ttf-roboto 
           - ttf-ubuntu-font-family 
         state: present
+
+    - name: No annoying beeps please
+      become: yes
+      copy:
+        dest: "/etc/modprobe.d/nobeep.conf"
+        content: | 
+            # carbs
+            # https://wiki.archlinux.org/index.php/PC_speaker 
+            blacklist pcspkr

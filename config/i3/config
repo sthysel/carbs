@@ -244,26 +244,36 @@ bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
 
-# things that need to always happen
+# Start some nice systems 
+## notification manager
+exec --no-startup-id dunst
+
+## compositor
 exec --no-startup-id compton -b
-# DPMS monitor setting (standby -> suspend -> off) (seconds)
-exec --no-startup-id xset dpms 300 600 900 
+
+## DPMS monitor setting (standby -> suspend -> off) (seconds)
+exec --no-startup-id xset dpms 300 600 900
+
+## sound
 exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
 exec --no-startup-id volumeicon
-exec --no-startup-id gnome-settings-daemon
-exec --no-startup-id gnome-power-manager
-exec --no-startup-id gnome-keyring-daemon
+exec --no-startup-id indicator-sound-switcher
+
+## some networking
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+
+## google drive sync
 exec --no-startup-id insync start
-exec --no-startup-id indicator-sound-switcher
+
 # UDisks front-end for managing removable media.
 exec --no-startup-id udiskie -ans
 exec --no-startup-id udisks-glue
+
 # remaps the caps lock button to escape and uses the US international keyboard with dead keys
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
-# Unclutter makes the mouse invisible after a brief period
-# exec_always--no-startup-id unclutter
+
+# sweet background
 exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
 
 # things that need to run always
