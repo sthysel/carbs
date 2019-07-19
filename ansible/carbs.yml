@@ -23,6 +23,7 @@
           - stow
           - wget
           - neofetch
+          - mplayer
         state: present
 
     - name: Install Python dev env
