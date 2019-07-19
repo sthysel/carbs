@@ -25,6 +25,7 @@
           - stow
           - wget
           - neofetch
+          - mu
         state: present
 
     - name: Install code tools
