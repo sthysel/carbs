@@ -19,12 +19,20 @@
           - git
           - htop
           - lsd
-          - python
-          - python-pip
           - rsync
           - stow
           - wget
           - neofetch
+          - mplayer
+        state: present
+
+    - name: Install Python dev env
+      become: yes
+      pacman:
+        name:
+          - python
+          - python-pip
+          - python-virtualenvwrapper
         state: present
 
     - name: Install code tools
@@ -56,6 +64,7 @@
           - xorg-apps 
           - xorg-server 
           - xorg-xinit 
+          - flameshot
         state: present
 
     - name: Music and Video

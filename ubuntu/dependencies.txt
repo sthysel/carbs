@@ -1,5 +1,16 @@
+kitty
+compton
+ranger
 rofi
 i3blocks
+vlc
+mplayer
+zathura
+zathura-ps
+zathura-djvu 
+zathura-cb
+
+# i3-blocks deps
 libxcb1-dev 
 libxcb-keysyms1-dev 
 libpango1.0-dev 
