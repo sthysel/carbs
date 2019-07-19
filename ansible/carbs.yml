@@ -19,12 +19,19 @@
           - git
           - htop
           - lsd
-          - python
-          - python-pip
           - rsync
           - stow
           - wget
           - neofetch
+        state: present
+
+    - name: Install Python dev env
+      become: yes
+      pacman:
+        name:
+          - python
+          - python-pip
+          - python-virtualenvwrapper
         state: present
 
     - name: Install code tools
