@@ -104,4 +104,5 @@
         dest: "/etc/modprobe.d/nobeep.conf"
         content: | 
             # carbs
+            # https://wiki.archlinux.org/index.php/PC_speaker 
             blacklist pcspkr
