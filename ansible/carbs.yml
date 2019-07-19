@@ -47,6 +47,8 @@
       become: yes
       pacman:
         name:
+          - dunst
+          - feh
           - acpi 
           - bc 
           - compton
