@@ -51,14 +51,26 @@
           - lightdm-gtk-greeter
           - numlockx
           - openvpn
-          - pavucontrol
-          - playerctl
           - rofi
           - sysstat
           - xorg-apps 
           - xorg-server 
           - xorg-xinit 
         state: present
+
+    - name: Music and Video
+      become: yes
+      pacman:
+        name:
+          - mplayer
+          - pavucontrol
+          - playerctl
+          - mpd
+          # terminal interface for mpd
+          - mpc
+          - mpv
+          - ncmpcpp
+          
 
     - name: Sweet fonts
       become: yes
