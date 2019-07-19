@@ -65,6 +65,7 @@
           - xorg-apps 
           - xorg-server 
           - xorg-xinit 
+          - flameshot
         state: present
 
     - name: Sweet fonts
