@@ -255,7 +255,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id xset dpms 300 600 900
 
 ## sound
-exec --no-startup-id /usr/bin/pactl set-sink-volume  @DEFAULT_SINK@ '40%'
+exec --no-startup-id pactl set-sink-volume  @DEFAULT_SINK@ '40%'
 exec --no-startup-id volumeicon
 exec --no-startup-id indicator-sound-switcher
 
