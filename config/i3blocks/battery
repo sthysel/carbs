@@ -1,12 +1,17 @@
 #!/bin/env sh
 
-quit_string="unavailable"
-
 report=$(acpi)
+
+case $BLOCK_BUTTON in
+    1) notify-send "$report" ;;
+esac
+
+
+quit_string="unavailable"
 
 if [[ "$report" =~ $quit_string ]]
 then
-    exit
+    echo D
 fi
 
 echo $report | cut -d " " -f3-5 | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/❓/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g"
