@@ -1,4 +1,4 @@
 rofi.combi-modi:    window,drun,ssh
 rofi.theme:         solarized
-rofi.font:          hack 30
+rofi.font:          Font Awesome 20
 rofi.modi:          combi
