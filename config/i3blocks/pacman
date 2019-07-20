@@ -2,8 +2,7 @@
 
 # i3blocks module for pacman upgrades.
 # Displays number of upgradeable packages.
-# For this to work, have a `pacman -Sy` command run in the background as a
-# cronjob every so often as root. This script will then read those packages.
+# pacman-contrib
 # When clicked, it will run an upgrade via pacman.
 
 case $BLOCK_BUTTON in
@@ -14,5 +13,4 @@ case $BLOCK_BUTTON in
 - Middle click to show upgradable packages" ;;
 esac
 
-
-pacman -Qu | grep -v "\[ignored\]" | wc -l | sed -e "s/^0$//g"
+checkupdates | wc -l | sed -e "s/^0$//g"

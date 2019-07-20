@@ -2,16 +2,17 @@ command=~/.config/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
+[pacman]
+label=📦
+interval=3600
+signal=8
+
 [mpd]
 label=🎼
 command=i3mpd
 interval=once
 signal=11
 
-[pacman]
-label=📦
-interval=once
-signal=8
 
 [weather]
 interval=3600
