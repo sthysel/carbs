@@ -23,7 +23,6 @@
           - stow
           - wget
           - neofetch
-          - mu
           - mplayer
         state: present
 
