@@ -1,3 +1,12 @@
 #!/bin/env sh
 
-acpi | cut -d " " -f3-5 |  sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/❓/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g"
+quit_string="unavailable"
+
+report=$(acpi)
+
+if [[ "$report" =~ $quit_string ]]
+then
+    exit
+fi
+
+echo $report | cut -d " " -f3-5 | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/❓/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g"

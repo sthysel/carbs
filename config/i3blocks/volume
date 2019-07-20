@@ -14,9 +14,11 @@ esac
 
 vol=$(pulsemixer --get-volume | awk '{print $1}')
 
-if [ "$vol" -gt "70" ]; then
+if [ "$vol" -gt "70" ]
+then
 	icon="🔊"
-elif [ "$vol" -lt "30" ]; then
+elif [ "$vol" -lt "30" ]
+then
 	icon="🔈"
 else
 	icon="🔉"
