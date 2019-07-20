@@ -6,8 +6,7 @@ TERMINAL=kitty
 ### If location isn't automatically detected set this
 location=""
 
-help="
-🌈
+help="🌈
 Click for wttr.in forecast.
 ☔ Chance of rain
 ❄ Daily low
