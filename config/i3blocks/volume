@@ -1,5 +1,6 @@
 #!/bin/sh
 
+TERMINAL=kitty
 help="📢
 Shows volume 🔊, 🔇 if muted.
 Middle click to mute.
