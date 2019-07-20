@@ -6,13 +6,17 @@ TERMINAL=kitty
 ### If location isn't automatically detected set this
 location=""
 
+help="
+🌈
+Click for wttr.in forecast.
+☔ Chance of rain
+❄ Daily low
+🌞 Daily high
+"
+
 case $BLOCK_BUTTON in
     1) $TERMINAL -e less -R -S ${REPORT} ;;
-    3) pgrep -x dunst >/dev/null && notify-send "<b>🌈 Weather module:</b>
-- Click for wttr.in forecast.
-☔: Chance of rain
-❄: Daily low
-🌞: Daily high" ;;
+    3) pgrep -x dunst >/dev/null && notify-send "$help" ;;
 esac
 
 [ "$location" != "" ] && location="$location+"
