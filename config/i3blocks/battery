@@ -1,14 +1,15 @@
 #!/bin/env sh
 
+# battery status for i3blocks
+# parses acpi output
+
 report=$(acpi)
 
 case $BLOCK_BUTTON in
     1) notify-send "$report" ;;
 esac
 
-
 quit_string="unavailable"
-
 if [[ "$report" =~ $quit_string ]]
 then
     echo D
