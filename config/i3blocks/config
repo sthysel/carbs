@@ -18,8 +18,8 @@ label=📦
 interval=3600
 signal=8
 
-[iface]
-label=🌐                                                                                             
+[default_route_ip]
+label=🌐
 interval=10
 
 [clock]
