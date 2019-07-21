@@ -2,46 +2,25 @@ command=~/.config/i3blocks/$BLOCK_NAME
 separator_block_width=15
 markup=pango
 
-[pacman]
-label=📦
-interval=3600
-signal=8
-
-[mpd]
-label=🎼
-command=i3mpd
-interval=once
-signal=11
-
-
 [weather]
 interval=3600
-
-[mail]
-label=📬
-command=i3mail
-interval=180
-signal=12
 
 [volume]
 label=♪
 interval=once
 signal=10
 
-[iface]
-label=🌐
-color=#00FF00
-interval=10
-
-[wifi]
-label=📶
-interval=10
-
-[temperature]
-interval=5
-
 [battery]
 interval=5
+
+[packages]
+label=📦
+interval=3600
+signal=8
+
+[iface]
+label=🌐                                                                                             
+interval=10
 
 [clock]
 label=📅

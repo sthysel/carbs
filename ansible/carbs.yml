@@ -24,6 +24,7 @@
           - stow
           - wget
           - neofetch
+          - xclip
         state: present
 
     - name: Install Python dev env
