@@ -18,6 +18,11 @@ label=📦
 interval=3600
 signal=8
 
+[docker]
+label=🐳
+color=#0db7ed
+interval=10
+
 [default_route_ip]
 label=🌐
 interval=10
