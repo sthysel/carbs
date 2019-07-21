@@ -1,4 +1,6 @@
-#!/bin/env sh
+#!/bin/sh
+
+# flash iso to flash drive
 
 infile=$1
 disk=$2

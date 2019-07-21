@@ -1,7 +1,7 @@
 #!/bin/bash
 
+# Stolen from Luke Smith's LARBS
 # Do something with the string in the primary clipboard
-
 # Dependencies are xclip and xorg-xprop.
 # qrencode required for qrcode generation.
 # groff/zathura required for man pages.
