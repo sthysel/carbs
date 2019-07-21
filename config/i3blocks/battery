@@ -12,7 +12,7 @@ esac
 quit_string="unavailable"
 if [[ "$report" =~ $quit_string ]]
 then
-    echo D
+    exit
 fi
 
 echo $report | cut -d " " -f3-5 | sed -e "s/,//g;s/Discharging/🔋/;s/Charging/🔌/;s/Unknown/❓/;s/Full/⚡/;s/ 0*/ /g;s/ :/ /g"
