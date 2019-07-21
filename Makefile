@@ -2,12 +2,10 @@ spacevimrc=~/.SpaceVim.d/
 tools=-d ./scripts -t ~/.local/bin/ tools
 scripts=-d ./scripts -t ~/.local/bin/ i3commands 
 config=-t ~/.config config
-profile=-t ~/ profile
 
 .PHONY: tools
 .PHONY: scripts 
 .PHONY: config 
-.PHONY: profile 
 .PHONY: spacevim
 .PHONY: all
 .PHONY: rm-all
@@ -32,12 +30,6 @@ config:
 
 rm-config:
 	stow -D ${config}
-
-profile:
-	stow ${profile}
-
-rm-profile:
-	stow -D ${profile}
 
 spacevim: 
 	mkdir -p ${spacevimrc}
