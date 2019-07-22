@@ -29,6 +29,5 @@ interval=10
 
 [clock]
 label=📅
-interval=30
-
+interval=1
 

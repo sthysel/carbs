@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo $(myip)
+echo $(~/.local/bin/myip)
