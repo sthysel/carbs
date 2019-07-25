@@ -124,5 +124,5 @@
                 Driver "libinput"
                 Option "Tapping" "on"
                 Option "Natural Scrolling" "on"
-                Option "Accel Speed" 1
+                Option "Accel Speed" "1"
             EndSection
