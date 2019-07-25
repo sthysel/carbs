@@ -93,6 +93,9 @@ bindsym $mod+Tab workspace next
 # rofi
 bindsym $mod+space exec rofi -show 
 
+# emoji
+bindsym $mod+i exec rofi-emoji
+
 # ranger
 bindsym $mod+r exec kitty ranger
 
