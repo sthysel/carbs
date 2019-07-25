@@ -25,6 +25,8 @@
           - wget
           - neofetch
           - xclip
+          - aspell-en
+          - aspell-uk
         state: present
 
     - name: Install Python dev env
@@ -126,3 +128,10 @@
                 Option "Natural Scrolling" "on"
                 Option "Accel Speed" 1
             EndSection
+
+    - name: Automatic monitor activation on laptop docking and the like
+      become: yes
+      copy:
+        dest: "/etc/udev/rules.d/carbs-screens.conf"
+        content: | 
+          KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{username}}/.Xauthority", RUN+="/home/{{username}}/.local/bin/hotplug_monitor.sh"
