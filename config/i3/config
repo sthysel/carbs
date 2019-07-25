@@ -270,14 +270,14 @@ exec --no-startup-id insync start
 exec --no-startup-id udiskie -ans
 exec --no-startup-id udisks-glue
 
+# nice
+exec --no-startup-id conky
+
 # remaps the caps lock button to escape and uses the US international keyboard with dead keys
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 
 # sweet background
 exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
 
-# things that need to run always
-# exec --no-startup-id google-chrome-stable
-# exec --no-startup-id emacs
 
 # vim:filetype=i3
