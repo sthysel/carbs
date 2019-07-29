@@ -30,7 +30,7 @@ spacevim:
 rm-spacevim:
 	rm -fr ${spacevimrc}
 
-all: scripts config profile spacevim
+all: scripts config spacevim
 
-rm-all: rm-scripts rm-config rm-profile rm-spacevim
+rm-all: rm-scripts rm-config rm-spacevim
 
