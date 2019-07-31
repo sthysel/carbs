@@ -20,6 +20,8 @@
           - git
           - htop
           - lsd
+          - make
+          - networkmanager
           - rsync
           - stow
           - wget
@@ -27,6 +29,8 @@
           - xclip
           - aspell-en
           - aspell-uk
+          - xsel
+          - xdotool
         state: present
 
     - name: Install Python dev env
