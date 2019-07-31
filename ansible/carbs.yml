@@ -105,6 +105,21 @@
           - ttf-ubuntu-font-family 
         state: present
 
+    - name: Add AUR user
+      become: yes
+      user:
+        name: aur_builder
+        group: wheel
+
+    - name: Restrict AUR user
+      become: yes
+      lineinfile:
+         path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+         state: present
+         line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+         validate: /usr/sbin/visudo -cf %s
+         create: yes
+
     - name: No annoying beeps please
       become: yes
       copy:
@@ -114,7 +129,7 @@
             # https://wiki.archlinux.org/index.php/PC_speaker 
             blacklist pcspkr
 
-    - name: Touchpad config on XPS 13
+    - name: Touchpad config on Dell XPS13
       become: yes
       when: ansible_facts['product_name'] == "XPS 13 9350"
       copy:

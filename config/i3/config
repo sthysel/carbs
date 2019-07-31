@@ -53,7 +53,8 @@ for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
 
 
 bar {
-  font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
+  #font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
+  font pango: Nerd Font 16
   status_command i3blocks
   position top
   mode dock
@@ -78,9 +79,6 @@ bindsym Control+$mod+s exec sleep 5 && xset dpms force standby
 # With shift, it takes one only of the given window.
 bindsym Print exec --no-startup-id scrot
 bindsym Shift+Print exec --no-startup-id scrot -u
-
-# Take a screenshot upon pressing $mod+x (select an area)
-# bindsym --release $mod+x exec --no-startup-id deepin-screenshot -s ~/screenshot/
 bindsym --release $mod+x exec --no-startup-id flameshot gui
 
 # i3 reload
@@ -224,24 +222,10 @@ bindsym $mod+Shift+7 move container to workspace $workspace_playing
 bindsym $mod+Shift+8 move container to workspace $workspace_away
 bindsym $mod+Shift+9 move container to workspace $workspace_music
 
-# multi-screens
-set $multi_monitor "Monitors: (b)hp (n)ormal (h)ome"
-bindsym $mod+Shift+m mode $multi_monitor
-mode $multi_monitor {
-        bindsym b exec ~/dotfiles/i3/screenlayout/bhp26.sh
-        bindsym n exec ~/dotfiles/i3/screenlayout/normal.sh
-        bindsym h exec ~/dotfiles/i3/screenlayout/klipwerfxps.sh
-        # back to normal: Enter or Escape
-        bindsym Escape mode "default"
-}
-
-
-# show battery stats
-bindsym XF86Battery exec gnome-power-statistics
 # volume control
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '-5%'
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume @DEFAULT_SINK@ '+5%'
-bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ '-5%'
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ '+5%'
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
