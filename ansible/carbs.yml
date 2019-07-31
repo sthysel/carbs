@@ -29,7 +29,7 @@
           - xclip
           - aspell-en
           - aspell-uk
-          - xcel
+          - xsel
           - xdotool
         state: present
 
