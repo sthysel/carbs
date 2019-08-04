@@ -1,0 +1,25 @@
+- name: Install i3 and things it needs
+  become: yes
+  pacman:
+    name:
+      - acpi 
+      - bc 
+      - calcurse
+      - compton
+      - conky
+      - dunst
+      - feh
+      - flameshot
+      - i3-gaps
+      - i3blocks 
+      - kitty
+      - lightdm 
+      - lightdm-gtk-greeter
+      - numlockx
+      - openvpn
+      - rofi
+      - sysstat
+      - xorg-apps 
+      - xorg-server 
+      - xorg-xinit 
+    state: present

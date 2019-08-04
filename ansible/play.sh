@@ -2,4 +2,4 @@
 
 target=${1:-localhost}
 
-ansible-playbook -i $target, carbs.yml -K 
+ansible-playbook -v -i $target, site.yml -K

@@ -1,0 +1,14 @@
+- name: Music 
+  become: yes
+  pacman:
+    name:
+      - mplayer
+      - pavucontrol
+      - pulsemixer
+      - playerctl
+      - mpd
+      # terminal interface for mpd
+      - mpc
+      - mpv
+      - ncmpcpp
+    state: present
