@@ -38,4 +38,5 @@
 - import_tasks: nobeep.yml
 - import_tasks: xps.yml
 - import_tasks: multiscreens.yml
+- import_tasks: docker.yml
 
