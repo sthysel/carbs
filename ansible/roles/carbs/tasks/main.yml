@@ -28,6 +28,7 @@
       - xsel
     state: present
 
+- import_tasks: aur.yml
 - import_tasks: python.yml
 - import_tasks: editors.yml
 - import_tasks: i3.yml
