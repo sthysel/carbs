@@ -1,0 +1,8 @@
+- name: Install Python dev env
+  become: yes
+  pacman:
+    name:
+      - python
+      - python-pip
+      - python-virtualenvwrapper
+    state: present

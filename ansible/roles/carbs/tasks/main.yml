@@ -1,0 +1,42 @@
+- name: update the system
+  become: yes
+  pacman:
+    update_cache: yes
+    upgrade: yes
+
+- name: Install some common tools
+  become: yes
+  pacman:
+    name:
+      - ansible
+      - aspell-en
+      - aspell-uk
+      - curl
+      - docker
+      - git
+      - htop
+      - lsd
+      - make
+      - neofetch
+      - networkmanager
+      - pacman-contrib
+      - rsync
+      - stow
+      - wget
+      - xclip
+      - xdotool
+      - xsel
+    state: present
+
+- import_tasks: aur.yml
+- import_tasks: python.yml
+- import_tasks: editors.yml
+- import_tasks: i3.yml
+- import_tasks: fonts.yml
+- import_tasks: music.yml
+- import_tasks: video.yml
+- import_tasks: nobeep.yml
+- import_tasks: xps.yml
+- import_tasks: multiscreens.yml
+- import_tasks: docker.yml
+

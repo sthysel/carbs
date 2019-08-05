@@ -1,0 +1,6 @@
+- name: Automatic monitor activation on laptop docking and the like
+  become: yes
+  copy:
+    dest: "/etc/udev/rules.d/carbs-screens.conf"
+    content: | 
+      KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{carbs_username}}/.Xauthority", RUN+="/home/{{carbs_username}}/.local/bin/hotplug_monitor.sh"

@@ -1,0 +1,12 @@
+- name: Install some common tools
+  become: yes
+  pacman:
+    name:
+      - docker
+      - docker-compose
+
+- name: Enable docker
+  systemd:
+    enabled: yes
+    state: started
+    name: docker

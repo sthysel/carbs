@@ -1,0 +1,14 @@
+- name: Add AUR user
+  become: yes
+  user:
+    name: aur_builder
+    group: wheel
+
+- name: Restrict AUR user
+  become: yes
+  lineinfile:
+     path: /etc/sudoers.d/aur_builder-allow-to-sudo-pacman
+     state: present
+     line: "aur_builder ALL=(ALL) NOPASSWD: /usr/bin/pacman"
+     validate: /usr/sbin/visudo -cf %s
+     create: yes

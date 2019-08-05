@@ -1,3 +1,5 @@
 #!/usr/bin/env sh
 
-ansible-playbook -i localhost, carbs.yml -K 
+target=${1:-localhost}
+
+ansible-playbook -v -i $target, site.yml -K

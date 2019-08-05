@@ -1,8 +1,16 @@
 # CARBS
 
-Chad Arch Random Bootstrap Scripts, and also dots.
+In which you will find Chad Arch Random Bootstrap Scripts, and also dots.
+
+The dependencies and once-of stuff is done by Ansible, that's things like
+packages, some unique config for some of my machines, see [ansible](/ansible).
+
+Dotfiles are kept in `~/carbs` and then linked out to `~/.config/`, `~/.local/`
+and so on. That way its easy to keep config in git and push/pull as I like in
+`~/carbs` when config is updated or I find a new thing to play with.
 
 ![Shot](pics/screenshot1.jpg)
+
 
 ## Install CARBS dots right now
 
