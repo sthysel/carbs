@@ -16,8 +16,6 @@ set $terminal kitty
 
 # i3-gaps
 for_window [class="^.*"] border pixel 2
-
-for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
 
