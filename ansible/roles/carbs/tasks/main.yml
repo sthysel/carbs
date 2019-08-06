@@ -11,12 +11,13 @@
       - ansible
       - aspell-en
       - aspell-uk
-      - bat
       - base-devel
+      - bat
       - curl
       - docker
       - git
       - htop
+      - imagemagick
       - lsd
       - make
       - neofetch
@@ -43,5 +44,6 @@
 - import_tasks: xps.yml
 - import_tasks: multiscreens.yml
 - import_tasks: docker.yml
+- import_tasks: pandoc.yml
 - import_tasks: users.yml
 
