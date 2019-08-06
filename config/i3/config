@@ -10,7 +10,7 @@
 # # xrandr --output VGA1 --right-of LVDS1 --auto
 
 # font
-font pango:FontAwesome5Free 14, FontAwesome5Brands 14, DejaVu Sans Mono
+font pango: DejaVu Sans Mono
 
 set $terminal kitty
 
@@ -53,8 +53,7 @@ for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
 
 
 bar {
-  #font pango:DejaVu Sans Mono, FontAwesome5Free, FontAwesome5Brands 16
-  font pango: Nerd Font 16
+  font pango: DejaVu Sans Mono 16
   status_command i3blocks
   position top
   mode dock
@@ -119,7 +118,7 @@ bindsym $mod+Shift+u exec --no-startup-id i3resize down
 bindsym $mod+g gaps inner current plus 5
 bindsym $mod+Shift+g gaps inner current minus 5
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+
 floating_modifier $mod
 
 # flick workspace to the right monitor
