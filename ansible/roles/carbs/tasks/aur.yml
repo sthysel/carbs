@@ -27,3 +27,10 @@
   aur:
     name: ansible-aur
     skip_installed: true
+
+- name: vtop
+  become: yes
+  become_user: aur_builder
+  aur:
+    name: vtop
+    skip_installed: true
