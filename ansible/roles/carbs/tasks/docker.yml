@@ -6,6 +6,7 @@
       - docker-compose
 
 - name: Enable docker
+  become: yes
   systemd:
     enabled: yes
     state: started
