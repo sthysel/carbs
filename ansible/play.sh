@@ -2,4 +2,9 @@
 
 target=${1:-localhost}
 
-ansible-playbook -v -i $target, site.yml -K
+if [ $target == "localhost" ]
+then
+    ansible-playbook -v -i $target, site.yml -K --connection local
+else
+    ansible-playbook -v -i $target, site.yml -K
+fi
