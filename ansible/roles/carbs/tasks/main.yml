@@ -46,4 +46,5 @@
 - import_tasks: docker.yml
 - import_tasks: pandoc.yml
 - import_tasks: users.yml
+- import_tasks: entropy.yml
 

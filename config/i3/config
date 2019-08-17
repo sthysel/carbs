@@ -219,6 +219,7 @@ bindsym $mod+Shift+8 move container to workspace $workspace_away
 bindsym $mod+Shift+9 move container to workspace $workspace_music
 
 # volume control
+exec --no-startup-id pactl set-sink-volume  @DEFAULT_SINK@ '40%'
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ '-5%'
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ '+5%'
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
@@ -237,10 +238,6 @@ exec --no-startup-id compton -b
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
 
-## sound
-exec --no-startup-id pactl set-sink-volume  @DEFAULT_SINK@ '40%'
-exec --no-startup-id volumeicon
-exec --no-startup-id indicator-sound-switcher
 
 ## some networking
 exec --no-startup-id nm-applet

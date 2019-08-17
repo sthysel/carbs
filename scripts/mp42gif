@@ -7,5 +7,5 @@ echo "$IN -> $OUT"
 ffmpeg \
   -i $IN \
   -r 15 \
-  -ss 00:00:10 -to 00:00:25 \
+  -ss 00:00:0 -to 00:00:5 \
   $OUT
