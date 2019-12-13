@@ -1,4 +1,4 @@
-# CARBS
+# CARBS (Version 0.1)
 
 In which you will find Chad Arch Random Bootstrap Scripts, and also dots.
 
@@ -11,8 +11,24 @@ and so on. That way its easy to keep config in git and push/pull as I like in
 
 ![Shot](pics/screenshot1.jpg)
 
+# Easy install
 
-## Install CARBS dots right now
+First install Arch on target. While there install
+
+- openssh, enable it
+- networkmanager, or similar
+- neovim 
+- sudo, enable wheel allowances using `EDITOR=vim visudo`
+
+Add user thys `# useradd -m -G wheel -s /bin/zsh thys`, set the password
+
+Nice, now 
+
+ - install the ssh public key: `ssh-copy-id thys@10.0.0.203`
+ - run ansible: `$ play.sh 10.0.0.66`
+
+
+# Install CARBS dots the hard way
 
 Everything is installed using `stow`. The `Makefile` knows how to use it, so
 use that like so: `make -B all`, thats all.
