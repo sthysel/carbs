@@ -12,6 +12,7 @@
       - flameshot
       - i3-gaps
       - i3blocks 
+      - i3status
       - kitty
       - lightdm 
       - lightdm-gtk-greeter
