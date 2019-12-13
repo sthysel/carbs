@@ -45,6 +45,7 @@ no_focus [title="mpvfloat"]
 for_window [window_role="About"] floating enable
 for_window [class="vlc"] floating enable
 for_window [title="Authy"] floating enable
+for_window [title="PAT Cabin Display"] floating enable
 
 # mqtt-spy
 for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
