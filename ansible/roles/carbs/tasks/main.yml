@@ -8,6 +8,7 @@
   become: yes
   pacman:
     name:
+      - archlinux-keyring
       - ansible
       - aspell-en
       - aspell-uk
@@ -46,4 +47,6 @@
 - import_tasks: docker.yml
 - import_tasks: pandoc.yml
 - import_tasks: users.yml
+- import_tasks: entropy.yml
+- import_tasks: usb.yml
 
