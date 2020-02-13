@@ -1,4 +1,4 @@
-# CARBS (Version 0.2)
+# CARBS (Version 0.3)
 
 In which you will find Chad Arch Random Bootstrap Scripts, and also dots.
 
