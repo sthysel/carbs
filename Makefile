@@ -30,6 +30,12 @@ spacevim:
 rm-spacevim:
 	rm -fr ${spacevimrc}
 
+init:
+	git submodule update --init --recursive
+
+update:
+	git pull --recurse-submodules
+
 all: scripts config spacevim
 
 rm-all: rm-scripts rm-config rm-spacevim
