@@ -45,6 +45,7 @@ no_focus [title="mpvfloat"]
 for_window [window_role="About"] floating enable
 for_window [class="vlc"] floating enable
 for_window [title="Authy"] floating enable
+for_window [title="PAT Cabin Display"] floating enable
 
 # mqtt-spy
 for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
@@ -63,7 +64,7 @@ bar {
 bindsym $mod+Return exec $terminal
 
 # start a new terminal in the same directory as the current terminal
-bindsym $mod+Shift+Return	exec --no-startup-id samedir
+bindsym $mod+Shift+Return exec --no-startup-id samedir
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -92,9 +93,9 @@ bindsym $mod+space exec rofi -show
 bindsym $mod+i exec rofi-emoji
 
 # ranger
-bindsym $mod+r exec kitty ranger
+bindsym $mod+r exec $terminal ranger
 
-bindsym $mod+Shift+Delete	exec --no-startup-id pornmode
+bindsym $mod+Shift+Delet exec --no-startup-id pornmode
 
 # kill focused window
 bindsym $mod+q [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
@@ -237,7 +238,6 @@ exec --no-startup-id compton -b
 
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
-
 
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
