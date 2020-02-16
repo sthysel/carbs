@@ -8,8 +8,8 @@
   become: yes
   pacman:
     name:
-      - archlinux-keyring
       - ansible
+      - archlinux-keyring
       - aspell-en
       - aspell-uk
       - base-devel
