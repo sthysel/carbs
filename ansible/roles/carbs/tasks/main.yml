@@ -8,8 +8,8 @@
   become: yes
   pacman:
     name:
-      - archlinux-keyring
       - ansible
+      - archlinux-keyring
       - aspell-en
       - aspell-uk
       - base-devel
@@ -34,6 +34,7 @@
       - zsh
     state: present
 
+- import_tasks: reflector.yml
 - import_tasks: aur.yml
 - import_tasks: python.yml
 - import_tasks: editors.yml

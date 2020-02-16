@@ -1,4 +1,4 @@
-# CARBS (Version 0.2)
+# CARBS (Version 0.3)
 
 In which you will find Chad Arch Random Bootstrap Scripts, and also dots.
 
@@ -16,8 +16,14 @@ The base OS and dot install is seperate.
 So generally you will:
 
 - Install arch from USB
-- Run ansible over the fresh install to add all the tools and scripts
-- `$ git pull --recurse-submodules` the dotfiles in ~ of the normal user and do `$ make install`
+- Run ansible over the fresh install to add all the tools and scripts.
+
+It makes sense to clone carbs on the target machine and run the ansible
+playbook locally as the repo also includes the dots. I want to tune the dots
+and have them available on my other machines so it does not make sense to copy
+them into place, rather link them into place and keep them under version
+control in the carbs repo.
+
 
 # Install Arch
 

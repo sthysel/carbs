@@ -1,3 +1,10 @@
+- name: Remove i3-wm
+  become: yes
+  pacman:
+    name:
+      - i3-wm
+    state: removed
+
 - name: Install i3 and things it needs
   become: yes
   pacman:
@@ -5,7 +12,6 @@
       - acpi 
       - bc 
       - calcurse
-      - compton
       - conky
       - dunst
       - feh
@@ -18,6 +24,7 @@
       - lightdm-gtk-greeter
       - numlockx
       - openvpn
+      - picom
       - rofi
       - sysstat
       - xorg-apps 
