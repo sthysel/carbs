@@ -233,15 +233,17 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 ## notification manager
 exec --no-startup-id dunst
 
-## compositor
+# compositor
 exec --no-startup-id compton -b
 
-## DPMS monitor setting (standby -> suspend -> off) (seconds)
+# DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
 
-## some networking
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+
+# google drive sync
+exec --no-startup-id insync start
 
 # UDisks front-end for managing removable media.
 exec --no-startup-id udiskie -ans
