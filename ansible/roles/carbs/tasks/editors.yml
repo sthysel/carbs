@@ -3,5 +3,5 @@
   pacman:
     name:
       - neovim
-      - emacs
+        # - emacs
     state: present
