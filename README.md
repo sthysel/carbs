@@ -39,7 +39,7 @@ Add user thys `# useradd -m -G wheel -s /bin/zsh thys`, set the password
 Nice, now 
 
  - install the ssh public key: `ssh-copy-id thys@10.0.0.203`
- - run ansible: `$ play.sh 10.0.0.66`
+ - run ansible: `$ play.sh 10.0.0.69`
 
 
 # Install CARBS dots
