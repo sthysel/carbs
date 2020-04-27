@@ -242,8 +242,6 @@ exec --no-startup-id xset dpms 300 600 900
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 
-# google drive sync
-exec --no-startup-id insync start
 
 # UDisks front-end for managing removable media.
 exec --no-startup-id udiskie -ans
