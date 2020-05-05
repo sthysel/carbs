@@ -50,7 +50,6 @@ for_window [title="PAT Cabin Display"] floating enable
 # mqtt-spy
 for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
 
-
 bar {
   font pango: DejaVu Sans Mono 16
   status_command i3blocks
