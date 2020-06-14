@@ -87,7 +87,7 @@ bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
 bindsym $mod+Tab workspace next
 
 # rofi
-bindsym $mod+space exec rofi -show 
+bindsym $mod+space exec rofi -show
 
 # emoji
 bindsym $mod+i exec rofi-emoji
@@ -126,7 +126,7 @@ bindsym $mod+z move workspace to output right
 set $up k
 set $down j
 set $left h
-set $right l 
+set $right l
 
 # focus
 bindsym $mod+$left focus left
@@ -153,7 +153,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in vertical orientation (like drawers)
-bindsym $mod+equal split v 
+bindsym $mod+equal split v
 # split in horisontal orientation (like books in a bookcase)
 bindsym $mod+backslash split h
 
@@ -227,9 +227,9 @@ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
-# Start some nice systems 
+# Start some nice systems
 ## notification manager
 exec --no-startup-id dunst
 
@@ -239,8 +239,8 @@ exec --no-startup-id compton -b
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
 
-exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
+exec --no-startup-id nm-applet
 
 
 # UDisks front-end for managing removable media.
