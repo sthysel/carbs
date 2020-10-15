@@ -95,7 +95,7 @@ bindsym $mod+i exec rofi-emoji
 # ranger
 bindsym $mod+r exec $terminal ranger
 
-bindsym $mod+Shift+Delet exec --no-startup-id pornmode
+bindsym $mod+Shift+Delete exec --no-startup-id pornmode
 
 # kill focused window
 bindsym $mod+q [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
@@ -234,7 +234,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 exec --no-startup-id dunst
 
 # compositor
-exec --no-startup-id compton -b
+exec --no-startup-id picom -b
+bindsym $mod+Alt+r exec --no-startup-id picom-trans -c -10
+bindsym $mod+Alt+t exec --no-startup-id picom-trans -c +10
 
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
