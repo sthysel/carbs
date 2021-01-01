@@ -36,3 +36,5 @@
 	includeIssuesSection = false
 [submodule]
 	recurse = true
+[pull]
+	rebase = false
