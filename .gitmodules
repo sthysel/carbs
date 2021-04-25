@@ -1,4 +1,4 @@
 [submodule "zsh"]
 	path = zsh
 	url = https://github.com/sthysel-zsh/zsh-config.git
-    branch = master
+	branch = master
