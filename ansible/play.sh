@@ -2,6 +2,8 @@
 
 target=${1:-localhost}
 
+ansible-galaxy install victorbrca.ansible_aur_install
+
 if [ $target == "localhost" ]
 then
     ansible-playbook -v -i $target, site.yml -K --connection local
