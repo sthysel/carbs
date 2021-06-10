@@ -241,8 +241,8 @@ bindsym $mod+Alt+t exec --no-startup-id picom-trans -c +10
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 300 600 900
 
-exec --no-startup-id blueman-applet
 exec --no-startup-id nm-applet
+# exec --no-startup-id blueman-applet
 
 
 # UDisks front-end for managing removable media.
