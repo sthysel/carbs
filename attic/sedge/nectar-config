@@ -1,4 +1,4 @@
-# sedge config file 
+# sedge config file
 
 # some globals
 StrictHostKeyChecking no
@@ -67,7 +67,7 @@ Host maas
     ForwardX11 yes
     @is slow-network
     @is trusted
-    LocalForward 8000 localhost:80 
+    LocalForward 8000 localhost:80
 
 @with i {10..25}
 Host service-r1-h<i>
@@ -111,4 +111,3 @@ Host compute-r<r>-h<i>
     User ubuntu
     @via maas
     @identity work-ccg
-

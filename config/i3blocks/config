@@ -40,5 +40,3 @@ interval=1
 #                  ,@(mapcar (lambda (str) (list (elt str 0) (vector str 0 'font-shape-gstring)))
 #                            '("😶‍🌫️" "🐈‍⬛" "🐕‍🦺" "🐻‍❄️" "👁️‍🗨️" "😮‍💨" "😵‍💫"))))
 #   (set-char-table-range
-
-

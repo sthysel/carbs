@@ -32,7 +32,7 @@ exec --no-startup-id udisks-glue
 exec --no-startup-id volumeicon
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
-exec --no-startup-id xset dpms 300 600 900 
+exec --no-startup-id xset dpms 300 600 900
 
 # chose a FreeType font, such as:
 font pango:DejaVu Sans Mono 10
@@ -131,7 +131,7 @@ bindsym $mod+Shift+8 move container to workspace $tag_hoof
 bindsym $mod+Shift+9 move container to workspace $tag_hoop
 bindsym $mod+Shift+0 move container to workspace $tag_dice
 
-workspace $tag_hat output $DELL_SCREEN 
+workspace $tag_hat output $DELL_SCREEN
 workspace $tag_hen output $DELL_SCREEN
 workspace $tag_ham output $DELL_SCREEN
 workspace $tag_hair output $DELL_SCREEN
@@ -195,7 +195,7 @@ bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 20
-bindsym XF86MonBrightnessDown exec xbacklight -dec 20 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20
 
 # start the session
 exec --no-startup-id ~/.i3/autostart

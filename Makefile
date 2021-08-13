@@ -2,8 +2,8 @@ spacevimrc=~/.SpaceVim.d/
 scripts=-t ~/.local/bin/ scripts
 config=-t ~/.config config
 
-.PHONY: scripts 
-.PHONY: config 
+.PHONY: scripts
+.PHONY: config
 .PHONY: spacevim
 .PHONY: all
 .PHONY: rm-all
@@ -23,7 +23,7 @@ config:
 rm-config:
 	stow -D ${config}
 
-spacevim: 
+spacevim:
 	mkdir -p ${spacevimrc}
 	stow -t ${spacevimrc} spacevim
 
@@ -39,4 +39,3 @@ update:
 all: scripts config spacevim
 
 rm-all: rm-scripts rm-config rm-spacevim
-
