@@ -2,5 +2,5 @@
   become: yes
   copy:
     dest: "/etc/udev/rules.d/carbs-screens.conf"
-    content: | 
+    content: |
       KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{carbs_user}}/.Xauthority", RUN+="/home/{{carbs_user}}/.local/bin/hotplug_monitor.sh"

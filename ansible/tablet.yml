@@ -1,0 +1,5 @@
+---
+- hosts: all
+  roles:
+    - victorbrca.ansible_aur_install
+    - i3

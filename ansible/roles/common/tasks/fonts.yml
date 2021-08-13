@@ -2,14 +2,14 @@
   become: yes
   pacman:
     name:
-      - noto-fonts 
-      - terminus-font 
-      - ttf-dejavu 
-      - ttf-droid 
+      - noto-fonts
+      - terminus-font
+      - ttf-dejavu
+      - ttf-droid
       - ttf-font-awesome
-      - ttf-inconsolata 
+      - ttf-inconsolata
       - ttf-joypixels
-      - ttf-liberation 
-      - ttf-roboto 
-      - ttf-ubuntu-font-family 
+      - ttf-liberation
+      - ttf-roboto
+      - ttf-ubuntu-font-family
     state: present

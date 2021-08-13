@@ -13,7 +13,7 @@
      validate: /usr/sbin/visudo -cf %s
      create: yes
 
-- name: Install yay 
+- name: Install yay
   become: yes
   become_user: aur_builder
   aur:

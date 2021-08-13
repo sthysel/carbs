@@ -1,33 +1,33 @@
 - name: Remove i3-wm
-  become: yes
+  become: true
   pacman:
     name:
       - i3-wm
     state: removed
 
 - name: Install i3 and things it needs
-  become: yes
+  become: true
   pacman:
     name:
-      - acpi 
-      - bc 
+      - acpi
+      - bc
       - calcurse
       - conky
       - dunst
       - feh
       - flameshot
       - i3-gaps
-      - i3blocks 
+      - i3blocks
       - i3status
       - kitty
-      - lightdm 
+      - lightdm
       - lightdm-gtk-greeter
       - numlockx
       - openvpn
       - picom
       - rofi
       - sysstat
-      - xorg-apps 
-      - xorg-server 
-      - xorg-xinit 
+      - xorg-apps
+      - xorg-server
+      - xorg-xinit
     state: present

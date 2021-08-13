@@ -1,4 +1,4 @@
-- name: Music 
+- name: Music
   become: yes
   pacman:
     name:
