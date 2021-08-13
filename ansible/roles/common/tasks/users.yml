@@ -2,7 +2,7 @@
   become: yes
   user:
     name: "{{carbs_user}}"
-    groups: wheel, docker
+    groups: wheel
     append: yes
     shell: /bin/zsh
 

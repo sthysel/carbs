@@ -2,4 +2,6 @@
 - hosts: all
   roles:
     - victorbrca.ansible_aur_install
+    - common
     - i3
+    - fonts

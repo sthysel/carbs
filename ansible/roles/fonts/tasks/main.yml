@@ -1,4 +1,4 @@
-- name: Sweet fonts
+- name: Install sweet fonts
   become: yes
   pacman:
     name:

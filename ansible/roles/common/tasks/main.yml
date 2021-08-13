@@ -28,22 +28,14 @@
       - stow
       - trash-cli
       - wget
-      - xclip
-      - xdotool
-      - xsel
       - zsh
+      - zsh-theme-powerlevel10k
+      - pyenv
     state: present
 
 - import_tasks: reflector.yml
 - import_tasks: aur.yml
-- import_tasks: editors.yml
-- import_tasks: i3.yml
-- import_tasks: fonts.yml
-- import_tasks: music.yml
-- import_tasks: video.yml
 - import_tasks: nobeep.yml
-- import_tasks: xps.yml
-- import_tasks: multiscreens.yml
 - import_tasks: users.yml
 - import_tasks: entropy.yml
 - import_tasks: usb.yml

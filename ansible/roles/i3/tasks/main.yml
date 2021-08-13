@@ -7,7 +7,8 @@
 
 - name: Install i3 and things it needs
   become: true
-  pacman:
+  become_user: aur_builder
+  aur:
     name:
       - acpi
       - bc
@@ -27,7 +28,48 @@
       - picom
       - rofi
       - sysstat
+      - xclip
+      - xdotool
       - xorg-apps
       - xorg-server
       - xorg-xinit
+      - xsel
+      - stellarium
+      - opencpn
+
+- name: Automatic monitor activation on laptop docking and the like
+  become: yes
+  copy:
+    dest: "/etc/udev/rules.d/carbs-screens.conf"
+    content: |
+      KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{carbs_user}}/.Xauthority", RUN+="/home/{{carbs_user}}/.local/bin/hotplug_monitor.sh"
+
+- name: Install documentation generation tools pandoc and latex
+  become: yes
+  pacman:
+    name:
+      - pandoc
+      - texlive-most
+
+- name: Install vim and emacs
+  become: yes
+  pacman:
+    name:
+      - neovim
+      - emacs
+    state: present
+
+- name: Music
+  become: yes
+  pacman:
+    name:
+      - mplayer
+      - pavucontrol
+      - pulsemixer
+      - playerctl
+      - mpd
+      # terminal interface for mpd
+      - mpc
+      - mpv
+      - ncmpcpp
     state: present
