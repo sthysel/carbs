@@ -3,5 +3,5 @@
   roles:
     - victorbrca.ansible_aur_install
     - common
-    - i3
-    - fonts
+    - desktop
+    - navigation

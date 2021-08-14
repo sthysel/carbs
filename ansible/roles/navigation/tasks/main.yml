@@ -1,0 +1,7 @@
+- name: Install Navigation Tools
+  become: true
+  become_user: aur_builder
+  aur:
+    name:
+      - stellarium
+      # - opencpn

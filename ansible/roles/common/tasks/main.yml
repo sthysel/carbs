@@ -1,4 +1,5 @@
 ---
+- import_tasks: reflector.yml
 - name: update the system
   become: yes
   pacman:
@@ -33,7 +34,6 @@
       - pyenv
     state: present
 
-- import_tasks: reflector.yml
 - import_tasks: aur.yml
 - import_tasks: nobeep.yml
 - import_tasks: users.yml
