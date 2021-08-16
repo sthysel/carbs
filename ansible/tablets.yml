@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: tabby
   roles:
     - victorbrca.ansible_aur_install
     - common

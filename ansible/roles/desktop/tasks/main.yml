@@ -3,6 +3,7 @@
   pacman:
     name:
       - i3-wm
+      - compton
     state: removed
 
 - name: Install i3 and things it needs

@@ -26,6 +26,7 @@
       - networkmanager
       - pacman-contrib
       - rsync
+      - ranger
       - stow
       - trash-cli
       - wget
