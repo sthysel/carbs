@@ -28,6 +28,7 @@
       - openvpn
       - picom
       - rofi
+      - rofi-emoji
       - sysstat
       - xclip
       - xdotool
