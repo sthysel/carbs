@@ -1,5 +1,5 @@
 configuration {
-	modi: "window,run,ssh,combi,emoji";
+	modi: "combi";
 	font: "Font Awesome 20";
 /*	location: 0;*/
 /*	yoffset: 0;*/
@@ -146,3 +146,4 @@ configuration {
       sorting-method:    "name";
   }
 }
+@theme "/usr/share/rofi/themes/purple.rasi"
