@@ -1,7 +1,0 @@
-- name: Install code tools
-  become: yes
-  pacman:
-    name:
-      - neovim
-      - emacs
-    state: present

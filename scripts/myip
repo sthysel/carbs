@@ -9,4 +9,3 @@ def get_ip():
     return s.getsockname()[0]
 
 print(get_ip())
-

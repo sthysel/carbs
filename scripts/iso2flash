@@ -6,13 +6,13 @@ infile=$1
 disk=$2
 
 if [ -z ${infile} ]
-then 
+then
     echo "Set the input iso"
     exit
 fi
 
 if [ -z ${disk} ]
-then 
+then
     echo "Set disk path"
     exit
 fi

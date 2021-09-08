@@ -1,4 +1,4 @@
-- name: Install some common tools
+- name: Install and enable docker
   become: yes
   pacman:
     name:

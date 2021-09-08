@@ -9,4 +9,3 @@ lmc pause
 pauseallmpv
 $term -e htop
 $term -e $FILE
-

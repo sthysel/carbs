@@ -15,7 +15,7 @@ In the bashrc the folowing function loads all .alias files from ${ALIAS_HOME}
 
 ```
 # source all alias and function files in ${ALIAS_HOME} ending in .alias
-ALIAS_HOME=${HOME}/dotfiles/alias.d 
+ALIAS_HOME=${HOME}/dotfiles/alias.d
 if [ -d ${ALIAS_HOME} ]
 then
   for a in $(find -L ${ALIAS_HOME} -type f -name "*.alias")
@@ -27,5 +27,3 @@ fi
 ```
 
 docker.alias is linked into ${ALIAS_HOME} and gets sourced by basrc/zshrc when the terminal is initialised.
-
-

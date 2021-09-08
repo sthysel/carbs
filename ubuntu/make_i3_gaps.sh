@@ -1,5 +1,5 @@
 #!/bin/bash
-# build and install i3-gaps from source 
+# build and install i3-gaps from source
 
 cd /tmp
 git clone https://www.github.com/Airblader/i3 i3-gaps

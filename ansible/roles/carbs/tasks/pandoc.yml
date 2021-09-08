@@ -1,6 +1,0 @@
-- name: Install documentation generation tools pandoc and latex
-  become: yes
-  pacman:
-    name:
-      - pandoc
-      - texlive-most
