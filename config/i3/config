@@ -229,6 +229,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Start some nice systems
+exec --no-startup-id gnome-settings-daemon
+
 ## notification manager
 exec --no-startup-id dunst
 
@@ -256,6 +258,5 @@ exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option cap
 
 # sweet background
 exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
-
 
 # vim:filetype=i3
