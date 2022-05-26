@@ -1,13 +1,10 @@
-spacevimrc=~/.SpaceVim.d/
 scripts=-t ~/.local/bin/ scripts
 config=-t ~/.config config
 
-.PHONY: scripts 
-.PHONY: config 
-.PHONY: spacevim
+.PHONY: scripts
+.PHONY: config
 .PHONY: all
 .PHONY: rm-all
-
 
 scripts:
 	mkdir -p ~/.local/bin/
@@ -23,7 +20,7 @@ config:
 rm-config:
 	stow -D ${config}
 
-spacevim: 
+spacevim:
 	mkdir -p ${spacevimrc}
 	stow -t ${spacevimrc} spacevim
 
@@ -36,7 +33,6 @@ init:
 update:
 	git pull --recurse-submodules
 
-all: scripts config spacevim
+all: init scripts config spacevim
 
 rm-all: rm-scripts rm-config rm-spacevim
-
