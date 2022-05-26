@@ -7,7 +7,7 @@ packages, some unique config for some of my machines, see [ansible](/ansible).
 
 Dotfiles are kept in `~/carbs` and then linked out to `~/.config/`, `~/.local/`
 and so on. That way its easy to keep config in git and push/pull as I like in
-`~/carbs` when config is updated or I find a new thing to play with. 
+`~/carbs` when config is updated or I find a new thing to play with.
 
 ![Shot](pics/screenshot1.jpg)
 
@@ -31,12 +31,12 @@ Install Arch on target. While there install
 
 - openssh, enable it
 - networkmanager, or similar
-- neovim 
+- neovim
 - sudo, enable wheel allowances using `EDITOR=vim visudo`
 
 Add user thys `# useradd -m -G wheel -s /bin/zsh thys`, set the password
 
-Nice, now 
+Nice, now
 
  - install the ssh public key: `ssh-copy-id thys@10.0.0.203`
  - run ansible: `$ play.sh 10.0.0.69`
@@ -83,5 +83,3 @@ So this tree will be linked into `~/.local/bin`
 # Desktop fed on moist and delightfull CARBS
 
 ![CARBS](pics/iregretnothing.jpeg)
-
-

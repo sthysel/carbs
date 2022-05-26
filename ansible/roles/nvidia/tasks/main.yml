@@ -1,0 +1,33 @@
+- name: Install nvidia drivers
+  become: yes
+  pacman:
+    name:
+      - nvidia
+
+- name: Make sure /etc/pacman.d/hooks/ exist
+  become: yes
+  file:
+    path: /etc/pacman.d/hooks/
+    state: directory
+    mode: '0755'
+
+
+- name: Install nvidia update hook
+  become: yes
+  copy:
+    dest: /etc/pacman.d/hooks/nvidia.hook
+    content: |
+      [Trigger]
+      Operation=Install
+      Operation=Upgrade
+      Operation=Remove
+      Type=Package
+      Target=nvidia
+      Target=linux
+
+      [Action]
+      Description=Update Nvidia module in initcpio
+      Depends=mkinitcpio
+      When=PostTransaction
+      NeedsTargets
+      Exec=/bin/sh -c 'while read -r trg; do case $trg in linux) exit 0; esac; done; /usr/bin/mkinitcpio -P'

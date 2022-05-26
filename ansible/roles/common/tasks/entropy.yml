@@ -1,9 +1,10 @@
+---
 - name: Install entropy service
   become: yes
   pacman:
     name:
-      - rng-tools 
-      - opensc 
+      - rng-tools
+      - opensc
 
 - name: Enable entropy service
   become: yes

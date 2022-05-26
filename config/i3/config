@@ -11,17 +11,20 @@
 
 # font
 font pango: DejaVu Sans Mono
+# font pango: FiraCode Nerd Font 12
 
 set $terminal kitty
 
 # i3-gaps
+smart_gaps on
+smart_borders on
 for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
 
 set $mod Mod4
 
-# General dropdown window traits. The order can matter.
+# General dropdown window traits. The order matters.
 for_window [instance="dropdown_*"] floating enable
 for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
@@ -45,14 +48,12 @@ no_focus [title="mpvfloat"]
 for_window [window_role="About"] floating enable
 for_window [class="vlc"] floating enable
 for_window [title="Authy"] floating enable
-for_window [title="PAT Cabin Display"] floating enable
-
 # mqtt-spy
 for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
 
 bar {
-  font pango: DejaVu Sans Mono 16
   status_command i3blocks
+  # font pango: DejaVu Sans Mono 16
   position top
   mode dock
   modifier None
@@ -229,7 +230,9 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Start some nice systems
-## notification manager
+exec --no-startup-id gnome-settings-daemon
+
+# notification manager
 exec --no-startup-id dunst
 
 # compositor
@@ -256,6 +259,5 @@ exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option cap
 
 # sweet background
 exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
-
 
 # vim:filetype=i3

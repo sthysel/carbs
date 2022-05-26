@@ -1,0 +1,10 @@
+
+* i3
+Change font back to mono, Fira Code is for code...
+
+* neovim
+neovim is used for fast basic file editing.
+Changed to basic kickstart config https://github.com/nvim-lua/kickstart.nvim 
+
+* theme.sh
+[[https://github.com/lemnos/theme.sh][GitHub - lemnos/theme.sh: A script which lets you set your $terminal theme.]]

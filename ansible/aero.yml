@@ -1,0 +1,8 @@
+---
+- hosts: aero
+  roles:
+    - victorbrca.ansible_aur_install
+    - common
+    - nvidia
+    - desktop
+    - docker

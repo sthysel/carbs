@@ -1,5 +1,0 @@
-- name: Video
-  become: yes
-  pacman:
-    name:
-      - mplayer

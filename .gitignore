@@ -34,3 +34,4 @@ bpam/static/
 syntax:regexp
 \.idea
 #*#
+tags

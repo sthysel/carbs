@@ -33,7 +33,7 @@ exec --no-startup-id volumeicon
 exec --no-startup-id indicator-sound-switcher
 
 ## DPMS monitor setting (standby -> suspend -> off) (seconds)
-exec --no-startup-id xset dpms 300 600 900 
+exec --no-startup-id xset dpms 300 600 900
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -56,7 +56,7 @@ bindsym $mod+space exec dmenu_run
 set $up k
 set $down j
 set $left h
-set $right l 
+set $right l
 
 # focus
 bindsym $mod+$left focus left
@@ -83,7 +83,7 @@ bindsym Mod1+Shift+Up move up
 bindsym Mod1+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+equal split v 
+bindsym $mod+equal split v
 # split in vertical orientation
 bindsym $mod+backslash split h
 
@@ -147,7 +147,7 @@ bindsym $mod+Shift+7 move container to workspace $tag_hook
 bindsym $mod+Shift+8 move container to workspace $tag_hoof
 bindsym $mod+Shift+9 move container to workspace $tag_hoop
 
-workspace $tag_hat output $LAPTOP_SCREEN 
+workspace $tag_hat output $LAPTOP_SCREEN
 workspace $tag_hen output $LAPTOP_SCREEN
 workspace $tag_ham output $LAPTOP_SCREEN
 workspace $tag_hair output $LAPTOP_SCREEN
@@ -163,12 +163,12 @@ bindsym $mod+Shift+w reload
 bindsym $mod+Shift+e exit
 bindsym $mod+Tab workspace next
 
-set $apps "Start apps: google-chrome emacs vim gitkraken pycharm" 
+set $apps "Start apps: google-chrome emacs vim gitkraken pycharm"
 mode $apps {
         bindsym $mod+g exec google-chrome
         bindsym $mod+e exec emacs
         bindsym $mod+v exec vim
-        bindsym $mod+k exec gitkraken 
+        bindsym $mod+k exec gitkraken
         bindsym $mod+p exec pycharm.sh
 
         # back to normal: Enter or Escape
@@ -176,7 +176,7 @@ mode $apps {
 }
 bindsym $mod+a mode $apps
 
-set $suspend "Suspend" 
+set $suspend "Suspend"
 mode $suspend {
         bindsym $mod+x exec pm-suspend
 
@@ -212,7 +212,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 bar {
-        status_command i3status 
+        status_command i3status
         position top
         modifier $mod
 }
@@ -229,7 +229,7 @@ bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle
 
 # Sreen brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # start the session
 exec --no-startup-id ~/.i3/autostart

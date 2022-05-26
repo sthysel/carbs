@@ -3,7 +3,7 @@
 date '+%Y/%m/%d %H:%M:%S'
 
 help="
-📅 
+📅
 Time/date module
 Left click to show upcoming appointments for the next three days via \`calcurse -d3\` and show the month via \`cal\`
 Middle click opens calcurse if installed

@@ -2,7 +2,7 @@
 - name: Update all machines right now
   hosts: all
   become: yes
-  
+
   tasks:
     - name: Full system upgrade
       pacman:

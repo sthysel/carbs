@@ -1,0 +1,7 @@
+---
+- hosts: impi
+  roles:
+    - victorbrca.ansible_aur_install
+    - common
+    - desktop
+    - docker

@@ -3,6 +3,7 @@ config=-t ~/.config config
 
 .PHONY: scripts
 .PHONY: config
+.PHONY: spacevim
 .PHONY: all
 .PHONY: rm-all
 

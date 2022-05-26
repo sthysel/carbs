@@ -1,0 +1,91 @@
+- name: Remove i3-wm
+  become: true
+  pacman:
+    name:
+      - i3-wm
+      - compton
+    state: removed
+
+- name: Install i3 and things it needs
+  become: true
+  become_user: aur_builder
+  aur:
+    name:
+      - acpi
+      - bc
+      - calcurse
+      - conky
+      - dunst
+      - feh
+      - flameshot
+      - i3-gaps
+      - i3blocks
+      - i3status
+      - kitty
+      - lightdm
+      - lightdm-gtk-greeter
+      - numlockx
+      - openvpn
+      - picom
+      - rofi
+      - rofi-emoji
+      - sysstat
+      - xclip
+      - xdotool
+      - xorg-apps
+      - xorg-server
+      - xorg-xinit
+      - xsel
+
+- name: Install sweet fonts
+  become: yes
+  pacman:
+    name:
+      - noto-fonts
+      - terminus-font
+      - ttf-dejavu
+      - ttf-droid
+      - ttf-font-awesome
+      - ttf-inconsolata
+      - ttf-joypixels
+      - ttf-liberation
+      - ttf-roboto
+      - ttf-ubuntu-font-family
+    state: present
+
+- name: Automatic monitor activation on laptop docking and the like
+  become: yes
+  copy:
+    dest: "/etc/udev/rules.d/carbs-screens.conf"
+    content: |
+      KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{carbs_user}}/.Xauthority", RUN+="/home/{{carbs_user}}/.local/bin/hotplug_monitor.sh"
+
+- name: Install documentation generation tools pandoc and latex
+  become: yes
+  pacman:
+    name:
+      - pandoc
+      - texlive-most
+
+- name: Install vim and emacs
+  become: yes
+  pacman:
+    name:
+      - neovim
+      - emacs
+    state: present
+
+- name: Music
+  become: yes
+  pacman:
+    name:
+      - mplayer
+      - pavucontrol
+      - pulsemixer
+      - playerctl
+      - mpd
+      # terminal interface for mpd
+      - mpc
+      - mpv
+      - ncmpcpp
+    state: present
