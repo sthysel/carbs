@@ -250,8 +250,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id udiskie -ans
 exec --no-startup-id udisks-glue
 
-# nice
-exec --no-startup-id conky
+exec_always --no-startup-id conky
 
 # remaps the caps lock button to escape and uses the US international keyboard with dead keys
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
