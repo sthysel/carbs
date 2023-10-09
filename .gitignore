@@ -2,4 +2,3 @@ tags
 *.~undo-tree~
 config/nvim/plugin/
 .luarc.json
-
