@@ -122,5 +122,4 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 MANPAGER="nvim +Man!"
 MANWIDTH=999
 
-export OPENAI_API_KEY=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
 eval "$(pyenv virtualenv-init -)"
