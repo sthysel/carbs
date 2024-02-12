@@ -186,15 +186,15 @@ bindsym $mod+comma split horizontal ;; exec $terminal
 bindsym $mod+slash split vertical ;; exec $terminal
 
 # Name the workspaces
-set $workspace_web "1:"
-set $workspace_terminals "2:"
-set $workspace_pycharm "3:"
-set $workspace_spacemacs "4:"
-set $workspace_git "5:"
-set $workspace_testing "6:"
-set $workspace_playing "7:"
-set $workspace_away "8:"
-set $workspace_music "9:"
+set $workspace_web "1 "
+set $workspace_terminals "2 "
+set $workspace_pycharm "3 "
+set $workspace_spacemacs "4 "
+set $workspace_git "5 "
+set $workspace_testing "6 "
+set $workspace_playing "7 "
+set $workspace_away "8 "
+set $workspace_music "9 "
 
 # switch to workspace
 bindsym $mod+Escape workspace prev

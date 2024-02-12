@@ -33,7 +33,7 @@
   helper = store
 
 [http]
-  sslVerify = false
+  # sslVerify = false
 
 [magithub]
   online = false
