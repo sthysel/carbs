@@ -1,52 +1,64 @@
-# Makefile for managing carbs using stow
+SHELL := /bin/bash
+.SHELLFLAGS = -ec
+LIMIT ?=NA
+TAGS ?= "all"
+ANSIBLE_ARGS = ""
 
-# Define variables for script and config paths
-SCRIPTS_PATH = ~/.local/bin/
-CONFIG_PATH = ~/.config/
-SPACEVIMRC_PATH = ~/.SpaceVim.d/
+ifeq (, $(shell which poetry))
+	$(error "No poetry in $(PATH), do \$make env/bootstrap")
+endif
 
-# Phony targets do not represent files
-.PHONY: scripts rm-scripts config rm-config spacevim rm-spacevim init update all rm-all
+-include .env
 
-# Create the scripts directory and stow scripts
-scripts:
-	@mkdir -p $(SCRIPTS_PATH)
-	@stow -t $(SCRIPTS_PATH) scripts || echo "Stowing scripts failed."
+.ONESHELL:
+.EXPORT_ALL_VARIABLES:
 
-# Unstow scripts
-rm-scripts:
-	@stow -D -t $(SCRIPTS_PATH) scripts || echo "Unstowing scripts failed."
+install/yay: ## Install the yay aur helper
+	@source ./bootstrap.sh && install_yay
 
-# Create the config directory and stow config
-config:
-	@mkdir -p $(CONFIG_PATH)
-	@stow -t $(CONFIG_PATH) config || echo "Stowing config failed."
+install/pipx: install/yay ## Install pipx
+	@source ./bootstrap.sh && install_pipx
 
-# Unstow config
-rm-config:
-	@stow -D -t $(CONFIG_PATH) config || echo "Unstowing config failed."
+install/poetry: install.pipx ## Install poetry
+	@source ./bootstrap.sh && install_poetry
 
-# Create the SpaceVim configuration directory and stow spacevim
-spacevim:
-	@mkdir -p $(SPACEVIMRC_PATH)
-	@stow -t $(SPACEVIMRC_PATH) spacevim || echo "Stowing SpaceVim config failed."
+install/ansible: ## Install ansible
+	poetry install
+	poetry run ansible-galaxy collection install community.general
 
-# Remove the SpaceVim configuration directory
-rm-spacevim:
-	@read -p "Are you sure you want to remove the SpaceVim config? [y/N] " confirm; \
-	[ $$confirm == "y" ] && rm -fr $(SPACEVIMRC_PATH) || echo "Removal cancelled."
+bootstrap: ## bootstrap CARBS
+	@source ./bootstrap.sh && bootstrap
 
-# Initialize git submodules
-init:
-	@git submodule update --init --recursive || echo "Git submodule initialization failed."
+qa/install-pre-commit-hooks:  ## Install pre-commit hooks
+	poetry run pre-commit install
 
-# Update the repository and submodules
-update:
-	@git pull --recurse-submodules || echo "Git update failed."
+.PHONY: qa/all
+qa/all:  ## Run pre-commit QA pipeline on all files
+	poetry run pre-commit run --all-files
 
-# Run all the stow commands
-all: init scripts config spacevim
+deploy: ## Deploy against inventory
+	echo "Limiting deployment to ${LIMIT}"
+	poetry run ansible-playbook \
+    -v \
+		--user thys \
+		--inventory inventories/ \
+		--limit ${LIMIT} \
+		--tags ${TAGS} \
+		provision.yml
 
-# Remove all stowings
-rm-all: rm-scripts rm-config rm-spacevim
+carbs: ## Install CARBS on local machine
+	poetry run ansible-playbook \
+    -v \
+		--user $USER \
+		--inventory inventories/ \
+		--limit ${LIMIT} \
+		--tags ${TAGS} \
+		provision.yml
+
+
+.DEFAULT_GOAL := help
+.PHONY: help
+help: ## Print Makefile help
+	@grep --no-filename -E '^[a-zA-Z_\/-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
 

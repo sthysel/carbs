@@ -1,0 +1,141 @@
+* CARBS (Version 0.3.0)
+:PROPERTIES:
+:CUSTOM_ID: carbs-version-0.3.0
+:END:
+In which you will find Chad Arch Random Bootstrap Scripts.
+
+This repo will allow to you setup a Arch Linux system in the only
+possible correct way. Failing that it will at least try to suck as
+little as possible.
+
+* Who is this for
+:PROPERTIES:
+:CUSTOM_ID: who-is-this-for
+:END:
+This =distribution= is made by and for the slightly racist, moderately
+communist, jaded husk, GenX straight white corpcucked male. Who
+identifies as a Linux and Python vegan vi/vim pronouns, being of the
+opinion that the patriarchy can't be worse than the alternative. Or any
+other brother and sister in the Church of config-curious user centric
+personal computing.
+
+Fork this repo for your own use, and adapt to your sensibilities.
+
+* Overview
+:PROPERTIES:
+:CUSTOM_ID: overview
+:END:
+- Install Arch, typically using the latest ISO image from a
+  [[https://www.ventoy.net/en/index.html][Ventoy]] enabled USB drive.
+- Install the bootstrap tools on the fresh install
+- Using the bootstrap tools install the CARBS config distribution
+- Config drift is managed in the CARBS git repo, this acts as both a
+  config backup, and a source of quickly standing up a new CARBS enabled
+  machine.
+
+* Acknowledge country
+:PROPERTIES:
+:CUSTOM_ID: acknowledge-country
+:END:
+- There is some unavoidable bootstrapping that needs to happen to
+  install core tooling, this is Make managed.
+- dotfiles are kept in, as far as possible, a 1:1 config folder and
+  linked into place
+- Linking is done using ansible
+- All dependencies are managed using ansible
+- Functionality is sorted into ansible roles
+- This work will never end, it changes as the weather changes
+
+* Install
+:PROPERTIES:
+:CUSTOM_ID: install
+:END:
+** Install Arch if you have not yet done so
+:PROPERTIES:
+:CUSTOM_ID: install-arch-if-you-have-not-yet-done-so
+:END:
+You will need a working network with access to the interwebs as a
+minimum.
+
+Install Arch on target machine using a ventoy USB drive for physical
+machines.
+
+Be sure to pick a networking solution and enable it, be it
+NetworkManager or systemd-networking. Its hard to install things of
+github if you don't have a working nic.
+
+Once the new machine has been provisioned and the networking is good,
+proceed.
+
+** Install bootstrap tools
+:PROPERTIES:
+:CUSTOM_ID: install-bootstrap-tools
+:END:
+You will need at least one privileged user to install additional
+packages, you can just as well use the root user you added during
+install.
+
+Make sure the admin user is in the wheel group, and use visudo to enable
+=wheel= user privileges =visudo=, if you have neovim already installed,
+=EDITOR=nvim visudo=
+
+#+begin_example
+%wheel ALL=(ALL) ALL
+#+end_example
+
+replace =carbsadmin= with your user
+
+#+begin_example
+USER=carbsadmin sudo useradd -m -G wheel -s /bin/bash $USER
+#+end_example
+
+And install the bootstrap tools, =git= and =make=
+
+#+begin_src sh
+sudo pacman -S make git
+#+end_src
+
+** Install CARBS
+:PROPERTIES:
+:CUSTOM_ID: install-carbs
+:END:
+Clone the CARBS repo, or your fork into =~/carbs=, and do =make carbs=
+
+#+begin_example
+git clone git@github.com:sthysel/carbs.git
+cd carbs
+make install
+#+end_example
+
+* The somewhat silly bootstrap dependency chain
+:PROPERTIES:
+:CUSTOM_ID: the-somewhat-silly-bootstrap-dependency-chain
+:END:
+We want to use ansible to manage everything, but ansible is a python
+tool and we don't want to use system python for that because the system
+python belongs to the system and we want to be isolated from that. So we
+want to use pyenv to install our python version of choice, and use a
+pyenv provided python for pipx to install poetry, to install ansible.
+And we want to use yay to install pyenv.
+
+So the tool dependency chain looks something like this:
+
+yay -> pyenv -> pipx -> poetry -> ansible
+
+In short, the bootstrap script will: - install bootstrap yay using
+pacman, - re-install yay using yay - install pyenv using yay - install a
+global user Python using pyenv - install pipx using the user Python -
+install poetry using pipx - install ansible using poetry
+
+This will also leave us with a somewhat well configured Python
+development environment that isolates us from system Python with maximum
+flexibility and little potential for dependency conflicts between
+development projects and system Python dependencies. And not much
+sanity.
+
+* Desktop fed on moist and delightfull CARBS
+:PROPERTIES:
+:CUSTOM_ID: desktop-fed-on-moist-and-delightfull-carbs
+:END:
+#+caption: CARBS
+[[file:pics/iregretnothing.jpeg]]
