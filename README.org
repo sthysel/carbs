@@ -9,50 +9,50 @@ possible correct way. Failing that it will at least try to suck as
 little as possible.
 
 * Who is this for
-CARBS is made for the slightly racist, moderately communist, GenX
-straight white corpcucked male. He identifies as a Linux and Python vegan and
-you will respect his vi/vim pronouns. He may be of the opinion that the
-patriarchy can't be worse than the alternative, but he never states the obvious.
-He is tolerant of his brothers and sisters in the Church of the config-curious.
+CARBS is made for the covertly slightly racist, moderately communist, totally
+non-sexist GenX straight white corpcucked male coder. He identifies as a Linux and
+Python vegan and you will respect his vi/vim pronouns. He may be of the opinion
+that the patriarchy can't be worse than the alternative, but he never states the
+obvious. He is tolerant of his brothers and sisters in the Church of the
+config-curious.
 
 Fork this repo for your own use, and adapt to your own sensibilities.
+
+* What does it do
+CARBS allows you to bootstrap a fresh Arch Linux environment to a comfy, capable
+modern development environment, in a few minutes. And allows you to keep that
+config maintained and backed-up using git and gitops config as code tooling, in
+a way your 1/4 century younger than your SCRUM-cuck master cannot fathom.
 
 * The basic plan
 - Install Arch, typically using the latest ISO image from a [[https://www.ventoy.net/en/index.html][Ventoy]] enabled USB
   drive.
 - Install bootstrap tooling on the fresh install, this necessary to /bootstrap/
   the CARBS config unto the target environment.
-- Using the bootstrap tools install the CARBS config distribution
-- Config drift is managed in the CARBS git repo, this acts as both a config
-  backup, and a source of quickly standing up a new CARBS enabled machine.
+- Using the bootstrap tools install CARBS
+- Enjoy a comfy CARBSified compute environment
+- Manage config drift over time in the CARBS git repo.
+- The CARBS repo acts as both a config backup, and a source of quickly standing
+  up a new CARBS enabled machine, fine tuned to your specific liking, no drama,
+  no fuss.
 
 * Acknowledge country
 - There is some unavoidable bootstrapping that needs to happen to
-  install core tooling, this is mostly =make= managed.
+  install core tooling, this is mostly =make= and =bash= managed.
 - dotfiles are kept in, as far as possible, a 1:1 config folder and
   linked into place
 - Linking is done using ansible
 - All dependencies are managed using ansible
 - Functionality is sorted into ansible roles
-- This work will never end, it changes as the weather changes
 
 * Install
 ** Install Arch if you have not yet done so
-:PROPERTIES:
-:CUSTOM_ID: install-arch-if-you-have-not-yet-done-so
-:END:
-You will need a working network with access to the interwebs as a
-minimum.
-
-Install Arch on target machine using a ventoy USB drive for physical
-machines.
-
-Be sure to pick a networking solution and enable it, be it
-NetworkManager or systemd-networking. Its hard to install things of
-github if you don't have a working nic.
-
-Once the new machine has been provisioned and the networking is good,
-proceed.
+- You will need a working network with access to the interwebs as a minimum.
+- Install Arch on target machine using a ventoy USB drive for physical machines.
+- Be sure to pick a networking solution and enable it, be it NetworkManager or
+  systemd-networking. Its hard to install things of github if you don't have a
+  working nic.
+- Once the new machine has been provisioned and the networking is good, proceed.
 
 ** Install bootstrap tools
 :PROPERTIES:
