@@ -1,3 +1,6 @@
+
+[[file:pics/carbs.webp]]
+
 * CARBS (Version 0.3.0)
 :PROPERTIES:
 :CUSTOM_ID: carbs-version-0.3.0
@@ -19,22 +22,22 @@ config-curious.
 Fork this repo for your own use, and adapt to your own sensibilities.
 
 * What does it do
-CARBS allows you to bootstrap a fresh Arch Linux environment to a comfy, capable
-modern development environment, in a few minutes. And allows you to keep that
-config maintained and backed-up using git and gitops config as code tooling, in
-a way your 1/4 century younger than your SCRUM-cuck master cannot fathom.
+CARBS allows you to bootstrap a fresh Arch Linux environment into a comfy,
+capable modern development environment, in a few minutes. It also allows you to
+keep that config maintained and backed-up using git and gitops config as code
+thinking, in a way your 1/4 century younger than your SCRUM-cuck master cannot
+fathom.
 
 * The basic plan
 - Install Arch, typically using the latest ISO image from a [[https://www.ventoy.net/en/index.html][Ventoy]] enabled USB
   drive.
 - Install bootstrap tooling on the fresh install, this necessary to /bootstrap/
-  the CARBS config unto the target environment.
-- Using the bootstrap tools install CARBS
+  the CARBS config unto the target environment
+- Use the bootstrap tools to install CARBS i.e. =git= and =make=
 - Enjoy a comfy CARBSified compute environment
-- Manage config drift over time in the CARBS git repo.
-- The CARBS repo acts as both a config backup, and a source of quickly standing
-  up a new CARBS enabled machine, fine tuned to your specific liking, no drama,
-  no fuss.
+- Manage config drift over time in the CARBS git repo. The CARBS repo acts as
+  both a config backup, and a source of quickly standing up a new CARBS enabled
+  machine, fine tuned to your specific liking, no drama, no fuss.
 
 * Acknowledge country
 - There is some unavoidable bootstrapping that needs to happen to
@@ -91,21 +94,27 @@ Clone the CARBS repo, or your fork into =~/carbs=, and do =make carbs=
 #+begin_example
 git clone git@github.com:sthysel/carbs.git
 cd carbs
-make install
+make bootstrap
 #+end_example
 
 * The somewhat silly bootstrap dependency chain
 :PROPERTIES:
 :CUSTOM_ID: the-somewhat-silly-bootstrap-dependency-chain
 :END:
-We want to use Ansible to manage everything. Ansible is a Python tool and we
+We want to use =ansible= to manage everything. =ansible= is a Python tool but we
 don't want to use system Python for that because the system Python belongs to
 the system and we want to be isolated from when the system decides to change
-it. For that reason we want to use [[https://github.com/pyenv/pyenv][pyenv]] to install our user Python version of
-choice, and use a [[https://github.com/pyenv/pyenv][pyenv]] provided Python for pipx to install poetry, to install
-Ansible. And we want to use yay to install pyenv.
+it, as it does.
 
-So the tool dependency chain looks something like this:
+For that reason we want to use [[https://github.com/pyenv/pyenv][pyenv]] to install our user Python version of
+choice, and use a [[https://github.com/pyenv/pyenv][pyenv]] provided Python for =pipx= to install =poetry=. =poetry=
+is used to install =ansible=. We want to use =yay= to install =pyenv=, so the
+system can take care of =pyenv= updates.
+
+We want the Arch package management to take care of things that we don't want to
+deal with, while managing the things we do care about ourselves.
+
+So the CARBS tool dependency chain looks something like this:
 
 yay -> pyenv -> pipx -> poetry -> ansible
 
@@ -119,16 +128,15 @@ In short, the bootstrap script will:
 - install poetry using pipx
 - install ansible using poetry
 
-This will also leave us with a somewhat well configured Python
-development environment that isolates us from system Python with maximum
-flexibility and little potential for dependency conflicts between
-development projects and system Python dependencies. And not much
-sanity.
+This will leave us with a somewhat well configured Python development
+environment that isolates us from system Python with maximum flexibility and
+little potential for dependency conflicts between development projects and
+system Python dependencies.
 
-Does it ==need== to be so convoluted just to install CARBS? Yes, because we
-install CARBS for a reason, to have a code dev environment, one that supports
-the Python build system where it is today. The day will come when its more
-straightforward, today is not that day.
+Does it /need/ to be so seemingly convoluted just to install CARBS? No, but also
+yes, because we install CARBS for a reason: to have a code dev environment, one
+that supports the Python build system where it is today. The day will come when
+its more straightforward, today is not that day.
 
 What about docker, and lxc ? Do you even containerize bro ? All the time, bro,
 but I don't /have/ to, and neither do you.
