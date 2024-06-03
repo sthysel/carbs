@@ -16,24 +16,24 @@ endif
 install/yay: ## Install the yay aur helper
 	@source ./bootstrap.sh && install_yay
 
-install/pipx: install/yay ## Install pipx
+install/pipx: install/yay ## install pipx
 	@source ./bootstrap.sh && install_pipx
 
-install/poetry: install.pipx ## Install poetry
+install/poetry: install/pipx ## install poetry
 	@source ./bootstrap.sh && install_poetry
 
-install/ansible: ## Install ansible
-	poetry install
-	poetry run ansible-galaxy collection install community.general
+install/ansible: install/poetry ## install ansible
+	@source ./bootstrap.sh && install_ansible
 
+# big old catch-all
 bootstrap: ## bootstrap CARBS
 	@source ./bootstrap.sh && bootstrap
 
-qa/install-pre-commit-hooks:  ## Install pre-commit hooks
+qa/install-pre-commit-hooks:  ## install pre-commit hooks
 	poetry run pre-commit install
 
 .PHONY: qa/all
-qa/all:  ## Run pre-commit QA pipeline on all files
+qa/all:  ## run pre-commit QA pipeline on all files
 	poetry run pre-commit run --all-files
 
 deploy: ## Deploy against inventory

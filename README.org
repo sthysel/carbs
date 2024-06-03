@@ -12,12 +12,11 @@ little as possible.
 :PROPERTIES:
 :CUSTOM_ID: who-is-this-for
 :END:
-This =distribution= is made by and for the slightly racist, moderately
-communist, jaded husk, GenX straight white corpcucked male. Who
-identifies as a Linux and Python vegan vi/vim pronouns, being of the
-opinion that the patriarchy can't be worse than the alternative. Or any
-other brother and sister in the Church of config-curious user centric
-personal computing.
+This =config= is made for the slightly racist, moderately communist, GenX
+straight white corpcucked male. He identifies as a Linux and Python vegan and
+you will respect his vi/vim pronouns. He may be of the opinion that the
+patriarchy can't be worse than the alternative, but he never states the obvious.
+He is tolerant of his brothers and sisters in the Church of the config-curious.
 
 Fork this repo for your own use, and adapt to your sensibilities.
 
@@ -111,27 +110,40 @@ make install
 :PROPERTIES:
 :CUSTOM_ID: the-somewhat-silly-bootstrap-dependency-chain
 :END:
-We want to use ansible to manage everything, but ansible is a python
-tool and we don't want to use system python for that because the system
-python belongs to the system and we want to be isolated from that. So we
-want to use pyenv to install our python version of choice, and use a
-pyenv provided python for pipx to install poetry, to install ansible.
-And we want to use yay to install pyenv.
+We want to use Ansible to manage everything. Ansible is a Python tool and we
+don't want to use system Python for that because the system Python belongs to
+the system and we want to be isolated from when the system decides to change
+it. For that reason we want to use [[https://github.com/pyenv/pyenv][pyenv]] to install our user Python version of
+choice, and use a [[https://github.com/pyenv/pyenv][pyenv]] provided Python for pipx to install poetry, to install
+Ansible. And we want to use yay to install pyenv.
 
 So the tool dependency chain looks something like this:
 
 yay -> pyenv -> pipx -> poetry -> ansible
 
-In short, the bootstrap script will: - install bootstrap yay using
-pacman, - re-install yay using yay - install pyenv using yay - install a
-global user Python using pyenv - install pipx using the user Python -
-install poetry using pipx - install ansible using poetry
+In short, the bootstrap script will:
+
+- install bootstrap yay using pacman
+- re-install yay using yay
+- install pyenv using yay
+- install a global user Python using pyenv
+- install pipx using the user Python
+- install poetry using pipx
+- install ansible using poetry
 
 This will also leave us with a somewhat well configured Python
 development environment that isolates us from system Python with maximum
 flexibility and little potential for dependency conflicts between
 development projects and system Python dependencies. And not much
 sanity.
+
+Does it ==need== to be so convoluted just to install CARBS? Yes, because we
+install CARBS for a reason, to have a code dev environment, one that supports
+the Python build system where it is today. The day will come when its more
+straightforward, today is not that day.
+
+What about docker, and lxc ? Do you even containerize bro ? All the time, bro,
+but I don't /have/ to, and neither do you.
 
 * Desktop fed on moist and delightfull CARBS
 :PROPERTIES:

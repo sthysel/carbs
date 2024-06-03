@@ -5,16 +5,22 @@ set -u  # Treat unset variables as an error.
 
 PYTHON_VERSION=${PYTHON_VERSION:-3.12.2}
 
+function have {
+  command -v "$1" &>/dev/null
+}
+
 # install yay if not already installed
 install_yay() {
-    if ! command -v yay &> /dev/null
+    if ! have yay
     then
+        # first we install yay with packman
         sudo pacman -S --needed base-devel git
         git clone https://aur.archlinux.org/yay.git
         cd yay
         makepkg -si
         cd ..
         rm -rf yay
+        # and now we use yay to install yay, so everything is yay
         yay -S --noconfirm yay
     else
         echo "yay is already installed"
@@ -24,7 +30,7 @@ install_yay() {
 
 # install pyenv using yay
 install_pyenv() {
-    if ! command -v pyenv &> /dev/null
+    if ! have pyenv
     then
         yay -S --noconfirm pyenv
     else
@@ -36,10 +42,12 @@ install_pyenv() {
 initialize_pyenv() {
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv &> /dev/null
+    if have pyenv
     then
         eval "$(pyenv init --path)"
         eval "$(pyenv init -)"
+    else
+        echo "cannot find pyenv"
     fi
 }
 
@@ -55,7 +63,7 @@ install_python_version() {
 
 # install pipx using the user Python
 install_pipx() {
-    if ! command -v pipx &> /dev/null
+    if ! have pipx
     then
         python -m pip install --user pipx
         python -m pipx ensurepath
@@ -76,7 +84,7 @@ install_pipx() {
 
 # install poetry using pipx
 install_poetry() {
-    if ! command -v poetry &> /dev/null
+    if ! have poetry && have pipx
     then
         pipx install poetry
     else
