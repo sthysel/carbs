@@ -1,4 +1,4 @@
-
+#+caption: CARBS
 [[file:pics/carbs.webp]]
 
 * CARBS (Version 0.3.0)
@@ -145,5 +145,5 @@ but I don't /have/ to, and neither do you.
 :PROPERTIES:
 :CUSTOM_ID: desktop-fed-on-moist-and-delightfull-carbs
 :END:
-#+caption: CARBS
+#+caption: noregrets
 [[file:pics/iregretnothing.jpeg]]
