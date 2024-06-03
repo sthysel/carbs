@@ -1,5 +1,5 @@
 #+caption: CARBS
-[[file:pics/carbs.webp]]
+[[file:pics/carbs.jpg]]
 
 * CARBS (Version 0.3.0)
 :PROPERTIES:
