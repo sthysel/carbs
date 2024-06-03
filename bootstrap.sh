@@ -86,6 +86,7 @@ install_poetry() {
 
 install_ansible() {
     poetry install
+	  poetry run ansible-galaxy collection install community.general
 }
 
 bootstrap() {
