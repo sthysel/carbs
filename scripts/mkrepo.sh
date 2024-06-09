@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # https://gist.github.com/robwierzbowski/5430952/
-# Create and push to a new github repo from the command line.  
-# Grabs sensible defaults from the containing folder and `.gitconfig`.  
+# Create and push to a new github repo from the command line.
+# Grabs sensible defaults from the containing folder and `.gitconfig`.
 # Refinements welcome.
 
 # Gather constant vars

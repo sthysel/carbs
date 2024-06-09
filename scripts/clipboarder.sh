@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # Stolen from Luke Smith's LARBS
 # Do something with the string in the primary clipboard

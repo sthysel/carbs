@@ -1,5 +1,9 @@
 #!/bin/sh
+
+
 #STOP/HIDE EVERYTHING
+
+set -euo pipefail
 
 term=kitty
 
