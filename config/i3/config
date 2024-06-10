@@ -11,20 +11,19 @@
 
 # font
 font pango: DejaVu Sans Mono
-# font pango: FiraCode Nerd Font 12
 
 set $terminal kitty
 
 # i3-gaps
 smart_gaps on
 smart_borders on
-for_window [class="^.*"] border pixel 2
 gaps inner 5
 gaps outer 5
 
 set $mod Mod4
 
 # General dropdown window traits. The order matters.
+for_window [class="^.*"] border pixel 2
 for_window [instance="dropdown_*"] floating enable
 for_window [instance="dropdown_*"] move scratchpad
 for_window [instance="dropdown_*"] sticky enable
@@ -38,7 +37,7 @@ for_window [instance="dropdown_*"] move position center
 for_window [window_role="GtkFileChooserDialog"] resize set 800 600
 for_window [window_role="GtkFileChooserDialog"] move position center
 
-# Bindings to make the webcam float and stick.
+# make the mpv  float and stick, webcam things
 for_window [title="mpvfloat"] floating enable
 for_window [title="mpvfloat"] sticky enable
 for_window [title="mpvfloat"] border pixel 0
@@ -51,9 +50,14 @@ for_window [title="Authy"] floating enable
 # mqtt-spy
 for_window [class="pl.baczkowicz.mqttspy.Main"] floating enable
 
+# Set default size for floating windows
+for_window [floating] resize set 800 600
+# Center floating windows
+for_window [floating] move position center
+
 bar {
   status_command i3blocks
-  # font pango: DejaVu Sans Mono 16
+  font pango:DejaVu Sans Mono, FontAwesome 10
   position top
   mode dock
   modifier None
@@ -63,11 +67,12 @@ bar {
 # start a terminal
 bindsym $mod+Return exec $terminal
 
-# start a new terminal in the same directory as the current terminal
-bindsym $mod+Shift+Return exec --no-startup-id samedir
-
+# General floating config
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
+
+# for floating windows
+bindsym $mod+Shift+s exec --no-startup-id winresize.sh
 
 # lock screen
 bindsym Control+$mod+l exec i3lock -d -c 111111
@@ -83,9 +88,11 @@ bindsym --release $mod+x exec --no-startup-id flameshot gui
 bindsym $mod+Shift+r restart
 bindsym $mod+F2 restart
 bindsym $mod+Shift+w reload
-bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
 bindsym $mod+Tab workspace next
+# FIXME
+bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
 
+# FIXME, more better rofi
 # rofi
 bindsym $mod+space exec rofi -show
 
@@ -101,17 +108,14 @@ bindsym $mod+Shift+Delete exec --no-startup-id pornmode
 bindsym $mod+q [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
 bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
 
-# for floating windows
-bindsym $mod+Shift+s exec --no-startup-id winresize
-
 bindsym $mod+t split toggle
 bindsym $mod+Shift+t gaps inner current set 5; gaps outer current set 5
 
 # resize windows
-bindsym $mod+Shift+y exec --no-startup-id i3resize left
-bindsym $mod+Shift+o exec --no-startup-id i3resize right
-bindsym $mod+Shift+i exec --no-startup-id i3resize up
-bindsym $mod+Shift+u exec --no-startup-id i3resize down
+bindsym $mod+Shift+y exec --no-startup-id i3resize.sh left
+bindsym $mod+Shift+o exec --no-startup-id i3resize.sh right
+bindsym $mod+Shift+i exec --no-startup-id i3resize.sh up
+bindsym $mod+Shift+u exec --no-startup-id i3resize.sh down
 
 # gap control
 bindsym $mod+g gaps inner current plus 5
@@ -171,7 +175,7 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # clipboard action
-bindsym $mod+c exec --no-startup-id clipboarder
+bindsym $mod+c exec --no-startup-id clipboarder.sh
 
 # bar toggle
 bindsym $mod+b bar mode toggle

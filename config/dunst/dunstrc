@@ -17,7 +17,7 @@
     #
     # If this option is set to mouse or keyboard, the monitor option
     # will be ignored.
-    follow = none
+    follow = keyboard
 
     ### Geometry ###
 
@@ -39,7 +39,7 @@
     scale = 0
 
     # Maximum number of notification (0 means no limit)
-    notification_limit = 20
+    notification_limit = 10
 
     ### Progress bar ###
 
@@ -61,7 +61,7 @@
     progress_bar_max_width = 300
 
     # Corner radius for the progress bar. 0 disables rounded corners.
-    progress_bar_corner_radius = 0
+    progress_bar_corner_radius = 3
 
     # Define which corners to round when drawing the progress bar. If progress_bar_corner_radius
     # is set to 0 this option will be ignored.

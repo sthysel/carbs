@@ -1,5 +1,7 @@
-#!/bin/sh
-# Source: https://faq.i3wm.org/question/2172/how-do-i-find-the-criteria-for-use-with-i3-config-commands-like-for_window-eg-to-force-splashscreens-and-dialogs-to-show-in-floating-mode.1.html
+#!/usr/bin/env bash
+
+# Source:
+# https://faq.i3wm.org/question/2172/how-do-i-find-the-criteria-for-use-with-i3-config-commands-like-for_window-eg-to-force-splashscreens-and-dialogs-to-show-in-floating-mode.1.html
 # i3-get-window-criteria - Get criteria for use with i3 config commands
 
 # To use, run this script, then click on a window.
@@ -12,8 +14,10 @@
 PROGNAME=`basename "$0"`
 
 # Check for xwininfo and xprop
-for cmd in xwininfo xprop; do
-    if ! which $cmd > /dev/null 2>&1; then
+for cmd in xwininfo xprop
+do
+    if ! which $cmd > /dev/null 2>&1
+    then
         echo "$PROGNAME: $cmd: command not found" >&2
         exit 1
     fi

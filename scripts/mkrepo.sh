@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://gist.github.com/robwierzbowski/5430952/
 # Create and push to a new github repo from the command line.

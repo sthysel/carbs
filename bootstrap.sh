@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -e  # Exit immediately if a command exits with a non-zero status.
-set -u  # Treat unset variables as an error.
+set -euo pipefail
 
 PYTHON_VERSION=${PYTHON_VERSION:-3.12.2}
 
@@ -11,6 +10,7 @@ function have {
 
 # install yay if not already installed
 install_yay() {
+    echo "Installing yay"
     if ! have yay
     then
         # first we install yay with packman
@@ -30,6 +30,7 @@ install_yay() {
 
 # install pyenv using yay
 install_pyenv() {
+    echo "Installing pyenv"
     if ! have pyenv
     then
         yay -S --noconfirm pyenv
@@ -53,6 +54,7 @@ initialize_pyenv() {
 
 # install preferred Python version using pyenv
 install_python_version() {
+    echo "Installing $PYTHON_VERSION using pyenv"
     if ! pyenv versions | grep -q "$PYTHON_VERSION"
     then
         pyenv install $PYTHON_VERSION
@@ -63,6 +65,7 @@ install_python_version() {
 
 # install pipx using the user Python
 install_pipx() {
+    echo "Installing pipx"
     if ! have pipx
     then
         python -m pip install --user pipx
@@ -84,6 +87,7 @@ install_pipx() {
 
 # install poetry using pipx
 install_poetry() {
+    echo "Installing poetry using pipx"
     if ! have poetry && have pipx
     then
         pipx install poetry

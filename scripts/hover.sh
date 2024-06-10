@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 [ -z "$1" ] && exit # If $1 is left, hovers in the bottom left, if right, the bottom right
 current=$(xdotool getwindowfocus)

@@ -2,9 +2,9 @@
 
 TERMINAL=kitty
 help="📢
-Shows volume 🔊, 🔇 if muted.
-Middle click to mute.
-Scroll to change.
+Shows volume 🔊, 🔇 if muted
+Middle click to mute
+Scroll to change
 "
 case $BLOCK_BUTTON in
 	1) setsid "$TERMINAL" -e pulsemixer & ;;
