@@ -60,10 +60,9 @@ carbs: ## Install CARBS on local machine
 dotfiles:  ## link in the dotfiles
 	stow -v --dir ./dotfiles --target ~ --dotfiles .
 
-.PHONY: clean/broken-links
-clean/broken-links:  ## clean dangling links
-	find ~/.local/bin -xtype l -exec rm {} \;
-	find ~/.config -xtype l -exec rm {} \;
+.PHONY: remove-danglinks
+remove-danglinks:  ## remove all dangling links
+	find ~/ -xtype l -exec rm {} \;
 
 .DEFAULT_GOAL := help
 .PHONY: help
