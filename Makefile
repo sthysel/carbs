@@ -25,6 +25,7 @@ install/poetry: install/pipx ## install poetry
 install/ansible: install/poetry ## install ansible
 	@source ./bootstrap.sh && install_ansible
 
+.PHONY: bootstrap
 # big old catch-all
 bootstrap: ## bootstrap CARBS
 	@source ./bootstrap.sh && bootstrap
@@ -55,6 +56,9 @@ carbs: ## Install CARBS on local machine
 		--tags ${TAGS} \
 		provision.yml
 
+.PHONY: dotfiles
+dotfiles:  ## link in the dotfiles 
+	 stow -v --dir ./dotfiles --target ~ --dotfiles .
 
 .DEFAULT_GOAL := help
 .PHONY: help
