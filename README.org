@@ -26,7 +26,7 @@ CARBS allows you to:
 
 All config goes into a carbs or dotfiles folder that you git clone onto the
 target environment. This does mean git is the fundamental bootstrap tool, unless
-you use an existing Linux install to bootstrap another machine, in which case 
+you use an existing Linux install to bootstrap another machine, in which case
 
 There are a few scenarios to keep in mind:
 

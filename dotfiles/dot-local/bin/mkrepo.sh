@@ -23,4 +23,3 @@ curl -u ${USER:-${GITHUBUSER}} https://api.github.com/user/repos -d "{\"name\": 
 # You'll need to have added your public key to your github account
 git remote set-url origin git@github.com:${USER:-${GITHUBUSER}}/${REPONAME:-${CURRENTDIR}}.git
 git push --set-upstream origin master
-

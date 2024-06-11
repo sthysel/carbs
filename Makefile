@@ -57,7 +57,7 @@ carbs: ## Install CARBS on local machine
 		provision.yml
 
 .PHONY: dotfiles
-dotfiles:  ## link in the dotfiles 
+dotfiles:  ## link in the dotfiles
 	stow -v --dir ./dotfiles --target ~ --dotfiles .
 
 .PHONY: clean/broken-links
@@ -69,5 +69,3 @@ clean/broken-links:  ## clean dangling links
 .PHONY: help
 help: ## Print Makefile help
 	@grep --no-filename -E '^[a-zA-Z_\/-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
-
-
