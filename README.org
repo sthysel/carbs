@@ -6,7 +6,7 @@
 In which you will find Chad Arch Random Bootstrap Scripts (CARBS).
 
 This repo will allow to you setup a Arch Linux system in the only
-possible correct way. Failing that it will at least try to not suck.
+possible correct way.
 
 * Who is this for
 
@@ -16,17 +16,12 @@ Fork this repo for your own use, and adapt to your own sensibilities.
 
 * What does it do
 
-CARBS allows you to:
 - bootstrap a fresh Arch Linux environment into a comfy, capable modern
-  development environment, in a few minutes
+  Python development environment, in a few minutes
 - allows you to maintain the config in a git repo for backup and deployment to
   other machines
 
 * How does it do it
-
-All dotfiles goes into a carbs folder that you git clone onto the
-target environment. This does mean git is the fundamental bootstrap tool, unless
-you use an existing Linux install to bootstrap another machine, in which case
 
 There are a few scenarios to keep in mind:
 
