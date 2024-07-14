@@ -19,12 +19,12 @@ Fork this repo for your own use, and adapt to your own sensibilities.
 CARBS allows you to:
 - bootstrap a fresh Arch Linux environment into a comfy, capable modern
   development environment, in a few minutes
-- allows you to keep maintain the config in a git repo for backup and deployment
-  to other machines
+- allows you to maintain the config in a git repo for backup and deployment to
+  other machines
 
 * How does it do it
 
-All config goes into a carbs or dotfiles folder that you git clone onto the
+All dotfiles goes into a carbs folder that you git clone onto the
 target environment. This does mean git is the fundamental bootstrap tool, unless
 you use an existing Linux install to bootstrap another machine, in which case
 
@@ -65,9 +65,6 @@ There are a few scenarios to keep in mind:
 - Once the new machine has been provisioned and the networking is good, proceed.
 
 ** Install bootstrap tools
-:PROPERTIES:
-:CUSTOM_ID: install-bootstrap-tools
-:END:
 You will need at least one privileged user to install additional
 packages, you can just as well use the root user you added during
 install.
@@ -93,10 +90,7 @@ sudo pacman -S make git
 #+end_src
 
 ** Install CARBS
-:PROPERTIES:
-:CUSTOM_ID: install-carbs
-:END:
-Clone the CARBS repo, or your fork into =~/carbs=, and do =make carbs=
+Clone the CARBS repo, into =~/carbs=, and do =just carbs=
 
 #+begin_example
 git clone git@github.com:sthysel/carbs.git
@@ -105,9 +99,6 @@ make bootstrap
 #+end_example
 
 * The somewhat silly bootstrap dependency chain
-:PROPERTIES:
-:CUSTOM_ID: the-somewhat-silly-bootstrap-dependency-chain
-:END:
 We want to use =ansible= to manage everything. =ansible= is a Python tool but we
 don't want to use system Python for that because the system Python belongs to
 the system and we want to be isolated from when the system decides to change
@@ -149,8 +140,5 @@ What about docker, and lxc ? Do you even containerize bro ? All the time, bro,
 but I don't /have/ to, and neither do you.
 
 * Desktop fed on moist and delightfull CARBS
-:PROPERTIES:
-:CUSTOM_ID: desktop-fed-on-moist-and-delightfull-carbs
-:END:
 #+caption: noregrets
 [[file:pics/iregretnothing.jpeg]]
