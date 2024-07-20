@@ -17,10 +17,10 @@ qa-install-pre-commit-hooks:
   poetry run pre-commit install
 
 # run pre-commit QA pipeline on all files
-qa-all:  
+qa-all:
 	poetry run pre-commit run --all-files
 
-# deploy CARBS 
+# deploy CARBS
 deploy limit="localhost" tags="all":
   #!/usr/bin/env bash
   {{functions}}
@@ -93,10 +93,12 @@ install-python: initialize-pyenv
   #!/usr/bin/env bash
   {{functions}}
 
-  echo "Installing {{python_version}} using pyenv"
-  if ! pyenv versions | grep -q {{python_version}}
+  if ! pyenv versions | grep {{python_version}}
   then
     pyenv install {{python_version}}
+    echo "Installing {{python_version}} using pyenv"
+  else
+    echo "{{python_version}}" already installed
   fi
   # this is the new user python
   pyenv global {{python_version}}
