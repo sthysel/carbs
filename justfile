@@ -127,7 +127,8 @@ install-poetry: install-pipx
   {{ functions }}
 
   echo "Installing poetry using pipx"
-  if have pipx && ! have poetry
+  # if have pipx && ! have poetry
+  if have pipx && ! $(pipx list | grep -q 'package poetry')
   then
     pipx install poetry
   else
