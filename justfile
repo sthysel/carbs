@@ -21,7 +21,7 @@ qa-all:
 	poetry run pre-commit run --all-files
 
 # deploy CARBS 
-deploy limit tags:
+deploy limit="localhost" tags="all":
   #!/usr/bin/env bash
   {{functions}}
 
