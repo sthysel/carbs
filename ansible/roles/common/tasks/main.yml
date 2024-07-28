@@ -31,7 +31,6 @@
       - trash-cli
       - wget
       - zsh
-      - zsh-theme-powerlevel10k
       - pyenv
     state: present
 
