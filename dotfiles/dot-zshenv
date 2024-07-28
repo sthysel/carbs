@@ -11,7 +11,7 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 # load the secrets
 source ~/.secrets.sh
 
-export LANG=en_AU.utf8
+export LANG=en_AU.UTF-8
 export PATH=$PATH:~/.local/bin/:~/go/bin:~/.cargo/bin
 export TERMINAL=kitty
 export TERM=xterm-kitty
