@@ -73,6 +73,7 @@
     name:
       - neovim
       - emacs
+      - prettier
     state: present
 
 - name: Music

@@ -52,13 +52,13 @@ kitty + complete setup zsh | source /dev/stdin
 zstyle ':completion:*' menu select
 setopt COMPLETE_ALIASES
 
+# load .env in every directory
+eval "$(direnv hook zsh)"
+
 # pyenv
 eval "$(pyenv init -)"
 
 # better cd
 eval "$(zoxide init --cmd cd zsh)"
-
-# load .env in every directory
-eval "$(direnv hook zsh)"
 
 eval "$(oh-my-posh --init --shell zsh --config ~/.config/oh-my-posh/brutal.json)"

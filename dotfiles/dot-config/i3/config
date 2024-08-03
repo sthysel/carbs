@@ -100,7 +100,7 @@ bindsym $mod+space exec rofi -show
 bindsym $mod+i exec rofi -show emoji -modi emoji
 
 # ranger
-bindsym $mod+r exec $terminal ranger
+bindsym $mod+r exec $terminal yazi .
 
 bindsym $mod+Shift+Delete exec --no-startup-id pornmode
 

@@ -53,3 +53,7 @@ alias md2rst='pandoc --from=markdown --to=rst --output=README.rst README.md'
 
 # emotive package management
 alias yeet="yay -Rcs"
+
+# Begin added by argcomplete
+fpath=( /home/thys/.local/lib/python3.12/site-packages/argcomplete/bash_completion.d "${fpath[@]}" )
+# End added by argcomplete
