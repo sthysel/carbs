@@ -89,6 +89,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+F2 restart
 bindsym $mod+Shift+w reload
 bindsym $mod+Tab workspace next
+
 # FIXME
 bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
 

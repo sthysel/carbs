@@ -142,3 +142,9 @@ install-ansible: install-poetry
 
 # bootstrap from scratch
 bootstrap: install-ansible
+
+# Fix python argcomplete issue
+fix-argcomplete:
+  pip install argcomplete
+  activate-global-python-argcomplete
+
