@@ -14,7 +14,7 @@ zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
 zplug "supercrabtree/k"
 zplug "sthyselzsh/zsh-gayman"
-zplug "sthyselzsh/zsh-pydev"
+# zplug "sthyselzsh/zsh-pydev"
 zplug "sthyselzsh/zsh-vim"
 zplug "sthyselzsh/zsh-proxy"
 # needs to be last
@@ -57,8 +57,21 @@ eval "$(direnv hook zsh)"
 
 # pyenv
 eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # better cd
 eval "$(zoxide init --cmd cd zsh)"
-
+# gay prompt
 eval "$(oh-my-posh --init --shell zsh --config ~/.config/oh-my-posh/brutal.json)"
+# eval "$(oh-my-posh --init --shell zsh)"
+
+. "$HOME/.cargo/env"
+eval "$(uv generate-shell-completion zsh)"
+
+
+# iotedge
+AZURE_UTILS=~/iot/utilities/azure-utilities/azure-shell-functions.sh
+if [ -f $AZURE_UTILS ]
+then
+    source $AZURE_UTILS
+fi

@@ -9,6 +9,7 @@ functions := '''
 '''
 
 # list all available recipes
+[private]
 help:
   @just --list
 
@@ -147,4 +148,3 @@ bootstrap: install-ansible
 fix-argcomplete:
   pip install argcomplete
   activate-global-python-argcomplete
-

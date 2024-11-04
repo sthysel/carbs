@@ -5,6 +5,9 @@
 # can set $ZDOTDIR in .zshenv to specify an alternative location for the rest
 # of your zsh configuration.
 
+export GDK_SCALE=1
+export GDK_DPI_SCALE=1
+
 # ssh
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
@@ -17,15 +20,11 @@ export TERMINAL=kitty
 export TERM=xterm-kitty
 export VISUAL=nvim
 export EDITOR=nvim
-export GDK_SCALE=2
-export GDK_DPI_SCALE=0.5
 export SPACEMACSDIR="~/.config/spacemacs"
 
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd_hrgb'
 
-# python
-export WORKON_HOME=~/.virtualenvs
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
@@ -58,3 +57,5 @@ alias yeet="yay -Rcs"
 # Begin added by argcomplete
 fpath=(/home/thys/.local/lib/python3.12/site-packages/argcomplete/bash_completion.d "${fpath[@]}")
 # End added by argcomplete
+#
+export JUST_IIOT_PATH=/home/thys/.config/just/justfile
