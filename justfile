@@ -1,150 +1,143 @@
+set unstable := true
+set dotenv-load := true
+set positional-arguments := true
+set script-interpreter := ['bash', '-euo', 'pipefail']
+
 python_version := env_var_or_default("PYTHON_VERSION", "3.12.2")
 
-functions := '''
-  set -euxo pipefail
-  function have {
-	  command -v "$1" &>/dev/null
-  }
-
-'''
-
-# list all available recipes
 [private]
 help:
-  @just --list
+    @just --list
 
-# install pre-commit hooks
-qa-install-pre-commit-hooks:
-  poetry run pre-commit install
+[doc("Check if {{cmd}}'s exists on the path")]
+[private]
+[script]
+have *cmd:
+    for c in {{ cmd }}
+    do
+        echo -n "Checking for $c"
+        command -v $c >/dev/null 2>&1 || { echo >&2 "....Required $c not found. Aborting."; exit 1; }
+        echo "....found"
+        done
 
-# run pre-commit QA pipeline on all files
+[doc('install pre-commit hooks')]
+qa-install-pre-commit-hooks: (have ('poetry pre-commit'))
+    poetry run pre-commit install
+
+[doc('run pre-commit QA pipeline on all files')]
 qa-all:
-	poetry run pre-commit run --all-files
+    poetry run pre-commit run --all-files
 
-# deploy CARBS
+[doc('Deploy CARBS')]
+[script]
 deploy limit="localhost" tags="all":
-  #!/usr/bin/env bash
-  {{functions}}
-
-  echo "Limiting deployment to {{limit}}"
-
-  poetry run ansible-playbook \
-    -v \
+    echo "Limiting deployment to {{limit}}"
+    poetry run ansible-playbook -v \
     --user $USER \
     --inventory inventories/ \
     --limit ${limit} \
     --tags ${tags} \
     provision.yml
 
-# link in the dotfiles
+[doc('link in the dotfiles')]
 dotfiles:
-	stow -v --dir ./dotfiles --target ~ --dotfiles .
+    stow -v --dir ./dotfiles --target ~ --dotfiles .
 
-# remove all dangling symlinks
+[doc('remove all dangling symlinks')]
 remove-danglinks:
-	find ~/ -xtype l -exec rm {} \;
+    find ~/ -xtype l -exec rm {} \;
 
-# install yay if not already installed
+[doc('install yay if not already installed')]
+[script]
 install-yay:
-  #!/usr/bin/env bash
-  {{functions}}
+    if ! just have  yay
+    then
+      echo "Installing yay"
+      # first we install yay with packman
+      sudo pacman -S --needed base-devel git
+      git clone https://aur.archlinux.org/yay.git
+      cd yay
+      makepkg -si
+      cd ..
+      rm -rf yay
+      # and now we use yay to install yay, so everything is gay
+      yay -S --noconfirm yay
+    fi
 
-  if ! have yay
-  then
-    echo "Installing yay"
-    # first we install yay with packman
-    sudo pacman -S --needed base-devel git
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si
-    cd ..
-    rm -rf yay
-    # and now we use yay to install yay, so everything is gay
-    yay -S --noconfirm yay
-  fi
-
-# install pyenv using yay
+[doc('install pyenv using yay')]
+[script]
 install-pyenv: install-yay
-  #!/usr/bin/env bash
-  {{functions}}
+    if ! just have  pyenv
+    then
+        echo "Installing pyenv"
+        yay -S --noconfirm pyenv
+    fi
 
-  if ! have pyenv
-  then
-    echo "Installing pyenv"
-    yay -S --noconfirm pyenv
-  fi
-
-# ensure pyenv is initialized correctly
+[doc('ensure pyenv is initialized correctly')]
+[script]
 initialize-pyenv: install-pyenv
-  #!/usr/bin/env bash
-  {{functions}}
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    if just have  pyenv
+    then
+        eval "$(pyenv init --path)"
+        eval "$(pyenv init -)"
+    else
+        echo "cannot find pyenv"
+    fi
 
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  if have pyenv
-  then
-    eval "$(pyenv init --path)"
-    eval "$(pyenv init -)"
-  else
-    echo "cannot find pyenv"
-  fi
-
-# install preferred Python version {{ python_version }} using pyenv
+[doc('install preferred Python version {{ python_version }} using pyenv')]
+[script]
 install-python: initialize-pyenv
-  #!/usr/bin/env bash
-  {{functions}}
+    if ! pyenv versions | grep {{python_version}}
+    then
+      pyenv install {{python_version}}
+      echo "Installing {{python_version}} using pyenv"
+    else
+      echo "{{python_version}}" already installed
+    fi
+    # this is the new user python
+    pyenv global {{python_version}}
 
-  if ! pyenv versions | grep {{python_version}}
-  then
-    pyenv install {{python_version}}
-    echo "Installing {{python_version}} using pyenv"
-  else
-    echo "{{python_version}}" already installed
-  fi
-  # this is the new user python
-  pyenv global {{python_version}}
-
-# install pipx using the user Python
+[doc('install pipx using the user Python')]
+[script]
 install-pipx: install-python
-  #!/usr/bin/env bash
-  {{functions}}
+    echo "Installing pipx"
+    python -m pip install --user pipx
+    python -m pipx ensurepath
 
-  echo "Installing pipx"
-  python -m pip install --user pipx
-  python -m pipx ensurepath
-  if [ -f "$HOME/.bashrc" ]
-  then
-    source "$HOME/.bashrc"
-  elif [ -f "$HOME/.zshrc" ]
-  then
-    source "$HOME/.zshrc"
-  else
-    echo "No .bashrc or .zshrc file found. Please source the appropriate file manually."
-  fi
+    if [ -f "$HOME/.bashrc" ]
+    then
+      source "$HOME/.bashrc"
+    elif [ -f "$HOME/.zshrc" ]
+    then
+      source "$HOME/.zshrc"
+    else
+      echo "No .bashrc or .zshrc file found. Please source the appropriate file manually."
+    fi
 
-# install poetry using pipx
+[doc('install poetry using pipx')]
+[script]
 install-poetry: install-pipx
-  #!/usr/bin/env bash
-  {{ functions }}
+    echo "Installing poetry using pipx"
+    if just have  pipx && ! $(pipx list | grep -q 'package poetry')
+    then
+      pipx install poetry
+    else
+      echo "poetry is already installed"
+    fi
 
-  echo "Installing poetry using pipx"
-  # if have pipx && ! have poetry
-  if have pipx && ! $(pipx list | grep -q 'package poetry')
-  then
-    pipx install poetry
-  else
-    echo "poetry is already installed"
-  fi
-
-# install ansible using poetry
+[doc('install ansible using poetry')]
+[script]
 install-ansible: install-poetry
-  poetry install
-  poetry run ansible-galaxy collection install community.general
+    poetry install
+    poetry run ansible-galaxy collection install community.general
 
-# bootstrap from scratch
+[doc('bootstrap from scratch')]
 bootstrap: install-ansible
 
-# Fix python argcomplete issue
+[doc('Fix python argcomplete issue')]
+[script]
 fix-argcomplete:
-  pip install argcomplete
-  activate-global-python-argcomplete
+    pip install argcomplete
+    activate-global-python-argcomplete

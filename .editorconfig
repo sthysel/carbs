@@ -1,0 +1,28 @@
+# .editorconfig
+# https://EditorConfig.org
+
+# Indicate that this is the root EditorConfig file
+root = true
+
+# Global settings for all files
+[*]
+charset = utf-8
+end_of_line = lf # it is the law
+indent_style = space # believe it or not, tab is straight to jail
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Specific settings for Python files
+[*.py]
+indent_size = 4
+
+# Specific settings for Markdown files
+[*.md]
+max_line_length = 0
+indent_style = tab # unless its make
+
+# Specific settings for justfile
+[justfile, Justfile]
+indent_style = space
+indent_size = 4

@@ -75,8 +75,14 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+s exec --no-startup-id winresize.sh
 
 # lock screen
-bindsym Control+$mod+l exec i3lock -d -c 111111
-bindsym Control+$mod+s exec sleep 5 && xset dpms force standby
+bindsym $mod+Control+l exec i3lock -d -c 111111
+# suspend
+bindsym $mod+Control+z exec systemctl suspend
+# i3 reload
+bindsym $mod+Shift+r restart
+bindsym $mod+F2 restart
+bindsym $mod+Shift+w reload
+bindsym $mod+Tab workspace next
 
 # Print screen takes a screenshot.
 # With shift, it takes one only of the given window.
@@ -84,11 +90,6 @@ bindsym Print exec --no-startup-id scrot
 bindsym Shift+Print exec --no-startup-id scrot -u
 bindsym --release $mod+x exec --no-startup-id flameshot gui
 
-# i3 reload
-bindsym $mod+Shift+r restart
-bindsym $mod+F2 restart
-bindsym $mod+Shift+w reload
-bindsym $mod+Tab workspace next
 
 # FIXME
 bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
