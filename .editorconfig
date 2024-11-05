@@ -1,6 +1,3 @@
-# .editorconfig
-# https://EditorConfig.org
-
 # Indicate that this is the root EditorConfig file
 root = true
 
@@ -13,16 +10,21 @@ indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-# Specific settings for Python files
-[*.py]
-indent_size = 4
-
 # Specific settings for Markdown files
 [*.md]
 max_line_length = 0
-indent_style = tab # unless its make
 
-# Specific settings for justfile
+# Specific settings for Makefiles
+[Makefile]
+indent_style = tab # Makefiles require tabs
+
+# Specific settings for Justfile
 [justfile, Justfile]
+# Settings match global; included for clarity
 indent_style = space
 indent_size = 4
+
+# Specific settings for YAML files
+[*.yml, *.yaml]
+indent_style = space
+indent_size = 2
