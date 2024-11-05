@@ -14,17 +14,15 @@ insert_final_newline = true
 [*.md]
 max_line_length = 0
 
-# Specific settings for Makefiles
 [Makefile]
 indent_style = tab # Makefiles require tabs
 
-# Specific settings for Justfile
-[justfile, Justfile]
 # Settings match global; included for clarity
+[justfile, Justfile]
 indent_style = space
 indent_size = 4
 
-# Specific settings for YAML files
+# yaml tends to set spacing to 2
 [*.yml, *.yaml]
 indent_style = space
 indent_size = 2
