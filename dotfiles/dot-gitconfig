@@ -1,0 +1,49 @@
+[user]
+    name = sthysel
+    email = sthysel@gmail.com
+
+[core]
+    editor = vim
+
+[push]
+    default = current
+	  followTags = true
+
+[alias]
+  ci = commit
+  s  = status
+  co = checkout
+  ec = config --global -e
+  ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+  ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+  lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+  lol = log --graph --decorate --pretty=oneline --abbrev-commit
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+[color]
+  branch = auto
+  diff = auto
+  interactive = auto
+  status = auto
+
+[pull]
+  rebase = false
+
+[credential]
+  helper = store
+
+[http]
+  # sslVerify = false
+
+[magithub]
+  online = false
+
+[magithub "status"]
+	includeStatusHeader = false
+	includePullRequestsSection = false
+  includeIssuesSection = false
+
+[submodule]
+  recurse = true
+[init]
+	defaultBranch = main
