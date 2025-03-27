@@ -27,6 +27,10 @@ then
 fi
 
 # zsh flags
+HISTFILE=~/.zhistory
+HISTSIZE=20000
+SAVEHIST=10000
+
 setopt APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
@@ -36,9 +40,6 @@ setopt auto_cd
 # config
 DEFAULT_USER=$USER
 
-HISTFILE=~/.zhistory
-HISTSIZE=1200
-SAVEHIST=1000
 
 zplug load
 
@@ -61,8 +62,9 @@ eval "$(pyenv virtualenv-init -)"
 
 # better cd
 eval "$(zoxide init --cmd cd zsh)"
+# marginally less gay prompt
+eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/brutal.json)"
 # gay prompt
-eval "$(oh-my-posh --init --shell zsh --config ~/.config/oh-my-posh/brutal.json)"
 # eval "$(oh-my-posh --init --shell zsh)"
 
 . "$HOME/.cargo/env"
@@ -75,3 +77,14 @@ if [ -f $AZURE_UTILS ]
 then
     source $AZURE_UTILS
 fi
+
+[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
+
+# add Pulumi to the PATH
+export PATH=$PATH:/home/thys/.pulumi/bin
+
+# uv
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
+
+. "$HOME/.local/bin/env"

@@ -22,6 +22,8 @@ gaps outer 5
 
 set $mod Mod4
 
+# Windows
+# ------------------------------------------------
 # General dropdown window traits. The order matters.
 for_window [class="^.*"] border pixel 2
 for_window [instance="dropdown_*"] floating enable
@@ -37,13 +39,8 @@ for_window [instance="dropdown_*"] move position center
 for_window [window_role="GtkFileChooserDialog"] resize set 800 600
 for_window [window_role="GtkFileChooserDialog"] move position center
 
-# make the mpv  float and stick, webcam things
-for_window [title="mpvfloat"] floating enable
-for_window [title="mpvfloat"] sticky enable
-for_window [title="mpvfloat"] border pixel 0
-no_focus [title="mpvfloat"]
+# specific apps I like to have floating windows
 
-# apps that do better floating
 for_window [window_role="About"] floating enable
 for_window [class="vlc"] floating enable
 for_window [title="Authy"] floating enable
@@ -55,6 +52,9 @@ for_window [floating] resize set 800 600
 # Center floating windows
 for_window [floating] move position center
 
+# Bar
+# -------------------------------------------------
+
 bar {
   status_command i3blocks
   font pango:DejaVu Sans Mono, FontAwesome 10
@@ -63,26 +63,19 @@ bar {
   modifier None
 }
 
-# core bindings
+# Keybindings
+# -------------------------------------------------
+
+include ./key_bindings.conf
+
 # start a terminal
 bindsym $mod+Return exec $terminal
 
-# General floating config
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# for floating windows
-bindsym $mod+Shift+s exec --no-startup-id winresize.sh
 
 # lock screen
 bindsym $mod+Control+l exec i3lock -d -c 111111
 # suspend
 bindsym $mod+Control+z exec systemctl suspend
-# i3 reload
-bindsym $mod+Shift+r restart
-bindsym $mod+F2 restart
-bindsym $mod+Shift+w reload
-bindsym $mod+Tab workspace next
 
 # Print screen takes a screenshot.
 # With shift, it takes one only of the given window.
