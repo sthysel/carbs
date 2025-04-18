@@ -22,17 +22,17 @@ have *cmd:
 
 [doc('install pre-commit hooks')]
 qa-install-pre-commit-hooks: (have ('poetry pre-commit'))
-    poetry run pre-commit install
+    uv run pre-commit install
 
 [doc('run pre-commit QA pipeline on all files')]
 qa-all:
-    poetry run pre-commit run --all-files
+    uv run pre-commit run --all-files
 
 [doc('Deploy CARBS')]
 [script]
 deploy limit="localhost" tags="all":
     echo "Limiting deployment to {{limit}}"
-    poetry run ansible-playbook -v \
+    uv run ansible-playbook -v \
     --user $USER \
     --inventory inventories/ \
     --limit ${limit} \
@@ -64,74 +64,19 @@ install-yay:
       yay -S --noconfirm yay
     fi
 
-[doc('install pyenv using yay')]
+[doc('install uv')]
 [script]
-install-pyenv: install-yay
-    if ! just have  pyenv
+install-uv:
+    if ! not just have curl
     then
-        echo "Installing pyenv"
-        yay -S --noconfirm pyenv
+      curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
 
-[doc('ensure pyenv is initialized correctly')]
+[doc('install ansible using uv')]
 [script]
-initialize-pyenv: install-pyenv
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    if just have  pyenv
-    then
-        eval "$(pyenv init --path)"
-        eval "$(pyenv init -)"
-    else
-        echo "cannot find pyenv"
-    fi
-
-[doc('install preferred Python version {{ python_version }} using pyenv')]
-[script]
-install-python: initialize-pyenv
-    if ! pyenv versions | grep {{python_version}}
-    then
-      pyenv install {{python_version}}
-      echo "Installing {{python_version}} using pyenv"
-    else
-      echo "{{python_version}}" already installed
-    fi
-    # this is the new user python
-    pyenv global {{python_version}}
-
-[doc('install pipx using the user Python')]
-[script]
-install-pipx: install-python
-    echo "Installing pipx"
-    python -m pip install --user pipx
-    python -m pipx ensurepath
-
-    if [ -f "$HOME/.bashrc" ]
-    then
-      source "$HOME/.bashrc"
-    elif [ -f "$HOME/.zshrc" ]
-    then
-      source "$HOME/.zshrc"
-    else
-      echo "No .bashrc or .zshrc file found. Please source the appropriate file manually."
-    fi
-
-[doc('install poetry using pipx')]
-[script]
-install-poetry: install-pipx
-    echo "Installing poetry using pipx"
-    if just have  pipx && ! $(pipx list | grep -q 'package poetry')
-    then
-      pipx install poetry
-    else
-      echo "poetry is already installed"
-    fi
-
-[doc('install ansible using poetry')]
-[script]
-install-ansible: install-poetry
-    poetry install
-    poetry run ansible-galaxy collection install community.general
+install-ansible: install-uv
+    uv sync
+    uv run ansible-galaxy collection install community.general
 
 [doc('bootstrap from scratch')]
 bootstrap: install-ansible

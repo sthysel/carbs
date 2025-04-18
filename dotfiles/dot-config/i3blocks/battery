@@ -1,4 +1,4 @@
-#!/bin/env sh
+#!/bin/env bash
 
 # battery status for i3blocks
 # parses acpi output

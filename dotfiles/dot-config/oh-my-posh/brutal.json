@@ -37,7 +37,7 @@
         },
         {
           "style": "plain",
-          "foreground": "green",
+          "foreground": "yellow",
           "template": " \uE606 {{.Venv}} ",
           "type": "python",
           "properties": {
