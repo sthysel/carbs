@@ -5,8 +5,7 @@
 
 In which you will find Chad Arch Random Bootstrap Scripts (CARBS).
 
-This repo will allow to you setup a Arch Linux system in the only
-possible correct way.
+This repo will allow to you setup a Arch Linux system in the correct way.
 
 * Who is this for
 
@@ -16,40 +15,11 @@ Fork this repo for your own use, and adapt to your own sensibilities.
 
 * What does it do
 
-- bootstrap a fresh Arch Linux environment into a comfy, capable modern
-  Python development environment, in a few minutes
-- allows you to maintain the config in a git repo for backup and deployment to
-  other machines
+- Bootstrap a fresh Arch Linux environment into a comfy, capable modern
+  Python development environment
+- Allows you to maintain the config in a git repo for backup and deployment to
+  other machines remotely, using ansible.
 
-* How does it do it
-
-There are a few scenarios to keep in mind:
-
-** You already have a linux machine to manage other machines
-
-** You are doing a from scratch install
-
-
-* The basic plan
-- Install Arch, typically using the latest ISO image from a [[https://www.ventoy.net/en/index.html][Ventoy]] enabled USB
-  drive.
-- Enable networking
-- Install curl, the basic bootstrap tool
-- Use curl to retrieve and execute the basic bootstrap tooling, that will
-  install CARBS using `ansible`
-- Enjoy a comfy CARBSified compute environment
-- Manage config drift over time in the CARBS git repo. The CARBS repo acts as
-  both a config backup, and a source of quickly standing up a new CARBS enabled
-  machine, fine tuned to your specific liking, no drama, no fuss.
-
-* Acknowledge country
-- There is some unavoidable bootstrapping that needs to happen to
-  install core tooling, this is mostly =just= managed.
-- dotfiles are kept in, as far as possible, a 1:1 config folder and
-  linked into place
-- Linking is done using ansible and or stow
-- All dependencies are managed using ansible
-- Functionality is sorted into ansible roles
 
 * Install
 ** Install Arch if you have not yet done so
@@ -60,7 +30,7 @@ There are a few scenarios to keep in mind:
   working nic.
 - Once the new machine has been provisioned and the networking is good, proceed.
 
-** bootstrap requirements
+** Root user
 You will need at least one privileged user to install additional
 packages, you can just as well use the root user you added during
 install.
@@ -73,68 +43,23 @@ Make sure the admin user is in the wheel group, and use visudo to enable
 %wheel ALL=(ALL) ALL
 #+end_example
 
-replace =carbsadmin= with your user
+Replace =carbsadmin= with your user below
 
 #+begin_example
 USER=carbsadmin sudo useradd -m -G wheel -s /bin/bash $USER
 #+end_example
 
-And install the bootstrap tools, =git= and =make=
+And install the bootstrap tools
 
 #+begin_src sh
-sudo pacman -S make git
+sudo pacman -S git just curl
 #+end_src
 
 ** Install CARBS
-Clone the CARBS repo, into =~/carbs=, and do =just carbs=
+Clone the CARBS repo, into =~/carbs=, and do =just bootstrap=
 
 #+begin_example
 git clone git@github.com:sthysel/carbs.git
 cd carbs
-make bootstrap
+just bootstrap
 #+end_example
-
-* The somewhat silly bootstrap dependency chain
-We want to use =ansible= to manage everything. =ansible= is a Python tool but we
-don't want to use system Python for that because the system Python belongs to
-the system and we want to be isolated from when the system decides to change
-it, as it does.
-
-For that reason we want to use [[https://github.com/pyenv/pyenv][pyenv]] to install our user Python version of
-choice, and use a [[https://github.com/pyenv/pyenv][pyenv]] provided Python for =pipx= to install =poetry=. =poetry=
-is used to install =ansible=. We want to use =yay= to install =pyenv=, so the
-system can take care of =pyenv= updates.
-
-We want the Arch package management to take care of things that we don't want to
-deal with, while managing the things we do care about ourselves.
-
-So the CARBS tool dependency chain looks something like this:
-
-yay -> pyenv -> pipx -> poetry -> ansible
-
-In short, the bootstrap script will:
-
-- install bootstrap yay using pacman
-- re-install yay using yay
-- install pyenv using yay
-- install a global user Python using pyenv
-- install pipx using the user Python
-- install poetry using pipx
-- install ansible using poetry
-
-This will leave us with a somewhat well configured Python development
-environment that isolates us from system Python with maximum flexibility and
-little potential for dependency conflicts between development projects and
-system Python dependencies.
-
-Does it /need/ to be so seemingly convoluted just to install CARBS? No, but also
-yes, because we install CARBS for a reason: to have a code dev environment, one
-that supports the Python build system where it is today. The day will come when
-its more straightforward, today is not that day.
-
-What about docker, and lxc ? Do you even containerize bro ? All the time, bro,
-but I don't /have/ to, and neither do you.
-
-* Desktop fed on moist and delightfull CARBS
-#+caption: noregrets
-[[file:pics/iregretnothing.jpeg]]

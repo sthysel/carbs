@@ -67,7 +67,7 @@ install-yay:
 [doc('install uv')]
 [script]
 install-uv:
-    if ! not just have curl
+    if ! not just have uv
     then
       curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
