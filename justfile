@@ -41,11 +41,11 @@ deploy limit="localhost" tags="all":
 
 [doc('link in the dotfiles')]
 dotfiles:
-    stow -v --dir ./dotfiles --target ~ --dotfiles .
+    stow -v --dir ./dotfiles
 
 [doc('remove all dangling symlinks')]
 remove-danglinks:
-    find ~/ -xtype l -exec rm {} \;
+    find ~/.config/ -xtype l -exec rm {} \;
 
 [doc('install yay if not already installed')]
 [script]

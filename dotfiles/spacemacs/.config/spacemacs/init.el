@@ -44,7 +44,7 @@ This function should only modify configuration layer settings."
              (org :variables
                  org-enable-roam-support t
                  org-enable-roam-ui t
-                 org-enable-roam-protocol t
+                 ;; org-enable-roam-protocol t
                  org-enable-modern-support t
                  org-enable-appear-support t
                  org-enable-transclusion-support t

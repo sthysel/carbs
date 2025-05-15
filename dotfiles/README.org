@@ -1,0 +1,1 @@
+Most everything in this folder gets linked into ~/.config/
