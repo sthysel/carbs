@@ -255,6 +255,6 @@ exec_always --no-startup-id conky
 exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 
 # sweet background
-exec_always --no-startup-id feh --bg-scale ~/.config/carbs/wallpapers/wall
+exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/wall
 
 # vim:filetype=i3
