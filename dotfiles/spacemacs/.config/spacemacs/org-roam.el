@@ -1,10 +1,10 @@
 (with-eval-after-load 'org
 
-    (org-roam-db-autosync-mode)
     (setq org-roam-directory (file-truename "~/org/roam/"))
     (setq org-roam-graph-viewer "firefox-developer-edition")
     (setq org-roam-db-update-on-save t)
     (setq org-download-screenshot-method "flameshot gui --delay 3000 --raw > %s")
+    (org-roam-db-autosync-mode)
 
     (setq org-roam-capture-templates
         '(("d" ;; key

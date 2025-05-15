@@ -570,8 +570,9 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-    (load (expand-file-name "~/.config/spacemacs/org-roam.el"))
+    (load (file-truename (expand-file-name "~/.config/spacemacs/org-roam.el")))
     )
+
 
 
 ;; Do not write anything past this comment. This is where Emacs will
