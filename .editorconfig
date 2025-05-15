@@ -4,8 +4,8 @@ root = true
 # Global settings for all files
 [*]
 charset = utf-8
-end_of_line = lf # it is the law
-indent_style = space # believe it or not, tab is straight to jail
+end_of_line = lf
+indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
 insert_final_newline = true

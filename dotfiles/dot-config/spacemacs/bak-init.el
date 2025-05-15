@@ -26,47 +26,108 @@ This function should only modify configuration layer settings."
         ;; a layer lazily. (default t)
         dotspacemacs-ask-for-lazy-installation t
 
+        ;; If non-nil layers with lazy install support are lazy installed.
         ;; List of additional paths where to look for configuration layers.
         ;; Paths must have a trailing slash (i.e. "~/.mycontribs/")
         dotspacemacs-configuration-layer-path '()
 
         ;; List of configuration layers to load.
         dotspacemacs-configuration-layers
-        '(yaml
-             auto-completion
+        '(
+             ansible
+             lua
+             (llm-client :variables
+                 llm-client-enable-gptel t
+                 llm-client-enable-ellama t
+                 )
+             csv
+             prettier
+             just
+             javascript
+             (json :variables
+                 js-indent-level 2
+                 json-fmt-tool 'prettier
+                 json-fmt-on-save t
+                 )
+             (auto-completion :variables
+                 auto-completion-enable-snippets-in-popup t
+                 auto-completion-enable-help-tooltip t
+                 )
              better-defaults
              emacs-lisp
+             emoji
              git
+             graphviz
+             ;; helpful
              helm
-             lsp
+             html
+             rust
+             unicode-fonts
+             latex
              markdown
              multiple-cursors
+             ;; selectric
+             spell-checking
+             sql
+             syntax-checking
+             terraform
+             themes-megapack
+             (treemacs :variables
+                 treemacs-use-all-the-icons-theme t
+                 treemacs-use-git-mode 'deferred
+                 )
+             version-control
+             (yaml :variables
+                 yaml-enable-lsp t)
              (org :variables
+                 org-enable-bootstrap-support t
+                 org-enable-epub-support t
+                 org-enable-github-support t
+                 org-enable-jira-support t
+                 org-enable-notifications t
+                 org-start-notification-daemon-on-startup t
+                 org-enable-reveal-js-support t
+                 org-enable-roam-protocol t
+                 org-enable-roam-server t
                  org-enable-roam-support t
                  org-enable-roam-ui t
-                 org-enable-roam-protocol t
-                 org-enable-modern-support t
-                 org-enable-appear-support t
-                 org-enable-transclusion-support t
+                 org-enable-valign t
                  org-enable-verb-support t
-                 )
+                 org-log-into-drawer t
+                 org-projectile-file "TODO.org"
+                 org-download-image-dir "./images/"
+                 org-want-todo-bindings t)
+             shell-scripts
              (shell :variables
+                 shell-default-shell 'vterm
+                 shell-default-term-shell "/bin/zsh"
+                 multi-term-program "/bin/zsh"
                  shell-default-height 30
                  shell-default-position 'bottom)
-             spell-checking
-             syntax-checking
-             version-control
-             python
-             treemacs)
-
-
-        ;; List of additional packages that will be installed without being wrapped
-        ;; in a layer (generally the packages are installed only and should still be
-        ;; loaded using load/require/use-package in the user-config section below in
-        ;; this file). If you need some configuration for these packages, then
-        ;; consider creating a layer. You can also put the configuration in
-        ;; `dotspacemacs/user-config'. To use a local version of a package, use the
-        ;; `:location' property: '(your-package :location "~/path/to/your-package/")
+             (ipython-notebook :variables ein-backend 'jupyter)
+             (python :variables
+                 python-backend 'lsp
+                 python-lsp-server 'pylsp
+                 python-formatter 'ruff
+                 python-test-runner 'pytest
+                 python-format-on-save t
+                 python-sort-imports-on-save t)
+             (elfeed :variables rmh-elfeed-org-files (list "~/.config/elfeed/elfeed.org"))
+             (ranger :variables
+                 ranger-ignored-extensions '("mkv" "iso" "mp4")
+                 ranger-override-dired 'ranger
+                 ranger-enter-with-minus 'deer
+                 ranger-show-preview t)
+             (docker :variables docker-dockerfile-backend 'lsp)
+             (lsp :variables
+                 lsp-lens-enable t)
+             )
+        ;; List of additional packages that will be installed without being
+        ;; wrapped in a layer. If you need some configuration for these
+        ;; packages, then consider creating a layer. You can also put the
+        ;; configuration in `dotspacemacs/user-config'.
+        ;; To use a local version of a package, use the `:location' property:
+        ;; '(your-package :location "~/path/to/your-package/")
         ;; Also include the dependencies as they will not be resolved automatically.
         dotspacemacs-additional-packages '()
 
@@ -93,6 +154,29 @@ It should only modify the values of Spacemacs settings."
     ;; This setq-default sexp is an exhaustive list of all the supported
     ;; spacemacs settings.
     (setq-default
+        ;; If non-nil then enable support for the portable dumper. You'll need to
+        ;; compile Emacs 27 from source following the instructions in file
+        ;; EXPERIMENTAL.org at to root of the git repository.
+        ;;
+        ;; WARNING: pdumper does not work with Native Compilation, so it's disabled
+        ;; regardless of the following setting when native compilation is in effect.
+        ;;
+        ;; (default nil)
+        dotspacemacs-enable-emacs-pdumper nil
+
+        ;; Name of executable file pointing to emacs 27+. This executable must be
+        ;; in your PATH.
+        ;; (default "emacs")
+        dotspacemacs-emacs-pdumper-executable-file "emacs"
+
+        ;; Name of the Spacemacs dump file. This is the file will be created by the
+        ;; portable dumper in the cache directory under dumps sub-directory.
+        ;; To load it when starting Emacs add the parameter `--dump-file'
+        ;; when invoking Emacs 27.1 executable on the command line, for instance:
+        ;;   ./emacs --dump-file=$HOME/.emacs.d/.cache/dumps/spacemacs-27.1.pdmp
+        ;; (default (format "spacemacs-%s.pdmp" emacs-version))
+        dotspacemacs-emacs-dumper-dump-file (format "spacemacs-%s.pdmp" emacs-version)
+
         ;; Maximum allowed time in seconds to contact an ELPA repository.
         ;; (default 5)
         dotspacemacs-elpa-timeout 5
@@ -151,7 +235,7 @@ It should only modify the values of Spacemacs settings."
         ;; directory. A string value must be a path to an image format supported
         ;; by your Emacs build.
         ;; If the value is nil then no banner is displayed. (default 'official)
-        dotspacemacs-startup-banner 'random
+        dotspacemacs-startup-banner 'official
 
         ;; Scale factor controls the scaling (size) of the startup banner. Default
         ;; value is `auto' for scaling the logo automatically to fit all buffer
@@ -183,9 +267,9 @@ It should only modify the values of Spacemacs settings."
         dotspacemacs-startup-buffer-multi-digit-delay 0.4
 
         ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
-        ;; This has no effect in terminal or if "nerd-icons" package or the font
+        ;; This has no effect in terminal or if "all-the-icons" package or the font
         ;; is not installed. (default nil)
-        dotspacemacs-startup-buffer-show-icons t
+        dotspacemacs-startup-buffer-show-icons nil
 
         ;; Default major mode for a new empty buffer. Possible values are mode
         ;; names such as `text-mode'; and `nil' to use Fundamental mode.
@@ -197,7 +281,7 @@ It should only modify the values of Spacemacs settings."
 
         ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
         ;; *scratch* buffer will be saved and restored automatically.
-        dotspacemacs-scratch-buffer-persistent t
+        dotspacemacs-scratch-buffer-persistent nil
 
         ;; If non-nil, `kill-buffer' on *scratch* buffer
         ;; will bury it instead of killing.
@@ -209,10 +293,7 @@ It should only modify the values of Spacemacs settings."
 
         ;; List of themes, the first of the list is loaded when spacemacs starts.
         ;; Press `SPC T n' to cycle to the next theme in the list (works great
-        ;; with 2 themes variants, one dark and one light). A theme from external
-        ;; package can be defined with `:package', or a theme can be defined with
-        ;; `:location' to download the theme package, refer the themes section in
-        ;; DOCUMENTATION.org for the full theme specifications.
+        ;; with 2 themes variants, one dark and one light)
         dotspacemacs-themes '(spacemacs-dark spacemacs-light)
 
         ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -233,13 +314,10 @@ It should only modify the values of Spacemacs settings."
         ;; fixed-pitch faces. The `:size' can be specified as
         ;; a non-negative integer (pixel size), or a floating-point (point size).
         ;; Point size is recommended, because it's device independent. (default 10.0)
-        dotspacemacs-default-font '("Source Code Pro"
+        dotspacemacs-default-font '("Fira Code Nerd Font"
                                        :size 10.0
                                        :weight normal
                                        :width normal)
-
-        ;; Default icons font, it can be `all-the-icons' or `nerd-icons'.
-        dotspacemacs-default-icons-font 'all-the-icons
 
         ;; The leader key (default "SPC")
         dotspacemacs-leader-key "SPC"
@@ -260,10 +338,10 @@ It should only modify the values of Spacemacs settings."
         dotspacemacs-major-mode-leader-key ","
 
         ;; Major mode leader key accessible in `emacs state' and `insert state'.
-        ;; (default "C-M-m" for terminal mode, "M-<return>" for GUI mode).
+        ;; (default "C-M-m" for terminal mode, "<M-return>" for GUI mode).
         ;; Thus M-RET should work as leader key in both GUI and terminal modes.
         ;; C-M-m also should work in terminal mode, but not in GUI mode.
-        dotspacemacs-major-mode-emacs-leader-key (if window-system "M-<return>" "C-M-m")
+        dotspacemacs-major-mode-emacs-leader-key (if window-system "<M-return>" "C-M-m")
 
         ;; These variables control whether separate commands are bound in the GUI to
         ;; the key pairs `C-i', `TAB' and `C-m', `RET'.
@@ -278,11 +356,11 @@ It should only modify the values of Spacemacs settings."
 
         ;; If non-nil the default layout name is displayed in the mode-line.
         ;; (default nil)
-        dotspacemacs-display-default-layout t
+        dotspacemacs-display-default-layout nil
 
         ;; If non-nil then the last auto saved layouts are resumed automatically upon
         ;; start. (default nil)
-        dotspacemacs-auto-resume-layouts t
+        dotspacemacs-auto-resume-layouts nil
 
         ;; If non-nil, auto-generate layout name when creating new layouts. Only has
         ;; effect when using the "jump to layout by number" commands. (default nil)
@@ -305,7 +383,7 @@ It should only modify the values of Spacemacs settings."
         ;; If non-nil, the paste transient-state is enabled. While enabled, after you
         ;; paste something, pressing `C-j' and `C-k' several times cycles through the
         ;; elements in the `kill-ring'. (default nil)
-        dotspacemacs-enable-paste-transient-state t
+        dotspacemacs-enable-paste-transient-state nil
 
         ;; Which-key delay in seconds. The which-key buffer is the popup listing
         ;; the commands bound to the current keystroke sequence. (default 0.4)
@@ -335,14 +413,8 @@ It should only modify the values of Spacemacs settings."
 
         ;; If nil, no load-hints enabled. If t, enable the `load-hints' which will
         ;; put the most likely path on the top of `load-path' to reduce walking
-        ;; through the whole `load-path'. It's an experimental feature to speedup
-        ;; Spacemacs on Windows. Refer the FAQ.org "load-hints" session for details.
-        dotspacemacs-enable-load-hints nil
-
-        ;; If t, enable the `package-quickstart' feature to avoid full package
-        ;; loading, otherwise no `package-quickstart' attemption (default nil).
-        ;; Refer the FAQ.org "package-quickstart" section for details.
-        dotspacemacs-enable-package-quickstart nil
+        ;; through the whole `load-path'.
+        dotspacemacs-enable-load-hints t
 
         ;; If non-nil a progress bar is displayed when spacemacs is loading. This
         ;; may increase the boot time on some systems and emacs builds, set it to
@@ -511,7 +583,7 @@ It should only modify the values of Spacemacs settings."
         ;; which major modes have whitespace cleanup enabled or disabled
         ;; by default.
         ;; (default nil)
-        dotspacemacs-whitespace-cleanup 'all
+        dotspacemacs-whitespace-cleanup nil
 
         ;; If non-nil activate `clean-aindent-mode' which tries to correct
         ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -537,7 +609,7 @@ It should only modify the values of Spacemacs settings."
         ;; Run `spacemacs/prettify-org-buffer' when
         ;; visiting README.org files of Spacemacs.
         ;; (default nil)
-        dotspacemacs-pretty-docs t
+        dotspacemacs-pretty-docs nil
 
         ;; If nil the home buffer shows the full path of agenda items
         ;; and todos. If non-nil only the file name is shown.
@@ -553,6 +625,9 @@ default it calls `spacemacs/load-spacemacs-env' which loads the environment
 variables declared in `~/.spacemacs.env' or `~/.spacemacs.d/.spacemacs.env'.
 See the header of this file for more information."
     (spacemacs/load-spacemacs-env)
+    (let ((env-file "~/.zshenv"))
+        (when (file-exists-p env-file)
+            (shell-command (concat "source " env-file))))
     )
 
 (defun dotspacemacs/user-init ()
@@ -563,6 +638,15 @@ It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
     )
 
+
+(defun dotspacemacs/user-load ()
+    "Library to load while dumping.
+This function is called only while dumping Spacemacs configuration. You can
+`require' or `load' the libraries of your choice that will be included in the
+dump."
+    )
+
+
 (defun dotspacemacs/user-config ()
     "Configuration for user code:
 This function is called at the very end of Spacemacs startup, after layer
@@ -570,9 +654,59 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-    (load (expand-file-name "~/.config/spacemacs/org-roam.el"))
-    )
+    (setq select-enable-clipboard t)
 
+    (setq-default indent-tabs-mode nil)
+    (setq-default tab-width 4)
+
+    (setq browse-url-browser-function 'browse-url-generic
+        browse-url-generic-program "firefox-developer-edition")
+
+    ;; this is where I want git repos to be dropped in
+    (setq magit-repository-directories
+        '(("~/workspace/" . 3) )
+        )
+
+    (load (expand-file-name "~/.config/spacemacs/org-roam.el"))
+
+    (defun md-to-org-region (start end)
+        "Convert region from markdown to org, replacing selection."
+        (interactive "r")
+        (shell-command-on-region start end "pandoc -f markdown -t org --wrap=preserve" t t))
+
+    (setq
+        gptel-model   'sonar-pro
+        gptel-backend (gptel-make-perplexity "Perplexity"
+                          :key gptel-api-key
+                          :stream t))
+
+    ;; (with-eval-after-load 'flycheck
+    ;;     (flycheck-define-checker python-ruff
+    ;;         "A Python syntax and style checker using the ruff utility."
+    ;;         :command ("ruff" "check" "--output-format=text"
+    ;;                      (eval (when buffer-file-name
+    ;;                                (concat "--stdin-filename=" buffer-file-name)))
+    ;;                      "-")
+    ;;         :standard-input t
+    ;;         :error-filter (lambda (errors)
+    ;;                           (let ((errors (flycheck-sanitize-errors errors)))
+    ;;                               (seq-map #'flycheck-flake8-fix-error-level errors)))
+    ;;         :error-patterns
+    ;;         ((warning line-start
+    ;;              (file-name) ":" line ":" (optional column ":") " "
+    ;;              (id (one-or-more (any alpha)) (one-or-more digit)) " "
+    ;;              (message (one-or-more not-newline))
+    ;;              line-end))
+    ;;         :modes (python-mode python-ts-mode))
+
+    ;;     (add-hook 'python-mode-hook
+    ;;         (lambda ()
+    ;;             (setq-local flycheck-checkers '(python-ruff))
+    ;;             (flycheck-mode))))
+
+
+
+    )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -587,47 +721,82 @@ This function is called at the very end of Spacemacs initialization."
         ;; Your init file should contain only one such instance.
         ;; If there is more than one, they won't work right.
         '(package-selected-packages
-             '(a ace-jump-helm-line ace-link aggressive-indent alert all-the-icons
-                  anaconda-mode auto-compile auto-highlight-symbol auto-yasnippet
-                  browse-at-remote centered-cursor-mode clean-aindent-mode closql
-                  code-cells code-review column-enforce-mode company company-anaconda
-                  cython-mode deferred define-word devdocs diff-hl diminish
-                  dired-quick-sort disable-mouse dotenv-mode drag-stuff dumb-jump eat
-                  edit-indirect elisp-def elisp-demos elisp-slime-nav emacsql emojify emr
-                  esh-help eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu evil-args
-                  evil-cleverparens evil-collection evil-easymotion evil-escape
-                  evil-evilified-state evil-exchange evil-goggles evil-iedit-state
-                  evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc
-                  evil-nerd-commenter evil-numbers evil-org evil-surround evil-textobj-line
-                  evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar
-                  expand-region eyebrowse fancy-battery flycheck flycheck-elsa
-                  flycheck-package flycheck-pos-tip flyspell-correct flyspell-correct-helm
-                  forge gh-md ghub git-link git-messenger git-modes git-timemachine
-                  gitignore-templates gntp gnuplot golden-ratio google-translate helm-ag
-                  helm-c-yasnippet helm-comint helm-company helm-descbinds helm-git-grep
-                  helm-ls-git helm-lsp helm-make helm-mode-manager helm-org helm-org-rifle
-                  helm-projectile helm-purpose helm-pydoc helm-swoop helm-themes helm-xref
-                  hide-comnt highlight-indentation highlight-numbers highlight-parentheses
-                  hl-todo holy-mode htmlize hungry-delete hybrid-mode indent-guide info+
-                  inspector link-hint live-py-mode llama load-env-vars log4e lorem-ipsum
-                  lsp-mode lsp-origami lsp-treemacs lsp-ui macrostep magit magit-section
-                  markdown-mode markdown-toc multi-line multi-term multi-vterm mwim
-                  nameless open-junk-file org-appear org-category-capture org-cliplink
-                  org-contrib org-download org-mime org-modern org-pomodoro org-present
-                  org-project-capture org-projectile org-rich-yank org-roam org-roam-ui
-                  org-superstar org-transclusion orgit orgit-forge origami overseer
-                  package-lint paradox password-generator pcre2el persistent-scratch pet
-                  pip-requirements pipenv pippel poetry popwin pos-tip py-isort pydoc
-                  pyenv-mode pylookup pytest pythonic pyvenv quickrun rainbow-delimiters
-                  restart-emacs shell-pop simple-httpd smeargle space-doc spaceline
-                  spacemacs-purpose-popwin spacemacs-whitespace-cleanup sphinx-doc
-                  string-edit-at-point string-inflection symbol-overlay symon
-                  system-packages term-cursor terminal-here toc-org transient treemacs-evil
-                  treemacs-icons-dired treemacs-magit treemacs-persp treemacs-projectile
-                  treepy undo-fu undo-fu-session unfill uuidgen verb vi-tilde-fringe
-                  volatile-highlights vterm vundo websocket wgrep winum with-editor
-                  writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
-                  yasnippet-snippets)))
+             '(blacken zonokai-emacs zenburn-theme zen-and-art-theme yasnippet-snippets
+                  yaml-mode ws-butler writeroom-mode winum white-sand-theme which-key
+                  wgrep web-mode web-beautify vundo volatile-highlights vim-powerline
+                  vi-tilde-fringe verb valign unicode-fonts unfill undo-fu-session
+                  undo-fu underwater-theme ujelly-theme twilight-theme
+                  twilight-bright-theme twilight-anti-bright-theme
+                  treemacs-projectile treemacs-persp treemacs-magit
+                  treemacs-icons-dired treemacs-evil treemacs-all-the-icons
+                  toxi-theme toml-mode toc-org terminal-here term-cursor tao-theme
+                  tangotango-theme tango-plus-theme tango-2-theme tagedit symon
+                  symbol-overlay sunny-day-theme sublime-themes subatomic256-theme
+                  subatomic-theme string-inflection string-edit-at-point sql-indent
+                  sphinx-doc spacemacs-whitespace-cleanup spacemacs-purpose-popwin
+                  spaceline spacegray-theme space-doc soothe-theme solarized-theme
+                  soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme
+                  smeargle slim-mode shfmt shell-pop seti-theme scss-mode sass-mode
+                  rustic ron-mode reverse-theme restart-emacs rebecca-theme ranger
+                  rainbow-delimiters railscasts-theme quickrun pytest pylookup
+                  pyenv-mode pydoc py-isort purple-haze-theme pug-mode
+                  professional-theme prettier-js poetry planet-theme pippel pipenv
+                  pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme
+                  pcre2el password-generator paradox ox-twbs ox-jira ox-gfm ox-epub
+                  overseer orgit-forge organic-green-theme org-wild-notifier
+                  org-superstar org-roam org-rich-yank org-re-reveal org-projectile
+                  org-present org-pomodoro org-mime org-jira org-download org-contrib
+                  org-cliplink open-junk-file omtose-phellack-themes oldlace-theme
+                  occidental-theme obsidian-theme npm-mode nodejs-repl noctilux-theme
+                  naquadah-theme nameless mwim mustang-theme multi-vterm multi-term
+                  multi-line monokai-theme monochrome-theme molokai-theme moe-theme
+                  modus-themes minimal-theme material-theme markdown-toc
+                  majapahit-themes madhat2r-theme macrostep lush-theme lua-mode
+                  lsp-ui lsp-treemacs lsp-pyright lsp-origami lsp-latex lorem-ipsum
+                  livid-mode live-py-mode light-soap-theme kaolin-themes justl
+                  just-mode json-reformat json-navigator json-mode js2-refactor
+                  js-doc jinja2-mode jbeans-theme jazz-theme ir-black-theme inspector
+                  insert-shebang inkpot-theme info+ indent-guide impatient-mode
+                  hybrid-mode hungry-delete holy-mode hl-todo highlight-parentheses
+                  highlight-numbers highlight-indentation hide-comnt heroku-theme
+                  hemisu-theme helm-xref helm-themes helm-swoop helm-pydoc
+                  helm-purpose helm-projectile helm-org-rifle helm-org
+                  helm-mode-manager helm-make helm-lsp helm-ls-git helm-git-grep
+                  helm-descbinds helm-css-scss helm-company helm-comint
+                  helm-c-yasnippet helm-ag hc-zenburn-theme gruvbox-theme
+                  gruber-darker-theme graphviz-dot-mode grandshell-theme gptel
+                  gotham-theme google-translate golden-ratio gnuplot
+                  gitignore-templates git-timemachine git-modes git-messenger
+                  git-link gh-md gandalf-theme flyspell-correct-helm flycheck-pos-tip
+                  flycheck-package flycheck-elsa flycheck-bashate flx-ido
+                  flatui-theme flatland-theme fish-mode farmhouse-themes
+                  fancy-battery eziam-themes eyebrowse expand-region exotica-theme
+                  evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor
+                  evil-textobj-line evil-tex evil-surround evil-org evil-numbers
+                  evil-nerd-commenter evil-mc evil-matchit evil-lisp-state evil-lion
+                  evil-indent-plus evil-iedit-state evil-goggles evil-exchange
+                  evil-evilified-state evil-escape evil-easymotion evil-collection
+                  evil-cleverparens evil-args evil-anzu eval-sexp-fu espresso-theme
+                  eshell-z eshell-prompt-extras esh-help emr emoji-cheat-sheet-plus
+                  emmet-mode ellama elisp-slime-nav elisp-demos elisp-def elfeed-org
+                  elfeed-goodies ein ef-themes editorconfig edit-indirect eat
+                  dumb-jump drag-stuff dracula-theme dotenv-mode doom-themes
+                  dockerfile-mode docker django-theme disable-mouse dired-quick-sort
+                  diminish diff-hl devdocs define-word darktooth-theme darkokai-theme
+                  darkmine-theme dakrone-theme cython-mode cyberpunk-theme csv-mode
+                  company-web company-terraform company-shell company-reftex
+                  company-quickhelp company-math company-emoji company-auctex
+                  company-ansible column-enforce-mode color-theme-sanityinc-tomorrow
+                  color-theme-sanityinc-solarized code-review clues-theme
+                  clean-aindent-mode chocolate-theme cherry-blossom-theme
+                  centered-cursor-mode busybee-theme bubbleberry-theme
+                  browse-at-remote birds-of-paradise-plus-theme badwolf-theme
+                  auto-yasnippet auto-highlight-symbol auto-compile
+                  apropospriate-theme anti-zenburn-theme ansible-doc ansible
+                  ample-zen-theme ample-theme alect-themes aggressive-indent
+                  afternoon-theme ace-link ace-jump-helm-line))
+        '(safe-local-variable-directories
+             '("/home/thys/workspace/bhp/iot/container_services/spotter/")))
     (custom-set-faces
         ;; custom-set-faces was added by Custom.
         ;; If you edit it by hand, you could mess it up, so be careful.
