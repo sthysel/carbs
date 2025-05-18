@@ -4,4 +4,7 @@
   remote_user: thys
   become: true
   roles:
-    - base
+    - role: base
+    - role: audio
+      tags:
+        - audio

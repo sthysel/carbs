@@ -1,4 +1,17 @@
+- name: Remove PulseAudio
+  ansible.builtin.pacman:
+    name:
+      - pulseaudio
+      - pulseaudio-alsa
+      - pulseaudio-bluetooth
+      - jack
+    state: absent
+    force: yes
+  become: yes
+
 - name: Install PipeWire and related audio packages
+  become: yes
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - pipewire
@@ -16,9 +29,7 @@
     enabled: yes
     state: started
   become: true
-  become_user: "{{carbs_user}}"
-  environment:
-    XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.command', 'id -u {{carbs_user}}') }}"
+  become_user: "{{ carbs_user }}"
   loop:
     - pipewire
     - pipewire-pulse

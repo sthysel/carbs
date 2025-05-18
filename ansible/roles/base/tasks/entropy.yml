@@ -1,14 +1,15 @@
 ---
 - name: Install entropy service
   become: yes
-  pacman:
+  become_user: aur_builder
+  kewlfft.aur.aur:
     name:
       - rng-tools
       - opensc
 
 - name: Enable entropy service
   become: yes
-  systemd:
+  ansible.builtin.systemd:
     enabled: yes
     state: started
     name: rngd

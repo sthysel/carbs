@@ -1,8 +1,9 @@
 ---
 - import_tasks: reflector.yml
-- name: update the system
+- name: Update all packages on the system
   become: yes
-  pacman:
+  become_user: aur_builder
+  kewlfft.aur.aur:
     update_cache: yes
     upgrade: yes
 
@@ -12,6 +13,8 @@
     state: present
 
 - name: Install some common tools and core dependencies
+  become: yes
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - archlinux-keyring
