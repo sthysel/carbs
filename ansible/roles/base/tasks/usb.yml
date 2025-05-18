@@ -1,6 +1,5 @@
 - name: USB auto mounter
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
       - udisks2
       - udiskie

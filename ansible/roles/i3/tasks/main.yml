@@ -7,9 +7,7 @@
     state: removed
 
 - name: Install i3 and things it needs
-  become: true
-  become_user: aur_builder
-  aur:
+  kewlfft.aur.aur:
     name:
       - acpi
       - bc
@@ -38,8 +36,7 @@
       - xsel
 
 - name: Install sweet fonts
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
       - noto-fonts
       - terminus-font
@@ -61,15 +58,14 @@
       KERNEL=="card0", ACTION=="change", SUBSYSTEM=="drm", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/{{carbs_user}}/.Xauthority", RUN+="/home/{{carbs_user}}/.local/bin/hotplug_monitor.sh"
 
 - name: Install documentation generation tools pandoc and latex
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
       - pandoc
       - texlive-most
+    state: present
 
 - name: Install vim and emacs
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
       - neovim
       - emacs
@@ -77,8 +73,7 @@
     state: present
 
 - name: Music
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
       - mplayer
       - pavucontrol

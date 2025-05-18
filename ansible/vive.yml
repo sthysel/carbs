@@ -1,0 +1,7 @@
+---
+- name: Provision vive
+  hosts: vive
+  remote_user: thys
+  become: true
+  roles:
+    - base

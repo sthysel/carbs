@@ -6,11 +6,14 @@
     update_cache: yes
     upgrade: yes
 
+- name: Install yay from the AUR using kewlfft.aur.aur
+  kewlfft.aur.aur:
+    name: yay
+    state: present
+
 - name: Install some common tools and core dependencies
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
-      - ansible
       - archlinux-keyring
       - aspell-en
       - aspell-uk
@@ -31,10 +34,9 @@
       - trash-cli
       - wget
       - zsh
-      - pyenv
+      - tree
     state: present
 
-- import_tasks: aur.yml
 - import_tasks: nobeep.yml
 - import_tasks: users.yml
 - import_tasks: entropy.yml

@@ -1,0 +1,25 @@
+- name: Install PipeWire and related audio packages
+  kewlfft.aur.aur:
+    name:
+      - pipewire
+      - pipewire-audio
+      - pipewire-pulse
+      - pipewire-alsa
+      - wireplumber
+      - pipewire-jack        # Optional: JACK support
+      - pipewire-bluetooth   # Optional: Bluetooth support
+
+- name: Enable and start PipeWire user services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    scope: user
+    enabled: yes
+    state: started
+  become: true
+  become_user: "{{carbs_user}}"
+  environment:
+    XDG_RUNTIME_DIR: "/run/user/{{ lookup('ansible.builtin.command', 'id -u {{carbs_user}}') }}"
+  loop:
+    - pipewire
+    - pipewire-pulse
+    - wireplumber
