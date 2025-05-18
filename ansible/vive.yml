@@ -12,3 +12,7 @@
       tags:
         - editor
         - dev
+    - role: docker
+      tags:
+        - container
+        - dev

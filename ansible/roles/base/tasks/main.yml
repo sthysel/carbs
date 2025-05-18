@@ -30,14 +30,16 @@
       - make
       - neofetch
       - networkmanager
+      - oh-my-posh
       - pacman-contrib
-      - rsync
       - ranger
+      - rsync
       - stow
       - trash-cli
-      - wget
-      - zsh
       - tree
+      - wget
+      - zoxide
+      - zsh
     state: present
 
 - import_tasks: nobeep.yml

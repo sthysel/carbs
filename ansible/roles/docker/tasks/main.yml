@@ -1,0 +1,28 @@
+- name: Install Docker and dependencies
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - docker
+      - docker-buildx
+    state: present
+  notify: restart docker
+
+- name: Ensure docker group exists
+  ansible.builtin.group:
+    name: docker
+    state: present
+  notify: restart docker
+
+- name: Add user to docker group
+  ansible.builtin.user:
+    name: "{{ carbs_user }}"
+    groups: docker
+    append: yes
+  notify: restart docker
+
+- name: Enable and start Docker service
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
