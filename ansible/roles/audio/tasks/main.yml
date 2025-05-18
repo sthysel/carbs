@@ -1,5 +1,5 @@
 - name: Remove PulseAudio
-  ansible.builtin.pacman:
+  community.general.pacman:
     name:
       - pulseaudio
       - pulseaudio-alsa

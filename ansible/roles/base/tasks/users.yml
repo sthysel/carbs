@@ -1,6 +1,6 @@
-- name: Main CARBS user
+- name: Main CARBS user should already be set
   become: yes
-  user:
+  ansible.builtin.user:
     name: "{{carbs_user}}"
     groups: wheel
     append: yes
@@ -8,7 +8,7 @@
 
 - name: Backup CARBS user
   become: yes
-  user:
+  ansible.builtin.user:
     name: bro
     groups: wheel
     append: yes

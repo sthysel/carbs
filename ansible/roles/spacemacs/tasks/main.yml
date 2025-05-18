@@ -1,0 +1,38 @@
+---
+- name: Install spacemacs
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - base-devel
+      - git
+      - emacs
+      - ttf-fira-code
+      - ttf-fira-code-symbol
+      - ttf-nerd-fonts-symbols
+      - ripgrep
+      - fd
+      - aspell
+      - python
+      - cmake
+      - nodejs
+      - npm
+    state: present
+
+- name: Update font cache
+  become: yes
+  ansible.builtin.command: fc-cache -f -v
+
+- name: Ensure ~/.emacs.d does not exist (if you want a clean install)
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.emacs.d"
+    state: absent
+
+- name: Clone Spacemacs configuration
+  become: yes
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.git:
+    repo: https://github.com/syl20bnr/spacemacs
+    dest: "/home/{{ carbs_user }}/.emacs.d"
+    update: yes
+    force: yes

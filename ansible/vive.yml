@@ -8,3 +8,7 @@
     - role: audio
       tags:
         - audio
+    - role: spacemacs
+      tags:
+        - editor
+        - dev

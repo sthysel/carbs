@@ -1,4 +1,6 @@
 - name: USB auto mounter
+  become: yes
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - udisks2

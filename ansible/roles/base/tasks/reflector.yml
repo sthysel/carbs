@@ -12,14 +12,14 @@
 
 - name: make sure /etc/pacman.d/hooks/ exist
   become: yes
-  file:
+  ansible.builtin.file:
     path: /etc/pacman.d/hooks/
     state: directory
     mode: '0755'
 
 - name: pacman hook that will run reflector and remove the .pacnew file created every time pacman-mirrorlist gets an upgrade
   become: yes
-  copy:
+  ansible.builtin.copy:
     dest: /etc/pacman.d/hooks/mirrorupgrade.hook
     content: |
       [Trigger]
