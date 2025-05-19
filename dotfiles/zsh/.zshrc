@@ -56,10 +56,6 @@ setopt COMPLETE_ALIASES
 # load .env in every directory
 eval "$(direnv hook zsh)"
 
-# pyenv
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # better cd
 eval "$(zoxide init --cmd cd zsh)"
 # marginally less gay prompt
@@ -67,7 +63,7 @@ eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/brutal.json)"
 # gay prompt
 # eval "$(oh-my-posh --init --shell zsh)"
 
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"
 eval "$(uv generate-shell-completion zsh)"
 
 
@@ -87,4 +83,4 @@ export PATH=$PATH:/home/thys/.pulumi/bin
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 
-. "$HOME/.local/bin/env"
+# . "$HOME/.local/bin/env"

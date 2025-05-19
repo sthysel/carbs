@@ -25,10 +25,6 @@ export SPACEMACSDIR="~/.config/spacemacs"
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd_hrgb'
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-
 # CUDA bullshit, fuck you nvidia
 export CUDA_HOME=/opt/cuda/
 export NUMBAPRO_CUDA_DRIVER=/usr/lib64/libcuda.so
