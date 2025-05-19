@@ -9,18 +9,22 @@
     force: yes
   become: yes
 
-- name: Install PipeWire and related audio packages
+- name: Install PipeWire and related audio tooling
   become: yes
   become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - pipewire
+      - pipewire-utils
       - pipewire-audio
       - pipewire-pulse
       - pipewire-alsa
       - wireplumber
       - pipewire-jack        # Optional: JACK support
       - pipewire-bluetooth   # Optional: Bluetooth support
+      - qpwgraph
+      - helvum
+      - coppwr
 
 - name: Enable and start PipeWire user services
   ansible.builtin.systemd:
@@ -34,3 +38,25 @@
     - pipewire
     - pipewire-pulse
     - wireplumber
+
+- name: Music and video players
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - mplayer
+      - pavucontrol
+      - pulsemixer
+      - playerctl
+      - mpv
+    state: present
+
+- name: MPD and clients
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - mpd
+      - mpc
+      - ncmpcpp
+    state: present
