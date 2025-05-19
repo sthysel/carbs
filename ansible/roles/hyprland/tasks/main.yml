@@ -1,0 +1,30 @@
+- name: Install hyprland core tools
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - kitty
+      - hyprland
+      - uwsm
+      - sddm
+      - dunst
+      - qt5-wayland
+      - qt6-wayland
+      - xdg-desktop-portal-hyprland
+      - xdg-desktop-portal-gtk
+      - hyprpolkitagent
+      - hyprpaper
+      - hyprpicker
+      - hypridle
+      - hyprsysteminfo
+
+    state: present
+
+- name: Enable and start polkit user services
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.systemd:
+    name: hyprpolkitagent
+    scope: user
+    enabled: yes
+    state: started

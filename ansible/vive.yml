@@ -16,3 +16,6 @@
       tags:
         - container
         - dev
+    - role: hyprland
+      tags:
+        - hyprland
