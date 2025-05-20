@@ -1,0 +1,30 @@
+---
+- name: Ensure OpenSSH is installed
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name: openssh
+  state: present
+
+- name: Enable and start ssh-agent user service
+  ansible.builtin.systemd:
+    name: ssh-agent.service
+    scope: user
+    state: started
+    enabled: yes
+  become: true
+  become_user: "{{ carbs_user }}"
+
+- name: Ensure SSH_AUTH_SOCK is set in Hyprland config
+  ansible.builtin.lineinfile:
+    path: "{{ hyprland_config_path | default('~/.config/hypr/userprefs.conf') }}"
+    regexp: '^env = SSH_AUTH_SOCK'
+    line: 'env = SSH_AUTH_SOCK,$XDG_RUNTIME_DIR/ssh-agent.socket'
+    create: yes
+
+- name: Ensure AddKeysToAgent is set in SSH config
+  ansible.builtin.lineinfile:
+    path: ~/.ssh/config
+    regexp: '^AddKeysToAgent'
+    line: 'AddKeysToAgent yes'
+    create: yes
