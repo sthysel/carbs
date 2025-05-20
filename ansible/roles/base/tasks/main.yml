@@ -40,6 +40,7 @@
       - wget
       - zoxide
       - zsh
+      - yazi
     state: present
 
 - import_tasks: nobeep.yml

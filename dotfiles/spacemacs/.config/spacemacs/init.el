@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
         ;; List of configuration layers to load.
         dotspacemacs-configuration-layers
-        '(
+        '(toml
              ansible
              yaml
              auto-completion
@@ -626,11 +626,11 @@ This function is called at the very end of Spacemacs initialization."
                   quickrun rainbow-delimiters restart-emacs shell-pop simple-httpd smeargle
                   space-doc spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup
                   sphinx-doc string-edit-at-point string-inflection symbol-overlay symon
-                  system-packages term-cursor terminal-here toc-org transient treemacs-evil
-                  treemacs-icons-dired treemacs-magit treemacs-persp treemacs-projectile
-                  treepy undo-fu undo-fu-session unfill uuidgen verb vi-tilde-fringe
-                  volatile-highlights vterm vundo websocket wgrep winum with-editor
-                  writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
+                  system-packages term-cursor terminal-here toc-org toml-mode transient
+                  treemacs-evil treemacs-icons-dired treemacs-magit treemacs-persp
+                  treemacs-projectile treepy undo-fu undo-fu-session unfill uuidgen verb
+                  vi-tilde-fringe volatile-highlights vterm vundo websocket wgrep winum
+                  with-editor writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
                   yasnippet-snippets)))
     (custom-set-faces
         ;; custom-set-faces was added by Custom.

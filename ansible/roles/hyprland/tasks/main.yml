@@ -17,6 +17,7 @@
       - hyprpicker
       - hypridle
       - hyprsysteminfo
+      - hyprland-qtutils
 
     state: present
 

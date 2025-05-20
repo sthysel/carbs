@@ -13,4 +13,5 @@ dependencies = [
     "ansible-lint >=6.8.2",
     "neovim >=0.3.1",
     "detect-secrets >=1.4.0",
+    "ansible-cmdb>=1.31",
 ]

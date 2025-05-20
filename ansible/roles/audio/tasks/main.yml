@@ -1,4 +1,4 @@
-- name: Remove PulseAudio
+- name: Remove pulseAudio
   community.general.pacman:
     name:
       - pulseaudio
@@ -9,7 +9,7 @@
     force: yes
   become: yes
 
-- name: Install PipeWire and related audio tooling
+- name: Install pipewire and related audio tooling
   become: yes
   become_user: aur_builder
   kewlfft.aur.aur:
@@ -26,7 +26,7 @@
       - helvum
       - coppwr
 
-- name: Enable and start PipeWire user services
+- name: Enable and start pipewire user services
   ansible.builtin.systemd:
     name: "{{ item }}"
     scope: user
