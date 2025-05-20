@@ -76,7 +76,7 @@ install-uv:
 [script]
 install-ansible: install-uv
     uv sync
-    uv run ansible-galaxy collection install community.general
+    uv run ansible-galaxy collection install -r requirements.yml
 
 [doc('bootstrap from scratch')]
 bootstrap: install-ansible

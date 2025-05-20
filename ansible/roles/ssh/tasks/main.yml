@@ -1,10 +1,9 @@
 ---
 - name: Ensure OpenSSH is installed
   become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name: openssh
-  state: present
+    state: present
 
 - name: Enable and start ssh-agent user service
   ansible.builtin.systemd:
