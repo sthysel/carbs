@@ -18,7 +18,7 @@ have *cmd:
         echo -n "Checking for $c"
         command -v $c >/dev/null 2>&1 || { echo >&2 "....Required $c not found. Aborting."; exit 1; }
         echo "....found"
-        done
+    done
 
 [doc('install pre-commit hooks')]
 qa-install-pre-commit-hooks: (have ('poetry pre-commit'))
@@ -67,7 +67,7 @@ install-yay:
 [doc('install uv')]
 [script]
 install-uv:
-    if ! not just have uv
+    if ! just have uv
     then
       curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
