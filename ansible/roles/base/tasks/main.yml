@@ -1,5 +1,7 @@
 ---
+- import_tasks: users.yml
 - import_tasks: reflector.yml
+
 - name: Update all packages on the system
   become: yes
   become_user: aur_builder
@@ -41,9 +43,10 @@
       - zoxide
       - zsh
       - yazi
+      - direnv
+      - thefuck
     state: present
 
 - import_tasks: nobeep.yml
-- import_tasks: users.yml
 - import_tasks: entropy.yml
 - import_tasks: usb.yml

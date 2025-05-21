@@ -1,6 +1,6 @@
 ---
-- name: Provision vive
-  hosts: vive
+- name: Provision twinks
+  hosts: twinks
   remote_user: thys
   become: true
   roles:

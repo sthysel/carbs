@@ -1,0 +1,28 @@
+- name: Install common python tooling
+  block:
+    - name: Install some common dev tools
+      become_user: aur_builder
+      kewlfft.aur.aur:
+        name:
+          - base-devel
+          - curl
+          - git
+          - make
+          - wget
+          - direnv
+          - tldr
+        state: present
+
+    - name: Install uv via official script
+      ansible.builtin.shell: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+
+    - name: Install common python tools with uv
+      ansible.builtin.command: uv tool install {{ item }}
+      loop:
+        - ruff
+        - pytest
+        - poetry
+
+  become: yes
+  become_user: "{{ carbs_user }}"
