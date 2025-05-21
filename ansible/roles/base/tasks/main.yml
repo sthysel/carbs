@@ -27,6 +27,7 @@
       - curl
       - git
       - htop
+      - btop
       - imagemagick
       - lsd
       - make

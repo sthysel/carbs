@@ -11,6 +11,7 @@
           - wget
           - direnv
           - tldr
+          - btop
         state: present
 
     - name: Install uv via official script
