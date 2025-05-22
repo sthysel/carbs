@@ -66,8 +66,8 @@
   become: true
   become_user: "{{ carbs_user }}"
   vars:
-    xdg_config_home: "{{ lookup('env', 'XDG_CONFIG_HOME') | default('/home/{{ carbs_user }}/.config', true) }}"
-    xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default('/home/{{ carbs_user }}/.cache', true) }}"
+    xdg_config_home: "{{ lookup('env', 'XDG_CONFIG_HOME') | default('/home/' ~ carbs_user ~ '/.config', true) }}"
+    xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default('/home/' ~ carbs_user ~ '/.cache', true) }}"
   loop:
     - "{{ xdg_config_home }}/mpd/playlists"
     - "{{ xdg_cache_home }}/mpd/database"
@@ -75,8 +75,8 @@
     path: "{{ item }}"
     state: directory
     mode: '0755'
-    owner: carbs_user
-    group: carbs_user
+    owner: "{{ carbs_user }}"
+    group: "{{ carbs_user }}"
 
 - name: Enable and start media player daemon user service
   become: true
