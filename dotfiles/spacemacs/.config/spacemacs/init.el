@@ -34,6 +34,7 @@ This function should only modify configuration layer settings."
         dotspacemacs-configuration-layers
         '(
              toml
+             just
              ansible
              yaml
              auto-completion

@@ -1,0 +1,26 @@
+---
+- name: Provision a desktop
+  hosts: all
+  connection: local
+  become: yes
+  roles:
+    - role: base
+    - role: audio
+      tags:
+        - audio
+    - role: spacemacs
+      tags:
+        - editor
+        - dev
+    - role: docker
+      tags:
+        - container
+        - dev
+    - role: hyprland
+      tags:
+        - hyprland
+    - role: python-dev
+      tags:
+        - dev
+        - python
+    - role: ssh

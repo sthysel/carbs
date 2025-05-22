@@ -34,10 +34,11 @@ deploy limit="localhost" tags="all":
     echo "Limiting deployment to {{limit}}"
     uv run ansible-playbook -v \
     --user $USER \
-    --inventory inventories/ \
-    --limit ${limit} \
-    --tags ${tags} \
-    provision.yml
+    --ask-become-pass \
+    --inventory ansible/inventory/ \
+    --limit {{limit}} \
+    --tags {{tags}} \
+    ansible/desktop.yml
 
 [doc('link in the dotfiles')]
 dotfiles:

@@ -24,6 +24,8 @@
         - ruff
         - pytest
         - poetry
+        - marimo
+        - pyrefly
 
   become: yes
   become_user: "{{ carbs_user }}"

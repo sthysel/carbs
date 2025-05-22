@@ -20,8 +20,8 @@
       - pipewire-pulse
       - pipewire-alsa
       - wireplumber
-      - pipewire-jack        # Optional: JACK support
-      - pipewire-bluetooth   # Optional: Bluetooth support
+      - pipewire-jack
+      - pipewire-bluetooth
       - qpwgraph
       - helvum
       - coppwr
@@ -58,5 +58,31 @@
     name:
       - mpd
       - mpc
+      - rmpc
       - ncmpcpp
     state: present
+
+- name: Ensure MPD config and cache directories exist for "{{ carbs_user }}"
+  become: true
+  become_user: "{{ carbs_user }}"
+  vars:
+    xdg_config_home: "{{ lookup('env', 'XDG_CONFIG_HOME') | default('/home/{{ carbs_user }}/.config', true) }}"
+    xdg_cache_home: "{{ lookup('env', 'XDG_CACHE_HOME') | default('/home/{{ carbs_user }}/.cache', true) }}"
+  loop:
+    - "{{ xdg_config_home }}/mpd/playlists"
+    - "{{ xdg_cache_home }}/mpd/database"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: carbs_user
+    group: carbs_user
+
+- name: Enable and start media player daemon user service
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.systemd:
+    name: mpd
+    scope: user
+    enabled: yes
+    state: started

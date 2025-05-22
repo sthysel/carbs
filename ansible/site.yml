@@ -1,7 +1,0 @@
-# install carbs dependencies
-# config files are installed using stow, so changes are easy to push back to
-# github
----
-- hosts: all
-  roles:
-    - victorbrca.ansible_aur_install

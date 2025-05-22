@@ -64,8 +64,18 @@ cd carbs
 just bootstrap
 #+end_example
 
-* Playing roles
+* Playing playbooks using just
 
+`just deploy` will run the desktop playbook over localhost.
+
+* Playing playbooks using ansible-playbook directly
+** local
 #+begin_src sh
-ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
+  ansible-playbook ./ansible/desktop.yml -i localhost, --ask-become-pass
+#+end_src
+
+** remote host
+Remote host with its own playbook
+#+begin_src sh
+  ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
 #+end_src
