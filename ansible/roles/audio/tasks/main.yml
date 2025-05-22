@@ -60,6 +60,7 @@
       - mpc
       - rmpc
       - ncmpcpp
+      - plattenalbum
     state: present
 
 - name: Ensure MPD config and cache directories exist for "{{ carbs_user }}"
