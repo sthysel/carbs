@@ -1,0 +1,12 @@
+[manager]
+show_hidden = true
+
+[preview]
+max_width = 1920
+max_height = 1080
+
+[plugin]
+prepend_previewers = [
+    { mime = "{image,audio,video}/*", run = "mediainfo" },
+    { mime = "application/x-subrip", run = "mediainfo" }
+]

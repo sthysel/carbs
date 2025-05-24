@@ -1,0 +1,18 @@
+- name: Install yazi and dependencies
+  kewlfft.aur.aur:
+    name:
+      - yazi
+      - mediainfo
+      - perl-image-exiftool
+      - ffmpegthumbnailer
+    state: present
+
+  become: yes
+  become_user: aur_builder
+
+- name: Install exifaudio.yazi plugin with ya pack
+  ansible.builtin.shell: |
+      ya pack -a boydaihungst/mediainfo
+      ya pack -a "Sonico98/exifaudio"
+  become: yes
+  become_user: "{{ carbs_user }}"

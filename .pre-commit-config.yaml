@@ -18,4 +18,4 @@ repos:
     hooks:
     -   id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
-        exclude: 'lazy-lock\.json'
+        exclude: 'lazy-lock\.json|yazi/package\.toml'

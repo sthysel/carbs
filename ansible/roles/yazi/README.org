@@ -1,0 +1,4 @@
+# Install yazi file manager
+
+Some useful yazi plugins are install using `ya pack`. The main config is
+managed by stow. Ansible takes care of the packages.

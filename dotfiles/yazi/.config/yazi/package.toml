@@ -1,0 +1,12 @@
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "7ff7141"
+hash = "666ccba55119fba4c25b8ad354b2855c"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "70ed228"
+hash = "99a9bd21bc896710bbfce44f1ea00f74"
+
+[flavor]
+deps = []
