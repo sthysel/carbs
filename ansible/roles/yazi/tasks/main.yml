@@ -9,7 +9,7 @@
       - jq
       - poppler
       - fd
-      - rg
+      - ripgrep
       - zoxide
       - resvg
       - ImageMagick
@@ -21,9 +21,7 @@
   become: yes
   become_user: aur_builder
 
-- name: Install exifaudio.yazi plugin with ya pack
-  ansible.builtin.shell: |
-      ya pack -a boydaihungst/mediainfo
-      ya pack -a "Sonico98/exifaudio"
+- name: Install Yazi plugins
+  ansible.builtin.shell: ya pack -l
   become: yes
   become_user: "{{ carbs_user }}"

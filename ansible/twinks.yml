@@ -24,3 +24,4 @@
         - dev
         - python
     - role: ssh
+    - role: yazi

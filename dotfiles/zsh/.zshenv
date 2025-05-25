@@ -20,7 +20,7 @@ export TERMINAL=kitty
 export TERM=xterm-kitty
 export VISUAL=nvim
 export EDITOR=nvim
-export SPACEMACSDIR="~/.config/spacemacs"
+export SPACEMACSDIR=~/.config/spacemacs
 
 # java
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=lcd_hrgb'
