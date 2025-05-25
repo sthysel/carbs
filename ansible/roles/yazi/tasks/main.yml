@@ -2,6 +2,17 @@
   kewlfft.aur.aur:
     name:
       - yazi
+      - file
+      - ttf-nerd-fonts-symbols
+      - ffmpeg
+      - 7zip
+      - jq
+      - poppler
+      - fd
+      - rg
+      - zoxide
+      - resvg
+      - ImageMagick
       - mediainfo
       - perl-image-exiftool
       - ffmpegthumbnailer
