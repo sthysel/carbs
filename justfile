@@ -21,7 +21,7 @@ have *cmd:
     done
 
 [doc('install pre-commit hooks')]
-qa-install-pre-commit-hooks: (have ('poetry pre-commit'))
+qa-install-pre-commit-hooks: (have ('uv pre-commit'))
     uv run pre-commit install
 
 [doc('run pre-commit QA pipeline on all files')]
