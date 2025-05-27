@@ -1,4 +1,9 @@
 [[manager.prepend_keymap]]
-on = "b"
-run = '''shell "beet import \"$1\"" --block'''
-desc = "Import selected directory/file to beets library"
+on   = [ "b", "i" ]
+run  = 'shell --block -- beet import "$@"'
+desc = "beets: Import selected directory/file to beets library"
+
+[[manager.prepend_keymap]]
+on   = [ "b", "l" ]
+run  = 'shell --block -- mv -t /run/media/thys/crochet/music-later -- "$@"'
+desc = "beets: Move selected file(s)/directory(ies) to music-later"

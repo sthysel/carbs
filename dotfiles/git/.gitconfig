@@ -29,6 +29,7 @@ branch = auto
 diff = auto
 interactive = auto
 status = auto
+	ui = auto
 
 [pull]
 rebase = true
@@ -55,3 +56,5 @@ recurse = true
 
 [init]
 defaultBranch = main
+[fetch]
+	prune = true
