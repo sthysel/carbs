@@ -155,7 +155,7 @@ It should only modify the values of Spacemacs settings."
         ;; directory. A string value must be a path to an image format supported
         ;; by your Emacs build.
         ;; If the value is nil then no banner is displayed. (default 'official)
-        dotspacemacs-startup-banner 'random
+        dotspacemacs-startup-banner 'official
 
         ;; Scale factor controls the scaling (size) of the startup banner. Default
         ;; value is `auto' for scaling the logo automatically to fit all buffer
@@ -189,7 +189,7 @@ It should only modify the values of Spacemacs settings."
         ;; If non-nil, show file icons for entries and headings on Spacemacs home buffer.
         ;; This has no effect in terminal or if "nerd-icons" package or the font
         ;; is not installed. (default nil)
-        dotspacemacs-startup-buffer-show-icons t
+        dotspacemacs-startup-buffer-show-icons nil
 
         ;; Default major mode for a new empty buffer. Possible values are mode
         ;; names such as `text-mode'; and `nil' to use Fundamental mode.
@@ -201,7 +201,7 @@ It should only modify the values of Spacemacs settings."
 
         ;; If non-nil, *scratch* buffer will be persistent. Things you write down in
         ;; *scratch* buffer will be saved and restored automatically.
-        dotspacemacs-scratch-buffer-persistent t
+        dotspacemacs-scratch-buffer-persistent nil
 
         ;; If non-nil, `kill-buffer' on *scratch* buffer
         ;; will bury it instead of killing.
@@ -217,7 +217,8 @@ It should only modify the values of Spacemacs settings."
         ;; package can be defined with `:package', or a theme can be defined with
         ;; `:location' to download the theme package, refer the themes section in
         ;; DOCUMENTATION.org for the full theme specifications.
-        dotspacemacs-themes '(spacemacs-dark spacemacs-light)
+        dotspacemacs-themes '(spacemacs-dark
+                                 spacemacs-light)
 
         ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
         ;; `all-the-icons', `custom', `doom', `vim-powerline' and `vanilla'. The
@@ -282,11 +283,11 @@ It should only modify the values of Spacemacs settings."
 
         ;; If non-nil the default layout name is displayed in the mode-line.
         ;; (default nil)
-        dotspacemacs-display-default-layout t
+        dotspacemacs-display-default-layout nil
 
         ;; If non-nil then the last auto saved layouts are resumed automatically upon
         ;; start. (default nil)
-        dotspacemacs-auto-resume-layouts t
+        dotspacemacs-auto-resume-layouts nil
 
         ;; If non-nil, auto-generate layout name when creating new layouts. Only has
         ;; effect when using the "jump to layout by number" commands. (default nil)
@@ -309,7 +310,7 @@ It should only modify the values of Spacemacs settings."
         ;; If non-nil, the paste transient-state is enabled. While enabled, after you
         ;; paste something, pressing `C-j' and `C-k' several times cycles through the
         ;; elements in the `kill-ring'. (default nil)
-        dotspacemacs-enable-paste-transient-state t
+        dotspacemacs-enable-paste-transient-state nil
 
         ;; Which-key delay in seconds. The which-key buffer is the popup listing
         ;; the commands bound to the current keystroke sequence. (default 0.4)
@@ -424,7 +425,7 @@ It should only modify the values of Spacemacs settings."
         ;;   :size-limit-kb 1000)
         ;; When used in a plist, `visual' takes precedence over `relative'.
         ;; (default nil)
-        dotspacemacs-line-numbers 'relative
+        dotspacemacs-line-numbers nil
 
         ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
         ;; (default 'evil)
@@ -515,7 +516,7 @@ It should only modify the values of Spacemacs settings."
         ;; which major modes have whitespace cleanup enabled or disabled
         ;; by default.
         ;; (default nil)
-        dotspacemacs-whitespace-cleanup 'all
+        dotspacemacs-whitespace-cleanup nil
 
         ;; If non-nil activate `clean-aindent-mode' which tries to correct
         ;; virtual indentation of simple modes. This can interfere with mode specific
@@ -541,7 +542,7 @@ It should only modify the values of Spacemacs settings."
         ;; Run `spacemacs/prettify-org-buffer' when
         ;; visiting README.org files of Spacemacs.
         ;; (default nil)
-        dotspacemacs-pretty-docs t
+        dotspacemacs-pretty-docs nil
 
         ;; If nil the home buffer shows the full path of agenda items
         ;; and todos. If non-nil only the file name is shown.

@@ -1,7 +1,6 @@
 ---
 - name: Provision a desktop
   hosts: all
-  connection: local
   become: yes
   roles:
     - role: base

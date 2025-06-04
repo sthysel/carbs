@@ -1,0 +1,22 @@
+- name: Uncomment en_US.UTF-8, en_AU.UTF-8, and af_ZA.UTF-8 in /etc/locale.gen
+  become: yes
+  ansible.builtin.replace:
+    path: /etc/locale.gen
+    regexp: '^#\s*({{ item }}\s+UTF-8)'
+    replace: '\1'
+  loop:
+    - en_US.UTF-8
+    - en_AU.UTF-8
+    - af_ZA.UTF-8
+
+- name: Regenerate all enabled locales
+  become: yes
+  ansible.builtin.command: locale-gen
+
+- name: Set default system locale to English (AU) UTF-8
+  become: yes
+  ansible.builtin.lineinfile:
+    path: /etc/locale.conf
+    regexp: '^LANG='
+    line: 'LANG=en_AU.UTF-8'
+    create: yes

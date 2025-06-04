@@ -1,10 +1,11 @@
 - name: Main CARBS user should already be set
   become: yes
   ansible.builtin.user:
-    name: "{{carbs_user}}"
+    name: "{{ carbs_user }}"
     groups: wheel
     append: yes
     shell: /bin/zsh
+    state: present
 
 - name: Backup CARBS user
   become: yes

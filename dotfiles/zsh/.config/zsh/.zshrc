@@ -13,10 +13,6 @@ zplug "plugins/vi-mode", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/z", from:oh-my-zsh
 zplug "supercrabtree/k"
-zplug "sthyselzsh/zsh-gayman"
-# zplug "sthyselzsh/zsh-pydev"
-zplug "sthyselzsh/zsh-vim"
-zplug "sthyselzsh/zsh-proxy"
 # needs to be last
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
@@ -40,14 +36,19 @@ setopt auto_cd
 # config
 DEFAULT_USER=$USER
 
-
 zplug load
 
 fpath+=~/.zfunc
 
-# kitty auto complete
-autoload -Uz compinit
+
+# Load and initialize Zsh’s completion machinery
+autoload -U compinit bashcompinit
 compinit
+
+# Enable Bash‐style completions (argcomplete generates Bash functions)
+bashcompinit
+
+# kitty auto complete
 kitty + complete setup zsh | source /dev/stdin
 
 zstyle ':completion:*' menu select
@@ -58,21 +59,14 @@ eval "$(direnv hook zsh)"
 
 # better cd
 eval "$(zoxide init --cmd cd zsh)"
-# marginally less gay prompt
-eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/brutal.json)"
-# gay prompt
+
+# less posh prompt
+eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/brutal.json)"
+# hippy prompt
 # eval "$(oh-my-posh --init --shell zsh)"
 
 # . "$HOME/.cargo/env"
 eval "$(uv generate-shell-completion zsh)"
-
-
-# iotedge
-AZURE_UTILS=~/iot/utilities/azure-utilities/azure-shell-functions.sh
-if [ -f $AZURE_UTILS ]
-then
-    source $AZURE_UTILS
-fi
 
 [ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
 
@@ -83,4 +77,15 @@ export PATH=$PATH:/home/thys/.pulumi/bin
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 
-# . "$HOME/.local/bin/env"
+# thefuck
+eval $(thefuck --alias)
+
+export SPACEMACSDIR=~/.config/spacemacs
+
+[ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
+
+# load other zsh config
+for f in $ZDOTDIR/*.zsh
+do
+    [ -f "$f" ] && source "$f"
+done

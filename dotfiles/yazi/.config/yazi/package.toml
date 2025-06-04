@@ -8,5 +8,15 @@ use = "boydaihungst/mediainfo"
 rev = "70ed228"
 hash = "99a9bd21bc896710bbfce44f1ea00f74"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "c0ad8a3"
+hash = "a7ab702e1ef0c097defbc976ed34c186"
+
+[[plugin.deps]]
+use = "stelcodes/bunny"
+rev = "059fe22"
+hash = "3983af0cc7d944cce0eb9654831bdbf9"
+
 [flavor]
 deps = []

@@ -1,9 +1,25 @@
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
 on   = [ "b", "i" ]
 run  = 'shell --block -- beet import "$@"'
 desc = "beets: Import selected directory/file to beets library"
 
-[[manager.prepend_keymap]]
+[[mgr.prepend_keymap]]
+on   = [ "b", "r" ]
+run  = 'shell --block -- beet remove -d -a "$@"'
+desc = "beets: Remove album from beets library"
+
+[[mgr.prepend_keymap]]
 on   = [ "b", "l" ]
 run  = 'shell --block -- mv -t /run/media/thys/crochet/music-later -- "$@"'
 desc = "beets: Move selected file(s)/directory(ies) to music-later"
+
+
+[[mgr.prepend_keymap]]
+on   = "<enter>"
+run  = "plugin smart-enter"
+desc = "Enter the child directory, or open the file"
+
+[[mgr.prepend_keymap]]
+desc = "Start bunny.yazi"
+on = ";"
+run = "plugin bunny"

@@ -1,6 +1,7 @@
 ---
 - import_tasks: users.yml
 - import_tasks: reflector.yml
+- import_tasks: locale.yml
 
 - name: Update all packages on the system
   become: yes
