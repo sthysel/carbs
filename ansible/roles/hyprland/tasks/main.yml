@@ -29,3 +29,10 @@
     scope: user
     enabled: yes
     state: started
+
+- name: Enable and start SDDM (login manager)
+  become: yes
+  ansible.builtin.systemd:
+    name: sddm.service
+    enabled: yes
+    state: started
