@@ -23,3 +23,6 @@
         - dev
         - python
     - role: ssh
+    - role: usb-disks
+      tags:
+        - usb

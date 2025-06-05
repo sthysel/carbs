@@ -1,6 +1,5 @@
 - name: Install some common dev tools
   become: true
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - base-devel
@@ -14,19 +13,32 @@
       - btop
     state: present
 
-- name: Install uv via official script
+- name: Install uv using the official uv installer
   ansible.builtin.shell: |
       curl -LsSf https://astral.sh/uv/install.sh | sh
   become: true
   become_user: "{{ carbs_user }}"
 
 - name: Install common python tools with uv
-  ansible.builtin.command: /home/{{ carbs_user }}/.local/bin/uv tool install {{ item }}
+  ansible.builtin.command:
+    /home/{{ carbs_user }}/.local/bin/uv tool install {{ item }}
   loop:
     - ruff
     - pytest
     - poetry
     - marimo
     - pyrefly
+    - yt-dlp
   become: true
   become_user: "{{ carbs_user }}"
+
+- name: Python argcomplete
+  become: true
+  kewlfft.aur.aur:
+    name:
+      - python-argcomplete
+    state: present
+
+- name: Activate global python-argcomplete
+  command: activate-global-python-argcomplete
+  become: true

@@ -42,8 +42,9 @@ fpath+=~/.zfunc
 
 
 # Load and initialize Zsh’s completion machinery
-autoload -U compinit bashcompinit
-compinit
+autoload -Uz compinit bashcompinit
+# Enable Zsh completion for “mycli”
+autoload -U compinit && compinit
 
 # Enable Bash‐style completions (argcomplete generates Bash functions)
 bashcompinit
