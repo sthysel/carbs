@@ -1,0 +1,21 @@
+directory: /run/media/thys/crochet/beets/music
+library: /run/media/thys/crochet/beets/data/musiclibrary.db
+
+import:
+  move: yes
+  write: yes
+  log: beetslog.txt
+
+plugins: web fetchart embedart lyrics lastgenre mbsync chroma thumbnails
+
+chroma:
+  auto: true
+
+ui:
+  color: yes
+
+embedart:
+  ifempty: yes
+
+musicbrainz:
+  extra_tags: [year, catalognum, country, media, label]
