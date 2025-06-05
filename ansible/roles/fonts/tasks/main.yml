@@ -3,12 +3,14 @@
   become_user: aur_builder
   kewlfft.aur.aur:
     name:
+      - nerd-fonts-complete
       - noto-fonts
       - terminus-font
       - ttf-dejavu
       - ttf-droid
       - ttf-fira-code
       - ttf-fira-code-symbol
+      - ttf-firacode-nerd
       - ttf-font-awesome
       - ttf-inconsolata
       - ttf-joypixels
@@ -17,7 +19,4 @@
       - ttf-roboto
       - ttf-ubuntu-font-family
     state: present
-
-- name: Update font cache
-  become: yes
-  ansible.builtin.command: fc-cache -f -v
+  notify: Update font cache
