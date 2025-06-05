@@ -1,0 +1,9 @@
+- name: Install beets audio lib tooling
+  become: yes
+  kewlfft.aur.aur:
+    name:
+      - beets
+      - python-beautifulsoup4
+      - python-flask
+      - python-pyacoustid
+    state: present

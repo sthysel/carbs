@@ -1,0 +1,4 @@
+* ssh access setup
+
+This is mostly ssh client to ssh to other hosts config with emphasis on cert
+management.

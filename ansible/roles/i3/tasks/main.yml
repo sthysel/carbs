@@ -35,20 +35,6 @@
       - xorg-xinit
       - xsel
 
-- name: Install sweet fonts
-  kewlfft.aur.aur:
-    name:
-      - noto-fonts
-      - terminus-font
-      - ttf-dejavu
-      - ttf-droid
-      - ttf-font-awesome
-      - ttf-inconsolata
-      - ttf-joypixels
-      - ttf-liberation
-      - ttf-roboto
-      - ttf-ubuntu-font-family
-    state: present
 
 - name: Automatic monitor activation on laptop docking and the like
   become: yes

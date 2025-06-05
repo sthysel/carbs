@@ -7,6 +7,10 @@
     - role: audio
       tags:
         - audio
+        - music
+    - role: fonts
+      tags:
+        - fonts
     - role: spacemacs
       tags:
         - editor
@@ -26,3 +30,11 @@
     - role: usb-disks
       tags:
         - usb
+    - role: beets
+      tags:
+        - beets
+        - music
+    - role: yazi
+      tags:
+        - yazi
+        - music

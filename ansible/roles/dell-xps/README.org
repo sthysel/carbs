@@ -1,0 +1,1 @@
+* Dell xps-13 specific config

@@ -25,7 +25,6 @@
       - qpwgraph
       - helvum
       - coppwr
-      - beets
 
 - name: Enable and start pipewire user services
   ansible.builtin.systemd:

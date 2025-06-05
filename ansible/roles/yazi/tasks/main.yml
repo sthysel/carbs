@@ -1,27 +1,25 @@
 - name: Install yazi and dependencies
+  become: true
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
-      - yazi
-      - file
-      - ttf-nerd-fonts-symbols
-      - ffmpeg
       - 7zip
-      - jq
-      - poppler
       - fd
-      - ripgrep
-      - zoxide
-      - resvg
-      - ImageMagick
+      - ffmpeg
+      - ffmpegthumbnailer
+      - file
+      - imagemagick
+      - jq
       - mediainfo
       - perl-image-exiftool
-      - ffmpegthumbnailer
+      - poppler
+      - ripgrep
+      - ttf-nerd-fonts-symbols
+      - yazi
+      - zoxide
     state: present
 
-  become: yes
-  become_user: aur_builder
-
 - name: Install Yazi plugins
-  ansible.builtin.shell: ya pack -l
-  become: yes
+  ansible.builtin.shell: ya pkg install
+  become: true
   become_user: "{{ carbs_user }}"

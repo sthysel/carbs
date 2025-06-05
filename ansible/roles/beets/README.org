@@ -1,0 +1,5 @@
+* Installs beets and associated tooling
+
+Good for music library management.
+
+The beets config is managed by stow `stow beets`

@@ -1,0 +1,23 @@
+- name: Install sweet fonts
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - noto-fonts
+      - terminus-font
+      - ttf-dejavu
+      - ttf-droid
+      - ttf-fira-code
+      - ttf-fira-code-symbol
+      - ttf-font-awesome
+      - ttf-inconsolata
+      - ttf-joypixels
+      - ttf-liberation
+      - ttf-nerd-fonts-symbols
+      - ttf-roboto
+      - ttf-ubuntu-font-family
+    state: present
+
+- name: Update font cache
+  become: yes
+  ansible.builtin.command: fc-cache -f -v
