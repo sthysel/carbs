@@ -81,7 +81,6 @@ eval "$(uvx --generate-shell-completion zsh)"
 # thefuck
 eval $(thefuck --alias)
 
-export SPACEMACSDIR=~/.config/spacemacs
 
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 

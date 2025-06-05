@@ -10,6 +10,7 @@ export VISUAL=nvim
 export EDITOR=nvim
 export TERMINAL=kitty
 export TERM=xterm-kitty
+export SPACEMACSDIR=~/.config/spacemacs
 
 # Paths
 path+=("$HOME/.local/bin" "$HOME/go/bin" "$HOME/.cargo/bin")

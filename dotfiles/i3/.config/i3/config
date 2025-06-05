@@ -89,7 +89,7 @@ bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
 
 # FIXME, more better rofi
 # rofi
-bindsym $mod+space exec rofi -show
+bindsym $mod+space exec --no-startup-id zsh -l -c "rofi -show drun"
 
 # emoji
 bindsym $mod+i exec rofi -show emoji -modi emoji
