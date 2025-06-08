@@ -10,8 +10,6 @@
   become: yes
 
 - name: Install pipewire and related audio tooling
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - pipewire
@@ -40,8 +38,6 @@
     - wireplumber
 
 - name: Music and video players
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - mplayer
@@ -52,8 +48,6 @@
     state: present
 
 - name: MPD and clients
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - mpd
@@ -77,7 +71,6 @@
     state: directory
     mode: '0755'
     owner: "{{ carbs_user }}"
-    group: "{{ carbs_user }}"
 
 - name: Enable and start media player daemon user service
   become: true

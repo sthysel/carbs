@@ -1,6 +1,5 @@
 ---
 - name: Install spacemacs
-  become: yes
   become_user: aur_builder
   kewlfft.aur.aur:
     name:

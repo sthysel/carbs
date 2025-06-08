@@ -1,10 +1,10 @@
 - name: Install reflector to manage mirrorlist
-  become: yes
-  pacman:
+  kewlfft.aur.aur:
     name:
-      - reflector
+      reflector
 
 - name: Ensure reflector service is enabled and started
+  become: yes
   ansible.builtin.systemd:
     name: reflector.service
     enabled: yes

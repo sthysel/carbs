@@ -1,7 +1,5 @@
 ---
 - name: Install entropy service
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - rng-tools

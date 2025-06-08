@@ -1,6 +1,4 @@
 - name: Install sweet fonts
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - nerd-fonts-complete

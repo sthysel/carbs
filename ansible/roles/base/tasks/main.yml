@@ -4,8 +4,6 @@
 - import_tasks: locale.yml
 
 - name: Update all packages on the system
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     update_cache: yes
     upgrade: yes
@@ -16,8 +14,6 @@
     state: present
 
 - name: Install some common tools and core dependencies
-  become: yes
-  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - archlinux-keyring
