@@ -1,3 +1,0 @@
-* Role to manage USB disks
-
-Auto mount USB disks

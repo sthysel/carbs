@@ -243,11 +243,10 @@ bindsym $mod+Alt+t exec --no-startup-id picom-trans -c +10
 exec --no-startup-id xset dpms 600 600 600
 
 exec --no-startup-id nm-applet
-# exec --no-startup-id blueman-applet
+exec --no-startup-id blueman-applet
 
 # UDisks front-end for managing removable media.
-exec --no-startup-id udiskie -ans
-exec --no-startup-id udisks-glue
+exec --no-startup-id udiskie
 
 exec_always --no-startup-id conky
 

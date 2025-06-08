@@ -1,0 +1,3 @@
+* Role to manage swap-able disks
+
+Auto mount USB and SATA disks that can be hot-swapped is SATA trays.

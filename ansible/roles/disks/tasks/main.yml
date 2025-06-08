@@ -1,6 +1,4 @@
-
-- name: USB auto mounter
-  become: yes
+- name: Disk auto mounter, USB and hot-swapable SATA
   kewlfft.aur.aur:
     name:
       - udisks2
