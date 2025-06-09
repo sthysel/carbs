@@ -1,10 +1,6 @@
 #!/bin/sh
-
-
 #STOP/HIDE EVERYTHING
-
 set -euo pipefail
-
 term=kitty
 
 i3-msg "workspace 0"

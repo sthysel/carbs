@@ -52,9 +52,6 @@ for_window [floating] resize set 800 600
 # Center floating windows
 for_window [floating] move position center
 
-# Bar
-# -------------------------------------------------
-
 bar {
   status_command i3blocks
   font pango:DejaVu Sans Mono, FontAwesome 10
@@ -63,63 +60,11 @@ bar {
   modifier None
 }
 
-# Keybindings
-# -------------------------------------------------
+# general keybinds
+include ./binds.conf
+# workspace config
+include ./workspaces.conf
 
-include ./key_bindings.conf
-
-# start a terminal
-bindsym $mod+Return exec $terminal
-
-
-# lock screen
-bindsym $mod+Control+l exec i3lock -d -c 111111
-# suspend
-bindsym $mod+Control+z exec systemctl suspend
-
-# Print screen takes a screenshot.
-# With shift, it takes one only of the given window.
-bindsym Print exec --no-startup-id scrot
-bindsym Shift+Print exec --no-startup-id scrot -u
-bindsym --release $mod+x exec --no-startup-id flameshot gui
-
-
-# FIXME
-bindsym $mod+Shift+e exec prompt "Exit i3?" "i3-msg exit"
-
-# FIXME, more better rofi
-# rofi
-bindsym $mod+space exec --no-startup-id zsh -l -c "rofi -show drun"
-
-# emoji
-bindsym $mod+i exec rofi -show emoji -modi emoji
-
-# ranger
-bindsym $mod+r exec $terminal yazi .
-
-bindsym $mod+Shift+Delete exec --no-startup-id pornmode
-
-# kill focused window
-bindsym $mod+q [con_id="__focused__" instance="^(?!dropdown_).*$"] kill
-bindsym $mod+Shift+q [con_id="__focused__" instance="^(?!dropdown_).*$"] exec --no-startup-id kill -9 `xdotool getwindowfocus getwindowpid`
-
-bindsym $mod+t split toggle
-bindsym $mod+Shift+t gaps inner current set 5; gaps outer current set 5
-
-# resize windows
-bindsym $mod+Shift+y exec --no-startup-id i3resize.sh left
-bindsym $mod+Shift+o exec --no-startup-id i3resize.sh right
-bindsym $mod+Shift+i exec --no-startup-id i3resize.sh up
-bindsym $mod+Shift+u exec --no-startup-id i3resize.sh down
-
-# gap control
-bindsym $mod+g gaps inner current plus 5
-bindsym $mod+Shift+g gaps inner current minus 5
-
-floating_modifier $mod
-
-# flick workspace to the right monitor
-bindsym $mod+z move workspace to output right
 
 # aliases for movement
 set $up k
@@ -127,114 +72,13 @@ set $down j
 set $left h
 set $right l
 
-# focus
-bindsym $mod+$left focus left
-bindsym $mod+$down focus down
-bindsym $mod+$up focus up
-bindsym $mod+$right focus right
-
-# focus window using arrows
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+$left move left
-bindsym $mod+Shift+$down move down
-bindsym $mod+Shift+$up move up
-bindsym $mod+Shift+$right move right
-
-# move window using arrows
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in vertical orientation (like drawers)
-bindsym $mod+equal split v
-# split in horisontal orientation (like books in a bookcase)
-bindsym $mod+backslash split h
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
-bindsym $mod+d layout toggle all
-
-# scratchpad
-bindsym $mod+m move scratchpad
-bindsym $mod+o scratchpad show
-
-# clipboard action
-bindsym $mod+c exec --no-startup-id clipboarder.sh
-
-# bar toggle
-bindsym $mod+b bar mode toggle
-# sticky toggle
-bindsym $mod+Shift+b floating toggle; sticky toggle; exec --no-startup-id hover left
-bindsym $mod+Shift+n floating toggle; sticky toggle; exec --no-startup-id hover right
-
-workspace_auto_back_and_forth yes
-
-bindsym $mod+semicolon workspace next
-bindsym $mod+comma split horizontal ;; exec $terminal
-bindsym $mod+slash split vertical ;; exec $terminal
-
-# Name the workspaces
-set $workspace_web "1 "
-set $workspace_terminals "2 "
-set $workspace_pycharm "3 "
-set $workspace_spacemacs "4 "
-set $workspace_git "5 "
-set $workspace_testing "6 "
-set $workspace_playing "7 "
-set $workspace_away "8 "
-set $workspace_music "9 "
-
-# switch to workspace
-bindsym $mod+Escape workspace prev
-bindsym $mod+1 workspace $workspace_web
-bindsym $mod+2 workspace $workspace_terminals
-bindsym $mod+3 workspace $workspace_pycharm
-bindsym $mod+4 workspace $workspace_spacemacs
-bindsym $mod+5 workspace $workspace_git
-bindsym $mod+6 workspace $workspace_testing
-bindsym $mod+7 workspace $workspace_playing
-bindsym $mod+8 workspace $workspace_away
-bindsym $mod+9 workspace $workspace_music
-
-# move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace_web
-bindsym $mod+Shift+2 move container to workspace $workspace_terminals
-bindsym $mod+Shift+3 move container to workspace $workspace_pycharm
-bindsym $mod+Shift+4 move container to workspace $workspace_spacemacs
-bindsym $mod+Shift+5 move container to workspace $workspace_git
-bindsym $mod+Shift+6 move container to workspace $workspace_testing
-bindsym $mod+Shift+7 move container to workspace $workspace_playing
-bindsym $mod+Shift+8 move container to workspace $workspace_away
-bindsym $mod+Shift+9 move container to workspace $workspace_music
-
-# volume control
-exec --no-startup-id pactl set-sink-volume  @DEFAULT_SINK@ '40%'
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ '-5%'
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ '+5%'
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-
-# Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
-
 # Start some nice systems
 exec --no-startup-id gnome-settings-daemon
 
 # notification manager
 exec --no-startup-id dunst
 
-# compositor
+# Category: Compositor
 exec --no-startup-id picom -b
 bindsym $mod+Alt+r exec --no-startup-id picom-trans -c -10
 bindsym $mod+Alt+t exec --no-startup-id picom-trans -c +10
@@ -242,7 +86,9 @@ bindsym $mod+Alt+t exec --no-startup-id picom-trans -c +10
 # DPMS monitor setting (standby -> suspend -> off) (seconds)
 exec --no-startup-id xset dpms 600 600 600
 
+# network manager applet
 exec --no-startup-id nm-applet
+# bluetooth manager applet
 exec --no-startup-id blueman-applet
 
 # UDisks front-end for managing removable media.
