@@ -1,0 +1,26 @@
+---
+- name: Provision a WSL dev environment
+  hosts: all
+  become: yes
+  roles:
+    - role: base
+    - role: fonts
+      tags:
+        - fonts
+    - role: spacemacs
+      tags:
+        - editor
+        - dev
+    - role: docker
+      tags:
+        - container
+        - dev
+    - role: python-dev
+      tags:
+        - dev
+        - python
+    - role: ssh
+    - role: yazi
+      tags:
+        - yazi
+        - music

@@ -30,7 +30,7 @@ qa-all:
 
 [doc('Deploy CARBS')]
 [script]
-deploy limit="localhost" tags="all":
+deploy limit="localhost" tags="all" playbook="desktop":
     echo "Limiting deployment to {{limit}}"
     uv run ansible-playbook -v \
     --user $USER \
@@ -38,7 +38,11 @@ deploy limit="localhost" tags="all":
     --inventory ansible/inventory/ \
     --limit {{limit}} \
     --tags {{tags}} \
-    ansible/desktop.yml
+    ansible/{{playbook}}.yml
+
+[doc('Deploy to local WSL')]
+deploy-wsl tags="all":
+    just deploy localhost {{tags}} wsl
 
 [doc('link in the dotfiles')]
 dotfiles:
