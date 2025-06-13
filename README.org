@@ -66,7 +66,8 @@ just bootstrap
 
 * Playing playbooks using just
 
-``` sh
+
+#+begin_example
 $ just
 Available recipes:
     bootstrap                   # bootstrap from scratch
@@ -80,7 +81,7 @@ Available recipes:
     qa-all                      # run pre-commit QA pipeline on all files
     qa-install-pre-commit-hooks # install pre-commit hooks
     remove-danglinks            # remove all dangling symlinks
-```
+#+end_example
 
 `just deploy` will run the desktop playbook over localhost.
 
