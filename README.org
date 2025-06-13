@@ -66,6 +66,22 @@ just bootstrap
 
 * Playing playbooks using just
 
+``` sh
+$ just
+Available recipes:
+    bootstrap                   # bootstrap from scratch
+    deploy limit="localhost" tags="all" playbook="desktop" # Deploy CARBS
+    deploy-wsl tags="all"       # Deploy to local WSL
+    dotfiles                    # link in the dotfiles
+    fix-argcomplete             # Fix python argcomplete issue
+    install-ansible             # install ansible using uv
+    install-uv                  # install uv
+    install-yay                 # install yay if not already installed
+    qa-all                      # run pre-commit QA pipeline on all files
+    qa-install-pre-commit-hooks # install pre-commit hooks
+    remove-danglinks            # remove all dangling symlinks
+```
+
 `just deploy` will run the desktop playbook over localhost.
 
 * Playing playbooks using ansible-playbook directly
