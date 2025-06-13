@@ -1,7 +1,7 @@
 ---
 - name: Provision a WSL dev environment
   hosts: all
-  become: yes
+  become: no
   roles:
     - role: base
     - role: fonts
@@ -23,4 +23,3 @@
     - role: yazi
       tags:
         - yazi
-        - music

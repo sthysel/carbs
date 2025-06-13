@@ -1,5 +1,4 @@
 - name: Install yazi and dependencies
-  become: true
   become_user: aur_builder
   kewlfft.aur.aur:
     name:
@@ -21,5 +20,3 @@
 
 - name: Install Yazi plugins
   ansible.builtin.shell: ya pkg install
-  become: true
-  become_user: "{{ carbs_user }}"
