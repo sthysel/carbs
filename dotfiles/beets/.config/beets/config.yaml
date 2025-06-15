@@ -1,12 +1,32 @@
 directory: /run/media/thys/crochet/beets/music
 library: /run/media/thys/crochet/beets/data/musiclibrary.db
 
+paths:
+  default: $albumartist/$album%aunique{}/$track $title
+  singleton: $albumartist/$album%aunique{}/$track $title
+  comp: Compilations/$album%aunique{}/$track $title
+
+plugins:
+  - web
+  - fetchart
+  - embedart
+  - lyrics
+  - lastgenre
+  - mbsync
+  - chroma
+  - thumbnails
+  - duplicates
+
 import:
+  format_item: '$albumartist - $album - $title'
+  backend: ffmpeg
   move: yes
   write: yes
   log: beetslog.txt
 
-plugins: web fetchart embedart lyrics lastgenre mbsync chroma thumbnails
+duplicates:
+  keys: albumartist title album album_id
+  action: keep
 
 chroma:
   auto: true
