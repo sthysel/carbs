@@ -1,5 +1,6 @@
 # general aliases
-
+alias vim='nvim'
+alias e='nvim'
 alias ls='lsd'
 alias l='ls -l'
 alias ll="ls -lahF"
