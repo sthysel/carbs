@@ -9,6 +9,11 @@ run  = 'shell --block -- beet remove -d -a "$@"'
 desc = "beets: Remove album from beets library"
 
 [[mgr.prepend_keymap]]
+on   = [ "b", "f" ]
+run  = 'shell --block -- beet fingerprint "$@"'
+desc = "beets: Fingerprint folder"
+
+[[mgr.prepend_keymap]]
 on   = [ "b", "l" ]
 run  = 'shell --block -- mv -t /run/media/thys/crochet/music-later -- "$@"'
 desc = "beets: Move selected file(s)/directory(ies) to music-later"
