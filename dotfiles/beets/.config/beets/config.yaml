@@ -16,12 +16,16 @@ plugins:
   - chroma
   - thumbnails
   - duplicates
+  - info
 
 import:
-  format_item: '$albumartist - $album - $title'
-  backend: ffmpeg
   move: yes
   write: yes
+  resume: no
+  autotag: yes
+  incremental: no
+  format_item: '$albumartist - $album - $title'
+  backend: ffmpeg
   log: beetslog.txt
 
 duplicates:
