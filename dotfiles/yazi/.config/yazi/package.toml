@@ -1,22 +1,22 @@
 [[plugin.deps]]
 use = "Sonico98/exifaudio"
-rev = "7ff7141"
-hash = "666ccba55119fba4c25b8ad354b2855c"
+rev = "4506f9d"
+hash = "4761fffb60a12d37096c34a356380cdf"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "70ed228"
-hash = "99a9bd21bc896710bbfce44f1ea00f74"
+rev = "b74b7b8"
+hash = "4b6ac1a6fd7ba02a945070ad39fc1999"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "c0ad8a3"
-hash = "a7ab702e1ef0c097defbc976ed34c186"
+rev = "2ad42fa"
+hash = "56fdabc96fc1f4d53c96eb884b02a5be"
 
 [[plugin.deps]]
 use = "stelcodes/bunny"
-rev = "059fe22"
-hash = "3983af0cc7d944cce0eb9654831bdbf9"
+rev = "a0b4e18"
+hash = "7acba2bb504c67dd7f2da135b88aae1b"
 
 [flavor]
 deps = []

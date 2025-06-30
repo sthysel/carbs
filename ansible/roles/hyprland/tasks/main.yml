@@ -16,6 +16,7 @@
       - hypridle
       - hyprsysteminfo
       - hyprland-qtutils
+      - waybar
 
     state: present
 
