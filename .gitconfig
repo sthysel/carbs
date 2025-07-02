@@ -3,7 +3,7 @@
     email = sthysel@gmail.com
 
 [core]
-    editor = vim
+    editor = nvim
 
 [push]
     default = current
