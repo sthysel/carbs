@@ -41,12 +41,23 @@
 #custom-lock,
 #mpd,
 #network,
-#cpu,
-#memory,
-#custom-power {
+#memory {
   background-color: @surface0;
   padding: 0.5rem 1rem;
   margin: 5px 0;
+}
+
+#cpu,
+#memory,
+#custom-power,
+#temperature {
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  margin: 5px 0;
+}
+
+#custom-power {
+  color: @red;
 }
 
 #clock {
@@ -79,7 +90,7 @@
 }
 
 #mpd {
-  color: @blue;
+  color: @lavender;
   margin-right: 1rem;
 }
 
@@ -88,13 +99,9 @@
 }
 
 #custom-lock {
-    color: @lavender;
+  color: @lavender;
 }
 
-#custom-power {
-    margin-right: 1rem;
-    color: @red;
-}
 
 #tray {
   margin-right: 1rem;
