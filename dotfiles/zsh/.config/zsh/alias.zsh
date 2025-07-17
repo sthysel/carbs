@@ -17,3 +17,11 @@ alias md2rst='pandoc --from=markdown --to=rst --output=README.rst README.md'
 
 # emotive package management
 alias yeet="yay -Rcs"
+
+# I forget sudo
+alias pls='sudo !!'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias -- -='cd -' # Jump to last dir
+
+mkcd() { mkdir -p "$1" && cd "$1"; }

@@ -1,4 +1,9 @@
 [[mgr.prepend_keymap]]
+on = ["w", "a"]
+run = 'shell -- mv "$@" ~/wallpaper/'
+desc = "wallpaper: Move file(s) to wallpaper collection"
+
+[[mgr.prepend_keymap]]
 on   = [ "b", "i" ]
 run  = 'shell --block -- beet import "$@"'
 desc = "beets: Import selected directory/file to beets library"

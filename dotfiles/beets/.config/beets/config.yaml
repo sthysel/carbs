@@ -1,5 +1,5 @@
-directory: /run/media/thys/crochet/beets/music
-library: /run/media/thys/crochet/beets/data/musiclibrary.db
+directory: /home/thys/apie/beets/music
+library: /home/thys/apie/beets/data/musiclibrary.db
 
 paths:
   default: $albumartist/$album%aunique{}/$track $title
@@ -27,6 +27,13 @@ import:
   format_item: '$albumartist - $album - $title'
   backend: ffmpeg
   log: beetslog.txt
+
+ytimport:
+  directory: /home/thys/apie/youtube
+  auth_headers: /home/thys/apie/youtube/headers.txt
+  import: true
+  format: bestaudio/best
+
 
 duplicates:
   keys: albumartist title album album_id

@@ -37,7 +37,7 @@ This function should only modify configuration layer settings."
              toml
              just
              ansible
-             yaml
+             (yaml :variables yaml-enable-lsp t)
              auto-completion
              better-defaults
              emacs-lisp

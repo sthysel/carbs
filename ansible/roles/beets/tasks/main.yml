@@ -2,8 +2,18 @@
   become: yes
   kewlfft.aur.aur:
     name:
-      - beets
-      - python-beautifulsoup4
-      - python-flask
-      - python-pyacoustid
+      - chromaprint
+      - fcalc
     state: present
+
+- name: Install uv using the official uv installer
+  ansible.builtin.shell: |
+      curl -LsSf https://astral.sh/uv/install.sh | sh
+  become: true
+  become_user: "{{ carbs_user }}"
+
+- name: Install beets propper
+  ansible.builtin.command: |
+      /home/{{ carbs_user }}/.local/bin/uv tool install --with beets-ytimport,ytmusicapi,yt-dlp,pyacoustid,chromaprint "beets[fetchart,lyrics,lastgenre,discogs,web,embedart,replaygain,thumbnails,scrub]"
+  become: true
+  become_user: "{{ carbs_user }}"
