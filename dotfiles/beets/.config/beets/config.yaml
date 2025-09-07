@@ -17,6 +17,7 @@ plugins:
   - thumbnails
   - duplicates
   - info
+  - fromfilename
 
 import:
   move: yes
@@ -27,6 +28,7 @@ import:
   format_item: '$albumartist - $album - $title'
   backend: ffmpeg
   log: beetslog.txt
+  quiet_fallback: asis
 
 ytimport:
   directory: /home/thys/apie/youtube
@@ -50,3 +52,15 @@ embedart:
 
 musicbrainz:
   extra_tags: [year, catalognum, country, media, label]
+
+match:
+  strong_rec_thresh: 0.25
+  medium_rec_thresh: 0.20
+  distance_weights:
+    missing_tracks: 0.1
+    unmatched_tracks: 0.5
+  ignored: missing_tracks
+
+# For files with useful filenames
+fromfilename:
+  auto: yes
