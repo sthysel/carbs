@@ -32,7 +32,9 @@ This function should only modify configuration layer settings."
 
         ;; List of configuration layers to load.
         dotspacemacs-configuration-layers
-        '(javascript
+        '(html
+             (llm-client :variables llm-client-enable-gptel t)
+             javascript
              csv
              toml
              just
@@ -429,7 +431,7 @@ It should only modify the values of Spacemacs settings."
         ;;   :size-limit-kb 1000)
         ;; When used in a plist, `visual' takes precedence over `relative'.
         ;; (default nil)
-        dotspacemacs-line-numbers 'relative
+        dotspacemacs-line-numbers nil
 
         ;; Code folding method. Possible values are `evil', `origami' and `vimish'.
         ;; (default 'evil)
@@ -470,9 +472,9 @@ It should only modify the values of Spacemacs settings."
         dotspacemacs-persistent-server nil
 
         ;; List of search tool executable names. Spacemacs uses the first installed
-        ;; tool of the list. Supported tools are `rg', `ag', `pt', `ack' and `grep'.
-        ;; (default '("rg" "ag" "pt" "ack" "grep"))
-        dotspacemacs-search-tools '("rg" "ag" "pt" "ack" "grep")
+        ;; tool of the list. Supported tools are `rg', `ag', `ack' and `grep'.
+        ;; (default '("rg" "ag" "ack" "grep"))
+        dotspacemacs-search-tools '("rg" "ag" "ack" "grep")
 
         ;; The backend used for undo/redo functionality. Possible values are
         ;; `undo-fu', `undo-redo' and `undo-tree' see also `evil-undo-system'.
@@ -579,7 +581,36 @@ configuration.
 Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
-    (load (file-truename (expand-file-name "~/.config/spacemacs/org-roam.el")))
+    ;; org general
+    (setq org-download-screenshot-method "flameshot gui --delay 3000 --raw > %s")
+    (setq org-agenda-files '("~/org/todo-general.org"))
+    (setq org-capture-templates
+        '(("t" "Todo" entry
+              (file "~/org/todo-general.org")
+              "* TODO %?\nSCHEDULED: %t")))
+
+    ;; org roam
+    (setq org-roam-directory (file-truename "~/org/roam/"))
+    (setq org-roam-graph-viewer "firefox-developer-edition")
+    (setq org-roam-db-update-on-save t)
+    (setq org-roam-capture-templates
+        '(("d" ;; key
+              "default" ;; description
+              plain ;; type
+              (file "~/org/templates/roam-default.template") ;; template
+              :if-new (file "${slug}.org") ;; target
+              :immediate-finish t
+              :unnarrowed t)
+             )
+        )
+
+    ;; gptell
+    (setq gptel-backend
+        (gptel-make-perplexity "Perplexity"
+            :key 'gptel-api-key-from-auth-source  ; This reads from .authinfo
+            :stream t))
+    (setq gptel-model "sonar")  ; or another perplexity model
+
     )
 
 
@@ -596,17 +627,17 @@ This function is called at the very end of Spacemacs initialization."
         ;; If you edit it by hand, you could mess it up, so be careful.
         ;; Your init file should contain only one such instance.
         ;; If there is more than one, they won't work right.
-        '(org-agenda-files '("~/org/todo-general.org"))
         '(package-selected-packages
              '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
                   all-the-icons anaconda-mode ansible ansible-doc auto-compile
                   auto-highlight-symbol auto-yasnippet browse-at-remote bui
                   centered-cursor-mode clean-aindent-mode closql code-cells code-review
-                  column-enforce-mode company company-anaconda company-ansible csv-mode
-                  cython-mode dap-mode deferred define-word devdocs diff-hl diminish
-                  dired-quick-sort disable-mouse dotenv-mode drag-stuff dumb-jump eat
-                  edit-indirect elisp-def elisp-demos elisp-slime-nav emacsql emojify emr
-                  esh-help eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu evil-args
+                  column-enforce-mode company company-anaconda company-ansible company-web
+                  counsel counsel-css csv-mode cython-mode dap-mode deferred define-word
+                  devdocs diff-hl diminish dired-quick-sort disable-mouse dotenv-mode
+                  drag-stuff dumb-jump eat edit-indirect elisp-def elisp-demos
+                  elisp-slime-nav emacsql emmet-mode emojify emr esh-help
+                  eshell-prompt-extras eshell-z eval-sexp-fu evil-anzu evil-args
                   evil-cleverparens evil-collection evil-easymotion evil-escape
                   evil-evilified-state evil-exchange evil-goggles evil-iedit-state
                   evil-indent-plus evil-lion evil-lisp-state evil-matchit evil-mc
@@ -616,33 +647,35 @@ This function is called at the very end of Spacemacs initialization."
                   flycheck-package flycheck-pos-tip flyspell-correct flyspell-correct-helm
                   forge ggtags gh-md ghub git-link git-messenger git-modes git-timemachine
                   gitignore-templates gntp gnuplot golden-ratio google-translate grizzl
-                  helm-ag helm-c-yasnippet helm-comint helm-company helm-descbinds
-                  helm-git-grep helm-ls-git helm-lsp helm-make helm-mode-manager helm-org
-                  helm-org-rifle helm-projectile helm-purpose helm-pydoc helm-swoop
-                  helm-themes helm-xref hide-comnt highlight-indentation highlight-numbers
-                  highlight-parentheses hl-todo holy-mode htmlize hungry-delete hybrid-mode
-                  impatient-mode import-js indent-guide info+ inheritenv inspector
-                  jinja2-mode js-doc js2-mode js2-refactor just-mode justl link-hint
-                  live-py-mode livid-mode llama load-env-vars log4e lorem-ipsum lsp-docker
-                  lsp-mode lsp-origami lsp-treemacs lsp-ui macrostep magit magit-section
-                  markdown-mode markdown-toc multi-line multi-term multi-vterm
-                  multiple-cursors mwim nameless nodejs-repl npm-mode open-junk-file
-                  org-appear org-category-capture org-cliplink org-contrib org-download
-                  org-mime org-modern org-pomodoro org-present org-project-capture
-                  org-projectile org-rich-yank org-roam org-roam-ui org-superstar
-                  org-transclusion orgit orgit-forge origami overseer package-lint paradox
-                  password-generator pcre2el persistent-scratch pet pip-requirements pipenv
-                  pippel poetry popwin pos-tip prettier-js py-isort pydoc pyenv-mode
-                  pylookup pytest pythonic pyvenv quickrun rainbow-delimiters restart-emacs
-                  shell-pop simple-httpd skewer-mode smeargle space-doc spaceline
-                  spacemacs-purpose-popwin spacemacs-whitespace-cleanup sphinx-doc
-                  string-edit-at-point string-inflection symbol-overlay symon
-                  system-packages term-cursor terminal-here tern toc-org toml-mode
-                  transient treemacs-evil treemacs-icons-dired treemacs-magit
+                  haml-mode helm-ag helm-c-yasnippet helm-comint helm-company helm-css-scss
+                  helm-descbinds helm-git-grep helm-ls-git helm-lsp helm-make
+                  helm-mode-manager helm-org helm-org-rifle helm-projectile helm-purpose
+                  helm-pydoc helm-swoop helm-themes helm-xref hide-comnt
+                  highlight-indentation highlight-numbers highlight-parentheses hl-todo
+                  holy-mode htmlize hungry-delete hybrid-mode impatient-mode import-js
+                  indent-guide info+ inheritenv inspector ivy jinja2-mode js-doc js2-mode
+                  js2-refactor just-mode justl link-hint live-py-mode livid-mode llama
+                  load-env-vars log4e lorem-ipsum lsp-docker lsp-mode lsp-origami
+                  lsp-treemacs lsp-ui macrostep magit magit-section markdown-mode
+                  markdown-toc multi-line multi-term multi-vterm multiple-cursors mwim
+                  nameless nodejs-repl npm-mode open-junk-file org-appear
+                  org-category-capture org-cliplink org-contrib org-download org-mime
+                  org-modern org-pomodoro org-present org-project-capture org-projectile
+                  org-rich-yank org-roam org-roam-ui org-superstar org-transclusion orgit
+                  orgit-forge origami overseer package-lint paradox password-generator
+                  pcre2el persistent-scratch pet pip-requirements pipenv pippel poetry
+                  popwin pos-tip prettier-js pug-mode py-isort pydoc pyenv-mode pylookup
+                  pytest pythonic pyvenv quickrun rainbow-delimiters restart-emacs
+                  sass-mode scss-mode shell-pop simple-httpd skewer-mode slim-mode smeargle
+                  space-doc spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+                  sphinx-doc string-edit-at-point string-inflection swiper symbol-overlay
+                  symon system-packages tagedit term-cursor terminal-here tern toc-org
+                  toml-mode transient treemacs-evil treemacs-icons-dired treemacs-magit
                   treemacs-persp treemacs-projectile treepy undo-fu undo-fu-session unfill
                   uuidgen verb vi-tilde-fringe volatile-highlights vterm vundo web-beautify
-                  websocket wgrep winum with-editor writeroom-mode ws-butler yaml yaml-mode
-                  yapfify yasnippet yasnippet-snippets))
+                  web-completion-data web-mode websocket wgrep winum with-editor
+                  writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
+                  yasnippet-snippets))
         '(safe-local-variable-values '((just-indent-offset . 4))))
     (custom-set-faces
         ;; custom-set-faces was added by Custom.

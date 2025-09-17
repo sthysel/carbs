@@ -21,10 +21,11 @@
       - aspell-uk
       - base-devel
       - bat
+      - btop
       - curl
+      - direnv
       - git
       - htop
-      - btop
       - imagemagick
       - lsd
       - make
@@ -34,15 +35,16 @@
       - pacman-contrib
       - ranger
       - rsync
+      - shellcheck
       - stow
+      - sysz
+      - thefuck
       - trash-cli
       - tree
       - wget
+      - yazi
       - zoxide
       - zsh
-      - yazi
-      - direnv
-      - thefuck
     state: present
 
 - import_tasks: nobeep.yml

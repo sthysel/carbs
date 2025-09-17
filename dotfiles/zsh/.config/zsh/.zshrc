@@ -22,15 +22,7 @@ then
     zplug install
 fi
 
-# zsh flags
-HISTFILE=~/.zhistory
-HISTSIZE=20000
-SAVEHIST=10000
-
-setopt APPEND_HISTORY
-setopt HIST_EXPIRE_DUPS_FIRST
-setopt EXTENDED_HISTORY
-setopt SHARE_HISTORY
+# some zsh flags, others may be set in the specific config files sourced below
 setopt auto_cd
 
 # config
@@ -80,7 +72,6 @@ eval "$(uvx --generate-shell-completion zsh)"
 
 # thefuck
 eval $(thefuck --alias)
-
 
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 

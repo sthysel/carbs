@@ -19,9 +19,46 @@ alias md2rst='pandoc --from=markdown --to=rst --output=README.rst README.md'
 alias yeet="yay -Rcs"
 
 # I forget sudo
-alias pls='sudo !!'
+alias please='sudo $(fc -ln -1)'
+
 alias ..='cd ..'
 alias ...='cd ../..'
 alias -- -='cd -' # Jump to last dir
 
-mkcd() { mkdir -p "$1" && cd "$1"; }
+# make dir and enter
+function mkcd() { mkdir -p "$1" && cd "$1"; }
+
+function cdtools() { cd ~/.local/bin/$1 && ls; }
+
+# file manager
+function y() {
+    local tmp="$(mktemp)"
+    yazi --cwd-file="$tmp" "$@"
+    if [ -s "$tmp" ]; then
+        cd "$(cat "$tmp")" || return
+    fi
+    rm -f "$tmp"
+}
+# if I forget "yazi", I may remember "file manager"
+alias fm='y'
+
+function extract () {
+    if [ -f "$1" ]; then
+        case "$1" in
+            *.tar.bz2) tar xjf "$1" ;;
+            *.tar.gz)  tar xzf "$1" ;;
+            *.bz2)     bunzip2 "$1" ;;
+            *.rar)     unrar x "$1" ;;
+            *.gz)      gunzip "$1" ;;
+            *.tar)     tar xf "$1" ;;
+            *.tbz2)    tar xjf "$1" ;;
+            *.tgz)     tar xzf "$1" ;;
+            *.zip)     unzip "$1" ;;
+            *.Z)       uncompress "$1" ;;
+            *.7z)      7z x "$1" ;;
+            *)         echo "Unknown format: $1" ;;
+        esac
+    else
+        echo "'$1' is not a valid file"
+    fi
+}

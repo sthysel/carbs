@@ -95,7 +95,7 @@ exec --no-startup-id udiskie
 exec_always --no-startup-id conky
 
 # remaps the caps lock button to escape and uses the US international keyboard with dead keys
-exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
+# exec_always --no-startup-id setxkbmap -layout us -variant altgr-intl -option caps:escape
 
 # sweet background
 exec_always --no-startup-id feh --bg-scale ~/.config/wallpapers/wall
