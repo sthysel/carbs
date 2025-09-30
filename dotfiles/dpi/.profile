@@ -4,3 +4,5 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_SCREEN_SCALE_FACTORS=2
 
 . "$HOME/.local/bin/env"
+
+. "$HOME/.local/share/../bin/env"

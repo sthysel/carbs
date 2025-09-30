@@ -35,3 +35,5 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
 # Project-specific
 export JUST_IIOT_PATH="$HOME/.config/just/justfile"
+
+. "$HOME/.local/share/../bin/env"

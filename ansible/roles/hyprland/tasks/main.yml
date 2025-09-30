@@ -1,22 +1,24 @@
 - name: Install hyprland core tools
   kewlfft.aur.aur:
     name:
-      - kitty
+      - hypridle
       - hyprland
-      - uwsm
-      - sddm
-      - dunst
-      - qt5-wayland
-      - qt6-wayland
-      - xdg-desktop-portal-hyprland
-      - xdg-desktop-portal-gtk
-      - hyprpolkitagent
+      - hyprland-qtutils
+      - hyprlock
       - hyprpaper
       - hyprpicker
-      - hypridle
+      - hyprpolkitagent
       - hyprsysteminfo
-      - hyprland-qtutils
-      - waybar
+      - kitty
+      - qt6-wayland
+      - sddm
+      - uwsm
+      - xdg-desktop-portal-gtk
+      - xdg-desktop-portal-hyprland
+      - noto-fonts
+      - ttf-nerd-fonts
+      - grim
+      - slurp
 
     state: present
 
@@ -26,12 +28,28 @@
   ansible.builtin.systemd:
     name: hyprpolkitagent
     scope: user
-    enabled: yes
+    enabled: true
     state: started
 
 - name: Enable and start SDDM (login manager)
-  become: yes
+  become: true
   ansible.builtin.systemd:
     name: sddm.service
-    enabled: yes
+    enabled: true
     state: started
+
+- name: Enable and start NetworkManager
+  become: true
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: true
+    state: started
+
+- name: Stop and disable dunst notification daemon
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.systemd:
+    name: dunst
+    scope: user
+    enabled: false
+    state: stopped
