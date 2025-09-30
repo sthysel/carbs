@@ -88,7 +88,7 @@ Available recipes:
 * Playing playbooks using ansible-playbook directly
 ** local
 #+begin_src sh
-  ansible-playbook ./ansible/desktop.yml -i localhost, --ask-become-pass
+  ansible-playbook ./desktop.yml -i 'localhost,' --ask-become-pass --tags hyprland --connection local
 #+end_src
 
 ** remote host

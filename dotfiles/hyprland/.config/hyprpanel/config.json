@@ -20,6 +20,15 @@
   "theme.bar.buttons.workspaces.smartHighlight": true,
   "bar.network.truncation": false,
   "menus.clock.time.military": true,
-  "menus.clock.time.hideSeconds": true,
-  "menus.clock.weather.location": "Perth"
+  "menus.clock.time.hideSeconds": false,
+  "menus.clock.weather.location": "Perth",
+  "theme.bar.buttons.modules.ram.enableBorder": false,
+  "theme.font.name": "Source Code Pro",
+  "theme.font.label": "Source Code Pro Italic",
+  "theme.font.style": "italic",
+  "menus.transition": "crossfade",
+  "theme.bar.menus.enableShadow": false,
+  "scalingPriority": "gdk",
+  "menus.clock.weather.enabled": true,
+  "theme.bar.buttons.modules.microphone.enableBorder": false
 }

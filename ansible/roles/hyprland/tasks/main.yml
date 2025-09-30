@@ -19,7 +19,38 @@
       - ttf-nerd-fonts
       - grim
       - slurp
+      - wofi
+      - wl-clipboard
+    state: present
 
+- name: Install hyprpanel and its dependencies
+  kewlfft.aur.aur:
+    name:
+      - ags-hyprpanel-git
+      - aylurs-gtk-shell-git
+      - bluez
+      - bluez-utils
+      - python-dbus
+      - brightnessctl
+      - btop
+      - dart-sass
+      - dart-sass
+      - grimblast-git
+      - gtksourceview3
+      - gvfs
+      - hyprpicker
+      - hyprsunset
+      - libgtop
+      - libsoup3
+      - matugen-bin
+      - networkmanager
+      - pacman-contrib
+      - power-profiles-daemon
+      - python
+      - swww
+      - upower
+      - wf-recorder-git
+      - wireplumber
     state: present
 
 - name: Enable and start polkit user services
