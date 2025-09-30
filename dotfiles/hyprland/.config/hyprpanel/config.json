@@ -1,0 +1,25 @@
+{
+  "bar.customModules.storage.paths": [
+    "/"
+  ],
+  "menus.clock.weather.unit": "metric",
+  "theme.bar.buttons.modules.cpu.enableBorder": false,
+  "theme.bar.buttons.modules.netstat.enableBorder": true,
+  "bar.customModules.netstat.dynamicIcon": true,
+  "theme.bar.buttons.modules.updates.enableBorder": false,
+  "menus.dashboard.stats.enable_gpu": true,
+  "theme.bar.floating": false,
+  "theme.bar.location": "top",
+  "theme.bar.buttons.enableBorders": false,
+  "theme.bar.enableShadow": false,
+  "bar.workspaces.show_icons": false,
+  "bar.workspaces.show_numbered": false,
+  "bar.workspaces.workspaceMask": false,
+  "bar.workspaces.showWsIcons": true,
+  "bar.workspaces.numbered_active_indicator": "highlight",
+  "theme.bar.buttons.workspaces.smartHighlight": true,
+  "bar.network.truncation": false,
+  "menus.clock.time.military": true,
+  "menus.clock.time.hideSeconds": true,
+  "menus.clock.weather.location": "Perth"
+}
