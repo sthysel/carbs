@@ -53,6 +53,18 @@
       - wireplumber
     state: present
 
+- name: Install screenshot tooling
+  kewlfft.aur.aur:
+    name:
+      - jq
+      - grim
+      - slurp
+      - wl-clipboard
+      - libnotify
+      - hyprpicker
+      - satty
+    state: present
+
 - name: Enable and start polkit user services
   become: true
   become_user: "{{ carbs_user }}"
