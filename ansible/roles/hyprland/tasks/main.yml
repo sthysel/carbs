@@ -11,16 +11,14 @@
       - hyprsysteminfo
       - kitty
       - qt6-wayland
-      - sddm
+      - gdm
+      - polkit
       - uwsm
       - xdg-desktop-portal-gtk
       - xdg-desktop-portal-hyprland
       - noto-fonts
       - ttf-nerd-fonts
-      - grim
-      - slurp
       - wofi
-      - wl-clipboard
     state: present
 
 - name: Install hyprpanel and its dependencies
@@ -30,10 +28,8 @@
       - aylurs-gtk-shell-git
       - bluez
       - bluez-utils
-      - python-dbus
       - brightnessctl
       - btop
-      - dart-sass
       - dart-sass
       - grimblast-git
       - gtksourceview3
@@ -47,6 +43,7 @@
       - pacman-contrib
       - power-profiles-daemon
       - python
+      - python-dbus
       - swww
       - upower
       - wf-recorder-git
@@ -63,6 +60,8 @@
       - libnotify
       - hyprpicker
       - satty
+      - cliphist
+      - wl-clip-persist
     state: present
 
 - name: Enable and start polkit user services
@@ -74,10 +73,10 @@
     enabled: true
     state: started
 
-- name: Enable and start SDDM (login manager)
+- name: Enable and start GDM (login manager)
   become: true
   ansible.builtin.systemd:
-    name: sddm.service
+    name: gdm.service
     enabled: true
     state: started
 
