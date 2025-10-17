@@ -11,6 +11,7 @@ export EDITOR=nvim
 export TERMINAL=kitty
 export TERM=xterm-kitty
 export SPACEMACSDIR=~/.config/spacemacs
+export MOZ_ENABLE_WAYLAND=1
 
 # Paths
 path+=("$HOME/.local/bin" "$HOME/go/bin" "$HOME/.cargo/bin")

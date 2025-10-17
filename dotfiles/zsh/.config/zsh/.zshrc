@@ -1,82 +1,57 @@
-# Install zplug if its not
-ZPLUG_HOME=~/.zplug
-if [[ ! -d ${ZPLUG_HOME} ]]
+# install zinit if its not where I expect it to be
+if [[ ! -f ${HOME}/.local/share/zinit/zinit.git/zinit.zsh ]]
 then
-  git clone https://github.com/zplug/zplug ${ZPLUG_HOME}
-  source ${ZPLUG_HOME}/init.zsh && zplug update --verbose
+  mkdir -p ${HOME}/.local/share/zinit
+  git clone https://github.com/zdharma-continuum/zinit.git ${HOME}/.local/share/zinit/zinit.git
 fi
+source ${HOME}/.local/share/zinit/zinit.git/zinit.zsh
 
-source ${ZPLUG_HOME}/init.zsh
+# Self-manage zinit itself
+zinit light zdharma-continuum/zinit
 
-zplug "zplug/zplug", hook-build:"zplug --self-manage"
-zplug "plugins/vi-mode", from:oh-my-zsh
-zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/z", from:oh-my-zsh
-zplug "supercrabtree/k"
-# needs to be last
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# Oh My Zsh base framework
+zinit ice depth=1
+zinit light ohmyzsh/ohmyzsh
 
-# Load zplug
-if ! zplug check --verbose
-then
-    zplug install
-fi
+# Individual OMZ plugins by path
+zinit ice pick"plugins/vi-mode/vi-mode.plugin.zsh"
+zinit light ohmyzsh/ohmyzsh
+zinit ice pick"plugins/git/git.plugin.zsh"
+zinit light ohmyzsh/ohmyzsh
+zinit ice pick"plugins/z/z.plugin.zsh"
+zinit light ohmyzsh/ohmyzsh
 
-# some zsh flags, others may be set in the specific config files sourced below
+# Other plugins
+zinit light supercrabtree/k
+zinit light zsh-users/zsh-syntax-highlighting
+
+# Zsh options and environment setup
 setopt auto_cd
-
-# config
 DEFAULT_USER=$USER
-
-zplug load
-
 fpath+=~/.zfunc
 
-
-# Load and initialize Zsh’s completion machinery
+# Completions (only need to call compinit once)
 autoload -Uz compinit bashcompinit
-# Enable Zsh completion for “mycli”
-autoload -U compinit && compinit
-
-# Enable Bash‐style completions (argcomplete generates Bash functions)
+compinit
 bashcompinit
 
-# kitty auto complete
+# kitty
 kitty + complete setup zsh | source /dev/stdin
-
 zstyle ':completion:*' menu select
 setopt COMPLETE_ALIASES
 
-# load .env in every directory
 eval "$(direnv hook zsh)"
-
-# better cd
 eval "$(zoxide init --cmd cd zsh)"
-
-# less posh prompt
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/brutal.json)"
-# hippy prompt
-# eval "$(oh-my-posh --init --shell zsh)"
-
-# . "$HOME/.cargo/env"
-eval "$(uv generate-shell-completion zsh)"
-
-[ ! -f "$HOME/.x-cmd.root/X" ] || . "$HOME/.x-cmd.root/X" # boot up x-cmd.
-
-# add Pulumi to the PATH
-export PATH=$PATH:/home/thys/.pulumi/bin
-
-# uv
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
-
-# thefuck
 eval $(thefuck --alias)
 
+# load any secrets
 [ -f "$HOME/.secrets.sh" ] && source "$HOME/.secrets.sh"
 
-# load other zsh config
-for f in $ZDOTDIR/*.zsh
-do
-    [ -f "$f" ] && source "$f"
-done
+# Add Pulumi to path
+export PATH=$PATH:/home/thys/.pulumi/bin
+
+# load all the other config files
+for f in $ZDOTDIR/*.zsh; do [ -f "$f" ] && source "$f"; done

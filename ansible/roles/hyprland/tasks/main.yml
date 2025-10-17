@@ -1,4 +1,4 @@
-- name: Install hyprland core tools
+- name: Ensure hyprland core tools are available
   kewlfft.aur.aur:
     name:
       - hypridle
@@ -14,14 +14,12 @@
       - gdm
       - polkit
       - uwsm
-      - xdg-desktop-portal-gtk
-      - xdg-desktop-portal-hyprland
       - noto-fonts
       - ttf-nerd-fonts
       - wofi
     state: present
 
-- name: Install hyprpanel and its dependencies
+- name: Ensure hyprpanel and its dependencies are available
   kewlfft.aur.aur:
     name:
       - ags-hyprpanel-git
@@ -50,7 +48,7 @@
       - wireplumber
     state: present
 
-- name: Install screenshot tooling
+- name: Ensure screenshot tooling is available
   kewlfft.aur.aur:
     name:
       - jq
@@ -64,11 +62,39 @@
       - wl-clip-persist
     state: present
 
+# https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580
+- name: Ensure screenshare tooling is available
+  kewlfft.aur.aur:
+    name:
+      - grim
+      - slurp
+      - xdg-desktop-portal-gtk
+      - xdg-desktop-portal-hyprland
+    state: present
+
 - name: Enable and start polkit user services
   become: true
   become_user: "{{ carbs_user }}"
   ansible.builtin.systemd:
     name: hyprpolkitagent
+    scope: user
+    enabled: true
+    state: started
+
+- name: Enable and start hypridle
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.systemd:
+    name: hypridle
+    scope: user
+    enabled: true
+    state: started
+
+- name: Enable and start hyprpaper
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.systemd:
+    name: hyprpaper
     scope: user
     enabled: true
     state: started
@@ -95,3 +121,9 @@
     scope: user
     enabled: false
     state: stopped
+
+- name: Ensure dunst is uninstalled
+  kewlfft.aur.aur:
+    name:
+      - dunst
+    state: absent
