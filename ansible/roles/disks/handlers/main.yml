@@ -2,5 +2,16 @@
   ansible.builtin.systemd:
     name: polkit
     state: restarted
-  become: yes
+  become: true
   listen: restart polkit
+
+- name: Reload systemd user daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+    scope: user
+
+- name: Restart udiskie service
+  ansible.builtin.systemd:
+    name: udiskie.service
+    state: restarted
+    scope: user

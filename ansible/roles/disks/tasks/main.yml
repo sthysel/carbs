@@ -3,40 +3,16 @@
     name:
       - udisks2
       - udiskie
+    state: present
 
 - name: Create polkit rules for udiskie mounting
-  copy:
+  template:
+    src: 50-udiskie.rules.j2
     dest: /etc/polkit-1/rules.d/50-udiskie.rules
-    content: |
-      polkit.addRule(function(action, subject) {
-          var YES = polkit.Result.YES;
-          var permission = {
-              // required for udisks1:
-              "org.freedesktop.udisks.filesystem-mount": YES,
-              "org.freedesktop.udisks.luks-unlock": YES,
-              "org.freedesktop.udisks.drive-eject": YES,
-              "org.freedesktop.udisks.drive-detach": YES,
-              // required for udisks2:
-              "org.freedesktop.udisks2.filesystem-mount": YES,
-              "org.freedesktop.udisks2.encrypted-unlock": YES,
-              "org.freedesktop.udisks2.eject-media": YES,
-              "org.freedesktop.udisks2.power-off-drive": YES,
-              // required for udisks2 if using udiskie from another seat:
-              "org.freedesktop.udisks2.filesystem-mount-other-seat": YES,
-              "org.freedesktop.udisks2.filesystem-unmount-others": YES,
-              "org.freedesktop.udisks2.encrypted-unlock-other-seat": YES,
-              "org.freedesktop.udisks2.encrypted-unlock-system": YES,
-              "org.freedesktop.udisks2.eject-media-other-seat": YES,
-              "org.freedesktop.udisks2.power-off-drive-other-seat": YES
-          };
-          if (subject.isInGroup("storage")) {
-              return permission[action.id];
-          }
-      });
     owner: root
     group: root
     mode: '0644'
-  become: yes
+  become: true
   notify: restart polkit
 
 - name: Add user to storage group
@@ -44,4 +20,26 @@
     name: "{{ carbs_user }}"
     groups: storage
     append: yes
-  become: yes
+  become: true
+
+- name: Ensure systemd user directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/systemd/user"
+    state: directory
+    mode: '0755'
+
+- name: Deploy udiskie systemd user service file
+  template:
+    src: udiskie.service.j2
+    dest: "{{ ansible_env.HOME }}/.config/systemd/user/udiskie.service"
+    mode: '0644'
+  notify:
+    - Reload systemd user daemon
+    - Restart udiskie service
+
+- name: Enable udiskie service
+  systemd:
+    name: udiskie.service
+    enabled: true
+    state: started
+    scope: user

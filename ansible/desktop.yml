@@ -1,7 +1,7 @@
 ---
 - name: Provision a desktop
-  hosts: all
-  become: no
+  hosts: localhost
+  become: false
   roles:
     - role: base
     - role: audio
