@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Udiskie
+Comment=Automount removable media
+Exec=udiskie --tray
+Icon=drive-removable-media
+Terminal=false
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Categories=System;
