@@ -1,7 +1,40 @@
 ---
-- hosts: impi
+- name: Provision a desktop
+  hosts: impi
+  become: false
   roles:
-    - victorbrca.ansible_aur_install
-    - common
-    - desktop
-    - docker
+    - role: base
+    - role: audio
+      tags:
+        - audio
+        - music
+    - role: fonts
+      tags:
+        - fonts
+    - role: spacemacs
+      tags:
+        - editor
+        - dev
+    - role: docker
+      tags:
+        - container
+        - dev
+    - role: hyprland
+      tags:
+        - hyprland
+    - role: python-dev
+      tags:
+        - dev
+        - python
+    - role: ssh
+    - role: disks
+      tags:
+        - disks
+    - role: beets
+      tags:
+        - beets
+        - music
+    - role: yazi
+      tags:
+        - yazi
+        - music

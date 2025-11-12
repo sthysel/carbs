@@ -20,7 +20,6 @@ Fork this repo for your own use, and adapt to your own sensibilities.
 - Allows you to maintain the config in a git repo for backup and deployment to
   other machines remotely, using ansible.
 
-
 * Install
 ** Install Arch if you have not yet done so
 - You will need a working network with access to the interwebs as a minimum.
@@ -65,7 +64,6 @@ just bootstrap
 #+end_example
 
 * Playing playbooks using just
-
 
 #+begin_example
 $ just
