@@ -6,39 +6,28 @@ then
 fi
 source ${HOME}/.local/share/zinit/zinit.git/zinit.zsh
 
-# Self-manage zinit itself
-zinit light zdharma-continuum/zinit
+# Zsh options and environment setup
+setopt auto_cd
+DEFAULT_USER=$USER
 
-# Oh My Zsh base framework
-zinit ice depth=1
-zinit light ohmyzsh/ohmyzsh
+# Setup completion styles
+zstyle ':completion:*' menu select
+setopt COMPLETE_ALIASES
 
-# Individual OMZ plugins by path
-zinit ice pick"plugins/vi-mode/vi-mode.plugin.zsh"
-zinit light ohmyzsh/ohmyzsh
-zinit ice pick"plugins/git/git.plugin.zsh"
-zinit light ohmyzsh/ohmyzsh
-zinit ice pick"plugins/z/z.plugin.zsh"
-zinit light ohmyzsh/ohmyzsh
+# Initialize completions NOW before anything else
+autoload -Uz compinit
+compinit
+
+# Load OMZ snippets
+zinit snippet OMZP::vi-mode
+zinit snippet OMZP::git
 
 # Other plugins
 zinit light supercrabtree/k
 zinit light zsh-users/zsh-syntax-highlighting
 
-# Zsh options and environment setup
-setopt auto_cd
-DEFAULT_USER=$USER
-fpath+=~/.zfunc
-
-# Completions (only need to call compinit once)
-autoload -Uz compinit bashcompinit
-compinit
-bashcompinit
-
 # kitty
 kitty + complete setup zsh | source /dev/stdin
-zstyle ':completion:*' menu select
-setopt COMPLETE_ALIASES
 
 eval "$(direnv hook zsh)"
 eval "$(zoxide init --cmd cd zsh)"
