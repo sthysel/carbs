@@ -1,4 +1,4 @@
 # Install yazi file manager
 
-Some useful yazi plugins are install using `ya pkg install`. The main config is
-managed by stow. Ansible takes care of the packages.
+Some useful yazi plugins are installed using `ya pkg install`. The main config is
+managed by Tuckr. Ansible takes care of the packages.

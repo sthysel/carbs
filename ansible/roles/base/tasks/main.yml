@@ -36,7 +36,7 @@
       - ranger
       - rsync
       - shellcheck
-      - stow
+      - tuckr
       - sysz
       - thefuck
       - trash-cli

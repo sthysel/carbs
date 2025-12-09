@@ -120,10 +120,10 @@ After editing `init.el`:
 
 ## Integration with CARBS
 
-This configuration is deployed as part of the CARBS dotfiles system using GNU Stow. The directory structure is:
-- Location: `dotfiles/spacemacs/.config/spacemacs/`
-- Stow target: `~/.config/spacemacs/`
-- Deployment: Run `stow spacemacs` from `dotfiles/` directory
+This configuration is deployed as part of the CARBS dotfiles system using Tuckr. The directory structure is:
+- Location: `dotfiles/Configs/spacemacs/.config/spacemacs/`
+- Tuckr target: `~/.config/spacemacs/`
+- Deployment: Run `tuckr add spacemacs` or `just dotfiles` to deploy all dotfiles
 
 ## Important Notes
 

@@ -31,10 +31,11 @@ CARBS (Chad Arch Random Bootstrap Scripts) is an Ansible-based system provisioni
   - Hardware-specific: `dell-xps`, `nvidia`, `navigation`
   - `smoketest`: Validation role
 
-- **Dotfiles** (`dotfiles/`): Managed via GNU Stow
-  - Each subdirectory represents a stow package (e.g., `zsh/`, `nvim/`, `hyprland/`, `kitty/`)
-  - Structure: `dotfiles/<package>/.config/<app>/` or `dotfiles/<package>/.local/`
-  - Stow creates symlinks from dotfiles into `~/.config/` and `~/.local/`
+- **Dotfiles** (`dotfiles/`): Managed via Tuckr
+  - Structure: `dotfiles/Configs/<package>/.config/<app>/` or `dotfiles/Configs/<package>/.local/`
+  - Each subdirectory in `Configs/` represents a dotfile group (e.g., `zsh/`, `nvim/`, `hyprland/`, `kitty/`)
+  - Tuckr creates symlinks from dotfiles into `~/.config/` and `~/.local/`
+  - Additional directories: `Hooks/` (setup scripts), `Secrets/` (encrypted files)
 
 - **Inventory** (`ansible/inventory/hosts.yml`): Host groups and connection settings
   - `desktop` group: Multiple named hosts plus localhost
@@ -45,7 +46,7 @@ CARBS (Chad Arch Random Bootstrap Scripts) is an Ansible-based system provisioni
 
 1. Bootstrap phase: Install `uv`, then use it to install Ansible and dependencies
 2. Ansible phase: Run playbooks to install packages and configure system via roles
-3. Dotfiles phase: Use `stow` to symlink configuration files into place
+3. Dotfiles phase: Use `tuckr` to symlink configuration files into place
 4. Post-install: Run QA checks via pre-commit hooks
 
 ## Common Commands
@@ -82,15 +83,18 @@ ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
 ### Dotfiles Management
 
 ```bash
-# Link all dotfiles using stow
+# Link all dotfiles using Tuckr
 just dotfiles
 
 # Remove broken symlinks from ~/.config/
 just remove-danglinks
 
-# Manual stow operations (from dotfiles/ directory)
-cd dotfiles && stow zsh    # Link zsh configs
-cd dotfiles && stow -D nvim  # Unlink nvim configs
+# Manual Tuckr operations
+tuckr add zsh           # Link zsh configs
+tuckr rm nvim           # Unlink nvim configs
+tuckr status            # Check dotfile status
+tuckr add -f wallpaper  # Force link (override conflicts)
+tuckr set *             # Run all hooks
 ```
 
 ### Quality Assurance

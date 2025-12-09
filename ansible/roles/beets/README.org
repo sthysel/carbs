@@ -2,4 +2,4 @@
 
 Good for music library management.
 
-The beets config is managed by stow `stow beets`
+The beets config is managed by Tuckr `tuckr add beets`

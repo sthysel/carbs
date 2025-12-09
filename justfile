@@ -45,10 +45,8 @@ deploy-wsl tags="all":
     just deploy localhost {{tags}} wsl
 
 [doc('link in the dotfiles')]
-[script]
 dotfiles:
-    cd ./dotfiles
-    stow */
+    tuckr add \*
 
 [doc('remove all dangling symlinks')]
 remove-danglinks:
