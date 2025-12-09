@@ -56,9 +56,9 @@ disabled = false
 
 # Directory configuration
 [directory]
-truncation_length = 3
-truncate_to_repo = true
-format = "in [$path]($style)[$read_only]($read_only_style) "
+truncation_length = 8
+truncate_to_repo = false
+format = "[$path]($style)[$read_only]($read_only_style) "
 style = "bold cyan"
 read_only = " 🔒"
 read_only_style = "red"
@@ -104,7 +104,7 @@ style = "bright-black"
 # Python configuration - detects uv projects via uv.lock
 [python]
 symbol = "🐍 "
-format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
+format = '[${symbol}(${version} )(\($virtualenv\) )]($style)'
 style = "yellow bold"
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
@@ -120,7 +120,7 @@ detect_folders = [".venv", "venv", "env"]
 
 # Package version (for Python projects)
 [package]
-format = "is [$symbol$version]($style) "
+format = "[$symbol$version]($style) "
 symbol = "📦 "
 style = "208 bold"
 display_private = false
@@ -129,28 +129,28 @@ disabled = false
 # Rust
 [rust]
 symbol = "🦀 "
-format = "via [$symbol($version )]($style)"
+format = "[$symbol($version )]($style)"
 style = "bold red"
 disabled = false
 
 # Go
 [golang]
 symbol = "🐹 "
-format = "via [$symbol($version )]($style)"
+format = "[$symbol($version )]($style)"
 style = "bold cyan"
 disabled = false
 
 # Node.js
 [nodejs]
 symbol = " "
-format = "via [$symbol($version )]($style)"
+format = "[$symbol($version )]($style)"
 style = "bold green"
 disabled = false
 
 # Docker context
 [docker_context]
 symbol = "🐳 "
-format = "via [$symbol$context]($style) "
+format = "[$symbol$context]($style) "
 style = "blue bold"
 only_with_files = true
 disabled = false
