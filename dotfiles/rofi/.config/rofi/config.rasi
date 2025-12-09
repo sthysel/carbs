@@ -145,4 +145,4 @@ configuration {
       sorting-method:    "name";
   }
 }
-/* @theme "/usr/share/rofi/themes/purple.rasi" */
+@theme "~/.config/rofi/hyprland.rasi"
