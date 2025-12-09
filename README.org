@@ -94,3 +94,224 @@ Remote host with its own playbook
 #+begin_src sh
   ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
 #+end_src
+
+* Tuckr Dotfile Management
+
+CARBS uses Tuckr (a modern alternative to GNU Stow) to manage dotfiles. Tuckr provides hooks, secrets management, and zero-configuration setup.
+
+** Directory Structure
+
+#+begin_example
+dotfiles/
+├── Configs/     # Your dotfile packages (zsh, nvim, hyprland, etc.)
+├── Hooks/       # Setup/cleanup scripts that run before/after deployment
+└── Secrets/     # Encrypted sensitive files (gpg)
+#+end_example
+
+** Essential Commands
+
+*** Checking Status
+
+#+begin_src sh
+tuckr status                    # Show all groups and their deployment status
+tuckr status hyprland           # Check specific group
+#+end_src
+
+*** Deploy/Undeploy Groups
+
+#+begin_src sh
+# Deploy specific groups
+tuckr add zsh nvim              # Link zsh and nvim configs
+
+# Deploy all groups
+tuckr add \*                    # What 'just dotfiles' does
+
+# Remove specific groups
+tuckr rm i3 picom               # Unlink i3 and picom
+
+# Deploy with hooks (runs setup scripts)
+tuckr set nvim                  # Deploy nvim + run hooks
+tuckr set \*                    # Deploy all + run all hooks
+#+end_src
+
+*** Handling Conflicts
+
+#+begin_src sh
+tuckr add -f hyprland           # Force override (use dotfile version)
+tuckr add -a hyprland           # Adopt (use system version)
+tuckr add -f -y wallpaper       # Auto-yes (skip prompts)
+#+end_src
+
+** Hooks System
+
+Hooks automate tasks before/after deployment. Structure:
+
+#+begin_example
+Hooks/
+└── <group>/
+    ├── pre.sh      # Runs BEFORE symlinking
+    └── post.sh     # Runs AFTER symlinking
+#+end_example
+
+*** Example: Neovim Hook
+
+Create =dotfiles/Hooks/nvim/post.sh=:
+
+#+begin_src bash
+#!/bin/bash
+# Install/update lazy.nvim plugins after deploying nvim config
+echo "Installing nvim plugins..."
+nvim --headless "+Lazy! sync" +qa
+echo "Neovim setup complete!"
+#+end_src
+
+Make it executable: =chmod +x dotfiles/Hooks/nvim/post.sh=
+
+*** Example: Yazi Hook
+
+Create =dotfiles/Hooks/yazi/post.sh=:
+
+#+begin_src bash
+#!/bin/bash
+# Install yazi plugins after deploying config
+echo "Installing yazi plugins..."
+ya pack -i
+echo "Yazi setup complete!"
+#+end_src
+
+*** Using Hooks
+
+#+begin_src sh
+tuckr set nvim                  # Deploy nvim + run post.sh hook
+tuckr add nvim                  # Only symlink, skip hooks
+tuckr unset nvim                # Unlink + run cleanup hooks
+#+end_src
+
+*** Hook Use Cases
+
+*Pre-hooks* (before symlinking):
+- Create directories
+- Backup existing configs
+- Check dependencies
+
+*Post-hooks* (after symlinking):
+- Install plugins (nvim, tmux, yazi, etc.)
+- Build/compile configs
+- Restart services
+- Run setup commands
+
+** Secrets Management
+
+Encrypt sensitive files like SSH keys, API tokens:
+
+#+begin_src sh
+tuckr encrypt ~/.ssh/id_rsa     # Encrypt file (moves to Secrets/)
+tuckr decrypt                   # Decrypt all secrets
+tuckr ls secrets                # List encrypted files
+#+end_src
+
+The secrets are GPG-encrypted and safe to commit to git.
+
+** Advanced Features
+
+*** Targets (Machine-Specific Configs)
+
+Create alternate configs for different machines:
+
+#+begin_example
+Configs/
+├── hyprland/              # Default config
+└── hyprland@laptop/       # Laptop-specific overrides
+#+end_example
+
+#+begin_src sh
+tuckr add -t laptop hyprland    # Use laptop-specific config
+#+end_src
+
+*** Profiles (Separate Dotfile Repos)
+
+Manage work and personal dotfiles separately:
+
+#+begin_src sh
+tuckr -p work add zsh git       # Use work profile (different repo)
+tuckr add zsh git               # Use personal profile (default)
+#+end_src
+
+*** Dry Run
+
+Test changes without touching filesystem:
+
+#+begin_src sh
+tuckr -n add hyprland           # See what would happen
+tuckr --dry-run rm i3           # Preview removal
+#+end_src
+
+** Practical Workflows
+
+*** New Machine Setup
+
+#+begin_src sh
+# 1. Clone your dotfiles
+git clone https://github.com/youruser/carbs ~/.dotfiles
+ln -s ~/.dotfiles/dotfiles ~/.config/dotfiles
+
+# 2. Deploy everything
+tuckr set \*                    # Deploys + runs all hooks
+
+# 3. Or deploy selectively
+tuckr set zsh git nvim hyprland
+#+end_src
+
+*** Testing Config Changes
+
+#+begin_src sh
+# Make changes to dotfiles/Configs/hyprland/
+vim ~/.config/dotfiles/Configs/hyprland/.config/hypr/binds.conf
+
+# Files are already symlinked, so changes are live!
+hyprctl reload
+
+# If not working, re-deploy
+tuckr add -f hyprland
+#+end_src
+
+*** Adding New Dotfile Group
+
+#+begin_src sh
+# 1. Create structure
+mkdir -p dotfiles/Configs/btop/.config/btop
+
+# 2. Add config files
+cp ~/.config/btop/btop.conf dotfiles/Configs/btop/.config/btop/
+
+# 3. Deploy it
+tuckr add btop
+
+# 4. Commit to git
+git add dotfiles/Configs/btop
+git commit -m "Add btop config"
+#+end_src
+
+** Quick Reference
+
+| Command                 | Purpose                         |
+|-------------------------+---------------------------------|
+| =tuckr status=          | Show what's deployed            |
+| =tuckr add <group>=     | Deploy group (symlink only)     |
+| =tuckr rm <group>=      | Undeploy group                  |
+| =tuckr set <group>=     | Deploy + run hooks              |
+| =tuckr unset <group>=   | Undeploy + cleanup hooks        |
+| =tuckr add -f <group>=  | Force deploy (override)         |
+| =tuckr add -a <group>=  | Adopt system files              |
+| =tuckr -n add <group>=  | Dry run                         |
+| =tuckr ls=              | List all groups                 |
+| =tuckr encrypt <file>=  | Encrypt to Secrets/             |
+| =tuckr decrypt=         | Decrypt all secrets             |
+
+** Pro Tips
+
+1. *Changes are live*: Since files are symlinked, editing =dotfiles/Configs/*/= directly updates your system
+2. *Use hooks for automation*: Install plugins, compile configs, restart services automatically
+3. *Commit hooks to git*: Share your setup scripts with your future self
+4. *Use =-f= carefully*: It overwrites files without backup
+5. *Test with =-n=*: Preview changes before applying them
