@@ -101,22 +101,20 @@ disabled = false
 format = '[\($state( $progress_current of $progress_total)\)]($style) '
 style = "bright-black"
 
-# Python configuration - enhanced for uv
+# Python configuration - detects uv projects via uv.lock
 [python]
 symbol = "🐍 "
-format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\) )]($style)'
+format = 'via [${symbol}(${version} )(\($virtualenv\) )]($style)'
 style = "yellow bold"
-pyenv_version_name = true
-pyenv_prefix = "pyenv "
 python_binary = ["python3", "python"]
 detect_extensions = ["py"]
 detect_files = [
-    "requirements.txt",
+    "uv.lock",
     "pyproject.toml",
+    "requirements.txt",
     "Pipfile",
     "tox.ini",
     ".python-version",
-    "uv.lock",
 ]
 detect_folders = [".venv", "venv", "env"]
 
