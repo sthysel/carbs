@@ -31,7 +31,7 @@ kitty + complete setup zsh | source /dev/stdin
 
 eval "$(direnv hook zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/brutal.json)"
+eval "$(starship init zsh)"
 eval "$(uv generate-shell-completion zsh)"
 eval "$(uvx --generate-shell-completion zsh)"
 eval $(thefuck --alias)

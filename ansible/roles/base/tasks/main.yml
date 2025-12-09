@@ -31,7 +31,7 @@
       - make
       - neofetch
       - networkmanager
-      - oh-my-posh
+      - starship
       - pacman-contrib
       - ranger
       - rsync
