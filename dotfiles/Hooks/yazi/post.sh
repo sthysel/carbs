@@ -15,12 +15,12 @@ if ! command -v ya &> /dev/null; then
     exit 1
 fi
 
-# Install all plugins from package.toml
+# Install all plugins from package.toml (new command)
 echo "📦 Installing yazi plugins..."
-ya pack -i
+ya pkg install
 
 # Upgrade plugins to versions specified in package.toml
 echo "🔄 Upgrading plugins to locked versions..."
-ya pack -u
+ya pkg upgrade
 
 echo "✓ Yazi ready! Run 'yazi' to start."
