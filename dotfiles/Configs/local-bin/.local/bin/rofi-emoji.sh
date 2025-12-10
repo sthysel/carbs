@@ -78,13 +78,13 @@ function display() {
 
     if [ $exit_code == 0 ]
     then
-        # Copy to clipboard and also try to type it
-        echo -n "${line[0]}" | wl-copy
-        sleep 0.3  # Delay for window to regain focus
-        wtype "${line[0]}"
+        emoji="${line[0]}"
+        # Copy to clipboard and also type it
+        echo -n $emoji | wl-copy
+        wtype $emoji
     elif [ $exit_code == 10 ]
     then
-        echo -n "${line[0]}" | wl-copy
+        echo -n $emoji | wl-copy
     fi
 }
 
