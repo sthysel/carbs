@@ -4,7 +4,7 @@
 #   century is about apparently...
 #
 #   Requirements:
-#     rofi, xsel, xdotool, curl, xmllint
+#     rofi, wl-clipboard, wtype, curl, xmllint
 #
 #   Usage:
 #     1. Download all emoji
@@ -17,7 +17,7 @@
 #     * You'll need a emoji font like "Noto Emoji" or "EmojiOne".
 #     * Confirming an item will automatically paste it WITHOUT
 #       writing it to your clipboard.
-#     * Ctrl+C will copy it to your clipboard WITHOUT pasting it.
+#     * Alt+C will copy it to your clipboard WITHOUT pasting it.
 #
 
 # Where to save the emojis file.
@@ -71,18 +71,20 @@ function download() {
 
 function display() {
     emoji=$(cat "$EMOJI_FILE" | grep -v '#' | grep -v '^[[:space:]]*$')
-    line=$(echo "$emoji" | rofi -dmenu -i -p emoji -kb-custom-1 Ctrl+c $@)
+    line=$(echo "$emoji" | rofi -dmenu -i -p emoji -kb-custom-1 Alt+c $@)
     exit_code=$?
 
     line=($line)
 
     if [ $exit_code == 0 ]
     then
-        sleep 0.1  # Delay pasting so the text-entry can come active
-        xdotool type --clearmodifiers "${line[0]}"
+        # Copy to clipboard and also try to type it
+        echo -n "${line[0]}" | wl-copy
+        sleep 0.3  # Delay for window to regain focus
+        wtype "${line[0]}"
     elif [ $exit_code == 10 ]
     then
-        echo -n "${line[0]}" | xsel -i -b
+        echo -n "${line[0]}" | wl-copy
     fi
 }
 

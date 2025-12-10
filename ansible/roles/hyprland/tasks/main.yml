@@ -10,7 +10,6 @@
       - hyprpaper
       - hyprpicker
       - hyprpolkitagent
-      - hyprsysteminfo
       - kitty
       - qt6-wayland
       - gdm
@@ -66,6 +65,17 @@
       - satty
       - cliphist
       - wl-clip-persist
+    state: present
+
+- name: Ensure emoji picker dependencies are available
+  kewlfft.aur.aur:
+    use: yay
+    extra_args: --ask=4
+    name:
+      - rofi
+      - wtype
+      - curl
+      - libxml2
     state: present
 
 # https://gist.github.com/brunoanc/2dea6ddf6974ba4e5d26c3139ffb7580
@@ -129,6 +139,7 @@
     scope: user
     enabled: false
     state: stopped
+  failed_when: false
 
 - name: Ensure dunst is uninstalled
   kewlfft.aur.aur:
