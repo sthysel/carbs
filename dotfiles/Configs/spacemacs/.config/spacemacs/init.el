@@ -587,7 +587,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
 
     ;; org general
-    (setq org-download-screenshot-method "flameshot gui --delay 3000 --raw > %s")
+    (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
     (setq org-agenda-files '("~/org/todo-general.org"))
     (setq org-capture-templates
         '(("t" "Todo" entry
