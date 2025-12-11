@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=45.10.0.33234
+Name=Webex
+Comment=Webex
+Exec=env QT_QPA_PLATFORM=xcb WAYLAND_DISPLAY='' /opt/Webex/bin/CiscoCollabHost %U
+Icon=/opt/Webex/bin/sparklogosmall.png
+Terminal=false
+Type=Application
+Categories=Utility;Application;
+MimeType=x-scheme-handler/webexteams;x-scheme-handler/ciscospark;x-scheme-handler/webex

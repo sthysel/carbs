@@ -18,6 +18,9 @@ alias md2rst='pandoc --from=markdown --to=rst --output=README.rst README.md'
 # emotive package management
 alias yeet="yay -Rcs"
 
+# force Webex to use XWayland for working dialogs
+alias webex="env QT_QPA_PLATFORM=xcb WAYLAND_DISPLAY='' /opt/Webex/bin/CiscoCollabHost"
+
 # I forget sudo
 alias please='sudo $(fc -ln -1)'
 
