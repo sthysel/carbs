@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Type=Application
-Exec=/usr/lib/firefox-developer-edition/firefox %u
+Exec=hyprctl dispatch exec "[workspace 1 silent] /usr/lib/firefox-developer-edition/firefox"
 Terminal=false
 X-MultipleArgs=false
 Icon=firefox-developer-edition

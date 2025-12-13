@@ -1,7 +1,8 @@
 #!/bin/bash
-# Install Hyprland and entire ecosystem
+# Check Hyprland dependencies are installed
 
-echo "🔧 Installing Hyprland and dependencies..."
+echo "🔍 Checking Hyprland dependencies..."
+echo ""
 
 # Core Hyprland packages
 HYPR_CORE=(
@@ -12,16 +13,14 @@ HYPR_CORE=(
     "xdg-desktop-portal-hyprland"
 )
 
-# Panel/Bar options
+# Panel/Bar options (hyprpanel installed via Ansible AUR role)
 PANELS=(
     "waybar"
-    "hyprpanel"
 )
 
 # Essential utilities
 UTILITIES=(
     "rofi-wayland"          # Launcher
-    "dunst"                 # Notifications
     "kitty"                 # Terminal
     "dolphin"               # File manager
 )
@@ -81,26 +80,45 @@ ALL_PKGS=(
     "${FONTS[@]}"
 )
 
-echo "📦 Installing ${#ALL_PKGS[@]} packages..."
-echo ""
+MISSING=()
+INSTALLED=0
 
 for pkg in "${ALL_PKGS[@]}"; do
     if ! pacman -Qi "$pkg" &> /dev/null; then
-        echo "  Installing $pkg..."
-        sudo pacman -S --noconfirm "$pkg" || echo "  ⚠️  Failed to install $pkg"
+        MISSING+=("$pkg")
     else
-        echo "  ✓ $pkg already installed"
+        ((INSTALLED++))
     fi
 done
 
+# Check for AUR packages
+AUR_PKGS=(
+    "ags-hyprpanel-git"
+    "aylurs-gtk-shell-git"
+)
+
+for pkg in "${AUR_PKGS[@]}"; do
+    if ! pacman -Qi "$pkg" &> /dev/null; then
+        MISSING+=("$pkg")
+    else
+        ((INSTALLED++))
+    fi
+done
+
+TOTAL=$((${#ALL_PKGS[@]} + ${#AUR_PKGS[@]}))
+
+echo "📊 Status: $INSTALLED/$TOTAL packages installed"
 echo ""
-echo "✓ Hyprland ecosystem ready"
-echo ""
-echo "💡 Components installed:"
-echo "   - Hyprland compositor + lock/idle/paper"
-echo "   - Waybar + HyprPanel"
-echo "   - Rofi launcher + Dunst notifications"
-echo "   - Screenshot suite (grim/slurp/satty)"
-echo "   - Clipboard management"
-echo "   - Audio/media controls"
-echo "   - Session management (uwsm)"
+
+if [ ${#MISSING[@]} -eq 0 ]; then
+    echo "✓ All Hyprland dependencies are installed"
+else
+    echo "⚠️  Missing ${#MISSING[@]} package(s):"
+    for pkg in "${MISSING[@]}"; do
+        echo "   - $pkg"
+    done
+    echo ""
+    echo "💡 To install missing packages, run:"
+    echo "   just deploy localhost hyprland desktop"
+    echo ""
+fi

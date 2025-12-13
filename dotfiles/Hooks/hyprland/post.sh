@@ -3,6 +3,43 @@
 
 echo "🚀 Finalizing Hyprland setup..."
 
+# Detect machine type and link appropriate HyprPanel config.json
+HYPRPANEL_DIR="$HOME/.config/hyprpanel"
+CONFIG_DESKTOP="$HOME/.config/dotfiles/Configs/hyprland/.config/hyprpanel/config-desktop.json"
+CONFIG_LAPTOP="$HOME/.config/dotfiles/Configs/hyprland/.config/hyprpanel/config-laptop.json"
+CONFIG_TARGET="$HYPRPANEL_DIR/config.json"
+
+echo "🔍 Detecting machine type..."
+
+# Detect if machine is a laptop (check for battery or chassis type)
+IS_LAPTOP=false
+
+# Method 1: Check for battery
+if ls /sys/class/power_supply/BAT* 2>/dev/null | grep -q .; then
+    IS_LAPTOP=true
+    echo "✓ Battery detected - this is a laptop"
+# Method 2: Check chassis type (8=Portable, 9=Laptop, 10=Notebook, 14=Sub Notebook)
+elif [ -f /sys/class/dmi/id/chassis_type ]; then
+    CHASSIS_TYPE=$(cat /sys/class/dmi/id/chassis_type)
+    if [ "$CHASSIS_TYPE" = "8" ] || [ "$CHASSIS_TYPE" = "9" ] || [ "$CHASSIS_TYPE" = "10" ] || [ "$CHASSIS_TYPE" = "14" ]; then
+        IS_LAPTOP=true
+        echo "✓ Chassis type $CHASSIS_TYPE detected - this is a laptop"
+    fi
+fi
+
+# Remove existing symlink if it exists
+[ -L "$CONFIG_TARGET" ] && rm "$CONFIG_TARGET"
+
+# Create appropriate symlink
+if [ "$IS_LAPTOP" = true ]; then
+    ln -sf "$CONFIG_LAPTOP" "$CONFIG_TARGET"
+    echo "✓ Linked laptop HyprPanel configuration"
+else
+    ln -sf "$CONFIG_DESKTOP" "$CONFIG_TARGET"
+    echo "✓ Linked desktop HyprPanel configuration"
+fi
+echo ""
+
 # Check if Hyprland is running
 if pgrep -x "Hyprland" > /dev/null; then
     echo "✓ Hyprland is running"
