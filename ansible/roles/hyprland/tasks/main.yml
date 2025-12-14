@@ -90,6 +90,18 @@
       - xdg-desktop-portal-hyprland
     state: present
 
+- name: Ensure wallpaper background symlink exists
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.file:
+    src: "{{ ansible_env.HOME }}/.config/wallpapers/wall.png"
+    dest: "{{ ansible_env.HOME }}/.config/background"
+    state: link
+    force: true
+  tags:
+    - hyprland
+    - wallpaper
+
 - name: Enable and start polkit user services
   become: true
   become_user: "{{ carbs_user }}"
