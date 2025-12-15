@@ -1,0 +1,59 @@
+---
+# ansible-lint configuration for CARBS
+# Focuses on critical issues, skips cosmetic style rules
+
+# Exclude certain directories
+exclude_paths:
+  - .venv/
+  - dotfiles/
+  - .git/
+  - .cache/
+  - .pre-commit-config.yaml  # Not an Ansible file
+  - ansible/aero.yml          # Old playbook with missing role
+  - ansible/tablets.yml       # Old playbook with missing role
+
+# Skip cosmetic/style rules that are too noisy
+skip_list:
+  # YAML formatting (cosmetic)
+  - yaml[truthy]          # yes/no vs true/false
+  - yaml[hyphens]         # hyphen spacing
+  - yaml[line-length]     # line length
+  - yaml[comments]        # comment formatting
+
+  # FQCN rules (annoying for personal projects)
+  - fqcn[action]          # Use FQCN for actions
+  - fqcn[action-core]     # Use FQCN for core actions
+
+  # Version pinning (fine for personal use)
+  - latest[git]           # Using latest git branch
+
+  # These can be ignored for personal dotfiles
+  - command-instead-of-shell  # Sometimes shell is just easier
+  - command-instead-of-module # Sometimes command is just easier
+  - no-changed-when           # Not critical for idempotent tasks
+  - risky-shell-pipe          # We know what we're doing
+  - role-name                 # Allow flexible role naming
+  - var-naming                # Allow flexible variable naming
+  - name[missing]             # Task names optional for simple tasks
+  - name[casing]              # Allow flexible task name casing
+  - name[template]            # Allow template strings in names
+  - jinja[spacing]            # Jinja spacing is cosmetic
+  - key-order[task]           # Task key order is preference
+
+# Keep important rules:
+# - syntax-check (catches actual errors)
+# - partial-become (security issue)
+# - risky-file-permissions (security)
+# - name[missing] (good practice)
+
+# Use default profile with our skip list
+profile: null
+
+# Warn only mode for certain rules
+warn_list:
+  - risky-file-permissions
+
+# Ansible settings
+rulesdir: []
+use_default_rules: true
+verbosity: 0

@@ -13,6 +13,10 @@ repos:
     -   id: check-merge-conflict
     -   id: detect-aws-credentials
         args: [--allow-missing-credentials]
+    -   id: check-executables-have-shebangs
+    -   id: check-shebang-scripts-are-executable
+    -   id: check-added-large-files
+        args: [--maxkb=1024]
 
 -   repo: https://github.com/Yelp/detect-secrets
     rev: v1.5.0
@@ -20,3 +24,15 @@ repos:
     -   id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
         exclude: 'lazy-lock\.json|yazi/package\.toml'
+
+-   repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.11.0.1
+    hooks:
+    -   id: shellcheck
+
+-   repo: https://github.com/ansible/ansible-lint
+    rev: v25.12.1
+    hooks:
+    -   id: ansible-lint
+        files: \.(yaml|yml)$
+        args: [--exclude=dotfiles/]
