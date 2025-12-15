@@ -103,11 +103,11 @@ style = "bright-black"
 
 # Python configuration - detects uv projects via uv.lock
 [python]
-symbol = "🐍 "
+symbol = "󰌠 "
 format = '[${symbol}(${version} )(\($virtualenv\) )]($style)'
 style = "yellow bold"
 python_binary = ["python3", "python"]
-detect_extensions = ["py"]
+detect_extensions = []  # Don't show for random .py files
 detect_files = [
     "uv.lock",
     "pyproject.toml",
@@ -217,7 +217,7 @@ symbol_threshold = 1
 
 # Disable modules you don't use
 [aws]
-disabled = true
+disabled = false
 
 [gcloud]
 disabled = true

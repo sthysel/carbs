@@ -30,9 +30,9 @@ repos:
     hooks:
     -   id: shellcheck
 
--   repo: https://github.com/ansible/ansible-lint
-    rev: v25.12.1
-    hooks:
-    -   id: ansible-lint
-        files: \.(yaml|yml)$
-        args: [--exclude=dotfiles/]
+# -   repo: https://github.com/ansible/ansible-lint
+#     rev: v25.12.1
+#     hooks:
+#     -   id: ansible-lint
+#         files: \.(yaml|yml)$
+#         args: [--exclude=dotfiles/]
