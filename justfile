@@ -52,6 +52,11 @@ dotfiles:
 remove-danglinks:
     find ~/.config/ -xtype l -exec rm {} \;
 
+[doc('initialize git repository with work config')]
+init-work:
+    git init --template ~/.git-templates/work
+    @echo "Git repo initialized with work config. Edit .git/config to set the remote URL."
+
 [doc('install yay if not already installed')]
 [script]
 install-yay:
