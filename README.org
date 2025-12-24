@@ -97,13 +97,15 @@ Remote host with its own playbook
 
 * Tuckr Dotfile Management
 
-CARBS uses Tuckr (a modern alternative to GNU Stow) to manage dotfiles. Tuckr provides hooks, secrets management, and zero-configuration setup.
+CARBS uses Tuckr to manage dotfiles. Tuckr provides hooks, secrets management,
+and zero-configuration setup. Its like stow, but with hooks, and focused on dots
+management.
 
 ** Directory Structure
 
 #+begin_example
 dotfiles/
-├── Configs/     # Your dotfile packages (zsh, nvim, hyprland, etc.)
+├── Configs/     # Dotfile packages (zsh, nvim, hyprland, etc.)
 ├── Hooks/       # Setup/cleanup scripts that run before/after deployment
 └── Secrets/     # Encrypted sensitive files (gpg)
 #+end_example

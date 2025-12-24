@@ -30,12 +30,13 @@ parse_files() {
             # Check for category comments
             if [[ $line =~ ^[[:space:]]*#[[:space:]]*Category:[[:space:]]*(.+) ]]; then
                 current_category="${BASH_REMATCH[1]}"
-                current_category=$(echo "$current_category" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+                read -r current_category <<< "$current_category"
             # Check for bindsym lines
             elif [[ $line =~ ^[[:space:]]*bindsym[[:space:]]+(.*) ]]; then
                 local binding="${BASH_REMATCH[1]}"
                 # Remove inline comments for cleaner output
-                binding=$(echo "$binding" | sed 's/[[:space:]]*#.*$//')
+                binding="${binding%%#*}"
+                read -r binding <<< "$binding"
 
                 # Look for comments in the lines immediately above this bindsym
                 local comment=""
@@ -48,7 +49,7 @@ parse_files() {
                         # Now that we know it's a valid comment, extract its text.
                         [[ $prev_line =~ ^[[:space:]]*#[[:space:]]*(.*) ]]
                         local comment_text="${BASH_REMATCH[1]}"
-                        comment_text=$(echo "$comment_text" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+                        read -r comment_text <<< "$comment_text"
 
                         # Prepend the comment, building a multi-line comment string
                         if [[ -n "$comment_text" ]]; then
