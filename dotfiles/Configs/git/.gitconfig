@@ -4,6 +4,17 @@ email = sthysel@gmail.com
 
 [core]
 editor = nvim
+pager = delta
+
+[interactive]
+diffFilter = delta --color-only
+
+[delta]
+navigate = true    # use n and N to move between diff sections
+light = false      # set to true if you use a light terminal background
+side-by-side = true
+line-numbers = true
+syntax-theme = Dracula
 
 [push]
 default = current
@@ -30,6 +41,12 @@ diff = auto
 interactive = auto
 status = auto
 	ui = auto
+
+[diff]
+colorMoved = default
+
+[merge]
+conflictstyle = diff3
 
 [pull]
 rebase = true
