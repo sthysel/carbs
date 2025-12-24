@@ -5,6 +5,10 @@ email = sthysel@gmail.com
 [core]
 editor = nvim
 pager = delta
+autocrlf = input
+whitespace = trailing-space,space-before-tab
+untrackedCache = true
+fsmonitor = true
 
 [interactive]
 diffFilter = delta --color-only
@@ -15,47 +19,122 @@ light = false      # set to true if you use a light terminal background
 side-by-side = true
 line-numbers = true
 syntax-theme = Dracula
+hyperlinks = true
+file-style = bold yellow
+hunk-header-style = file line-number syntax
+zero-style = dim syntax
+true-color = always
+
+[commit]
+verbose = true
+# gpgsign = true
 
 [push]
 default = current
 followTags = true
+autoSetupRemote = true
+
+[pull]
+rebase = true
+
+[fetch]
+prune = true
+
+[init]
+defaultBranch = main
 
 [alias]
+# Basic shortcuts
 ci = commit
 s  = status
 co = checkout
 ec = config --global -e
+
+# Modern workflow
+sw = switch
+res = restore
+
+# Undo operations
+undo = reset --soft HEAD^
+uncommit = reset --soft HEAD^
+
+# Log aliases
 ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
 lol = log --graph --decorate --pretty=oneline --abbrev-commit
 lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+hist = log --graph --decorate --pretty=oneline --abbrev-commit --all
+recent = log --oneline --decorate -20
+today = log --since='midnight' --oneline --decorate
+
+# Utility aliases
 unstage = reset HEAD --
 last = log -1 HEAD
 amend = commit --amend --no-edit
-hist = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+# Information
+aliases = config --get-regexp ^alias\\.
+branches = branch -a -vv
+tags = tag -l
+remotes = remote -v
+contributors = shortlog -sn
+
+# Search
+find = log --all --oneline --source --full-history -S
+grep = grep -Ii
+
+# Cleanup
+cleanup = !git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d
+prune-all = !git remote | xargs git remote prune
+
+# Diff variations
+worddiff = diff --word-diff
+diffstat = diff --stat
 
 [color]
 branch = auto
 diff = auto
 interactive = auto
 status = auto
-	ui = auto
+ui = auto
 
 [diff]
 colorMoved = default
+algorithm = histogram
+renames = copies
+mnemonicPrefix = true
+indentHeuristic = true
 
 [merge]
 conflictstyle = diff3
 
-[pull]
-rebase = true
+[rebase]
+autoStash = true
+autoSquash = true
+
+[branch]
+sort = -committerdate
+
+[status]
+showUntrackedFiles = all
+
+[rerere]
+enabled = true
+
+[help]
+autocorrect = prompt
+
+[transfer]
+fsckObjects = true
+
+[log]
+date = relative
 
 [credential]
-helper = store
-# helper = cache
+helper = cache --timeout=3600
+# helper = store
 # helper = /usr/lib/git-core/git-credential-libsecret
-
 
 [http]
 # sslVerify = false
@@ -70,8 +149,3 @@ includeIssuesSection = false
 
 [submodule]
 recurse = true
-
-[init]
-defaultBranch = main
-[fetch]
-	prune = true
