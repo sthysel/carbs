@@ -4,6 +4,7 @@
 echo "🔧 Installing git-delta..."
 
 REQUIRED_PKGS=(
+    "git"
     "git-delta"
 )
 

@@ -71,6 +71,9 @@ This function should only modify configuration layer settings."
              (python :variables
                  python-virtualenv-management 'pet
                  python-backend 'lsp
+                 python-formatter 'ruff
+                 python-enable-tools '(uv)
+                 python-format-on-save t
                  )
              treemacs)
 
@@ -623,6 +626,28 @@ before packages are loaded."
     ;; Wider treemacs window
     (setq treemacs-width 50)
 
+    ;; lsp
+    (with-eval-after-load 'lsp-mode
+        ;; Disable pylsp
+        (setq lsp-disabled-clients '(pylsp))
+
+        ;; Register ty
+        (lsp-register-client
+            (make-lsp-client
+                :new-connection (lsp-stdio-connection '("ty" "server"))
+                :activation-fn (lsp-activate-on "python")
+                :server-id 'ty-lsp
+                :priority 10))  ; Higher priority than pylsp
+
+        ;; Register just
+        (lsp-register-client
+            (make-lsp-client
+                :new-connection (lsp-stdio-connection "just-lsp")
+                :activation-fn (lsp-activate-on "justfile")
+                :server-id 'just-lsp))
+
+        ;; Keep ruff for linting/formatting, ty for type checking
+        (setq lsp-enabled-clients '(ty-lsp ruff-lsp semgrep-lsp just-lsp)))
     )
 
 
@@ -678,16 +703,16 @@ This function is called at the very end of Spacemacs initialization."
                   password-generator pcre2el persistent-scratch pet pip-requirements pipenv
                   pippel poetry popwin pos-tip powershell prettier-js pug-mode py-isort
                   pydoc pyenv-mode pylookup pytest pythonic pyvenv quickrun
-                  rainbow-delimiters restart-emacs sass-mode scss-mode shell-pop
-                  simple-httpd skewer-mode slim-mode smeargle space-doc spaceline
-                  spacemacs-purpose-popwin spacemacs-whitespace-cleanup sphinx-doc
-                  string-edit-at-point string-inflection swiper symbol-overlay symon
-                  system-packages tagedit term-cursor terminal-here tern toc-org toml-mode
-                  transient treemacs-evil treemacs-icons-dired treemacs-magit
+                  rainbow-delimiters reformatter restart-emacs ruff-format sass-mode
+                  scss-mode shell-pop simple-httpd skewer-mode slim-mode smeargle space-doc
+                  spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+                  sphinx-doc string-edit-at-point string-inflection swiper symbol-overlay
+                  symon system-packages tagedit term-cursor terminal-here tern toc-org
+                  toml-mode transient treemacs-evil treemacs-icons-dired treemacs-magit
                   treemacs-persp treemacs-projectile treepy undo-fu undo-fu-session unfill
-                  uuidgen verb vi-tilde-fringe volatile-highlights vterm vundo web-beautify
-                  web-completion-data web-mode websocket wgrep winum with-editor
-                  writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
+                  uuidgen uv verb vi-tilde-fringe volatile-highlights vterm vundo
+                  web-beautify web-completion-data web-mode websocket wgrep winum
+                  with-editor writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
                   yasnippet-snippets))
         '(safe-local-variable-values '((just-indent-offset . 4))))
     (custom-set-faces

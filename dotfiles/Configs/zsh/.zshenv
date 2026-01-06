@@ -1,5 +1,7 @@
+# shellcheck shell=bash
 # vim: set filetype=sh :
 
+# shellcheck disable=SC2034  # ZDOTDIR is used by zsh itself
 ZDOTDIR="$HOME/.config/zsh"
 
 # Locale
@@ -34,7 +36,5 @@ export GDK_DPI_SCALE=1
 # SSH agent
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
 
-# Project-specific
-export JUST_IIOT_PATH="$HOME/.config/just/justfile"
-
+# shellcheck source=/dev/null
 . "$HOME/.local/share/../bin/env"
