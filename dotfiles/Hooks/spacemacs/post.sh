@@ -39,7 +39,7 @@ EXIT_CODE=$?
 
 if [ $EXIT_CODE -eq 0 ]; then
     echo ""
-    echo "✓ Spacemacs daemon started and packages installed!"
+    echo "✓ Spacemacs daemon started and packages installed"
 
     # Stop the daemon
     emacsclient -e "(kill-emacs)" 2>/dev/null || true
