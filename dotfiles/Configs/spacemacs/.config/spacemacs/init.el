@@ -640,11 +640,11 @@ before packages are loaded."
                 :priority 10))  ; Higher priority than pylsp
 
         ;; Register just
-        (lsp-register-client
-            (make-lsp-client
-                :new-connection (lsp-stdio-connection "just-lsp")
-                :activation-fn (lsp-activate-on "justfile")
-                :server-id 'just-lsp))
+        ;; (lsp-register-client
+        ;;     (make-lsp-client
+        ;;         :new-connection (lsp-stdio-connection "just-lsp")
+        ;;         :activation-fn (lsp-activate-on "justfile")
+        ;;         :server-id 'just-lsp))
 
         ;; Keep ruff for linting/formatting, ty for type checking
         (setq lsp-enabled-clients '(ty-lsp ruff-lsp semgrep-lsp just-lsp)))

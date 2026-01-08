@@ -16,24 +16,33 @@
 - [[#key-bindings][Key bindings]]
 
 * Description
-This layer adds support for something.
+This layer adds support for [[https://github.com/casey/just][just]] command runner files.
 
 ** Features:
-  - Autocomplete
-  - Lint
-  - Refactor
-  - ...
+  - Syntax highlighting for justfiles via =just-mode=
+  - Automatic mode activation for:
+    - =justfile= and =Justfile= (case-insensitive)
+    - Files with =.just= extension
+  - Interactive just recipe execution via =justl=
+  - LSP support via =just-lsp= (requires =lsp= layer and =just-lsp= binary installed)
 
 * Install
 To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =just= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** LSP Support
+For LSP functionality, you need to:
+1. Enable the =lsp= layer in your =dotspacemacs-configuration-layers=
+2. Install the =just-lsp= binary (e.g., via =cargo install just-lsp=)
+
+The layer will automatically enable LSP when opening just files if the =lsp= layer is active.
+
 * Key bindings
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC x x x~ | Does thing01   |
+Use =M-x justl= to open an interactive buffer for executing just recipes.
+
+Standard =just-mode= and =justl= keybindings are available when editing justfiles.
 
 # Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
 # Examples:
