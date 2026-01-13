@@ -8,4 +8,5 @@ then
     source "$AZURE_UTILS"
 fi
 
-export JUST_IIOT_PATH="$HOME/code/gitlab.com/bhp-cloudfactory/iiot/utilities/iiot-utils/justfile"
+# export BHP_DEV_TOOLKIT="$HOME/code/gitlab.com/bhp-cloudfactory/iiot/utilities/iiot-utils/justfile"
+export BHP_DEV_TOOLKIT="$HOME/.config/just/justfile"

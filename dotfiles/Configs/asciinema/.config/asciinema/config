@@ -1,0 +1,29 @@
+[api]
+; API server URL (default: https://asciinema.org)
+url = https://asciinema.org
+
+[record]
+; Command to record (default: $SHELL)
+command = /usr/bin/zsh
+
+; Answer "yes" to all prompts (default: no)
+; yes = true
+
+; Limit idle time to max n seconds (default: no limit)
+idle_time_limit = 2
+
+; Enable stdin recording (default: no)
+stdin = yes
+
+; Set environment variables
+; env = SHELL,TERM
+
+[play]
+; Playback speed (default: 1)
+speed = 1
+
+; Limit idle time during playback to max n seconds (default: no limit)
+idle_time_limit = 2
+
+; Loop playback (default: no)
+; loop = true

@@ -12,7 +12,7 @@ export VISUAL=nvim
 export EDITOR=nvim
 export TERMINAL=kitty
 export TERM=xterm-kitty
-export SPACEMACSDIR=~/.config/spacemacs
+export SPACEMACSDIR=${XDG_CONFIG_DIR}/spacemacs
 export MOZ_ENABLE_WAYLAND=1
 
 # Paths
