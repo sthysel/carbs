@@ -1,0 +1,11 @@
+[tool.bumpversion]
+current_version = "0.3.0"
+commit = true
+tag = true
+tag_name = "v{new_version}"
+message = "bump: {current_version} → {new_version}"
+
+[[tool.bumpversion.files]]
+filename = "README.org"
+search = "* CARBS v{current_version}"
+replace = "* CARBS v{new_version}"
