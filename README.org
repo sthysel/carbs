@@ -69,46 +69,11 @@ just bootstrap
 #+begin_src sh
 git clone https://github.com/sthysel/carbs.git ~/.config/dotfiles
 cd ~/.config/dotfiles
-just bootstrap
-#+end_src
-
-* Playing playbooks using just
-
-#+begin_example
-$ just
-Available recipes:
-    bootstrap                   # bootstrap from scratch
-    deploy limit="localhost" tags="all" playbook="desktop" # Deploy CARBS
-    deploy-wsl tags="all"       # Deploy to local WSL
-    dotfiles                    # link in the dotfiles
-    fix-argcomplete             # Fix python argcomplete issue
-    install-ansible             # install ansible using uv
-    install-uv                  # install uv
-    install-yay                 # install yay if not already installed
-    qa-all                      # run pre-commit QA pipeline on all files
-    qa-install-pre-commit-hooks # install pre-commit hooks
-    remove-danglinks            # remove all dangling symlinks
-#+end_example
-
-`just deploy` will run the desktop playbook over localhost.
-
-* Playing playbooks using ansible-playbook directly
-** local
-#+begin_src sh
-  ansible-playbook ./desktop.yml -i 'localhost,' --ask-become-pass --tags hyprland --connection local
-#+end_src
-
-** remote host
-Remote host with its own playbook
-#+begin_src sh
-  ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
 #+end_src
 
 * Tuckr Dotfile Management
 
-CARBS uses Tuckr to manage dotfiles. Tuckr provides hooks, secrets management,
-and zero-configuration setup. Its like stow, but with hooks, and focused on dots
-management.
+CARBS uses Tuckr to manage dotfiles.
 
 ** Directory Structure
 
@@ -149,7 +114,6 @@ tuckr set \*                    # Deploy all + run all hooks
 
 #+begin_src sh
 tuckr add -f hyprland           # Force override (use dotfile version)
-tuckr add -a hyprland           # Adopt (use system version)
 tuckr add -f -y wallpaper       # Auto-yes (skip prompts)
 #+end_src
 
@@ -303,7 +267,7 @@ git add Configs/btop
 git commit -m "Add btop config"
 #+end_src
 
-** Quick Reference
+** Quick Reminder for captain dumbass
 
 | Command                 | Purpose                         |
 |-------------------------+---------------------------------|
@@ -318,11 +282,3 @@ git commit -m "Add btop config"
 | =tuckr ls=              | List all groups                 |
 | =tuckr encrypt <file>=  | Encrypt to Secrets/             |
 | =tuckr decrypt=         | Decrypt all secrets             |
-
-** Pro Tips
-
-1. *Changes are live*: Since files are symlinked, editing =Configs/*/= directly updates your system
-2. *Use hooks for automation*: Install plugins, compile configs, restart services automatically
-3. *Commit hooks to git*: Share your setup scripts with your future self
-4. *Use =-f= carefully*: It overwrites files without backup
-5. *Test with =-n=*: Preview changes before applying them

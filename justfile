@@ -3,7 +3,6 @@ set dotenv-load := true
 set positional-arguments := true
 set script-interpreter := ['bash', '-euo', 'pipefail']
 
-python_version := env_var_or_default("PYTHON_VERSION", "3.12.2")
 
 [private]
 help:
@@ -21,7 +20,7 @@ have *cmd:
     done
 
 [doc('install pre-commit hooks')]
-qa-install-pre-commit-hooks: (have ('uv pre-commit'))
+qa-install-hooks: (have ('uv pre-commit'))
     uv run pre-commit install
 
 [doc('run pre-commit QA pipeline on all files')]
@@ -47,52 +46,3 @@ deploy-wsl tags="all":
 [doc('link in the dotfiles')]
 dotfiles:
     tuckr add \*
-
-[doc('remove all dangling symlinks')]
-remove-danglinks:
-    find ~/.config/ -xtype l -exec rm {} \;
-
-[doc('initialize git repository with work config')]
-init-work:
-    git init --template ~/.git-templates/work
-    @echo "Git repo initialized with work config. Edit .git/config to set the remote URL."
-
-[doc('install yay if not already installed')]
-[script]
-install-yay:
-    if ! just have  yay
-    then
-      echo "Installing yay"
-      # first we install yay with packman
-      sudo pacman -S --needed base-devel git
-      git clone https://aur.archlinux.org/yay.git
-      cd yay
-      makepkg -si
-      cd ..
-      rm -rf yay
-      # and now we use yay to install yay, so everything is gay
-      yay -S --noconfirm yay
-    fi
-
-[doc('install uv')]
-[script]
-install-uv:
-    if ! just have uv
-    then
-      curl -LsSf https://astral.sh/uv/install.sh | sh
-    fi
-
-[doc('install ansible using uv')]
-[script]
-install-ansible: install-uv
-    uv sync
-    uv run ansible-galaxy collection install -r requirements.yml
-
-[doc('bootstrap from scratch')]
-bootstrap: install-ansible
-
-[doc('Fix python argcomplete issue')]
-[script]
-fix-argcomplete:
-    pip install argcomplete
-    activate-global-python-argcomplete
