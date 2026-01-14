@@ -1,7 +1,7 @@
 #+caption: CARBS
 [[file:pics/carbs.jpg]]
 
-* CARBS v0.3.0
+* CARBS v0.3.1
 
 In which you will find Chad Arch Random Bootstrap Scripts (CARBS).
 
