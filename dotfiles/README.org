@@ -1,8 +1,0 @@
-Configuration files managed by Tuckr. Run `tuckr add *` to symlink all dotfiles into ~/.config/
-
-Structure:
-- Configs/: Dotfile groups (each subdirectory is a package like zsh, nvim, hyprland, etc.)
-- Hooks/: Setup and cleanup scripts
-- Secrets/: Encrypted sensitive files
-
-Run `just dotfiles` to deploy all dotfiles.

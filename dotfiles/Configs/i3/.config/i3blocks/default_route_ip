@@ -1,3 +1,0 @@
-#!/bin/bash
-
-echo $(~/.local/bin/myip.py)

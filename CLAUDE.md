@@ -31,11 +31,12 @@ CARBS (Chad Arch Random Bootstrap Scripts) is an Ansible-based system provisioni
   - Hardware-specific: `dell-xps`, `nvidia`, `navigation`
   - `smoketest`: Validation role
 
-- **Dotfiles** (`dotfiles/`): Managed via Tuckr
-  - Structure: `dotfiles/Configs/<package>/.config/<app>/` or `dotfiles/Configs/<package>/.local/`
+- **Dotfiles**: Managed via Tuckr
+  - Structure: `Configs/<package>/.config/<app>/` or `Configs/<package>/.local/`
   - Each subdirectory in `Configs/` represents a dotfile group (e.g., `zsh/`, `nvim/`, `hyprland/`, `kitty/`)
   - Tuckr creates symlinks from dotfiles into `~/.config/` and `~/.local/`
-  - Additional directories: `Hooks/` (setup scripts), `Secrets/` (encrypted files)
+  - `Hooks/`: Pre/post setup scripts for packages (e.g., `Hooks/nvim/post.sh`)
+  - `Secrets/`: Encrypted configuration files
 
 - **Inventory** (`ansible/inventory/hosts.yml`): Host groups and connection settings
   - `desktop` group: Multiple named hosts plus localhost
@@ -128,7 +129,7 @@ just fix-argcomplete
 ### Making Changes
 
 1. Edit ansible roles in `ansible/roles/<role>/tasks/main.yml`
-2. Update dotfiles in `dotfiles/<package>/` subdirectories
+2. Update dotfiles in `Configs/<package>/` subdirectories
 3. Test changes locally: `just deploy localhost <relevant-tags> desktop`
 4. Verify QA passes: `just qa-all`
 5. Commit changes (pre-commit hooks will run automatically)

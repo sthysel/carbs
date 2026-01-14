@@ -55,13 +55,22 @@ sudo pacman -S git just curl
 #+end_src
 
 ** Install CARBS
-Clone the CARBS repo, into =~/carbs=, and do =just bootstrap=
 
-#+begin_example
-git clone git@github.com:sthysel/carbs.git
-cd carbs
+*** Quick Install
+
+#+begin_src sh
+curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
+cd ~/.config/dotfiles
 just bootstrap
-#+end_example
+#+end_src
+
+*** Manual Install
+
+#+begin_src sh
+git clone https://github.com/sthysel/carbs.git ~/.config/dotfiles
+cd ~/.config/dotfiles
+just bootstrap
+#+end_src
 
 * Playing playbooks using just
 
@@ -104,7 +113,7 @@ management.
 ** Directory Structure
 
 #+begin_example
-dotfiles/
+~/.config/dotfiles/
 ├── Configs/     # Dotfile packages (zsh, nvim, hyprland, etc.)
 ├── Hooks/       # Setup/cleanup scripts that run before/after deployment
 └── Secrets/     # Encrypted sensitive files (gpg)
@@ -157,7 +166,7 @@ Hooks/
 
 *** Example: Neovim Hook
 
-Create =dotfiles/Hooks/nvim/post.sh=:
+Create =Hooks/nvim/post.sh=:
 
 #+begin_src bash
 #!/bin/bash
@@ -167,11 +176,11 @@ nvim --headless "+Lazy! sync" +qa
 echo "Neovim setup complete!"
 #+end_src
 
-Make it executable: =chmod +x dotfiles/Hooks/nvim/post.sh=
+Make it executable: =chmod +x Hooks/nvim/post.sh=
 
 *** Example: Yazi Hook
 
-Create =dotfiles/Hooks/yazi/post.sh=:
+Create =Hooks/yazi/post.sh=:
 
 #+begin_src bash
 #!/bin/bash
@@ -253,9 +262,9 @@ tuckr --dry-run rm i3           # Preview removal
 *** New Machine Setup
 
 #+begin_src sh
-# 1. Clone your dotfiles
-git clone https://github.com/youruser/carbs ~/.dotfiles
-ln -s ~/.dotfiles/dotfiles ~/.config/dotfiles
+# 1. Install CARBS
+curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
+cd ~/.config/dotfiles
 
 # 2. Deploy everything
 tuckr set \*                    # Deploys + runs all hooks
@@ -267,7 +276,7 @@ tuckr set zsh git nvim hyprland
 *** Testing Config Changes
 
 #+begin_src sh
-# Make changes to dotfiles/Configs/hyprland/
+# Make changes to Configs/hyprland/
 vim ~/.config/dotfiles/Configs/hyprland/.config/hypr/binds.conf
 
 # Files are already symlinked, so changes are live!
@@ -281,16 +290,16 @@ tuckr add -f hyprland
 
 #+begin_src sh
 # 1. Create structure
-mkdir -p dotfiles/Configs/btop/.config/btop
+mkdir -p Configs/btop/.config/btop
 
 # 2. Add config files
-cp ~/.config/btop/btop.conf dotfiles/Configs/btop/.config/btop/
+cp ~/.config/btop/btop.conf Configs/btop/.config/btop/
 
 # 3. Deploy it
 tuckr add btop
 
 # 4. Commit to git
-git add dotfiles/Configs/btop
+git add Configs/btop
 git commit -m "Add btop config"
 #+end_src
 
@@ -312,7 +321,7 @@ git commit -m "Add btop config"
 
 ** Pro Tips
 
-1. *Changes are live*: Since files are symlinked, editing =dotfiles/Configs/*/= directly updates your system
+1. *Changes are live*: Since files are symlinked, editing =Configs/*/= directly updates your system
 2. *Use hooks for automation*: Install plugins, compile configs, restart services automatically
 3. *Commit hooks to git*: Share your setup scripts with your future self
 4. *Use =-f= carefully*: It overwrites files without backup
