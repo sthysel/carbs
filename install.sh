@@ -25,20 +25,20 @@ fi
 # Clone the repo
 git clone "${REPO_URL}" "${INSTALL_DIR}"
 
+# Install yay if not available
+if ! command -v yay &>/dev/null; then
+    echo "Installing yay..."
+    sudo pacman -S --needed --noconfirm git base-devel
+    tmp_dir=$(mktemp -d)
+    git clone https://aur.archlinux.org/yay.git "${tmp_dir}/yay"
+    (cd "${tmp_dir}/yay" && makepkg -si --noconfirm)
+    rm -rf "${tmp_dir}"
+fi
+
 # Install tuckr if not available
 if ! command -v tuckr &>/dev/null; then
     echo "Installing tuckr..."
-    if command -v cargo &>/dev/null; then
-        cargo install tuckr
-    elif command -v yay &>/dev/null; then
-        yay -S --noconfirm tuckr
-    elif command -v paru &>/dev/null; then
-        paru -S --noconfirm tuckr
-    else
-        echo "Error: tuckr not found and no installer available (cargo/yay/paru)"
-        echo "Install tuckr manually: cargo install tuckr"
-        exit 1
-    fi
+    yay -S --noconfirm tuckr
 fi
 
 # Bootstrap dotfiles

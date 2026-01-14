@@ -15,15 +15,15 @@ Fork this repo for your own use, and adapt to your own sensibilities.
 
 * What does it do
 
-- Bootstrap a fresh Arch Linux environment into a comfy, capable modern
-  Python development environment
+- Bootstrap a fresh Arch Linux environment into a comfy, capable daily driver
+  desktop environment for the average Linux enjoyer.
 - Allows you to maintain the config in a git repo for backup and deployment to
-  other machines remotely, using ansible.
+  other machines remotely.
 
 * Install
 ** Install Arch if you have not yet done so
 - You will need a working network with access to the interwebs as a minimum.
-- Install Arch on target machine using a ventoy USB drive for physical machines.
+- Install Arch on target machine using PXE boot or ventoy or whatever.
 - Be sure to pick a networking solution and enable it, be it NetworkManager or
   systemd-networking. Its hard to install things of github if you don't have a
   working nic.
@@ -51,7 +51,7 @@ USER=carbsadmin sudo useradd -m -G wheel -s /bin/bash $USER
 And install the bootstrap tools
 
 #+begin_src sh
-sudo pacman -S git just curl
+sudo pacman -S git just curl tuckr
 #+end_src
 
 ** Install CARBS
@@ -59,9 +59,8 @@ sudo pacman -S git just curl
 *** Quick Install
 
 #+begin_src sh
-curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
-cd ~/.config/dotfiles
-just bootstrap
+  curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
+  tuckr status
 #+end_src
 
 *** Manual Install
