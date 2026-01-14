@@ -6,12 +6,6 @@ INSTALL_DIR="${HOME}/.config/dotfiles"
 
 echo "Installing CARBS dotfiles to ${INSTALL_DIR}"
 
-# Check for git
-if ! command -v git &>/dev/null; then
-    echo "Error: git is not installed"
-    exit 1
-fi
-
 # Create ~/.config if needed
 mkdir -p "${HOME}/.config"
 
@@ -22,17 +16,20 @@ if [[ -d "${INSTALL_DIR}" ]]; then
     exit 1
 fi
 
+# make sure we have the bootstrap basics
+sudo pacman -S --needed --noconfirm git base-devel
+
 # Clone the repo
 git clone "${REPO_URL}" "${INSTALL_DIR}"
 
 # Install yay if not available
 if ! command -v yay &>/dev/null; then
     echo "Installing yay..."
-    sudo pacman -S --needed --noconfirm git base-devel
     tmp_dir=$(mktemp -d)
     git clone https://aur.archlinux.org/yay.git "${tmp_dir}/yay"
     (cd "${tmp_dir}/yay" && makepkg -si --noconfirm)
     rm -rf "${tmp_dir}"
+    yay -S yay
 fi
 
 # Install tuckr if not available
