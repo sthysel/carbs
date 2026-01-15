@@ -32,7 +32,7 @@ This function should only modify configuration layer settings."
 
         ;; List of configuration layers to load.
         dotspacemacs-configuration-layers
-        '(
+        '(systemd
              lua
              windows-scripts
              html
@@ -691,30 +691,30 @@ This function is called at the very end of Spacemacs initialization."
                   helm-projectile helm-purpose helm-pydoc helm-swoop helm-themes helm-xref
                   hide-comnt highlight-indentation highlight-numbers highlight-parentheses
                   hl-todo holy-mode htmlize hungry-delete hybrid-mode impatient-mode
-                  import-js indent-guide info+ inheritenv inspector ivy jinja2-mode js-doc
-                  js2-mode js2-refactor just-mode justl link-hint live-py-mode livid-mode
-                  llama load-env-vars log4e lorem-ipsum lsp-docker lsp-mode lsp-origami
-                  lsp-treemacs lsp-ui lua-mode macrostep magit magit-section markdown-mode
-                  markdown-toc markdown-ts-mode multi-line multi-term multi-vterm
-                  multiple-cursors mwim nameless nodejs-repl npm-mode open-junk-file
-                  org-appear org-category-capture org-cliplink org-contrib org-download
-                  org-mime org-modern org-pomodoro org-present org-project-capture
-                  org-projectile org-rich-yank org-roam org-roam-ui org-superstar
-                  org-transclusion orgit orgit-forge origami overseer package-lint paradox
-                  password-generator pcre2el persistent-scratch pet pip-requirements pipenv
-                  pippel poetry popwin pos-tip powershell prettier-js pug-mode py-isort
-                  pydoc pyenv-mode pylookup pytest pythonic pyvenv quickrun
-                  rainbow-delimiters reformatter restart-emacs ruff-format sass-mode
-                  scss-mode shell-pop simple-httpd skewer-mode slim-mode smeargle space-doc
-                  spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup
+                  import-js indent-guide info+ inheritenv inspector ivy jinja2-mode
+                  journalctl-mode js-doc js2-mode js2-refactor just-mode justl link-hint
+                  live-py-mode livid-mode llama load-env-vars log4e lorem-ipsum lsp-docker
+                  lsp-mode lsp-origami lsp-treemacs lsp-ui lua-mode macrostep magit
+                  magit-section markdown-mode markdown-toc markdown-ts-mode multi-line
+                  multi-term multi-vterm multiple-cursors mwim nameless nodejs-repl
+                  npm-mode open-junk-file org-appear org-category-capture org-cliplink
+                  org-contrib org-download org-mime org-modern org-pomodoro org-present
+                  org-project-capture org-projectile org-rich-yank org-roam org-roam-ui
+                  org-superstar org-transclusion orgit orgit-forge origami overseer
+                  package-lint paradox password-generator pcre2el persistent-scratch pet
+                  pip-requirements pipenv pippel poetry popwin pos-tip powershell
+                  prettier-js pug-mode py-isort pydoc pyenv-mode pylookup pytest pythonic
+                  pyvenv quickrun rainbow-delimiters reformatter restart-emacs ruff-format
+                  sass-mode scss-mode shell-pop simple-httpd skewer-mode slim-mode smeargle
+                  space-doc spaceline spacemacs-purpose-popwin spacemacs-whitespace-cleanup
                   sphinx-doc string-edit-at-point string-inflection swiper symbol-overlay
-                  symon system-packages tagedit term-cursor terminal-here tern toc-org
-                  toml-mode transient treemacs-evil treemacs-icons-dired treemacs-magit
-                  treemacs-persp treemacs-projectile treepy undo-fu undo-fu-session unfill
-                  uuidgen uv verb vi-tilde-fringe volatile-highlights vterm vundo
-                  web-beautify web-completion-data web-mode websocket wgrep winum
-                  with-editor writeroom-mode ws-butler yaml yaml-mode yapfify yasnippet
-                  yasnippet-snippets))
+                  symon system-packages systemd tagedit term-cursor terminal-here tern
+                  toc-org toml-mode transient treemacs-evil treemacs-icons-dired
+                  treemacs-magit treemacs-persp treemacs-projectile treepy undo-fu
+                  undo-fu-session unfill uuidgen uv verb vi-tilde-fringe
+                  volatile-highlights vterm vundo web-beautify web-completion-data web-mode
+                  websocket wgrep winum with-editor writeroom-mode ws-butler yaml yaml-mode
+                  yapfify yasnippet yasnippet-snippets))
         '(safe-local-variable-values '((just-indent-offset . 4))))
     (custom-set-faces
         ;; custom-set-faces was added by Custom.
