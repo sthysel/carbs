@@ -1,0 +1,3 @@
+* NVIDIA
+
+NVIDIA drivers and initcpio update hook.

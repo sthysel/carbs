@@ -1,0 +1,3 @@
+* Locale
+
+System locale configuration (en_AU, en_US, af_ZA).

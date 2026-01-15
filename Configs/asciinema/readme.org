@@ -1,0 +1,3 @@
+* Asciinema
+
+Terminal session recorder config.

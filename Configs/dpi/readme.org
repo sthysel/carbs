@@ -1,0 +1,3 @@
+* DPI
+
+X11 DPI and display scaling settings.

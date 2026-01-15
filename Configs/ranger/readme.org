@@ -1,0 +1,3 @@
+* Ranger
+
+Ranger file manager (via uv).

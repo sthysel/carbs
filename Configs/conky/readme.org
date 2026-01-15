@@ -1,0 +1,3 @@
+* Conky
+
+System monitor widget config.

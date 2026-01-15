@@ -1,0 +1,3 @@
+* MPD
+
+Music Player Daemon config and service.

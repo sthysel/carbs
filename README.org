@@ -83,6 +83,7 @@ tuckr decrypt                   # Decrypt all
 | bootstrap  | Core system packages and yay/uv installation      |
 | carbs      | CARBS meta config (emoji list)                    |
 | conky      | System monitor widget config                      |
+| dive       | Docker image layer explorer                       |
 | docker     | Docker engine and user group setup                |
 | dpi        | X11 DPI and display scaling settings              |
 | dunst      | Notification daemon config                        |

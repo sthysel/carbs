@@ -1,0 +1,3 @@
+* Python Dev
+
+Python dev tools (ruff, pytest, poetry via uv).

@@ -1,0 +1,3 @@
+* Picom
+
+X11 compositor config.

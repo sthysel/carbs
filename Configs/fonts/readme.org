@@ -1,0 +1,3 @@
+* Fonts
+
+Nerd fonts, Fira Code, Font Awesome, etc.
