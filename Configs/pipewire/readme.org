@@ -1,3 +1,0 @@
-* PipeWire
-
-PipeWire audio stack and services.

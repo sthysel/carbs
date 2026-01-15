@@ -1,3 +1,0 @@
-* Beets
-
-Music library manager with plugins (via uv).

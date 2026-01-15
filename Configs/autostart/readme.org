@@ -1,3 +1,0 @@
-* Autostart
-
-XDG autostart desktop entries.

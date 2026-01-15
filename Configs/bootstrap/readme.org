@@ -1,3 +1,0 @@
-* Bootstrap
-
-Core system packages and yay/uv installation.

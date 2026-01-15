@@ -1,3 +1,0 @@
-* Zsh
-
-Zsh shell config and aliases.

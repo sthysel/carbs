@@ -1,3 +1,0 @@
-* GPS
-
-GPS daemon (gpsd) and tools.

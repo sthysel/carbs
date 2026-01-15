@@ -1,3 +1,0 @@
-* Entropy
-
-Hardware RNG entropy daemon (rng-tools).

@@ -1,3 +1,0 @@
-* Hyprland
-
-Hyprland Wayland compositor config.

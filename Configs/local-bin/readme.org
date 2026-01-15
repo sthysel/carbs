@@ -1,3 +1,0 @@
-* Local Bin
-
-Custom scripts in ~/.local/bin.

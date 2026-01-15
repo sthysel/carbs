@@ -1,3 +1,0 @@
-* Spacemacs
-
-Spacemacs/Emacs config and layers.

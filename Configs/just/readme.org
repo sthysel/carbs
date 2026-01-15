@@ -1,7 +1,0 @@
-* Just
-
-Just command runner with LSP and shell completions.
-
-- rust-just (via uv)
-- just-lsp (from GitHub releases)
-- bash/zsh completions

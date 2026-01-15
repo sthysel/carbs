@@ -1,3 +1,0 @@
-* Emoji
-
-Emoji list and rofi-emoji picker script.

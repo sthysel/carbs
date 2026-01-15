@@ -1,3 +1,0 @@
-* Nobeep
-
-Disable PC speaker beep.

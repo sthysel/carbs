@@ -1,3 +1,0 @@
-* Yazi
-
-Yazi terminal file manager config and plugins.

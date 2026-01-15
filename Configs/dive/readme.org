@@ -1,5 +1,0 @@
-* Dive
-
-Docker image layer explorer.
-
-https://github.com/wagoodman/dive

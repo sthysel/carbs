@@ -1,3 +1,0 @@
-* Waybar
-
-Wayland status bar config.

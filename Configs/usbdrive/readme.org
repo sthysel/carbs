@@ -1,3 +1,0 @@
-* USB Drive
-
-USB automounting (udisks2/udiskie).

@@ -1,3 +1,0 @@
-* Dunst
-
-Notification daemon config.
