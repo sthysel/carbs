@@ -1,4 +1,6 @@
 #!/bin/sh
+# shellcheck source=/dev/null
+. ../../lib/lib.sh
 
 echo "Installing entropy tools..."
-yay -S --needed --noconfirm rng-tools opensc
+yay_install rng-tools opensc

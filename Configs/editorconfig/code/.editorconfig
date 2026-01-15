@@ -1,0 +1,71 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf # it is the law
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+
+[.gitconfig]
+indent_size = 8
+
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false  # markdown uses trailing whitespace for instruction
+max_line_length = 120
+
+# config files
+[*.{ini,json,json5,yaml,yml}]
+indent_size = 2  # matching standards
+[*.toml]
+indent_size = 4  # matching uv pyproject.toml defaults
+
+# Python
+[*.py]
+max_line_length = 120  # Agreed by Python Code@BHP
+
+[*.cs]
+indent_size = 4  # match https://github.com/dotnet/sdk/blob/main/.editorconfig
+
+# Javascript and Typescript
+[*.{js,jsx,ts,tsx,vue}]
+indent_size = 4  # match eslint - https://eslint.style/rules/indent
+
+# HTML and CSS
+[*.{htm,html,css,sass,scss,less}]
+indent_size = 2  # match prettier - https://github.com/prettier/prettier
+
+# Docker
+[Dockerfile]
+indent_size = unset  # Dockerfile doesn't have an expected indent
+
+# Terraform
+[*.{tf,tfvars}]
+indent_size = 2  # https://developer.hashicorp.com/terraform/language/style#code-formatting
+
+# Shell scripts
+[*.{sh,zsh}]
+indent_size = 4  # to match shfmt - https://github.com/mvdan/sh/
+
+# Makefiles
+[{Makefile,Makefile.tpl}]
+indent_style = tab  # Makefiles require tabs
+
+# windows scripts
+[*.{cmd,bat}]
+end_of_line = crlf  # windows files are windows format
+
+# diff files
+[*.diff]
+trim_trailing_whitespace = false
+
+[justfile, Justfile]
+indent_style = space
+indent_size = 4

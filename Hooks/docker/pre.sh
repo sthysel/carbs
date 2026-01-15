@@ -3,7 +3,7 @@
 . ../../lib/lib.sh
 
 echo "Installing docker..."
-yay -S --needed --noconfirm docker docker-buildx
+yay_install docker docker-buildx
 
 echo "Ensuring docker group exists..."
 sudo groupadd -f docker

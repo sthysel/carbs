@@ -1,0 +1,3 @@
+* AWS CLI
+
+AWS CLI v2 with bash completion.

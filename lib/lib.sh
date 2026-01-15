@@ -45,7 +45,6 @@ check_and_exec_function() {
 # a version number required for the package. It will be appended to the uv install command via the == syntax
 # $1 name of the tool to install via uv
 uv_install() {
-
     has uv
     PACKAGE=$1
     shift 1
@@ -85,6 +84,13 @@ npm_install() {
 # Removes a managed package via npm
 npm_uninstall() {
     npm uninstall --global "$@"
+}
+
+# Install packages via yay (AUR helper) without confirmation
+# $@ packages to install
+yay_install() {
+    has yay
+    yay -S --needed --noconfirm "$@"
 }
 
 # Gets the latest github tag from a given repo

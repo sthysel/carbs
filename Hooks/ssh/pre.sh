@@ -3,4 +3,4 @@
 . ../../lib/lib.sh
 
 echo "Installing openssh..."
-yay -S --needed --noconfirm openssh
+yay_install openssh

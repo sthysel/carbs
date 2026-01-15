@@ -1,4 +1,6 @@
 #!/bin/sh
+# shellcheck source=/dev/null
+. ../../lib/lib.sh
 
 echo "Removing pulseaudio if present..."
 yay -Rs --noconfirm \
@@ -8,7 +10,7 @@ yay -Rs --noconfirm \
     jack 2>/dev/null || true
 
 echo "Installing pipewire and audio tooling..."
-yay -S --needed --noconfirm \
+yay_install \
     pipewire \
     pipewire-utils \
     pipewire-audio \
@@ -22,9 +24,4 @@ yay -S --needed --noconfirm \
     coppwr
 
 echo "Installing music and video players..."
-yay -S --needed --noconfirm \
-    mplayer \
-    pavucontrol \
-    pulsemixer \
-    playerctl \
-    mpv
+yay_install mplayer pavucontrol pulsemixer playerctl mpv

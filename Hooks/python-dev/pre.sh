@@ -3,16 +3,7 @@
 . ../../lib/lib.sh
 
 echo "Installing common dev tools..."
-yay -S --needed --noconfirm \
-    base-devel \
-    curl \
-    git \
-    make \
-    just \
-    wget \
-    direnv \
-    tldr \
-    btop
+yay_install base-devel curl git make just wget direnv tldr btop
 
 if ! installed uv; then
     echo "Installing uv..."
@@ -28,7 +19,7 @@ uv_install pyrefly
 uv_install yt-dlp
 
 echo "Installing python-argcomplete..."
-yay -S --needed --noconfirm python-argcomplete
+yay_install python-argcomplete
 
 echo "Activating global python-argcomplete..."
 sudo /usr/bin/activate-global-python-argcomplete

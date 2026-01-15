@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FILES_DIR="$SCRIPT_DIR/files"
 
 echo "Installing nvidia drivers..."
-yay -S --needed --noconfirm nvidia
+yay_install nvidia
 
 HOOKS_DIR="/etc/pacman.d/hooks"
 HOOK_FILE="$HOOKS_DIR/nvidia.hook"

@@ -3,4 +3,4 @@
 . ../../lib/lib.sh
 
 echo "Installing gpsd..."
-yay -S --needed --noconfirm gpsd
+yay_install gpsd

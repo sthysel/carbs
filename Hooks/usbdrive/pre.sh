@@ -6,7 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FILES_DIR="$SCRIPT_DIR/files"
 
 echo "Installing udisks2 and udiskie..."
-yay -S --needed --noconfirm udisks2 udiskie
+yay_install udisks2 udiskie
 
 POLKIT_RULES="/etc/polkit-1/rules.d/50-udiskie.rules"
 

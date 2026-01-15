@@ -2,5 +2,6 @@
 # shellcheck source=/dev/null
 . ../../lib/lib.sh
 
-echo "Installing kitty..."
-yay_install kitty
+generic() {
+    uv_uninstall azure-cli
+}

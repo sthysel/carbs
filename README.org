@@ -79,6 +79,8 @@ tuckr decrypt                   # Decrypt all
 |------------+---------------------------------------------------|
 | asciinema  | Terminal session recorder config                  |
 | autostart  | XDG autostart desktop entries                     |
+| awscli     | AWS CLI v2 with bash completion                   |
+| azure-cli  | Azure CLI with bash/zsh completion (via uv)       |
 | beets      | Music library manager with plugins (via uv)       |
 | bootstrap  | Core system packages and yay/uv installation      |
 | conky      | System monitor widget config                      |
@@ -86,6 +88,7 @@ tuckr decrypt                   # Decrypt all
 | docker     | Docker engine and user group setup                |
 | dpi        | X11 DPI and display scaling settings              |
 | dunst      | Notification daemon config                        |
+| editorconfig | Standard editorconfig for code projects         |
 | emoji      | Emoji list and rofi-emoji picker script           |
 | entropy    | Hardware RNG entropy daemon (rng-tools)           |
 | fonts      | Nerd fonts, Fira Code, Font Awesome, etc.         |
@@ -93,6 +96,7 @@ tuckr decrypt                   # Decrypt all
 | gps        | GPS daemon (gpsd) and tools                       |
 | hyprland   | Hyprland Wayland compositor config                |
 | i3         | i3 window manager config and scripts              |
+| just       | Just command runner with LSP and completions      |
 | kitty      | Kitty terminal emulator config                    |
 | local-bin  | Custom scripts in ~/.local/bin                    |
 | locale     | System locale configuration (en_AU, en_US, af_ZA) |

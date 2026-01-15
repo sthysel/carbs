@@ -47,7 +47,7 @@ arch() {
 
     # install all the essentials
     # shellcheck disable=SC2086
-    yay -S --needed --noconfirm $ARCH_PACKAGES
+    yay_install $ARCH_PACKAGES
 
     # uv cause that's where its at
     install_uv

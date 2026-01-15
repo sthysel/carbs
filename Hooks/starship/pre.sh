@@ -2,7 +2,5 @@
 # shellcheck source=/dev/null
 . ../../lib/lib.sh
 
-if ! installed starship; then
-    echo "Installing starship..."
-    yay -S --noconfirm starship
-fi
+echo "Installing starship..."
+yay_install starship

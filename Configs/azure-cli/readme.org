@@ -1,0 +1,3 @@
+* Azure CLI
+
+Azure CLI with bash/zsh completion (installed via uv).

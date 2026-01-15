@@ -3,7 +3,7 @@
 . ../../lib/lib.sh
 
 echo "Installing beets dependencies..."
-yay -S --needed --noconfirm chromaprint fcalc
+yay_install chromaprint fcalc
 
 if ! installed uv; then
     echo "Installing uv..."

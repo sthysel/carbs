@@ -3,7 +3,7 @@
 . ../../lib/lib.sh
 
 echo "Installing fonts..."
-yay -S --needed --noconfirm \
+yay_install \
     nerd-fonts-complete \
     noto-fonts \
     terminus-font \
