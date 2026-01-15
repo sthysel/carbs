@@ -115,7 +115,7 @@ rootdo() {
 }
 
 
-# Generic install script for installing per OS_ID based on the above global
+# Generic install script for installing per OS_ID based on global
 # variables that determine cross platform OS infomation
 #
 # *_install functions are considered hooks, and should be developed per pre.sh or post.sh script as
