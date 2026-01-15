@@ -3,7 +3,7 @@
 . ../../lib/lib.sh
 
 install_uv() {
-    if ! command -v uv >/dev/null 2>&1; then
+    if ! installed uv; then
         curl -LsSf https://astral.sh/uv/install.sh | sh
     fi
 }
@@ -12,7 +12,7 @@ arch() {
     # the very basics
     rootdo pacman -S --needed --noconfirm base-devel jq curl git
     # yay, to install the good shit
-    if ! command -v yay >/dev/null 2>&1; then
+    if ! installed yay; then
         git clone https://aur.archlinux.org/yay.git yay
         makepkg -si --noconfirm
         yay -S yay

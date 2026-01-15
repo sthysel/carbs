@@ -1,10 +1,12 @@
 #!/bin/bash
+# shellcheck source=/dev/null
+. ../../lib/lib.sh
 # Bootstrap Spacemacs and install all packages
 
 echo "🚀 Bootstrapping Spacemacs..."
 
 # Check if emacs is available
-if ! command -v emacs &> /dev/null; then
+if ! installed emacs; then
     echo "❌ Emacs not found! Install it first."
     exit 1
 fi

@@ -1,7 +1,11 @@
 #!/bin/sh
 
 echo "Removing pulseaudio if present..."
-sudo pacman -Rs --noconfirm pulseaudio pulseaudio-alsa pulseaudio-bluetooth jack 2>/dev/null || true
+yay -Rs --noconfirm \
+    pulseaudio \
+    pulseaudio-alsa \
+    pulseaudio-bluetooth \
+    jack 2>/dev/null || true
 
 echo "Installing pipewire and audio tooling..."
 yay -S --needed --noconfirm \

@@ -14,9 +14,14 @@ add_line_to_file() {
     fi
 }
 
-# $1 name or path to executable
+# $1 name or path to executable - returns 0 if installed, 1 if not
+installed() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# $1 name or path to executable - exits if not found
 has() {
-    if command -v "$1" >/dev/null 2>&1; then
+    if installed "$1"; then
         echo "$1 exists and is executable."
     else
         echo "$1 does not exist or is not executable"

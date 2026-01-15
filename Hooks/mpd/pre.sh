@@ -1,6 +1,8 @@
 #!/bin/sh
+# shellcheck source=/dev/null
+. ../../lib/lib.sh
 
-if ! command -v mpd >/dev/null 2>&1; then
+if ! installed mpd; then
     echo "Installing mpd..."
     yay -S --noconfirm mpd
 fi
