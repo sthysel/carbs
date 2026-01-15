@@ -1,3 +1,0 @@
-* Carbs
-
-CARBS meta config (emoji list).

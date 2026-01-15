@@ -81,12 +81,12 @@ tuckr decrypt                   # Decrypt all
 | autostart  | XDG autostart desktop entries                     |
 | beets      | Music library manager with plugins (via uv)       |
 | bootstrap  | Core system packages and yay/uv installation      |
-| carbs      | CARBS meta config (emoji list)                    |
 | conky      | System monitor widget config                      |
 | dive       | Docker image layer explorer                       |
 | docker     | Docker engine and user group setup                |
 | dpi        | X11 DPI and display scaling settings              |
 | dunst      | Notification daemon config                        |
+| emoji      | Emoji list and rofi-emoji picker script           |
 | entropy    | Hardware RNG entropy daemon (rng-tools)           |
 | fonts      | Nerd fonts, Fira Code, Font Awesome, etc.         |
 | git        | Git configuration                                 |
