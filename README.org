@@ -3,281 +3,72 @@
 
 * CARBS v0.3.1
 
-In which you will find Chad Arch Random Bootstrap Scripts (CARBS).
-
-This repo will allow to you setup a Arch Linux system in the correct way.
-
-* Who is this for
-
-CARBS is made for the Linux Vegan whose vi/vim pronouns you will respect.
-
-Fork this repo for your own use, and adapt to your own sensibilities.
-
-* What does it do
-
-- Bootstrap a fresh Arch Linux environment into a comfy, capable daily driver
-  desktop environment for the average Linux enjoyer.
-- Allows you to maintain the config in a git repo for backup and deployment to
-  other machines remotely.
+Chad Arch Random Bootstrap Scripts - bootstrap a fresh Arch Linux into a comfy daily driver.
 
 * Install
-** Install Arch if you have not yet done so
-- You will need a working network with access to the interwebs as a minimum.
-- Install Arch on target machine using PXE boot or ventoy or whatever.
-- Be sure to pick a networking solution and enable it, be it NetworkManager or
-  systemd-networking. Its hard to install things of github if you don't have a
-  working nic.
-- Once the new machine has been provisioned and the networking is good, proceed.
 
-** Root user
-You will need at least one privileged user to install additional
-packages, you can just as well use the root user you added during
-install.
+** Prerequisites
 
-Make sure the admin user is in the wheel group, and use visudo to enable
-=wheel= user privileges =visudo=, if you have neovim already installed,
-=EDITOR=nvim visudo=
+Fresh Arch install with network access. Ensure your user is in the wheel group:
 
 #+begin_example
 %wheel ALL=(ALL) ALL
 #+end_example
 
-Replace =carbsadmin= with your user below
-
-#+begin_example
-USER=carbsadmin sudo useradd -m -G wheel -s /bin/bash $USER
-#+end_example
-
-And install the bootstrap tools
+** Quick Install
 
 #+begin_src sh
-sudo pacman -S git just curl tuckr
+curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
+cd ~/.config/dotfiles
+tuckr set \*
 #+end_src
 
-** Install CARBS
-
-*** Quick Install
+** Manual Install
 
 #+begin_src sh
-  curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
-  tuckr status
-#+end_src
-
-*** Manual Install
-
-#+begin_src sh
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ..
+yay -S tuckr
 git clone https://github.com/sthysel/carbs.git ~/.config/dotfiles
 cd ~/.config/dotfiles
+tuckr set \*
 #+end_src
 
-* Tuckr Dotfile Management
+* Tuckr
 
 CARBS uses Tuckr to manage dotfiles.
 
-** Directory Structure
+** Structure
 
 #+begin_example
 ~/.config/dotfiles/
-├── Configs/     # Dotfile packages (zsh, nvim, hyprland, etc.)
-├── Hooks/       # Setup/cleanup scripts that run before/after deployment
-└── Secrets/     # Encrypted sensitive files (gpg)
+├── Configs/     # Dotfile packages
+├── Hooks/       # pre.sh/post.sh scripts per package
+└── Secrets/     # GPG-encrypted sensitive files
 #+end_example
 
-** Essential Commands
+** Commands
 
-*** Checking Status
+| Command                | Purpose                     |
+|------------------------+-----------------------------|
+| =tuckr status=         | Show deployment status      |
+| =tuckr set <group>=    | Deploy + run hooks          |
+| =tuckr add <group>=    | Deploy (symlink only)       |
+| =tuckr rm <group>=     | Undeploy                    |
+| =tuckr add -f <group>= | Force deploy (override)     |
+| =tuckr set \*=         | Deploy all + run all hooks  |
 
-#+begin_src sh
-tuckr status                    # Show all groups and their deployment status
-tuckr status hyprland           # Check specific group
-#+end_src
-
-*** Deploy/Undeploy Groups
-
-#+begin_src sh
-# Deploy specific groups
-tuckr add zsh nvim              # Link zsh and nvim configs
-
-# Deploy all groups
-tuckr add \*                    # What 'just dotfiles' does
-
-# Remove specific groups
-tuckr rm i3 picom               # Unlink i3 and picom
-
-# Deploy with hooks (runs setup scripts)
-tuckr set nvim                  # Deploy nvim + run hooks
-tuckr set \*                    # Deploy all + run all hooks
-#+end_src
-
-*** Handling Conflicts
-
-#+begin_src sh
-tuckr add -f hyprland           # Force override (use dotfile version)
-tuckr add -f -y wallpaper       # Auto-yes (skip prompts)
-#+end_src
-
-** Hooks System
-
-Hooks automate tasks before/after deployment. Structure:
+** Hooks
 
 #+begin_example
-Hooks/
-└── <group>/
-    ├── pre.sh      # Runs BEFORE symlinking
-    └── post.sh     # Runs AFTER symlinking
+Hooks/<package>/
+├── pre.sh      # Before symlinking (install deps)
+└── post.sh     # After symlinking (enable services)
 #+end_example
 
-*** Example: Neovim Hook
-
-Create =Hooks/nvim/post.sh=:
-
-#+begin_src bash
-#!/bin/bash
-# Install/update lazy.nvim plugins after deploying nvim config
-echo "Installing nvim plugins..."
-nvim --headless "+Lazy! sync" +qa
-echo "Neovim setup complete!"
-#+end_src
-
-Make it executable: =chmod +x Hooks/nvim/post.sh=
-
-*** Example: Yazi Hook
-
-Create =Hooks/yazi/post.sh=:
-
-#+begin_src bash
-#!/bin/bash
-# Install yazi plugins after deploying config
-echo "Installing yazi plugins..."
-ya pack -i
-echo "Yazi setup complete!"
-#+end_src
-
-*** Using Hooks
+** Secrets
 
 #+begin_src sh
-tuckr set nvim                  # Deploy nvim + run post.sh hook
-tuckr add nvim                  # Only symlink, skip hooks
-tuckr unset nvim                # Unlink + run cleanup hooks
+tuckr encrypt ~/.ssh/id_rsa     # Encrypt file
+tuckr decrypt                   # Decrypt all
 #+end_src
-
-*** Hook Use Cases
-
-*Pre-hooks* (before symlinking):
-- Create directories
-- Backup existing configs
-- Check dependencies
-
-*Post-hooks* (after symlinking):
-- Install plugins (nvim, tmux, yazi, etc.)
-- Build/compile configs
-- Restart services
-- Run setup commands
-
-** Secrets Management
-
-Encrypt sensitive files like SSH keys, API tokens:
-
-#+begin_src sh
-tuckr encrypt ~/.ssh/id_rsa     # Encrypt file (moves to Secrets/)
-tuckr decrypt                   # Decrypt all secrets
-tuckr ls secrets                # List encrypted files
-#+end_src
-
-The secrets are GPG-encrypted and safe to commit to git.
-
-** Advanced Features
-
-*** Targets (Machine-Specific Configs)
-
-Create alternate configs for different machines:
-
-#+begin_example
-Configs/
-├── hyprland/              # Default config
-└── hyprland@laptop/       # Laptop-specific overrides
-#+end_example
-
-#+begin_src sh
-tuckr add -t laptop hyprland    # Use laptop-specific config
-#+end_src
-
-*** Profiles (Separate Dotfile Repos)
-
-Manage work and personal dotfiles separately:
-
-#+begin_src sh
-tuckr -p work add zsh git       # Use work profile (different repo)
-tuckr add zsh git               # Use personal profile (default)
-#+end_src
-
-*** Dry Run
-
-Test changes without touching filesystem:
-
-#+begin_src sh
-tuckr -n add hyprland           # See what would happen
-tuckr --dry-run rm i3           # Preview removal
-#+end_src
-
-** Practical Workflows
-
-*** New Machine Setup
-
-#+begin_src sh
-# 1. Install CARBS
-curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
-cd ~/.config/dotfiles
-
-# 2. Deploy everything
-tuckr set \*                    # Deploys + runs all hooks
-
-# 3. Or deploy selectively
-tuckr set zsh git nvim hyprland
-#+end_src
-
-*** Testing Config Changes
-
-#+begin_src sh
-# Make changes to Configs/hyprland/
-vim ~/.config/dotfiles/Configs/hyprland/.config/hypr/binds.conf
-
-# Files are already symlinked, so changes are live!
-hyprctl reload
-
-# If not working, re-deploy
-tuckr add -f hyprland
-#+end_src
-
-*** Adding New Dotfile Group
-
-#+begin_src sh
-# 1. Create structure
-mkdir -p Configs/btop/.config/btop
-
-# 2. Add config files
-cp ~/.config/btop/btop.conf Configs/btop/.config/btop/
-
-# 3. Deploy it
-tuckr add btop
-
-# 4. Commit to git
-git add Configs/btop
-git commit -m "Add btop config"
-#+end_src
-
-** Quick Reminder for captain dumbass
-
-| Command                 | Purpose                         |
-|-------------------------+---------------------------------|
-| =tuckr status=          | Show what's deployed            |
-| =tuckr add <group>=     | Deploy group (symlink only)     |
-| =tuckr rm <group>=      | Undeploy group                  |
-| =tuckr set <group>=     | Deploy + run hooks              |
-| =tuckr unset <group>=   | Undeploy + cleanup hooks        |
-| =tuckr add -f <group>=  | Force deploy (override)         |
-| =tuckr add -a <group>=  | Adopt system files              |
-| =tuckr -n add <group>=  | Dry run                         |
-| =tuckr ls=              | List all groups                 |
-| =tuckr encrypt <file>=  | Encrypt to Secrets/             |
-| =tuckr decrypt=         | Decrypt all secrets             |
