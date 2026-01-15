@@ -5,7 +5,7 @@ Tuckr package for asciinema terminal session recording and gif generation.
 ** What's Included
 
 - *asciinema* (v3.0.1+): Terminal session recorder
-- *asciinema-agg* (v1.7.0+): Converts recordings to animated GIFs
+- *asciinema-agg* (v1.7.0+): Converts recordings to animated GIFs, https://github.com/asciinema/agg
 - Configuration file with sensible defaults
 
 ** Installation
