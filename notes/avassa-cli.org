@@ -1,0 +1,13 @@
+* Avassa CLI
+
+Avassa supctl CLI tool.
+
+** Usage
+
+#+begin_src sh
+# Create a profile
+supctl profile create --host api.trial.bhp.avassa.net trial.bhp
+
+# Login
+supctl --host api.trial.bhp.avassa.net do oidc-login --tenant bhp --oidc avassa-cloud-account
+#+end_src
