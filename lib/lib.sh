@@ -93,6 +93,13 @@ yay_install() {
     yay -S --needed --noconfirm "$@"
 }
 
+# Uninstall packages via yay without confirmation
+# $@ packages to uninstall
+yay_uninstall() {
+    has yay
+    yay -Rns --noconfirm "$@"
+}
+
 # Gets the latest github tag from a given repo
 # Note: this function removes any optional v prefix of the tag, which seems to be a github convention
 # $1 repo path

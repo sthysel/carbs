@@ -4,8 +4,12 @@
 
 AVASSA_HOST="${AVASSA_HOST:-api.trial.bhp.avassa.net}"
 
+arch(){
+    yay_install python-websockets
+}
+
 linux() {
-    if installed supctl; then
+    if has supctl; then
         echo "Updating supctl..."
         supctl update
     else
