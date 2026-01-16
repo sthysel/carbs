@@ -3,7 +3,7 @@
 . ../../lib/lib.sh
 
 echo "Removing pulseaudio if present..."
-yay -Rs --noconfirm \
+yay_uninstall \
     pulseaudio \
     pulseaudio-alsa \
     pulseaudio-bluetooth \
