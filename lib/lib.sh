@@ -25,7 +25,7 @@ has() {
         echo "$1 exists and is executable."
     else
         echo "$1 does not exist or is not executable"
-        echo "you might need to run 'tuckr set $1' to install it"
+        echo "you might need to run 'caifs add -d targets $1' to install it"
         exit 1
     fi
 }

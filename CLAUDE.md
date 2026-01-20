@@ -31,12 +31,12 @@ CARBS (Chad Arch Random Bootstrap Scripts) is an Ansible-based system provisioni
   - Hardware-specific: `dell-xps`, `nvidia`, `navigation`
   - `smoketest`: Validation role
 
-- **Dotfiles**: Managed via Tuckr
-  - Structure: `Configs/<package>/.config/<app>/` or `Configs/<package>/.local/`
-  - Each subdirectory in `Configs/` represents a dotfile group (e.g., `zsh/`, `nvim/`, `hyprland/`, `kitty/`)
-  - Tuckr creates symlinks from dotfiles into `~/.config/` and `~/.local/`
-  - `Hooks/`: Pre/post setup scripts for packages (e.g., `Hooks/nvim/post.sh`)
-  - `Secrets/`: Encrypted configuration files
+- **Dotfiles**: Managed via [CAIFS](https://github.com/caifs-org/caifs)
+  - Structure: `targets/<package>/config/.config/<app>/` or `targets/<package>/config/.local/`
+  - Each subdirectory in `targets/` represents a dotfile target (e.g., `zsh/`, `nvim/`, `hyprland/`, `kitty/`)
+  - CAIFS creates symlinks from `targets/<pkg>/config/` into `$HOME`
+  - `targets/<pkg>/hooks/`: Pre/post/rm scripts for packages (e.g., `targets/nvim/hooks/post.sh`)
+  - `lib/lib.sh`: Shared helper functions for hooks (OS detection, package installers)
 
 - **Inventory** (`ansible/inventory/hosts.yml`): Host groups and connection settings
   - `desktop` group: Multiple named hosts plus localhost
@@ -47,7 +47,7 @@ CARBS (Chad Arch Random Bootstrap Scripts) is an Ansible-based system provisioni
 
 1. Bootstrap phase: Install `uv`, then use it to install Ansible and dependencies
 2. Ansible phase: Run playbooks to install packages and configure system via roles
-3. Dotfiles phase: Use `tuckr` to symlink configuration files into place
+3. Dotfiles phase: Use `caifs` to symlink configuration files into place
 4. Post-install: Run QA checks via pre-commit hooks
 
 ## Common Commands
@@ -84,18 +84,20 @@ ansible-playbook ./ansible/vive.yml -i vive, --ask-become-pass --tags hyprland
 ### Dotfiles Management
 
 ```bash
-# Link all dotfiles using Tuckr
+# Link all dotfiles using CAIFS
 just dotfiles
 
 # Remove broken symlinks from ~/.config/
 just remove-danglinks
 
-# Manual Tuckr operations
-tuckr add zsh           # Link zsh configs
-tuckr rm nvim           # Unlink nvim configs
-tuckr status            # Check dotfile status
-tuckr add -f wallpaper  # Force link (override conflicts)
-tuckr set *             # Run all hooks
+# Manual CAIFS operations
+caifs add -d targets zsh           # Link zsh configs + run hooks
+caifs add -d targets -l zsh        # Link only (no hooks)
+caifs add -d targets -h zsh        # Run hooks only (no links)
+caifs rm -d targets nvim           # Unlink nvim configs
+caifs status -d targets            # Check dotfile status
+caifs add -d targets -f wallpaper  # Force link (override conflicts)
+caifs add -d targets '*'           # Deploy all targets
 ```
 
 ### Quality Assurance
@@ -129,7 +131,7 @@ just fix-argcomplete
 ### Making Changes
 
 1. Edit ansible roles in `ansible/roles/<role>/tasks/main.yml`
-2. Update dotfiles in `Configs/<package>/` subdirectories
+2. Update dotfiles in `targets/<package>/config/` subdirectories
 3. Test changes locally: `just deploy localhost <relevant-tags> desktop`
 4. Verify QA passes: `just qa-all`
 5. Commit changes (pre-commit hooks will run automatically)

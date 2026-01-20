@@ -32,15 +32,15 @@ if ! command -v yay &>/dev/null; then
     yay -S yay
 fi
 
-# Install tuckr if not available
-if ! command -v tuckr &>/dev/null; then
-    echo "Installing tuckr..."
-    yay -S --noconfirm tuckr
+# Install caifs if not available
+if ! command -v caifs &>/dev/null; then
+    echo "Installing caifs..."
+    yay -S --noconfirm caifs
 fi
 
 # Bootstrap dotfiles
 cd "${INSTALL_DIR}"
-tuckr set bootstrap
+caifs add -d targets bootstrap
 
 echo "Done! Next steps:"
 echo "  cd ${INSTALL_DIR}"

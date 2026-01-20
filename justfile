@@ -45,4 +45,4 @@ deploy-wsl tags="all":
 
 [doc('link in the dotfiles')]
 dotfiles:
-    tuckr add \*
+    caifs add -d targets '*'

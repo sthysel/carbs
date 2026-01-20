@@ -20,7 +20,7 @@ Fresh Arch install with network access. Ensure your user is in the wheel group:
 #+begin_src sh
 curl -fsSL https://raw.githubusercontent.com/sthysel/carbs/main/install.sh | bash
 cd ~/.config/dotfiles
-tuckr set \*
+caifs add -d targets '*'
 #+end_src
 
 ** Manual Install
@@ -28,49 +28,56 @@ tuckr set \*
 #+begin_src sh
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si && cd ..
-yay -S tuckr
+yay -S caifs
 git clone https://github.com/sthysel/carbs.git ~/.config/dotfiles
 cd ~/.config/dotfiles
-tuckr set \*
+caifs add -d targets '*'
 #+end_src
 
-* Tuckr
+* CAIFS
 
-CARBS uses Tuckr to manage dotfiles.
+CARBS uses [[https://github.com/caifs-org/caifs][CAIFS]] (Config And Installers For Software) to manage dotfiles.
 
 ** Structure
 
 #+begin_example
 ~/.config/dotfiles/
-├── Configs/     # Dotfile packages
-├── Hooks/       # pre.sh/post.sh scripts per package
-└── Secrets/     # GPG-encrypted sensitive files
+├── targets/           # Dotfile packages (each is a "target")
+│   └── <package>/
+│       ├── config/    # Files to symlink (mirrored to $HOME)
+│       └── hooks/     # pre.sh/post.sh/rm.sh scripts
+└── lib/               # Shared helper functions for hooks
 #+end_example
 
 ** Commands
 
-| Command                | Purpose                     |
-|------------------------+-----------------------------|
-| =tuckr status=         | Show deployment status      |
-| =tuckr set <group>=    | Deploy + run hooks          |
-| =tuckr add <group>=    | Deploy (symlink only)       |
-| =tuckr rm <group>=     | Undeploy                    |
-| =tuckr add -f <group>= | Force deploy (override)     |
-| =tuckr set \*=         | Deploy all + run all hooks  |
+| Command                          | Purpose                         |
+|----------------------------------+---------------------------------|
+| =caifs status -d targets=        | Show deployment status          |
+| =caifs add -d targets <target>=  | Deploy + run hooks              |
+| =caifs add -d targets -l <t>=    | Deploy (symlink only)           |
+| =caifs add -d targets -h <t>=    | Run hooks only                  |
+| =caifs rm -d targets <target>=   | Undeploy + run rm hooks         |
+| =caifs add -d targets -f <t>=    | Force deploy (override)         |
+| =caifs add -d targets '*'=       | Deploy all targets              |
 
 ** Hooks
 
 #+begin_example
-Hooks/<package>/
+targets/<package>/hooks/
 ├── pre.sh      # Before symlinking (install deps)
-└── post.sh     # After symlinking (enable services)
+├── post.sh     # After symlinking (enable services)
+└── rm.sh       # During removal (cleanup)
 #+end_example
 
-** Secrets
+Hooks support OS-specific functions that execute based on the detected platform:
 
 #+begin_src sh
-tuckr encrypt ~/.ssh/id_rsa     # Encrypt file
-tuckr decrypt                   # Decrypt all
+arch() { yay -S package; }      # Arch Linux
+debian() { apt install pkg; }   # Debian/Ubuntu
+macos() { brew install pkg; }   # macOS
+linux() { echo "any linux"; }   # Generic Linux fallback
+generic() { echo "all OS"; }    # All platforms
 #+end_src
 
 ** Packages
