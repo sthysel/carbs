@@ -1,6 +1,0 @@
-#!/bin/sh
-# shellcheck source=/dev/null
-. ../../lib/lib.sh
-
-echo "Installing kitty..."
-yay_install kitty

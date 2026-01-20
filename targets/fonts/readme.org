@@ -1,0 +1,3 @@
+* fonts
+
+Takes care of installing fonts on this system

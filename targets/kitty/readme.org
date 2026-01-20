@@ -1,0 +1,3 @@
+* kitty config
+
+kitty terminal the way I like it

@@ -1,3 +1,0 @@
-* Waypaper
-
-Wallpaper manager config.

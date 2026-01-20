@@ -1,0 +1,3 @@
+* mpd
+
+Media player daemon

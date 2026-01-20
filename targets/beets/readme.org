@@ -1,0 +1,3 @@
+* beets
+
+Music library manager

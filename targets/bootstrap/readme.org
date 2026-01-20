@@ -1,0 +1,3 @@
+* bootstrap
+
+Install the basic tools I don't necessary want to have individual targets for.

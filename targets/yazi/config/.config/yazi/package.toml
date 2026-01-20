@@ -1,0 +1,22 @@
+[[plugin.deps]]
+use = "Sonico98/exifaudio"
+rev = "4506f9d"
+hash = "4761fffb60a12d37096c34a356380cdf"
+
+[[plugin.deps]]
+use = "boydaihungst/mediainfo"
+rev = "7cd6b04"
+hash = "98b8276aa076284f5c4a5260cbe08549"
+
+[[plugin.deps]]
+use = "yazi-rs/plugins:smart-enter"
+rev = "de33976"
+hash = "56fdabc96fc1f4d53c96eb884b02a5be"
+
+[[plugin.deps]]
+use = "stelcodes/bunny"
+rev = "6ee99bc"
+hash = "417de633d0008580b386bd3358eea56f"
+
+[flavor]
+deps = []
