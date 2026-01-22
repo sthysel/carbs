@@ -1,4 +1,6 @@
 #!/bin/sh
 
 echo "Installing nvidia drivers..."
-yay_install nvidia
+arch() {
+    yay_install nvidia-dkms nvidia-utils
+}
