@@ -1,19 +1,9 @@
 #!/bin/sh
 # Install Hyprland and dependencies
 
-is_laptop() {
-    # Check for battery
-    if ls /sys/class/power_supply/BAT* >/dev/null 2>&1; then
-        return 0
-    fi
-    # Check chassis type (8=Portable, 9=Laptop, 10=Notebook, 14=Sub Notebook)
-    if [ -f /sys/class/dmi/id/chassis_type ]; then
-        case "$(cat /sys/class/dmi/id/chassis_type)" in
-            8|9|10|14) return 0 ;;
-        esac
-    fi
-    return 1
-}
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lib.sh"
 
 arch() {
     log_info "Installing Hyprland dependencies..."

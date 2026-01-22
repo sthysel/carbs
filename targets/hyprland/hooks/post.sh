@@ -1,17 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TARGET_DIR="$(dirname "$SCRIPT_DIR")"
-
-is_laptop() {
-    compgen -G "/sys/class/power_supply/BAT*" >/dev/null 2>&1 && return 0
-    if [ -f /sys/class/dmi/id/chassis_type ]; then
-        case "$(cat /sys/class/dmi/id/chassis_type)" in
-            8|9|10|14) return 0 ;;
-        esac
-    fi
-    return 1
-}
+# shellcheck disable=SC1091
+. "$SCRIPT_DIR/lib.sh"
 
 configure_display_manager() {
     echo "Configuring GDM as display manager..."
@@ -41,7 +33,7 @@ configure_hyprpanel() {
     systemctl --user daemon-reload
     systemctl --user enable hyprpanel.service 2>/dev/null || true
 
-    local config_target="$HOME/.config/hyprpanel/config.json"
+    config_target="$HOME/.config/hyprpanel/config.json"
     [ -L "$config_target" ] && rm "$config_target"
 
     if is_laptop; then
