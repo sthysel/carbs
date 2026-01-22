@@ -1,12 +1,20 @@
 #!/bin/bash
 # Reload Hyprland configuration if running
 
-echo "🚀 Finalizing Hyprland setup..."
+echo "Finalizing Hyprland setup..."
+
+# Enable GDM display manager
+echo "Enabling GDM..."
+sudo systemctl enable gdm.service 2>/dev/null || true
+
+# Select Hyprland (uwsm) as default session for GDM
+echo "Configuring UWSM for Hyprland..."
+uwsm select hyprland 2>/dev/null || true
 
 # Detect machine type and link appropriate HyprPanel config.json
 HYPRPANEL_DIR="$HOME/.config/hyprpanel"
-CONFIG_DESKTOP="$HOME/.config/dotfiles/Configs/hyprland/.config/hyprpanel/config-desktop.json"
-CONFIG_LAPTOP="$HOME/.config/dotfiles/Configs/hyprland/.config/hyprpanel/config-laptop.json"
+CONFIG_DESKTOP="$HOME/.config/dotfiles/targets/hyprland/config/.config/hyprpanel/config-desktop.json"
+CONFIG_LAPTOP="$HOME/.config/dotfiles/targets/hyprland/config/.config/hyprpanel/config-laptop.json"
 CONFIG_TARGET="$HYPRPANEL_DIR/config.json"
 
 echo "🔍 Detecting machine type..."

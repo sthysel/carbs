@@ -35,8 +35,9 @@ arch() {
         cliphist \
         wl-clip-persist
 
-    # Session management
+    # Display manager and session management
     yay_install \
+        gdm \
         uwsm \
         polkit-kde-agent
 
