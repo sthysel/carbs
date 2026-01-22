@@ -22,6 +22,12 @@ echo "Enabling hyprpanel service..."
 systemctl --user daemon-reload
 systemctl --user enable hyprpanel.service 2>/dev/null || true
 
+# Create local.conf if it doesn't exist (for machine-specific overrides)
+if [ ! -f "$HOME/.config/hypr/local.conf" ]; then
+    echo "# Machine-specific Hyprland overrides" > "$HOME/.config/hypr/local.conf"
+    echo "Created ~/.config/hypr/local.conf for local overrides"
+fi
+
 # Detect machine type and link appropriate HyprPanel config.json
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TARGET_DIR="$(dirname "$SCRIPT_DIR")"
