@@ -1,0 +1,11 @@
+[Unit]
+Description=HyprPanel - Panel for Hyprland
+Documentation=https://hyprpanel.com
+
+[Service]
+Type=exec
+ExecStart=/usr/bin/hyprpanel
+Restart=on-failure
+
+[Install]
+WantedBy=graphical-session.target
