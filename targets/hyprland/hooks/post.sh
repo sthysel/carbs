@@ -1,9 +1,9 @@
 #!/bin/sh
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+SCRIPT_DIR="$(pwd)"
 TARGET_DIR="$(dirname "$SCRIPT_DIR")"
 # shellcheck disable=SC1091
-. "$SCRIPT_DIR/lib.sh"
+. ./lib.sh
 
 configure_display_manager() {
     echo "Configuring GDM as display manager..."

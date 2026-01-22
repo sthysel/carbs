@@ -1,9 +1,8 @@
 #!/bin/sh
 # Install Hyprland and dependencies
 
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 # shellcheck disable=SC1091
-. "$SCRIPT_DIR/lib.sh"
+. ./lib.sh
 
 arch() {
     log_info "Installing Hyprland dependencies..."
