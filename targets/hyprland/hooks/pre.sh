@@ -1,6 +1,20 @@
 #!/bin/sh
 # Install Hyprland and dependencies
 
+is_laptop() {
+    # Check for battery
+    if ls /sys/class/power_supply/BAT* >/dev/null 2>&1; then
+        return 0
+    fi
+    # Check chassis type (8=Portable, 9=Laptop, 10=Notebook, 14=Sub Notebook)
+    if [ -f /sys/class/dmi/id/chassis_type ]; then
+        case "$(cat /sys/class/dmi/id/chassis_type)" in
+            8|9|10|14) return 0 ;;
+        esac
+    fi
+    return 1
+}
+
 arch() {
     log_info "Installing Hyprland dependencies..."
 
@@ -64,4 +78,10 @@ arch() {
     yay_install \
         ags-hyprpanel-git \
         aylurs-gtk-shell-git
+
+    # Laptop-specific packages
+    if is_laptop; then
+        log_info "Laptop detected, installing NetworkManager..."
+        yay_install networkmanager
+    fi
 }
