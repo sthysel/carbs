@@ -1,6 +1,5 @@
 #!/bin/sh
 
-TARGET_DIR="$(dirname "$(pwd)")"
 
 is_laptop() {
     ls /sys/class/power_supply/BAT* >/dev/null 2>&1 && return 0
@@ -40,14 +39,15 @@ configure_hyprpanel() {
     systemctl --user daemon-reload
     systemctl --user enable hyprpanel.service 2>/dev/null || true
 
-    config_target="$HOME/.config/hyprpanel/config.json"
+    config_dir="$HOME/.config/hyprpanel/"
+    config_target="$config_dir/config.json"
     [ -L "$config_target" ] && rm "$config_target"
 
     if is_laptop; then
-        ln -sf "$TARGET_DIR/config/.config/hyprpanel/config-laptop.json" "$config_target"
+        ln -sf "$config_dir/config-laptop.json" "$config_target"
         echo "Linked laptop HyprPanel configuration"
     else
-        ln -sf "$TARGET_DIR/config/.config/hyprpanel/config-desktop.json" "$config_target"
+        ln -sf "$config_dir/config-desktop.json" "$config_target"
         echo "Linked desktop HyprPanel configuration"
     fi
 }
