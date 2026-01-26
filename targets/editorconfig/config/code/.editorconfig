@@ -5,7 +5,8 @@ root = true
 
 [*]
 charset = utf-8
-end_of_line = lf # it is the law
+# it is the law
+end_of_line = lf
 indent_style = space
 indent_size = 4
 trim_trailing_whitespace = true
@@ -17,50 +18,62 @@ indent_size = 8
 
 
 # Markdown
+# markdown uses trailing whitespace for instruction
 [*.md]
-trim_trailing_whitespace = false  # markdown uses trailing whitespace for instruction
+trim_trailing_whitespace = false
 max_line_length = 120
 
 # config files
+# matching standards
 [*.{ini,json,json5,yaml,yml}]
-indent_size = 2  # matching standards
+indent_size = 2
+# matching uv pyproject.toml defaults
 [*.toml]
-indent_size = 4  # matching uv pyproject.toml defaults
+indent_size = 4
 
 # Python
+# Agreed by Python Code@BHP
 [*.py]
-max_line_length = 120  # Agreed by Python Code@BHP
+max_line_length = 120
 
+# match https://github.com/dotnet/sdk/blob/main/.editorconfig
 [*.cs]
-indent_size = 4  # match https://github.com/dotnet/sdk/blob/main/.editorconfig
+indent_size = 4
 
 # Javascript and Typescript
+# match eslint - https://eslint.style/rules/indent
 [*.{js,jsx,ts,tsx,vue}]
-indent_size = 4  # match eslint - https://eslint.style/rules/indent
+indent_size = 4
 
 # HTML and CSS
+# match prettier - https://github.com/prettier/prettier
 [*.{htm,html,css,sass,scss,less}]
-indent_size = 2  # match prettier - https://github.com/prettier/prettier
+indent_size = 2
 
 # Docker
+# Dockerfile doesn't have an expected indent
 [Dockerfile]
-indent_size = unset  # Dockerfile doesn't have an expected indent
+indent_size = unset
 
 # Terraform
+# https://developer.hashicorp.com/terraform/language/style#code-formatting
 [*.{tf,tfvars}]
-indent_size = 2  # https://developer.hashicorp.com/terraform/language/style#code-formatting
+indent_size = 2
 
 # Shell scripts
+# to match shfmt - https://github.com/mvdan/sh/
 [*.{sh,zsh}]
-indent_size = 4  # to match shfmt - https://github.com/mvdan/sh/
+indent_size = 4
 
 # Makefiles
+# Makefiles require tabs
 [{Makefile,Makefile.tpl}]
-indent_style = tab  # Makefiles require tabs
+indent_style = tab
 
 # windows scripts
+# windows files are windows format
 [*.{cmd,bat}]
-end_of_line = crlf  # windows files are windows format
+end_of_line = crlf
 
 # diff files
 [*.diff]
