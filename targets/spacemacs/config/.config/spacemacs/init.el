@@ -590,6 +590,12 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
     (editorconfig-mode 1)
 
+    ;; Wayland clipboard: enable PRIMARY selection (highlight-to-copy, middle-click-to-paste)
+    (setq select-enable-primary t)
+    (setq select-enable-clipboard t)
+    ;; Selecting text copies to PRIMARY immediately (like X11)
+    (setq select-active-regions t)
+
     ;; org general
     (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
     (setq org-agenda-files '("~/org/todo-general.org"))

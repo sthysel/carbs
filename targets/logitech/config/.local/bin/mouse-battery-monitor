@@ -1,0 +1,43 @@
+#!/usr/bin/bash
+# Monitor Logitech mouse battery and warn when low
+# Requires: solaar, notify-send (libnotify)
+
+set -euo pipefail
+
+LOW_THRESHOLD="${MOUSE_BATTERY_LOW:-20}"
+CRITICAL_THRESHOLD="${MOUSE_BATTERY_CRITICAL:-10}"
+
+# Get battery percentage from solaar
+get_battery() {
+    solaar show 2>/dev/null | grep -m1 'Battery:' | grep -oE '[0-9]+' | head -1
+}
+
+notify() {
+    local urgency="$1"
+    local title="$2"
+    local message="$3"
+
+    # Try notify-send first (works with most notification daemons)
+    if command -v notify-send &>/dev/null; then
+        notify-send -u "$urgency" -a "mouse-battery" -i input-mouse "$title" "$message"
+    # Fall back to dunstify if available
+    elif command -v dunstify &>/dev/null; then
+        dunstify -u "$urgency" -a "mouse-battery" -i input-mouse "$title" "$message"
+    fi
+}
+
+main() {
+    local bat
+    bat=$(get_battery)
+
+    # Exit silently if no battery info (mouse off/disconnected)
+    [[ -z "$bat" ]] && exit 0
+
+    if (( bat <= CRITICAL_THRESHOLD )); then
+        notify "critical" "Mouse Battery Critical" "Battery at ${bat}% - charge now!"
+    elif (( bat <= LOW_THRESHOLD )); then
+        notify "normal" "Mouse Battery Low" "Battery at ${bat}% - consider charging"
+    fi
+}
+
+main "$@"

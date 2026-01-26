@@ -17,5 +17,8 @@ if os.getenv("SSH_TTY") then
     }
 end
 
--- Enable unnamedplus to make yank operations use system clipboard
-vim.opt.clipboard = "unnamedplus"
+-- Enable both clipboard registers:
+-- unnamedplus = CLIPBOARD (Ctrl+C/V, "+)
+-- unnamed = PRIMARY (highlight/middle-click, "*)
+-- Yanks go to both; mouse selection in Kitty uses PRIMARY directly
+vim.opt.clipboard = "unnamed,unnamedplus"

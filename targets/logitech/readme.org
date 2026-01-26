@@ -1,0 +1,40 @@
+#+TITLE: Logitech Target
+
+Manages Logitech peripherals (mice, keyboards) via [[https://github.com/pwr-Solaar/Solaar][Solaar]].
+
+* Features
+
+- Installs Solaar for Logitech device management
+- Monitors MX Master 3S (and other Logitech mice) battery level
+- Sends desktop notifications when battery is low
+
+* Battery Monitoring
+
+A systemd timer checks battery every 30 minutes and notifies at:
+- 20% (low) - normal notification
+- 10% (critical) - critical notification
+
+Configure thresholds via environment variables:
+#+begin_src bash
+export MOUSE_BATTERY_LOW=25
+export MOUSE_BATTERY_CRITICAL=15
+#+end_src
+
+* Manual Check
+
+Run the monitor manually:
+#+begin_src bash
+mouse-battery-monitor
+#+end_src
+
+Check timer status:
+#+begin_src bash
+systemctl --user status mouse-battery-monitor.timer
+#+end_src
+
+* Solaar GUI
+
+Launch Solaar to view all device info and configure settings:
+#+begin_src bash
+solaar
+#+end_src
