@@ -30,6 +30,6 @@ arch() {
         yay_install nvidia-580xx-dkms nvidia-580xx-utils
     else
         echo "Detected Turing or newer GPU, installing open driver..."
-        yay_install nvidia-open-dkms nvidia-utils
+        yay_install nvidia-open nvidia-utils
     fi
 }

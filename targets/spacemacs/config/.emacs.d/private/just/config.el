@@ -3,6 +3,8 @@
 ;; Ensure .just files are recognized by just-mode
 (add-to-list 'auto-mode-alist '("\\.just\\'" . just-mode))
 (add-to-list 'auto-mode-alist '("[Jj]ustfile\\'" . just-mode))
+;; Files in just.d directories (e.g., settings.just in ~/.config/just/just.d/)
+(add-to-list 'auto-mode-alist '("/just\\.d/[^/]+\\'" . just-mode))
 
 ;; Register just-lsp server with lsp-mode
 (with-eval-after-load 'lsp-mode
