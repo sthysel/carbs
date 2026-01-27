@@ -1,0 +1,156 @@
+#!/bin/bash
+# Add SSH key to Bitwarden vault
+#
+# Usage:
+#   bw-ssh-add ~/.ssh/id_github "GitHub Personal"
+#   bw-ssh-add ~/.ssh/id_work "Work Server" --notes "For accessing prod"
+
+set -euo pipefail
+
+# Suppress Node.js deprecation warnings from bw cli
+export NODE_OPTIONS="--no-deprecation"
+
+BW_SSH_FOLDER="${BW_SSH_FOLDER:-ssh-keys}"
+
+usage() {
+    cat <<EOF
+Usage: bw-ssh-add <private_key_path> <name> [OPTIONS]
+
+Add an SSH key pair to Bitwarden vault.
+
+Arguments:
+    private_key_path    Path to private key (public key assumed to be .pub)
+    name                Name for the Bitwarden item
+
+Options:
+    --notes "text"      Add notes to the item
+    --folder "name"     Bitwarden folder (default: ssh-keys)
+    --help              Show this help
+
+Examples:
+    bw-ssh-add ~/.ssh/id_github "GitHub Personal"
+    bw-ssh-add ~/.ssh/id_ed25519 "Proxmox Totorro" --notes "Main server access"
+
+Environment:
+    BW_SESSION          Bitwarden session token
+    BW_SSH_FOLDER       Folder name (default: ssh-keys)
+EOF
+    exit 0
+}
+
+# Check arguments
+if [[ $# -lt 2 ]]; then
+    usage
+fi
+
+PRIVATE_KEY="$1"
+ITEM_NAME="$2"
+shift 2
+
+NOTES=""
+
+# Parse options
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --notes) NOTES="$2"; shift 2 ;;
+        --folder) BW_SSH_FOLDER="$2"; shift 2 ;;
+        --help) usage ;;
+        *) echo "Unknown option: $1"; usage ;;
+    esac
+done
+
+# Validate key exists
+if [[ ! -f "$PRIVATE_KEY" ]]; then
+    echo "Error: Private key not found: $PRIVATE_KEY"
+    exit 1
+fi
+
+PUBLIC_KEY="${PRIVATE_KEY}.pub"
+if [[ ! -f "$PUBLIC_KEY" ]]; then
+    echo "Warning: Public key not found: $PUBLIC_KEY"
+    PUBLIC_KEY=""
+fi
+
+# Ensure session - uses cached session from bw-session
+session_file="$HOME/.bw_session"
+
+if [[ -z "${BW_SESSION:-}" ]] && [[ -f "$session_file" ]]; then
+    export BW_SESSION=$(cat "$session_file")
+fi
+
+# Check status
+status=$(bw status 2>/dev/null | grep -oP '"status":"\K[^"]+' || echo "error")
+
+case "$status" in
+    unlocked)
+        ;;
+    locked)
+        echo "Vault locked. Run: eval \$(bw-session)"
+        exit 1
+        ;;
+    unauthenticated)
+        echo "Not logged in. Run: bw login"
+        exit 1
+        ;;
+    *)
+        echo "Error checking Bitwarden status"
+        exit 1
+        ;;
+esac
+
+# Sync first
+echo "Syncing vault..."
+bw sync
+
+# Get or create folder
+FOLDER_ID=$(bw list folders | jq -r ".[] | select(.name==\"$BW_SSH_FOLDER\") | .id")
+
+if [[ -z "$FOLDER_ID" ]]; then
+    echo "Creating folder: $BW_SSH_FOLDER"
+    FOLDER_ID=$(echo "{\"name\":\"$BW_SSH_FOLDER\"}" | bw encode | bw create folder | jq -r '.id')
+fi
+
+echo "Using folder: $BW_SSH_FOLDER ($FOLDER_ID)"
+
+# Check if item already exists
+EXISTING=$(bw list items --folderid "$FOLDER_ID" | jq -r ".[] | select(.name==\"$ITEM_NAME\") | .id")
+if [[ -n "$EXISTING" ]]; then
+    echo "Error: Item '$ITEM_NAME' already exists in folder"
+    echo "Delete it first or use a different name"
+    exit 1
+fi
+
+# Create item
+echo "Creating item: $ITEM_NAME"
+ITEM_JSON=$(cat <<EOF
+{
+  "type": 1,
+  "name": "$ITEM_NAME",
+  "folderId": "$FOLDER_ID",
+  "notes": "$NOTES",
+  "login": {}
+}
+EOF
+)
+
+ITEM_ID=$(echo "$ITEM_JSON" | bw encode | bw create item | jq -r '.id')
+echo "Created item: $ITEM_ID"
+
+# Attach private key
+PRIV_NAME=$(basename "$PRIVATE_KEY")
+echo "Attaching: $PRIV_NAME"
+bw create attachment --file "$PRIVATE_KEY" --itemid "$ITEM_ID" > /dev/null
+
+# Attach public key if exists
+if [[ -n "$PUBLIC_KEY" ]]; then
+    PUB_NAME=$(basename "$PUBLIC_KEY")
+    echo "Attaching: $PUB_NAME"
+    bw create attachment --file "$PUBLIC_KEY" --itemid "$ITEM_ID" > /dev/null
+fi
+
+# Final sync
+bw sync
+
+echo ""
+echo "Done! Added '$ITEM_NAME' to Bitwarden"
+echo "Attachments: $PRIV_NAME${PUBLIC_KEY:+, $PUB_NAME}"

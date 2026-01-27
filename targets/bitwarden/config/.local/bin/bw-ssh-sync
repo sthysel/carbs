@@ -1,0 +1,174 @@
+#!/bin/bash
+# Sync SSH keys from Bitwarden vault
+#
+# Prerequisites:
+#   1. Store SSH keys in Bitwarden with:
+#      - Folder: "ssh-keys" (or customize BW_SSH_FOLDER)
+#      - Private key as attachment named: id_<keyname> (e.g., id_github, id_work)
+#      - Public key as attachment named: id_<keyname>.pub
+#      - Optionally store passphrase in the password field
+#
+# Usage:
+#   bw-ssh-sync           # Sync all keys from ssh-keys folder
+#   bw-ssh-sync --list    # List available keys without syncing
+#   bw-ssh-sync --force   # Overwrite existing keys
+
+set -euo pipefail
+
+# Suppress Node.js deprecation warnings from bw cli
+export NODE_OPTIONS="--no-deprecation"
+
+SSH_DIR="$HOME/.ssh"
+BW_SSH_FOLDER="${BW_SSH_FOLDER:-ssh-keys}"
+FORCE=false
+LIST_ONLY=false
+
+usage() {
+    cat <<EOF
+Usage: bw-ssh-sync [OPTIONS]
+
+Sync SSH keys from Bitwarden vault to ~/.ssh/
+
+Options:
+    --list      List available keys without syncing
+    --force     Overwrite existing keys
+    --folder    Bitwarden folder name (default: ssh-keys)
+    --help      Show this help
+
+Environment:
+    BW_SESSION      Bitwarden session token (will prompt for login if not set)
+    BW_SSH_FOLDER   Folder name in Bitwarden (default: ssh-keys)
+EOF
+    exit 0
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --list) LIST_ONLY=true; shift ;;
+        --force) FORCE=true; shift ;;
+        --folder) BW_SSH_FOLDER="$2"; shift 2 ;;
+        --help) usage ;;
+        *) echo "Unknown option: $1"; usage ;;
+    esac
+done
+
+# Ensure logged in - uses cached session from bw-session
+ensure_session() {
+    local session_file="$HOME/.bw_session"
+
+    # Try cached session first
+    if [[ -z "${BW_SESSION:-}" ]] && [[ -f "$session_file" ]]; then
+        export BW_SESSION=$(cat "$session_file")
+    fi
+
+    # Check status and handle accordingly
+    local status
+    status=$(bw status 2>/dev/null | grep -oP '"status":"\K[^"]+' || echo "error")
+
+    case "$status" in
+        unlocked)
+            ;;
+        locked)
+            echo "Vault locked. Run: eval \$(bw-session)"
+            exit 1
+            ;;
+        unauthenticated)
+            echo "Not logged in. Run: bw login"
+            exit 1
+            ;;
+        *)
+            echo "Error checking Bitwarden status"
+            exit 1
+            ;;
+    esac
+
+    # Sync vault
+    echo "Syncing Bitwarden vault..."
+    bw sync
+}
+
+# Get folder ID by name
+get_folder_id() {
+    bw list folders | jq -r ".[] | select(.name==\"$BW_SSH_FOLDER\") | .id"
+}
+
+# List items in SSH folder
+list_ssh_items() {
+    local folder_id="$1"
+    bw list items --folderid "$folder_id" | jq -r '.[] | "\(.id)\t\(.name)"'
+}
+
+# Download key attachments
+download_key() {
+    local item_id="$1"
+    local item_name="$2"
+
+    # Get attachment list
+    local attachments
+    attachments=$(bw get item "$item_id" | jq -r '.attachments[]? | "\(.id)\t\(.fileName)"')
+
+    if [[ -z "$attachments" ]]; then
+        echo "  No attachments found for $item_name"
+        return
+    fi
+
+    echo "$attachments" | while IFS=$'\t' read -r att_id att_name; do
+        local target_file="$SSH_DIR/$att_name"
+
+        if [[ -f "$target_file" ]] && [[ "$FORCE" != "true" ]]; then
+            echo "  Skipping $att_name (exists, use --force to overwrite)"
+            continue
+        fi
+
+        echo "  Downloading $att_name..."
+        bw get attachment "$att_id" --itemid "$item_id" --output "$target_file"
+
+        # Set permissions
+        if [[ "$att_name" == *.pub ]]; then
+            chmod 644 "$target_file"
+        else
+            chmod 600 "$target_file"
+        fi
+    done
+}
+
+main() {
+    ensure_session
+
+    # Ensure SSH directory exists
+    mkdir -p "$SSH_DIR"
+    chmod 700 "$SSH_DIR"
+
+    # Get folder ID
+    local folder_id
+    folder_id=$(get_folder_id)
+
+    if [[ -z "$folder_id" ]]; then
+        echo "Error: Folder '$BW_SSH_FOLDER' not found in Bitwarden"
+        echo "Create it and add your SSH keys as attachments"
+        exit 1
+    fi
+
+    echo "Found folder: $BW_SSH_FOLDER ($folder_id)"
+
+    # List or sync
+    if [[ "$LIST_ONLY" == "true" ]]; then
+        echo ""
+        echo "SSH keys in Bitwarden:"
+        list_ssh_items "$folder_id"
+    else
+        echo ""
+        echo "Syncing SSH keys to $SSH_DIR..."
+
+        list_ssh_items "$folder_id" | while IFS=$'\t' read -r item_id item_name; do
+            echo "Processing: $item_name"
+            download_key "$item_id" "$item_name"
+        done
+
+        echo ""
+        echo "Done. Keys synced to $SSH_DIR"
+    fi
+}
+
+main

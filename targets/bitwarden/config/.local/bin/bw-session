@@ -1,0 +1,104 @@
+#!/bin/bash
+# Manage Bitwarden CLI session - unlock once, reuse until locked
+#
+# Usage:
+#   eval $(bw-session)        # Load/unlock session into current shell
+#   bw-session --status       # Check session status
+#   bw-session --lock         # Lock and clear session
+#
+# Add to ~/.zshrc or ~/.bashrc:
+#   eval $(bw-session)        # Auto-load on shell start (prompts if needed)
+#   alias bwu='eval $(bw-session)'  # Manual unlock alias
+
+set -euo pipefail
+
+# Suppress Node.js deprecation warnings from bw cli
+export NODE_OPTIONS="--no-deprecation"
+
+SESSION_FILE="${BW_SESSION_FILE:-$HOME/.bw_session}"
+
+status() {
+    if [[ ! -f "$SESSION_FILE" ]]; then
+        echo "No session file"
+        return 1
+    fi
+
+    export BW_SESSION=$(cat "$SESSION_FILE")
+    local status
+    status=$(bw status 2>/dev/null | grep -oP '"status":"\K[^"]+' || echo "error")
+    echo "Status: $status"
+    [[ "$status" == "unlocked" ]]
+}
+
+lock_session() {
+    if [[ -f "$SESSION_FILE" ]]; then
+        export BW_SESSION=$(cat "$SESSION_FILE")
+        bw lock 2>/dev/null || true
+        rm -f "$SESSION_FILE"
+        echo "unset BW_SESSION"
+        echo "# Session locked and cleared" >&2
+    else
+        echo "# No session to lock" >&2
+    fi
+}
+
+load_or_unlock() {
+    # Try existing session first
+    if [[ -f "$SESSION_FILE" ]]; then
+        local session
+        session=$(cat "$SESSION_FILE")
+        export BW_SESSION="$session"
+
+        # Check if still valid
+        if bw status 2>/dev/null | grep -q '"status":"unlocked"'; then
+            echo "export BW_SESSION='$session'"
+            echo "# Session loaded from cache" >&2
+            return 0
+        fi
+        echo "# Cached session expired" >&2
+    fi
+
+    # Check if logged in
+    if bw status 2>/dev/null | grep -q '"status":"unauthenticated"'; then
+        echo "# Not logged in. Run: bw login" >&2
+        return 1
+    fi
+
+    # Need to unlock
+    echo "# Unlocking Bitwarden..." >&2
+    local session
+    session=$(bw unlock --raw) || return 1
+
+    # Save session
+    echo "$session" > "$SESSION_FILE"
+    chmod 600 "$SESSION_FILE"
+
+    echo "export BW_SESSION='$session'"
+    echo "# Session unlocked and cached" >&2
+}
+
+case "${1:-}" in
+    --status|-s)
+        status
+        ;;
+    --lock|-l)
+        lock_session
+        ;;
+    --help|-h)
+        cat <<EOF
+Usage: eval \$(bw-session)
+
+Options:
+    --status, -s    Check session status
+    --lock, -l      Lock vault and clear session
+    --help, -h      Show this help
+
+Add to shell rc:
+    eval \$(bw-session)           # Auto-load on shell start
+    alias bwu='eval \$(bw-session)'  # Manual unlock
+EOF
+        ;;
+    *)
+        load_or_unlock
+        ;;
+esac

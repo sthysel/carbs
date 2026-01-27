@@ -4,6 +4,11 @@ run = 'shell -- mv "$@" ~/wallpaper/'
 desc = "wallpaper: Move file(s) to wallpaper collection"
 
 [[mgr.prepend_keymap]]
+on = ["m", "m"]
+run = 'shell -- mv "$@" ~/memes/'
+desc = "memes: Move file(s) to memes collection"
+
+[[mgr.prepend_keymap]]
 on   = [ "b", "i" ]
 run  = 'shell --block -- beet import "$@"'
 desc = "beets: Import selected directory/file to beets library"

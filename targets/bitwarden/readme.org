@@ -1,0 +1,145 @@
+#+TITLE: Bitwarden SSH Key Management
+
+Sync SSH keys and certificates from Bitwarden vault to local machine.
+
+* Setup
+
+** 1. Organize Keys in Bitwarden
+
+Create a folder called =ssh-keys= in the Bitwarden vault.
+
+For each SSH key pair, create an item in that folder:
+- Name: descriptive name (e.g., "GitHub Personal", "Proxmox Totorro")
+- Attachments:
+  - Private key: =id_github= (or =id_ed25519=, =id_rsa=, etc.)
+  - Public key: =id_github.pub=
+- Password field: key passphrase (maybe)
+- Notes: any additional info
+
+** 2. Deploy Target
+
+#+begin_src bash
+caifs add bitwarden
+#+end_src
+
+** 3. Configure Server (EU)
+
+#+begin_src bash
+# EU vault (default for this setup)
+bw config server https://vault.bitwarden.eu
+
+# US vault (if needed)
+bw config server https://vault.bitwarden.com
+
+# Self-hosted
+bw config server https://your-server.com
+#+end_src
+
+** 4. Login to Bitwarden CLI
+
+#+begin_src bash
+bw login
+#+end_src
+
+* Usage
+
+** Sync Keys
+
+#+begin_src bash
+# List available keys
+bw-ssh-sync --list
+
+# Sync all keys to ~/.ssh/
+bw-ssh-sync
+
+# Force overwrite existing keys
+bw-ssh-sync --force
+#+end_src
+
+** Session Management
+
+Use =bw-session= to unlock once and cache the session:
+
+#+begin_src bash
+# Unlock and load session (prompts for master password if needed)
+eval $(bw-session)
+
+# Check status
+bw-session --status
+
+# Lock and clear session
+eval $(bw-session --lock)
+#+end_src
+
+Add to =~/.zshrc= for persistent sessions:
+#+begin_src bash
+# Auto-load session on shell start (prompts if vault locked)
+eval $(bw-session)
+
+# Or use an alias for manual unlock
+alias bwu='eval $(bw-session)'
+#+end_src
+
+Session is cached in =~/.bw_session= (chmod 600) until you lock or logout.
+
+* Adding New Keys
+
+** Store Existing Key (CLI)
+
+#+begin_src bash
+# Add existing key to Bitwarden
+bw-ssh-add ~/.ssh/id_github "GitHub Personal"
+
+# With notes
+bw-ssh-add ~/.ssh/id_work "Work Server" --notes "Prod access"
+
+# To a different folder
+bw-ssh-add ~/.ssh/id_special "Special Key" --folder "other-keys"
+#+end_src
+
+** Generate and Store New Key
+
+#+begin_src bash
+# Generate locally
+ssh-keygen -t ed25519 -C "sthysel@gmail.com" -f ~/.ssh/id_newkey
+
+# Add to Bitwarden
+bw-ssh-add ~/.ssh/id_newkey "New Key Description"
+
+# Delete local copies after confirming sync works
+bw-ssh-sync --list
+rm ~/.ssh/id_newkey ~/.ssh/id_newkey.pub
+#+end_src
+
+* Certificates
+
+For SSH certificates (signed keys), store them as attachments alongside the keys:
+- =id_github= (private key)
+- =id_github.pub= (public key)
+- =id_github-cert.pub= (certificate)
+
+* Custom Folder
+
+Use a different Bitwarden folder:
+#+begin_src bash
+BW_SSH_FOLDER="work-keys" bw-ssh-sync
+#+end_src
+
+* New Machine Setup
+
+#+begin_src bash
+# 1. Deploy target
+caifs add bitwarden
+
+# 2. Configure EU server (done automatically by post.sh)
+bw config server https://vault.bitwarden.eu
+
+# 3. Login
+bw login
+
+# 4. Sync keys
+bw-ssh-sync
+
+# 5. Test
+ssh -T git@github.com
+#+end_src

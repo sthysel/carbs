@@ -35,5 +35,3 @@ export GDK_DPI_SCALE=1
 
 # SSH agent
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
-
-export CAIFS_COLLECTIONS="$HOME/.config/dotfiles/targets"

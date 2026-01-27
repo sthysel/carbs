@@ -1,1 +1,24 @@
-* yazi file manager
+#+TITLE: Yazi File Manager
+
+Terminal file manager with vim-like keybindings.
+
+* Custom Keybindings
+
+| Key       | Action                                      |
+|-----------+---------------------------------------------|
+| =w a=     | Move file(s) to ~/wallpaper/                |
+| =m m=     | Move file(s) to ~/memes/                    |
+| =b i=     | Import selected to beets library            |
+| =b r=     | Remove album from beets library             |
+| =b f=     | Fingerprint folder with beets               |
+| =b l=     | Move to music-later on external drive       |
+| =<enter>= | Smart enter (dir or open file)              |
+| =;=       | Start bunny.yazi (bookmark jumper)          |
+
+* Built-in Help
+
+Press =~= or =?= in yazi to see all keybindings (including defaults).
+
+* Plugins
+
+Configured in =package.toml=, installed via =ya pack=.
