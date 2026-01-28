@@ -70,8 +70,9 @@
   "theme.bar.menus.monochrome": false,
   "theme.font.label": "Ubuntu Nerd Font",
   "theme.font.name": "Ubuntu Nerd Font",
-  "theme.font.size": "1.2rem",
+  "theme.font.size": "0.5rem",
   "theme.font.style": "normal",
   "menus.clock.weather.key": "/home/thys/geheime/weather.json",
-  "theme.matugen": false
+  "theme.matugen": false,
+  "theme.bar.transparent": true
 }

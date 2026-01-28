@@ -29,9 +29,5 @@ export NUMBAPRO_LIBDEVICE=/opt/cuda/nvvm/libdevice
 export NUMBAPRO_NVVM=/opt/cuda/nvvm/lib64/libnvvm.so
 export LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}/opt/cuda/targets/x86_64-linux/lib:/lib/x86_64-linux-gnu"
 
-# GTK scaling
-export GDK_SCALE=1
-export GDK_DPI_SCALE=1
-
 # SSH agent
 export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"

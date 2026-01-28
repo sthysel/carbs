@@ -111,6 +111,22 @@ bw-ssh-sync --list
 rm ~/.ssh/id_newkey ~/.ssh/id_newkey.pub
 #+end_src
 
+* Note: SSH Keys Tab vs Attachments
+
+This setup stores SSH keys as *attachments on Login items* in a folder. They will
+*not* appear in the Bitwarden GUI's "SSH Keys" tab.
+
+The GUI's SSH Keys tab shows Bitwarden's native SSH Key item type, which:
+- Only supports ED25519 keys
+- Stores key content in fields (not files)
+- Is designed for the desktop app's SSH Agent feature
+
+The attachment approach used here:
+- Supports any key type (RSA, ED25519, ECDSA, etc.)
+- Stores actual key files
+- Works with CLI on headless servers
+- Look in your =ssh-keys= folder to find them
+
 * Certificates
 
 For SSH certificates (signed keys), store them as attachments alongside the keys:
