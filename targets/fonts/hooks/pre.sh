@@ -15,3 +15,8 @@ yay_install \
     ttf-nerd-fonts-symbols \
     ttf-roboto \
     ttf-ubuntu-font-family
+
+echo "Installing font tools..."
+yay_install \
+    font-manager \
+    fontpreview
