@@ -12,7 +12,8 @@ yay_install \
     python-lsp-server \
     spell \
     aspell-en \
-    ttf-sourcecodepro-nerd
+    ttf-sourcecodepro-nerd \
+    wl-clipboard
 
 # Clone Spacemacs if not already present
 if [ ! -d "$HOME/.emacs.d" ]; then

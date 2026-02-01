@@ -252,7 +252,7 @@ It should only modify the values of Spacemacs settings."
         ;; fixed-pitch faces. The `:size' can be specified as
         ;; a non-negative integer (pixel size), or a floating-point (point size).
         ;; Point size is recommended, because it's device independent. (default 10.0)
-        dotspacemacs-default-font '("Source Code Pro"
+        dotspacemacs-default-font '("Hack"
                                        :size 10.0
                                        :weight normal
                                        :width normal)
@@ -580,6 +580,13 @@ This function is called immediately after `dotspacemacs/init', before layer
 configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
+
+    ;; Silence treesit warnings for missing grammars
+    (add-to-list 'warning-suppress-types '(treesit))
+
+    ;; Ensure just files are recognized
+    (add-to-list 'auto-mode-alist '("\\.just\\'" . just-mode))
+    (add-to-list 'auto-mode-alist '("/just\\.d/.*\\'" . just-mode))
     )
 
 (defun dotspacemacs/user-config ()
@@ -590,11 +597,30 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
     (editorconfig-mode 1)
 
-    ;; Wayland clipboard: enable PRIMARY selection (highlight-to-copy, middle-click-to-paste)
+    ;; Wayland clipboard integration using wl-clipboard
+    (setq wl-copy-process nil)
+    (defun wl-copy (text)
+      "Copy TEXT to Wayland clipboard using wl-copy."
+      (setq wl-copy-process (make-process :name "wl-copy"
+                                          :buffer nil
+                                          :command '("wl-copy" "-f" "-n")
+                                          :connection-type 'pipe
+                                          :noquery t))
+      (process-send-string wl-copy-process text)
+      (process-send-eof wl-copy-process))
+    (defun wl-paste ()
+      "Paste from Wayland clipboard using wl-paste."
+      (if (and wl-copy-process (process-live-p wl-copy-process))
+          nil
+        (shell-command-to-string "wl-paste -n | tr -d '\r'")))
+    (setq interprogram-cut-function 'wl-copy)
+    (setq interprogram-paste-function 'wl-paste)
+
+    ;; Standard clipboard settings
     (setq select-enable-primary t)
     (setq select-enable-clipboard t)
-    ;; Selecting text copies to PRIMARY immediately (like X11)
     (setq select-active-regions t)
+    (setq evil-kill-on-visual-paste nil)
 
     ;; org general
     (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
@@ -654,7 +680,7 @@ before packages are loaded."
         ;;         :server-id 'just-lsp))
 
         ;; Keep ruff for linting/formatting, ty for type checking
-        (setq lsp-enabled-clients '(ty-lsp ruff-lsp semgrep-lsp just-lsp)))
+        (setq lsp-enabled-clients '(ty-lsp ruff-lsp semgrep-ls yamlls just-lsp)))
     )
 
 

@@ -43,7 +43,8 @@ arch() {
     yay_install \
         wl-clipboard \
         cliphist \
-        wl-clip-persist
+        wl-clip-persist \
+        xclip
 
     # Display manager and session management
     yay_install \
