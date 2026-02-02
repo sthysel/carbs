@@ -258,7 +258,7 @@ It should only modify the values of Spacemacs settings."
                                        :width normal)
 
         ;; Default icons font, it can be `all-the-icons' or `nerd-icons'.
-        dotspacemacs-default-icons-font 'all-the-icons
+        dotspacemacs-default-icons-font 'nerd-icons
 
         ;; The leader key (default "SPC")
         dotspacemacs-leader-key "SPC"
@@ -600,19 +600,19 @@ before packages are loaded."
     ;; Wayland clipboard integration using wl-clipboard
     (setq wl-copy-process nil)
     (defun wl-copy (text)
-      "Copy TEXT to Wayland clipboard using wl-copy."
-      (setq wl-copy-process (make-process :name "wl-copy"
-                                          :buffer nil
-                                          :command '("wl-copy" "-f" "-n")
-                                          :connection-type 'pipe
-                                          :noquery t))
-      (process-send-string wl-copy-process text)
-      (process-send-eof wl-copy-process))
+        "Copy TEXT to Wayland clipboard using wl-copy."
+        (setq wl-copy-process (make-process :name "wl-copy"
+                                  :buffer nil
+                                  :command '("wl-copy" "-f" "-n")
+                                  :connection-type 'pipe
+                                  :noquery t))
+        (process-send-string wl-copy-process text)
+        (process-send-eof wl-copy-process))
     (defun wl-paste ()
-      "Paste from Wayland clipboard using wl-paste."
-      (if (and wl-copy-process (process-live-p wl-copy-process))
-          nil
-        (shell-command-to-string "wl-paste -n | tr -d '\r'")))
+        "Paste from Wayland clipboard using wl-paste."
+        (if (and wl-copy-process (process-live-p wl-copy-process))
+            nil
+            (shell-command-to-string "wl-paste -n | tr -d '\r'")))
     (setq interprogram-cut-function 'wl-copy)
     (setq interprogram-paste-function 'wl-paste)
 

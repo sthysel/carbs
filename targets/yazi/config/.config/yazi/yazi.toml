@@ -2,6 +2,16 @@
 show_hidden = true
 linemode = "size"
 
+[opener]
+video = [
+    { run = 'mpv "$@"', orphan = true, desc = "Play with mpv" },
+]
+
+[open]
+prepend_rules = [
+    { mime = "video/*", use = "video" },
+]
+
 [preview]
 max_width = 1920
 max_height = 1080
