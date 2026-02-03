@@ -597,26 +597,7 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
     (editorconfig-mode 1)
 
-    ;; Wayland clipboard integration using wl-clipboard
-    (setq wl-copy-process nil)
-    (defun wl-copy (text)
-        "Copy TEXT to Wayland clipboard using wl-copy."
-        (setq wl-copy-process (make-process :name "wl-copy"
-                                  :buffer nil
-                                  :command '("wl-copy" "-f" "-n")
-                                  :connection-type 'pipe
-                                  :noquery t))
-        (process-send-string wl-copy-process text)
-        (process-send-eof wl-copy-process))
-    (defun wl-paste ()
-        "Paste from Wayland clipboard using wl-paste."
-        (if (and wl-copy-process (process-live-p wl-copy-process))
-            nil
-            (shell-command-to-string "wl-paste -n | tr -d '\r'")))
-    (setq interprogram-cut-function 'wl-copy)
-    (setq interprogram-paste-function 'wl-paste)
-
-    ;; Standard clipboard settings
+    ;; Clipboard settings - pgtk Emacs handles Wayland natively
     (setq select-enable-primary t)
     (setq select-enable-clipboard t)
     (setq select-active-regions t)
