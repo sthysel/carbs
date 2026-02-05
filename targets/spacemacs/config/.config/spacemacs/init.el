@@ -603,6 +603,21 @@ before packages are loaded."
     (setq select-active-regions t)
     (setq evil-kill-on-visual-paste nil)
 
+    ;; Wayland PRIMARY selection fix - use wl-paste directly
+    ;; pgtk Emacs doesn't reliably handle PRIMARY selection on Wayland
+    (defun my/wayland-paste-primary ()
+      "Paste from Wayland PRIMARY selection using wl-paste."
+      (interactive)
+      (let ((text (shell-command-to-string "wl-paste --primary --no-newline 2>/dev/null")))
+        (when (and text (not (string-empty-p text)))
+          (insert text))))
+
+    ;; Bind middle-click to use wl-paste for PRIMARY selection
+    (define-key evil-normal-state-map [mouse-2] 'my/wayland-paste-primary)
+    (define-key evil-insert-state-map [mouse-2] 'my/wayland-paste-primary)
+    (define-key evil-visual-state-map [mouse-2] 'my/wayland-paste-primary)
+    (global-set-key [mouse-2] 'my/wayland-paste-primary)
+
     ;; org general
     (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
     (setq org-agenda-files '("~/org/todo-general.org"))
