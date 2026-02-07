@@ -82,51 +82,54 @@ generic() { echo "all OS"; }    # All platforms
 
 ** Packages
 
-| Package      | Description                                                     |
-|--------------+-----------------------------------------------------------------|
-| asciinema    | Terminal session recorder config                                |
-| autostart    | XDG autostart desktop entries                                   |
-| awscli       | AWS CLI v2 with bash completion                                 |
-| azure-cli    | Azure CLI with bash/zsh completion (via uv)                     |
-| beets        | Music library manager with plugins (via uv)                     |
-| bootstrap    | Core system packages and yay/uv installation                    |
-| conky        | System monitor widget config                                    |
-| dive         | Docker image layer explorer                                     |
-| docker       | Docker engine and user group setup                              |
-| dpi          | X11 DPI and display scaling settings                            |
-| dunst        | Notification daemon config                                      |
-| editorconfig | Standard editorconfig for code projects                         |
-| emoji        | Emoji list and rofi-emoji picker script                         |
-| entropy      | Hardware RNG entropy daemon (rng-tools)                         |
-| fonts        | Nerd fonts, Fira Code, Font Awesome, etc.                       |
-| git          | Git configuration                                               |
-| gps          | GPS daemon (gpsd) and tools                                     |
-| hyprland     | Hyprland Wayland compositor config                              |
-| i3           | i3 window manager config and scripts                            |
-| just         | Just command runner with LSP and completions                    |
-| kitty        | Kitty terminal emulator config                                  |
-| local-bin    | Custom scripts in ~/.local/bin                                  |
-| locale       | System locale configuration (en_AU, en_US, af_ZA)               |
-| mpd          | Music Player Daemon config and service                          |
-| nobeep       | Disable PC speaker beep                                         |
-| nvidia       | NVIDIA drivers and initcpio update hook                         |
-| nvim         | Neovim (LazyVim) config                                         |
-| oh-my-posh   | Oh My Posh prompt theme                                         |
-| oras         | OCI Registry As Storage - push/pull OCI artifacts to registries |
-| pam          | PAM environment variables                                       |
-| picom        | X11 compositor config                                           |
-| pipewire     | PipeWire audio stack and services                               |
-| python-dev   | Python dev tools (ruff, pytest, poetry via uv)                  |
-| ranger       | Ranger file manager (via uv)                                    |
-| rofi         | Application launcher config                                     |
-| spacemacs    | Spacemacs/Emacs config and layers                               |
-| ssh          | OpenSSH and ssh-agent service                                   |
-| starship     | Starship prompt config                                          |
-| usbdrive     | USB automounting (udisks2/udiskie)                              |
-| uwsm         | Universal Wayland Session Manager config                        |
-| wallpaper    | Desktop wallpapers                                              |
-| waybar       | Wayland status bar config                                       |
-| waypaper     | Wallpaper manager config                                        |
-| webex        | Webex desktop entry                                             |
-| yazi         | Yazi terminal file manager config and plugins                   |
-| zsh          | Zsh shell config and aliases                                    |
+| Package      | Description                                                      |
+|--------------+------------------------------------------------------------------|
+| asciinema    | Terminal session recorder config                                 |
+| autostart    | XDG autostart desktop entries                                    |
+| avassa-cli   | Avassa edge computing CLI and supctl device management tool      |
+| aws-cli      | AWS CLI v2 with bash completion                                  |
+| azure-cli    | Azure CLI with bash/zsh completion (via uv)                      |
+| beets        | Music library manager with plugins (via uv)                      |
+| bitwarden    | Bitwarden CLI with SSH key management helpers                    |
+| bootstrap    | Core system packages and yay/uv installation                     |
+| claude-code  | Claude Code agentic AI coding CLI with auto-update               |
+| conky        | System monitor widget config                                     |
+| docker       | Docker engine and user group setup                               |
+| dpi          | X11 DPI and display scaling settings                             |
+| dunst        | Notification daemon config                                       |
+| editorconfig | Standard editorconfig for code projects                          |
+| emoji        | Emoji list and rofi-emoji picker script                          |
+| entropy      | Hardware RNG entropy daemon (rng-tools)                          |
+| firefox      | Firefox Developer Edition browser                                |
+| fonts        | Nerd fonts, Fira Code, Font Awesome, etc.                        |
+| git          | Git configuration                                                |
+| gps          | GPS daemon (gpsd) and tools                                      |
+| hyprland     | Hyprland Wayland compositor config                               |
+| i3           | i3 window manager config and scripts                             |
+| just         | Just command runner with LSP and completions                     |
+| kitty        | Kitty terminal emulator config                                   |
+| local-bin    | Custom scripts in ~/.local/bin                                   |
+| locale       | System locale configuration (en_AU, en_US, af_ZA)                |
+| logitech     | Logitech device manager (Solaar) with mouse battery monitoring   |
+| mcp-servers  | MCP protocol servers for Claude Code (markitdown, context7)      |
+| mimeapps     | Default application associations (mpv, zathura, imv, thunar)     |
+| mpd          | Music Player Daemon config and service                           |
+| nobeep       | Disable PC speaker beep                                          |
+| nvidia       | NVIDIA drivers and initcpio update hook                          |
+| nvim         | Neovim (LazyVim) config                                          |
+| oh-my-posh   | Oh My Posh prompt theme                                          |
+| ollama       | Local LLM inference engine with NVIDIA CUDA support              |
+| pipewire     | PipeWire audio stack and services                                |
+| python-dev   | Python dev tools (ruff, pytest, poetry via uv)                   |
+| ranger       | Ranger file manager (via uv)                                     |
+| rofi         | Application launcher config                                      |
+| spacemacs    | Spacemacs/Emacs config and layers                                |
+| ssh          | OpenSSH and ssh-agent service                                    |
+| starship     | Starship prompt config                                           |
+| usbdrive     | USB automounting (udisks2/udiskie)                               |
+| virt         | QEMU/KVM virtualization with libvirt (virt-manager, OVMF, swtpm) |
+| wallpaper    | Desktop wallpapers                                               |
+| waybar       | Wayland status bar config                                        |
+| webex        | Webex desktop entry                                              |
+| yazi         | Yazi terminal file manager config and plugins                    |
+| zsh          | Zsh shell config and aliases                                     |
