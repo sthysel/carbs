@@ -20,3 +20,8 @@ else
 
     echo "nvidia modules configured. Reboot required."
 fi
+
+# Enable nvidia power management services for suspend/resume
+# These preserve GPU state across sleep, preventing Firefox and other
+# GPU-accelerated apps from crashing on wake
+rootdo systemctl enable nvidia-suspend nvidia-resume nvidia-hibernate

@@ -1,0 +1,12 @@
+#+TITLE: Firefox
+
+Firefox Developer Edition browser.
+
+The =mimeapps= target sets it as the default browser for HTTP/HTTPS and
+HTML MIME types.
+
+* Deploy
+
+#+begin_src bash
+caifs add firefox
+#+end_src
