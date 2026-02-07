@@ -41,8 +41,14 @@ This function should only modify configuration layer settings."
              csv
              toml
              just
-             ansible
+             (ansible :variables ansible-backend 'lsp)
              (yaml :variables yaml-enable-lsp t)
+             (shell-scripts :variables
+                 shell-scripts-backend 'lsp)
+             (docker :variables
+                 docker-dockerfile-backend 'lsp)
+             (markdown :variables
+                 markdown-backend 'lsp)
              auto-completion
              better-defaults
              spacemacs-layouts
@@ -51,7 +57,6 @@ This function should only modify configuration layer settings."
              helm
              lsp
              emoji
-             markdown
              multiple-cursors
              (org :variables
                  org-enable-roam-support t
@@ -606,11 +611,11 @@ before packages are loaded."
     ;; Wayland PRIMARY selection fix - use wl-paste directly
     ;; pgtk Emacs doesn't reliably handle PRIMARY selection on Wayland
     (defun my/wayland-paste-primary ()
-      "Paste from Wayland PRIMARY selection using wl-paste."
-      (interactive)
-      (let ((text (shell-command-to-string "wl-paste --primary --no-newline 2>/dev/null")))
-        (when (and text (not (string-empty-p text)))
-          (insert text))))
+        "Paste from Wayland PRIMARY selection using wl-paste."
+        (interactive)
+        (let ((text (shell-command-to-string "wl-paste --primary --no-newline 2>/dev/null")))
+            (when (and text (not (string-empty-p text)))
+                (insert text))))
 
     ;; Bind middle-click to use wl-paste for PRIMARY selection
     (define-key evil-normal-state-map [mouse-2] 'my/wayland-paste-primary)
@@ -660,23 +665,30 @@ before packages are loaded."
         ;; Disable pylsp
         (setq lsp-disabled-clients '(pylsp))
 
-        ;; Register ty
+        ;; Register ty for Python
         (lsp-register-client
             (make-lsp-client
                 :new-connection (lsp-stdio-connection '("ty" "server"))
                 :activation-fn (lsp-activate-on "python")
                 :server-id 'ty-lsp
-                :priority 10))  ; Higher priority than pylsp
+                :priority 10))
 
-        ;; Register just
-        ;; (lsp-register-client
-        ;;     (make-lsp-client
-        ;;         :new-connection (lsp-stdio-connection "just-lsp")
-        ;;         :activation-fn (lsp-activate-on "justfile")
-        ;;         :server-id 'just-lsp))
+        ;; Register rumdl for Markdown
+        (lsp-register-client
+            (make-lsp-client
+                :new-connection (lsp-stdio-connection '("rumdl" "server" "--stdio"))
+                :major-modes '(markdown-mode gfm-mode)
+                :server-id 'rumdl-lsp))
 
-        ;; Keep ruff for linting/formatting, ty for type checking
-        (setq lsp-enabled-clients '(ty-lsp ruff-lsp semgrep-ls yamlls just-lsp)))
+        ;; Register just-lsp for Justfiles
+        (lsp-register-client
+            (make-lsp-client
+                :new-connection (lsp-stdio-connection "just-lsp")
+                :major-modes '(just-mode just-ts-mode)
+                :server-id 'just-lsp))
+
+        ;; Enabled LSP clients
+        (setq lsp-enabled-clients '(ty-lsp ruff-lsp yamlls just-lsp rumdl-lsp bash-ls ansible-ls dockerfile-ls semgrep-ls)))
     )
 
 

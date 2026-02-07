@@ -1,0 +1,27 @@
+#+TITLE: Claude Code
+
+Anthropic's agentic coding CLI. Lives in the terminal, understands your
+codebase, and helps you code faster through natural language.
+
+Installed via the native installer which auto-updates in the background.
+
+* Deploy
+
+#+begin_src bash
+caifs add -d targets claude-code
+#+end_src
+
+* Authentication
+
+After install, run =claude= and authenticate with either:
+
+- Claude Pro/Max subscription (claude.ai account)
+- Claude Console (console.anthropic.com, requires active billing)
+
+* Update
+
+Auto-updates are enabled by default. To update manually:
+
+#+begin_src bash
+claude update
+#+end_src

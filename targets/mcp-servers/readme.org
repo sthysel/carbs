@@ -1,0 +1,38 @@
+#+TITLE: MCP Servers
+
+MCP (Model Context Protocol) servers for use by LLM agents like Claude Code.
+
+* Servers
+
+** markitdown-mcp
+
+https://github.com/microsoft/markitdown/tree/main/packages/markitdown-mcp
+
+Converts documents and URLs to markdown. Supports PDF, DOCX, XLSX, PPTX,
+HTML, images, audio, and more. Exposes a =convert_to_markdown(uri)= tool
+that accepts =file://=, =http://=, =https://=, and =data:= URIs.
+
+Installed via =uv= and registered with Claude Code at user scope.
+
+** context7
+
+https://github.com/upstash/context7
+
+Fetches up-to-date library documentation on demand, preventing the model
+from hallucinating outdated APIs. Resolves library names and pulls
+version-specific docs and code examples directly into the context.
+
+Installed via =npm= and run via =npx=. Registered with Claude Code at user
+scope.
+
+* Deploy
+
+#+begin_src bash
+caifs add -d targets mcp-servers
+#+end_src
+
+* Adding a new MCP server
+
+1. Add the install command to =hooks/pre.sh=
+2. Add the =claude mcp add= registration to =hooks/post.sh=
+3. Document it in this readme
