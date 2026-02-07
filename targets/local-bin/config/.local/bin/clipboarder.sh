@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Route clipboard to appropriate app
 
 set -euo pipefail
 

@@ -1,4 +1,5 @@
 #!/bin/bash
+# cheatsheet: Convert MP4 to animated GIF
 
 IN="$1"
 OUT="${1/mp4/gif}"

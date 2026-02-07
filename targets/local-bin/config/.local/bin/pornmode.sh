@@ -1,4 +1,5 @@
 #!/bin/bash
+# cheatsheet: Panic button - hide everything
 #STOP/HIDE EVERYTHING
 set -euo pipefail
 term=kitty

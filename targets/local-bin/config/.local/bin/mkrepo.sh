@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Create GitHub repo from CLI
 
 # https://gist.github.com/robwierzbowski/5430952/
 # Create and push to a new github repo from the command line.

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Resize focused window interactively
 
 # echo "📐" | rofi -dmenu -p "Give width and height:" | xargs xdotool windowsize "$(xdotool getwindowfocus)"
 

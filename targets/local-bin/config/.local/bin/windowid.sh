@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Get window criteria for i3
 # shellcheck disable=SC2016
 
 # Source:

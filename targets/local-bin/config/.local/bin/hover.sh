@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Hover window in bottom corner
 
 [ -z "$1" ] && exit # If $1 is left, hovers in the bottom left, if right, the bottom right
 current=$(xdotool getwindowfocus)

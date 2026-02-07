@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Browse installed Arch packages with fzf
 
 set -euo pipefail
 

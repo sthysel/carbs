@@ -1,4 +1,5 @@
 #!/bin/sh
+# cheatsheet: Yes/No rofi prompt
 # A dmenu binary prompt script.
 # Gives a dmenu prompt labeled with $1 to perform command $2.
 # For example:

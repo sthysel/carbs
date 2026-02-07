@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Auto-configure external monitors
 
 export DISPLAY=:0
 export XAUTHORITY=~.Xauthority

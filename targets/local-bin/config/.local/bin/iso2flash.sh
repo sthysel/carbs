@@ -1,4 +1,5 @@
 #!/bin/sh
+# cheatsheet: Write ISO to USB drive
 
 # flash iso to flash drive
 

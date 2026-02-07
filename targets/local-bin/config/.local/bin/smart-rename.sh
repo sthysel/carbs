@@ -1,4 +1,5 @@
 #!/bin/bash
+# cheatsheet: AI-rename images using blip-caption
 
 if [ -z "$1" ]; then
 	echo "Usage: $0 ~/path/to/image/directory"

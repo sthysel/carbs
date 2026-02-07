@@ -1,4 +1,5 @@
 #!/bin/bash
+# cheatsheet: Convert video to WebM
 
 # ffmpeg -i input.mp4 -c:v libvpx -b:v 1M -c:a libvorbis output.webm
 

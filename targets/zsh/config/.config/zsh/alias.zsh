@@ -32,6 +32,7 @@ alias -- -='cd -' # Jump to last dir
 # make dir and enter
 function mkcd() { mkdir -p "$1" && cd "$1" || return; }
 
+# cd into ~/.local/bin
 function cdtools() { cd ~/.local/bin/"$1" && ls || return; }
 
 # file manager
@@ -47,6 +48,7 @@ function y() {
 # if I forget "yazi", I may remember "file manager"
 alias fm='y'
 
+# extract any archive format
 function extract () {
     if [ -f "$1" ]; then
         case "$1" in

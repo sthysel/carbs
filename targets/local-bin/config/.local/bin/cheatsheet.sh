@@ -1,4 +1,5 @@
 #!/bin/bash
+# cheatsheet: System cheatsheet (Super + /)
 # shellcheck disable=SC2129
 # System cheatsheet via rofi modi - Tab to switch sections
 # Usage: called directly to launch rofi, or by rofi as a script mode provider
@@ -90,11 +91,18 @@ emit_zsh() {
         entry "$name" "$value"
     done < <(grep -E "^alias " "$HOME/.config/zsh/alias.zsh")
 
+    # Parse functions with preceding comment as description
+    local comment=""
     while IFS= read -r line; do
-        local func_name
-        func_name=$(echo "$line" | sed -E 's/^function ([a-zA-Z_][a-zA-Z0-9_]*)\(\).*/\1/')
-        entry "$func_name()" "function"
-    done < <(grep -E "^function " "$HOME/.config/zsh/alias.zsh")
+        if [[ "$line" =~ ^#\ (.+) ]]; then
+            comment="${BASH_REMATCH[1]}"
+            continue
+        fi
+        if [[ "$line" =~ ^function\ ([a-zA-Z_][a-zA-Z0-9_]*) ]]; then
+            entry "${BASH_REMATCH[1]}()" "${comment:-function}"
+            comment=""
+        fi
+    done < "$HOME/.config/zsh/alias.zsh"
 }
 
 emit_scripts() {
@@ -103,31 +111,38 @@ emit_scripts() {
         return
     fi
 
-    find "$HOME/.local/bin" -maxdepth 1 \( -type f -executable -o -type l \) 2>/dev/null | sort | while read -r script; do
-        local script_name
+    # Only show scripts with a "# cheatsheet: <description>" marker
+    grep -Rl '# cheatsheet: ' "$HOME/.local/bin" 2>/dev/null | sort | while read -r script; do
+        local script_name desc
         script_name=$(basename "$script")
-        case "$script_name" in
-            activate-global-python-argcomplete|aws|aws_completer|az|az.bat|az.completion.sh)
-                ;;
-            *)
-                sub "$script_name"
-                ;;
-        esac
+        desc=$(grep -m1 '^# cheatsheet: ' "$script" | sed 's/^# cheatsheet: //')
+        entry "$script_name" "$desc"
     done
 }
 
-emit_just() {
-    printf '\0markup-rows\x1ftrue\n'
-    if ! command -v just >/dev/null 2>&1; then
-        return
-    fi
+# Strip pango markup to get plain text
+strip_markup() { sed 's/<[^>]*>//g' <<< "$1" | xargs; }
 
-    just --summary 2>/dev/null | tr ' ' '\n' | sort | while read -r cmd; do
-        [ -n "$cmd" ] && sub "just $cmd"
-    done
+# Execute selection: $1=section, $2=selected entry (with markup)
+# Output nothing to close rofi, or re-emit the list to stay open
+run_selection() {
+    local section="$1" selected="$2"
+    local plain
+    plain=$(strip_markup "$selected")
+
+    case "$section" in
+        scripts)
+            # First word is the script name
+            local script_name="${plain%% *}"
+            if [ -x "$HOME/.local/bin/$script_name" ]; then
+                coproc kitty -e "$HOME/.local/bin/$script_name"
+            fi
+            ;;
+    esac
 }
 
-# Rofi script mode: $1 is the section name, $2 (if present) is the selected entry (ignored)
+# Rofi script mode: $1 is the section name
+# ROFI_RETV=1 means user selected an entry, passed as $2
 case "$1" in
     hyprland)
         emit_hyprland
@@ -136,15 +151,16 @@ case "$1" in
         emit_zsh
         ;;
     scripts)
-        emit_scripts
-        ;;
-    just)
-        emit_just
+        if [ "${ROFI_RETV:-0}" -eq 1 ] && [ -n "$2" ]; then
+            run_selection scripts "$2"
+        else
+            emit_scripts
+        fi
         ;;
     *)
         # Launch rofi with all sections as modi - Tab to switch
         rofi -show Hyprland \
-            -modi "Hyprland:$SCRIPT_PATH hyprland,Zsh:$SCRIPT_PATH zsh,Scripts:$SCRIPT_PATH scripts,Just:$SCRIPT_PATH just" \
+            -modi "Hyprland:$SCRIPT_PATH hyprland,Aliases:$SCRIPT_PATH zsh,Scripts:$SCRIPT_PATH scripts" \
             -markup-rows -no-show-icons \
             -theme-str 'window { width: 55%; height: 75%; }' \
             -theme-str 'listview { columns: 1; lines: 50; spacing: 0px; scrollbar: true; fixed-height: false; }' \

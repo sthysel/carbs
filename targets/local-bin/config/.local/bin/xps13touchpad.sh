@@ -1,4 +1,5 @@
 #!/bin/sh
+# cheatsheet: Configure XPS 13 touchpad
 # Touchpad config
 
 touchpad="DLL0704:01 06CB:76AE Touchpad"

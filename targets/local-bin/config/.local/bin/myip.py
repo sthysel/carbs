@@ -1,4 +1,5 @@
 #!/bin/env python
+# cheatsheet: Show system IP address
 
 import socket
 

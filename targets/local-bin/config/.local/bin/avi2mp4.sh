@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# cheatsheet: Convert AVI to MP4 (h264)
 
 set -euo pipefail
 IFS=$'\n\t'
