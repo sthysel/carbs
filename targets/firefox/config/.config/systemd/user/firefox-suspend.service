@@ -1,0 +1,13 @@
+[Unit]
+Description=Freeze Firefox around suspend/resume
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=-/usr/bin/pkill -STOP firefox
+ExecStop=-/usr/bin/pkill -CONT firefox
+
+[Install]
+WantedBy=sleep.target
