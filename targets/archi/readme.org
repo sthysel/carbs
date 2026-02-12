@@ -1,0 +1,7 @@
+* Archi
+
+[[https://www.archimatetool.com/][Archi]] is a free, open source, cross-platform tool and editor to create ArchiMate models.
+
+** Wayland
+
+Archi has UI issues running under Wayland. The desktop file override forces =GDK_BACKEND=x11= so it runs under XWayland instead.
