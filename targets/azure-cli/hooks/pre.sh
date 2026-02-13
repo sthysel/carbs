@@ -1,9 +1,9 @@
 #!/bin/sh
 
 arch() {
-    yay_install python-argcomplete
+  yay_install python-argcomplete
 }
 
 generic() {
-    uv_install --prerelease allow azure-cli@latest
+  uv tool install --prerelease allow azure-cli@latest
 }
