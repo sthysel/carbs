@@ -5,12 +5,12 @@ hash = "4761fffb60a12d37096c34a356380cdf"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "ae2a1f1"
-hash = "b2afd25ad3ac851adf2a1b706d1a2add"
+rev = "8ab04b2"
+hash = "bdd196f71aa3e6aa02d1b1d6cad22424"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:smart-enter"
-rev = "6c71385"
+rev = "88990a6"
 hash = "56fdabc96fc1f4d53c96eb884b02a5be"
 
 [[plugin.deps]]
