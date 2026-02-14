@@ -1,0 +1,13 @@
+* PlantUML
+
+[[https://plantuml.com/][PlantUML]] is a component that allows you to create UML diagrams from plain text.
+
+** ArchiMate
+
+ArchiMate support is included in PlantUML's [[https://github.com/plantuml-stdlib/Archimate-PlantUML][standard library]]. Use it in diagrams with:
+
+#+begin_src plantuml
+!include <archimate/Archimate>
+#+end_src
+
+See [[https://plantuml.com/archimate-diagram]] for full documentation.
