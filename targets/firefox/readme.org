@@ -10,3 +10,33 @@ HTML MIME types.
 #+begin_src bash
 caifs add firefox
 #+end_src
+
+* Suspend/Resume Service
+
+This target installs a system-level systemd service (=firefox-suspend.service=)
+that freezes Firefox with =SIGSTOP= before suspend and thaws it with =SIGCONT=
+after resume. This prevents Firefox from hanging on wake due to stale GPU state,
+particularly on NVIDIA systems.
+
+** Why a system service, not a user service
+
+systemd runs two isolated service managers: the system manager (PID 1) and a
+per-user manager (=systemd --user=). These are completely separate — a user unit
+cannot reference or depend on a system unit.
+
+=sleep.target=, =suspend.target=, and =hibernate.target= only exist in the
+*system* service manager scope. The =systemd.special(7)= man page lists user
+scope equivalents (=exit.target=, =shutdown.target=, etc.) but sleep targets are
+not among them. The user manager simply does not know when the machine sleeps.
+
+Since systemd 256, the system sleep services also *freeze* =user.slice= via the
+kernel cgroup freezer before entering sleep. Even if user-level sleep targets
+existed, user services could not execute during the sleep transition — they would
+already be frozen.
+
+This means sleep hooks *must* be system-level services. The service file lives at
+=config/^etc/systemd/system/firefox-suspend.service= using the caifs =^= syntax
+to target the root filesystem.
+
+Firefox should handle this itself via systemd inhibitor locks on the logind D-Bus
+API, but it does not do so reliably — hence the =SIGSTOP=/=SIGCONT= workaround.
