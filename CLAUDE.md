@@ -18,12 +18,15 @@ Dotfiles and package installations are managed via CAIFS targets in `targets/`:
 targets/<package>/
 ├── config/       # Files to symlink (mirrored to $HOME)
 │   ├── .config/  # -> ~/.config/
-│   └── .local/   # -> ~/.local/
+│   ├── .local/   # -> ~/.local/
+│   └── ^etc/     # -> /etc/ (root filesystem, sudo auto-escalated)
 └── hooks/        # Installation scripts
     ├── pre.sh    # Before symlinking (install deps)
     ├── post.sh   # After symlinking (enable services)
     └── rm.sh     # During removal (cleanup)
 ```
+
+A leading `^` in a config path targets `/` instead of `$HOME`. For example, `config/^etc/systemd/system/foo.service` symlinks to `/etc/systemd/system/foo.service`. CAIFS handles privilege escalation automatically. Prefer `^` config paths over writing files in hook scripts.
 
 Hooks support OS-specific functions that execute based on the detected platform:
 
@@ -81,6 +84,8 @@ uv run ansible-playbook -v --ask-become-pass --inventory ansible/inventory/ ansi
 
 1. Create target directory: `targets/<name>/`
 2. Add config files in `targets/<name>/config/` mirroring home directory structure
+   - Use `config/.config/` for user config (`~/.config/`)
+   - Use `config/^etc/` for system config (`/etc/`) — requires sudo
 3. Add `hooks/pre.sh` to install dependencies (use `yay_install` helper)
 4. Optional: Add `hooks/post.sh` for post-install setup (enable services, etc.)
 5. Test with `caifs add -d targets <name>`
