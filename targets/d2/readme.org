@@ -1,0 +1,75 @@
+* D2
+
+[[https://d2lang.com/][D2]] is a modern diagram scripting language that turns text into diagrams.
+
+** Quick Start
+
+Render a file to SVG:
+
+#+begin_src sh
+d2 input.d2 output.svg
+#+end_src
+
+Watch mode (live reload in browser):
+
+#+begin_src sh
+d2 --watch input.d2 output.svg
+#+end_src
+
+** Syntax Primer
+
+*** Shapes and connections
+
+#+begin_src d2
+server: Web Server
+db: PostgreSQL
+
+server -> db: queries
+#+end_src
+
+*** Containers (nested shapes)
+
+#+begin_src d2
+cloud: AWS {
+  web: EC2
+  store: S3
+}
+
+cloud.web -> cloud.store: upload
+#+end_src
+
+*** Sequence diagrams
+
+#+begin_src d2
+shape: sequence_diagram
+
+alice -> bob: hello
+bob -> alice: hi
+bob -> charlie: forward
+#+end_src
+
+*** Styling
+
+#+begin_src d2
+server: Web Server {
+  style: {
+    fill: "#e0f0ff"
+    stroke: "#336699"
+    border-radius: 8
+  }
+}
+#+end_src
+
+*** Layouts
+
+D2 supports multiple layout engines via =--layout=:
+
+- =dagre= (default) — fast, good for most diagrams
+- =elk= — better for large/complex graphs
+- =tala= — proprietary, best quality (requires license)
+
+** References
+
+- [[https://d2lang.com/tour/intro][Language tour]]
+- [[https://d2lang.com/tour/style][Styling reference]]
+- [[https://github.com/terrastruct/d2][GitHub repo]]
