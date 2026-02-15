@@ -602,6 +602,9 @@ Put your configuration code here, except for variables that should be set
 before packages are loaded."
     (editorconfig-mode 1)
 
+    ;; Disable emoji rendering in org-mode — conflicts with :filetags:
+    (add-hook 'org-mode-hook (lambda () (emojify-mode -1)))
+
     ;; Clipboard settings - pgtk Emacs handles Wayland natively
     (setq select-enable-primary t)
     (setq select-enable-clipboard t)
@@ -624,34 +627,89 @@ before packages are loaded."
     (global-set-key [mouse-2] 'my/wayland-paste-primary)
 
     ;; org general
-    (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
     (setq org-agenda-files '("~/org/todo-general.org"))
     (setq org-capture-templates
         '(("t" "Todo" entry
               (file "~/org/todo-general.org")
               "* TODO %?\nSCHEDULED: %t")))
 
+    ;; org-download — screenshots go to ~/org/roam/assets/YYYY-MM/
+    (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
+    (setq org-download-image-dir "~/org/roam/assets/")
+    (setq org-download-heading-lvl nil)
+    (setq org-download-timestamp "%Y-%m/%Y%m%d_%H%M%S")
+
+    ;; screenshot capture helper
+    (defvar my/org-roam-screenshot-path nil
+      "Path of the last screenshot taken by my/org-roam-screenshot.")
+
+    (defun my/org-roam-screenshot ()
+      "Create a roam note with an inline screenshot.
+Takes a screenshot via grim+slurp, saves it to ~/org/roam/assets/YYYY-MM/,
+and creates a new roam note with the image link embedded."
+      (interactive)
+      (let* ((ts (format-time-string "%Y%m%d_%H%M%S"))
+             (subdir (format-time-string "%Y-%m"))
+             (dir (expand-file-name subdir "~/org/roam/assets/"))
+             (filename (concat ts ".png"))
+             (filepath (expand-file-name filename dir)))
+        (make-directory dir t)
+        (if (= 0 (call-process-shell-command
+                   (format "grim -g \"$(slurp)\" %s" (shell-quote-argument filepath))))
+            (progn
+              (setq my/org-roam-screenshot-path filepath)
+              (org-roam-capture- :goto nil :keys "s"))
+          (message "Screenshot cancelled."))))
+
+    (defun my/org-roam-screenshot-link ()
+      "Return org link to the last screenshot, relative to ~/org/roam/."
+      (if my/org-roam-screenshot-path
+          (let ((rel (file-relative-name my/org-roam-screenshot-path
+                                         (expand-file-name "~/org/roam/"))))
+            (prog1 (format "[[file:%s]]" rel)
+              (setq my/org-roam-screenshot-path nil)))
+        ""))
+
+    (spacemacs/set-leader-keys "a o s" 'my/org-roam-screenshot)
+
     ;; org roam
     (setq org-roam-directory (file-truename "~/org/roam/"))
     (setq org-roam-graph-viewer "firefox-developer-edition")
     (setq org-roam-db-update-on-save t)
     (setq org-roam-capture-templates
-        '(("d" ;; key
-              "default" ;; description
-              plain ;; type
-              (file "~/org/templates/roam-default.template") ;; template
-              :if-new (file "${slug}.org") ;; target
+        `(("d" "default" plain
+              (file "~/org/templates/roam-default.template")
+              :if-new (file "${slug}.org")
+              :unnarrowed t)
+          ("n" "quick note" plain
+              (file "~/org/templates/roam-default.template")
+              :if-new (file "${slug}.org")
               :immediate-finish t
+              :unnarrowed t)
+          ("s" "screenshot" plain
+              ,(concat "#+title: ${title}\n"
+                       "#+date: %T\n"
+                       "#+filetags: :screenshot:%^{Tags}\n\n"
+                       "%(my/org-roam-screenshot-link)\n\n%?")
+              :if-new (file "${slug}.org")
               :unnarrowed t)
              )
         )
 
-    ;; gptell
-    (setq gptel-backend
-        (gptel-make-perplexity "Perplexity"
-            :key 'gptel-api-key-from-auth-source  ; This reads from .authinfo
-            :stream t))
-    (setq gptel-model "sonar")  ; or another perplexity model
+    ;; gptel - LLM backends
+    ;; API keys stored in ~/.authinfo:
+    ;;   machine api.anthropic.com login apikey password sk-...
+    ;;   machine api.perplexity.ai login apikey password pplx-...
+    (gptel-make-perplexity "Perplexity"
+        :key 'gptel-api-key-from-auth-source
+        :stream t)
+    (setq gptel-model 'claude-sonnet-4-20250514
+          gptel-backend (gptel-make-anthropic "Claude"
+                            :key 'gptel-api-key-from-auth-source
+                            :stream t))
+    (spacemacs/set-leader-keys
+        "a g" 'gptel
+        "a G" 'gptel-send)
 
     ;; Quick treemacs workspace switching
     (spacemacs/set-leader-keys

@@ -1,1 +1,38 @@
 * spacemacs
+
+** Org Mode
+
+*** Capture Templates
+
+| Key           | Binding          | Description                                  |
+|---------------+------------------+----------------------------------------------|
+| =SPC a o c t= | Todo             | TODO entry in =todo-general.org=             |
+| =SPC a o r f= | Roam find/create | Roam note — prompts for title and tags       |
+| =SPC a o r f n= | Quick note     | Roam note — immediate finish, just title+tags |
+| =SPC a o s=   | Screenshot note  | Screenshot + new roam note (see below)       |
+
+*** Screenshot Workflow
+
+=SPC a o s= runs the full screenshot-to-note pipeline:
+
+1. =slurp= opens for region selection
+2. =grim= captures the screenshot
+3. Image saved to =~/org/roam/assets/YYYY-MM/YYYYMMDD_HHMMSS.png=
+4. Roam capture opens — prompts for title and tags
+5. Image link inserted into the new note
+
+=org-download-screenshot= (=SPC a o D s=) also saves to the same =assets/= directory for
+screenshots into existing notes.
+
+*** File Layout
+
+#+begin_example
+~/org/
+├── todo-general.org          # agenda + quick capture
+├── templates/
+│   └── roam-default.template # roam note template (title, date, filetags)
+└── roam/
+    ├── *.org                 # roam notes (slug-named)
+    └── assets/               # all screenshots and attachments
+        └── YYYY-MM/          # auto-created date subdirectories
+#+end_example
