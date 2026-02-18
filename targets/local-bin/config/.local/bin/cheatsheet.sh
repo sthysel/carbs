@@ -33,8 +33,8 @@ emit_hyprland() {
             continue
         fi
 
-        # shellcheck disable=SC2016
         local keys mod key combo desc
+        # shellcheck disable=SC2016
         keys=$(echo "$line" | sed -E 's/^bind[eml]* = //' | sed 's/\$mainMod/Super/g')
         mod=$(echo "$keys" | cut -d',' -f1 | xargs)
         key=$(echo "$keys" | cut -d',' -f2 | xargs)
@@ -105,6 +105,55 @@ emit_zsh() {
     done < "$HOME/.config/zsh/alias.zsh"
 }
 
+emit_spacemacs() {
+    printf '\0markup-rows\x1ftrue\n'
+
+    sub "── GTD Workflow ──"
+    entry "SPC a o c t" "Capture todo → inbox"
+    entry "SPC a o c n" "Capture next action → inbox"
+    entry "SPC a o c w" "Capture waiting for → inbox"
+    entry "SPC a o c s" "Capture someday/maybe"
+    entry "SPC a o c T" "Capture tickler (scheduled)"
+    entry "SPC a o c j" "Capture journal entry"
+    entry "SPC a o c m" "Capture meeting notes"
+    entry "C-c C-c" "Save capture buffer"
+    entry "C-c C-k" "Cancel capture"
+
+    sub "── Agenda Views ──"
+    entry "SPC a o a" "Standard agenda"
+    entry "SPC a o o d" "Dashboard (today + next + waiting)"
+    entry "SPC a o o w" "Weekly review"
+    entry "SPC a o o n" "All next actions"
+    entry "SPC a o o c" "By context (@work/@home/@errand)"
+
+    sub "── Org Actions ──"
+    entry "t / C-c C-t" "Cycle TODO state"
+    entry "SPC m r" "Refile heading to another file"
+    entry "SPC m d s" "Schedule item"
+    entry "SPC m d d" "Set deadline"
+    entry "SPC m A" "Archive subtree"
+    entry "C-c C-q" "Set tags"
+    entry "SPC m ," "Set priority"
+    entry "S-up / S-down" "Change priority"
+
+    sub "── Org Roam ──"
+    entry "SPC a o r f" "Roam find/create note"
+    entry "SPC a o r i" "Roam insert link"
+    entry "SPC a o s" "Screenshot → roam note"
+    entry "SPC a o D s" "Screenshot into current note"
+
+    sub "── Navigation ──"
+    entry "SPC p p" "Switch project"
+    entry "SPC p f" "Find file in project"
+    entry "SPC f f" "Find file"
+    entry "SPC b b" "Switch buffer"
+    entry "SPC /" "Search in project"
+
+    sub "── LLM (gptel) ──"
+    entry "SPC a g" "Open gptel chat"
+    entry "SPC a G" "Send region/buffer to LLM"
+}
+
 emit_scripts() {
     printf '\0markup-rows\x1ftrue\n'
     if [ ! -d "$HOME/.local/bin" ]; then
@@ -121,6 +170,7 @@ emit_scripts() {
 }
 
 # Strip pango markup to get plain text
+# shellcheck disable=SC2001
 strip_markup() { sed 's/<[^>]*>//g' <<< "$1" | xargs; }
 
 # Execute selection: $1=section, $2=selected entry (with markup)
@@ -150,6 +200,9 @@ case "$1" in
     zsh)
         emit_zsh
         ;;
+    spacemacs)
+        emit_spacemacs
+        ;;
     scripts)
         if [ "${ROFI_RETV:-0}" -eq 1 ] && [ -n "$2" ]; then
             run_selection scripts "$2"
@@ -160,7 +213,7 @@ case "$1" in
     *)
         # Launch rofi with all sections as modi - Tab to switch
         rofi -show Hyprland \
-            -modi "Hyprland:$SCRIPT_PATH hyprland,Aliases:$SCRIPT_PATH zsh,Scripts:$SCRIPT_PATH scripts" \
+            -modi "Hyprland:$SCRIPT_PATH hyprland,Aliases:$SCRIPT_PATH zsh,Spacemacs:$SCRIPT_PATH spacemacs,Scripts:$SCRIPT_PATH scripts" \
             -markup-rows -no-show-icons \
             -theme-str 'window { width: 55%; height: 75%; }' \
             -theme-str 'listview { columns: 1; lines: 50; spacing: 0px; scrollbar: true; fixed-height: false; }' \

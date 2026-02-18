@@ -145,9 +145,10 @@
 
 ;;; --- Habits ------------------------------------------------------------------
 
-(add-to-list 'org-modules 'org-habit)
-(setq org-habit-show-habits-only-for-today t)
-(setq org-habit-graph-column 50)
+(with-eval-after-load 'org
+    (add-to-list 'org-modules 'org-habit)
+    (setq org-habit-show-habits-only-for-today t)
+    (setq org-habit-graph-column 50))
 
 ;;; --- Appearance tweaks -------------------------------------------------------
 

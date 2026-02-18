@@ -11,7 +11,8 @@ This is a Spacemacs configuration directory that's part of the CARBS dotfiles sy
 - `init.el`: Main Spacemacs configuration file with three core functions:
   - `dotspacemacs/layers`: Layer configuration and package selection
   - `dotspacemacs/init`: Initial startup settings (fonts, themes, keybindings)
-  - `dotspacemacs/user-config`: User-specific runtime configuration
+  - `dotspacemacs/user-config`: User-specific runtime configuration (loads external configs)
+- `org-gtd.el`: External org-mode GTD configuration, loaded from `user-config`. Contains all org-agenda, capture templates, todo keywords, refile targets, roam setup, and screenshot helpers.
 - `bak-init.el`: Backup of previous init.el configuration
 - `elfeed.org`: RSS feed configuration (currently empty)
 - `.spacemacs.env`: Environment variables loaded by Spacemacs
@@ -25,109 +26,103 @@ The configuration enables these Spacemacs layers (init.el:34-73):
 - **Development**: lsp, auto-completion, syntax-checking, version-control, git, treemacs
 - **Editor**: better-defaults, helm, multiple-cursors, spell-checking
 - **Org mode**: org-roam, org-roam-ui, org-appear, org-transclusion, verb
-- **AI**: llm-client with gptel (configured for Perplexity API)
+- **AI**: llm-client with gptel (Claude + Perplexity backends)
 - **Python**: Uses LSP backend with `pet` for virtualenv management
 
-### Python Environment
+### Org Mode — GTD Setup (`org-gtd.el`)
 
-Python layer configuration (init.el:69-72):
-- Virtualenv management: `pet` (Python Environment Tool)
-- Backend: LSP
-- Integration with project-local environments
+All org-mode configuration lives in `org-gtd.el`, loaded via:
+```elisp
+(load (expand-file-name "org-gtd" (file-name-directory dotspacemacs-filepath)))
+```
 
-### Org Mode Configuration
+Key details:
+- **GTD workflow**: Capture → inbox.org → refile to todo.org/someday.org/tickler.org → archive.org
+- **Agenda files**: `~/org/inbox.org`, `~/org/todo.org`, `~/org/tickler.org`
+- **TODO states**: `TODO(t)` → `NEXT(n)` → `WAITING(w@/!)` → `DONE(d!)` / `CANCELLED(c@/!)`; also `SOMEDAY(s)`
+- **Capture templates**: `t` (todo), `n` (next), `w` (waiting), `s` (someday), `T` (tickler), `j` (journal), `m` (meeting)
+- **Agenda views**: `d` (dashboard), `w` (weekly review), `n` (next actions), `c` (by context)
+- **Tags**: `@work`, `@home`, `@errand`, `phone`, `email`, `read`, `code`
+- **Org-roam**: directory `~/org/roam/`, templates for default note, quick note, screenshot
+- **Screenshots**: grim+slurp pipeline, saves to `~/org/roam/assets/YYYY-MM/`
+- **Habits**: `org-habit` loaded via `with-eval-after-load 'org` (required — `org-modules` is void before org loads)
 
-Org mode settings in `dotspacemacs/user-config` (init.el:587-608):
-- Agenda file: `~/org/todo-general.org`
-- Org-roam directory: `~/org/roam/`
-- Screenshot tool: `flameshot` with 3-second delay
-- Roam template: `~/org/templates/roam-default.template`
-- Roam graph viewer: Firefox Developer Edition
+When editing `org-gtd.el`, note:
+- Variables that depend on org being loaded must use `with-eval-after-load 'org`
+- `spacemacs/set-leader-keys` is safe to call at top level (runs inside `user-config`)
+- Roam capture templates use backquote (`` ` ``) for the screenshot link interpolation
+
+### LSP Configuration
+
+LSP clients registered inside `(with-eval-after-load 'lsp-mode ...)` in `user-config`:
+- `ty-lsp`: Python type checker (priority 10)
+- `ruff-lsp`: Python linter/formatter
+- `yamlls`: YAML
+- `just-lsp`: Justfiles
+- `rumdl-lsp`: Markdown
+- `bash-ls`, `ansible-ls`, `dockerfile-ls`, `semgrep-ls`
+- `pylsp` is explicitly disabled
+
+Servers only start when a matching buffer is opened (no session restore — `dotspacemacs-auto-resume-layouts` is `nil`).
 
 ### AI Integration (gptel)
 
-Configuration for Perplexity API (init.el:611-615):
-- Backend: Perplexity
-- Model: "sonar"
-- API key source: `.authinfo` file (via `gptel-api-key-from-auth-source`)
+- Primary backend: Claude (Anthropic) — `claude-sonnet-4-20250514`
+- Secondary backend: Perplexity (sonar)
+- API keys via `~/.authinfo` (`gptel-api-key-from-auth-source`)
+- Keybindings: `SPC a g` (chat), `SPC a G` (send region)
 
 ### Appearance and Behavior
 
-- Editing style: Vim mode (init.el:154)
-- Font: Source Code Pro, 10pt (init.el:250-253)
-- Themes: spacemacs-dark (primary), spacemacs-light (init.el:229-230)
-- Leader key: `SPC` (init.el:259)
-- Major mode leader: `,` (init.el:274)
-- Line numbers: Disabled by default (init.el:437)
-- Undo system: `undo-fu` (init.el:487)
-- Auto-save location: cache directory (init.el:314)
+- Editing style: Vim mode
+- Font: Source Code Pro, 10pt
+- Themes: spacemacs-dark (primary), spacemacs-light
+- Leader key: `SPC`, Major mode leader: `,`
+- Line numbers: Disabled by default
+- Undo system: `undo-fu`
+- Session restore: Disabled (clean start, use `SPC p p` for projects)
 
 ## Editing the Configuration
 
 ### Modifying Layers
 
-To add or remove layers, edit the `dotspacemacs-configuration-layers` list in `dotspacemacs/layers`:
+Edit `dotspacemacs-configuration-layers` in `dotspacemacs/layers`.
 
-```elisp
-dotspacemacs-configuration-layers
-'(
-   existing-layer
-   new-layer  ; Add new layer here
-   (layer-with-config :variables
-       var-name value)
-)
-```
+### Modifying Org/GTD Setup
 
-### Adding User Configuration
-
-Add custom elisp code in the `dotspacemacs/user-config` function (after init.el:580). This runs at the end of Spacemacs startup.
+Edit `org-gtd.el` directly. Changes take effect on `SPC f e R` or restart.
 
 ### Testing Changes
 
-After editing `init.el`:
-1. Reload configuration: `SPC f e R` (spacemacs/reload-configuration)
-2. Restart Emacs if layer changes don't take effect
-3. Install new packages: `SPC f e R` or restart
+1. Reload: `SPC f e R`
+2. Restart if layer changes: `SPC q R`
+3. Batch test for load errors: `emacs --batch --eval "(progn (setq dotspacemacs-filepath \"~/.config/spacemacs/init.el\") (load (expand-file-name \"org-gtd\" (file-name-directory (expand-file-name dotspacemacs-filepath)))))"`
 
-## Common Operations
+## Org Directory Layout
 
-### Spacemacs Key Bindings
-
-- `SPC`: Leader key for all Spacemacs commands
-- `SPC f e d`: Open init.el
-- `SPC f e R`: Reload configuration
-- `SPC q R`: Restart Emacs
-- `,`: Major mode leader (language-specific commands)
-
-### Package Management
-
-- Packages are automatically installed based on layers
-- Manual package list at init.el:633-681 (auto-generated)
-- Package installation mode: `used-only` (removes unused packages)
-
-### Python Development
-
-- LSP server starts automatically in Python files
-- Virtualenv detected via `pet` tool
-- Configure per-project Python environment before editing
-
-### Org Mode
-
-- Capture todo: `SPC a o c` then select "t" template
-- Open agenda: `SPC a o a`
-- Org-roam find: `SPC a o r f`
-- Org-roam insert: `SPC a o r i`
+```
+~/org/
+├── inbox.org           # capture landing pad
+├── todo.org            # active projects and next actions
+├── someday.org         # someday/maybe items
+├── tickler.org         # deferred/scheduled reminders
+├── journal.org         # daily journal (datetree)
+├── meetings.org        # meeting notes (datetree)
+├── archive.org         # completed/cancelled items
+├── templates/
+│   └── roam-default.template
+└── roam/
+    ├── *.org           # roam notes
+    └── assets/YYYY-MM/ # screenshots
+```
 
 ## Integration with CARBS
 
-This configuration is deployed as part of the CARBS dotfiles system using Tuckr. The directory structure is:
-- Location: `dotfiles/Configs/spacemacs/.config/spacemacs/`
-- Tuckr target: `~/.config/spacemacs/`
-- Deployment: Run `tuckr add spacemacs` or `just dotfiles` to deploy all dotfiles
+Deployed via CAIFS: `caifs add -d targets spacemacs`
+- Source: `targets/spacemacs/config/.config/spacemacs/`
+- Target: `~/.config/spacemacs/`
 
 ## Important Notes
 
-- Do not edit below the "Do not write anything past this comment" line (init.el:621) - Emacs manages `custom-set-variables` automatically
-- The `dotspacemacs/emacs-custom-settings` function is auto-generated by Emacs customize interface
+- Do not edit below the "Do not write anything past this comment" line in init.el — Emacs manages `custom-set-variables` automatically
 - Uses Spacemacs "develop" branch with emacs-git on Arch Linux
-- Lazy layer installation enabled for packages not in the configuration-layers list
