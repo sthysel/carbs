@@ -1,15 +1,163 @@
 * spacemacs
 
-** Org Mode
+** Org Mode GTD
+
+Config lives in =~/.config/spacemacs/org-gtd.el=, loaded from =init.el=.
+
+*** The GTD Flow
+
+*Capture* -> *Process* -> *Organize* -> *Do* -> *Review*
+
+| Step        | What                              | Key             |
+|-------------+-----------------------------------+-----------------|
+| *Capture*   | Dump everything into inbox        | =SPC a o c t=   |
+| *Process*   | Refile from inbox to proper file  | =SPC m r=       |
+| *Do*        | Work from NEXT actions            | =SPC a o o n=   |
+| *Review*    | Weekly review dashboard           | =SPC a o o w=   |
+
+*** TODO States
+
+=TODO= -> =NEXT= -> =WAITING= -> =DONE= / =CANCELLED=
+
+=SOMEDAY= is a parallel state for someday/maybe items.
+
+Cycle with =t= on a heading or =C-c C-t= and pick by letter shortcut:
+
+| Key | State       | Meaning                              |
+|-----+-------------+--------------------------------------|
+| t   | =TODO=      | Task to be done                      |
+| n   | =NEXT=      | Immediate next action                |
+| w   | =WAITING=   | Blocked on someone else (prompts for note) |
+| s   | =SOMEDAY=   | Maybe one day                        |
+| d   | =DONE=      | Completed (timestamps automatically) |
+| c   | =CANCELLED= | Not doing this (prompts for note)    |
 
 *** Capture Templates
 
-| Key           | Binding          | Description                                  |
-|---------------+------------------+----------------------------------------------|
-| =SPC a o c t= | Todo             | TODO entry in =todo-general.org=             |
-| =SPC a o r f= | Roam find/create | Roam note — prompts for title and tags       |
-| =SPC a o r f n= | Quick note     | Roam note — immediate finish, just title+tags |
-| =SPC a o s=   | Screenshot note  | Screenshot + new roam note (see below)       |
+=SPC a o c= then press the key:
+
+| Key | Template        | Lands in        | Notes                     |
+|-----+-----------------+-----------------+---------------------------|
+| t   | Todo            | =inbox.org=     | Basic TODO                |
+| n   | Next action     | =inbox.org=     | Immediate NEXT item       |
+| w   | Waiting for     | =inbox.org=     | Tagged =@work=            |
+| s   | Someday/maybe   | =someday.org=   | Deferred idea             |
+| T   | Tickler         | =tickler.org=   | Prompts for schedule date |
+| j   | Journal         | =journal.org=   | Datetree entry            |
+| m   | Meeting notes   | =meetings.org=  | Datetree with attendees/actions |
+
+After capturing, =C-c C-c= to save or =C-c C-k= to cancel.
+
+*** Agenda Views
+
+=SPC a o o= then press the key:
+
+| Key | View            | Shows                                           |
+|-----+-----------------+-------------------------------------------------|
+| d   | *Dashboard*     | Today + next actions + waiting + items to refile |
+| w   | *Weekly review* | Week agenda + all TODOs + waiting + someday      |
+| n   | *Next actions*  | All NEXT items across files                      |
+| c   | *By context*    | Grouped by =@work= / =@home= / =@errand=       |
+
+The standard agenda (=SPC a o a=) also works as before.
+
+*** Tags (Context)
+
+Add tags to headings for context filtering:
+
+#+begin_example
+* TODO Fix the leaky faucet :@home:
+* NEXT Review PR #42 :@work:
+* TODO Buy groceries :@errand:
+#+end_example
+
+Available tags and shortcuts (set via =C-c C-q= on a heading):
+
+| Key | Tag       |
+|-----+-----------|
+| w   | =@work=   |
+| h   | =@home=   |
+| e   | =@errand= |
+| p   | =phone=   |
+| m   | =email=   |
+| r   | =read=    |
+| c   | =code=    |
+
+*** Priorities
+
+Set with =SPC m ,= or =S-up= / =S-down= on a heading:
+
+| Priority | Meaning         |
+|----------+-----------------|
+| =[#A]=   | Urgent          |
+| =[#B]=   | Normal (default)|
+| =[#C]=   | Low             |
+| =[#D]=   | Someday-ish     |
+
+*** Refile
+
+After processing inbox items, refile them to the right file:
+
+- =SPC m r= on a heading -> pick destination
+- Targets: =todo.org= (2 levels), =someday.org= (1 level), =tickler.org= (1 level)
+- Can create new parent headings on the fly (confirms first)
+
+*** Habits
+
+Add recurring tasks with habit tracking (shows streaks in agenda):
+
+#+begin_example
+* TODO Exercise
+  SCHEDULED: <2026-02-18 Wed .+1d>
+  :PROPERTIES:
+  :STYLE: habit
+  :END:
+
+* TODO Weekly review
+  SCHEDULED: <2026-02-21 Sat .+1w>
+  :PROPERTIES:
+  :STYLE: habit
+  :END:
+#+end_example
+
+Scheduling syntax: =.+1d= (daily), =.+1w= (weekly), =.+1m= (monthly).
+
+*** Archiving
+
+Done/cancelled items can be archived to =archive.org=:
+
+- =SPC m A= to archive a subtree
+- Items land in a datetree structure in =archive.org=
+
+*** File Layout
+
+#+begin_example
+~/org/
++-- inbox.org           # capture landing pad -- process daily
++-- todo.org            # active projects and next actions
++-- someday.org         # someday/maybe items
++-- tickler.org         # deferred/scheduled reminders
++-- journal.org         # daily journal (datetree)
++-- meetings.org        # meeting notes (datetree)
++-- archive.org         # completed/cancelled items
++-- todo-general.org    # (legacy, migrate to inbox/todo)
++-- templates/
+|   +-- roam-default.template
++-- roam/
+    +-- *.org           # roam notes (slug-named)
+    +-- assets/         # screenshots and attachments
+        +-- YYYY-MM/    # auto-created date subdirectories
+#+end_example
+
+** Org Roam
+
+*** Capture Templates
+
+| Key             | Binding          | Description                            |
+|-----------------+------------------+----------------------------------------|
+| =SPC a o r f=   | Roam find/create | Roam note -- prompts for title and tags |
+| =SPC a o r f n= | Quick note       | Roam note -- immediate finish          |
+| =SPC a o s=     | Screenshot note  | Screenshot + new roam note (see below) |
 
 *** Screenshot Workflow
 
@@ -18,21 +166,17 @@
 1. =slurp= opens for region selection
 2. =grim= captures the screenshot
 3. Image saved to =~/org/roam/assets/YYYY-MM/YYYYMMDD_HHMMSS.png=
-4. Roam capture opens — prompts for title and tags
+4. Roam capture opens -- prompts for title and tags
 5. Image link inserted into the new note
 
 =org-download-screenshot= (=SPC a o D s=) also saves to the same =assets/= directory for
 screenshots into existing notes.
 
-*** File Layout
+** gptel (LLM)
 
-#+begin_example
-~/org/
-├── todo-general.org          # agenda + quick capture
-├── templates/
-│   └── roam-default.template # roam note template (title, date, filetags)
-└── roam/
-    ├── *.org                 # roam notes (slug-named)
-    └── assets/               # all screenshots and attachments
-        └── YYYY-MM/          # auto-created date subdirectories
-#+end_example
+| Key       | Command      | Description             |
+|-----------+--------------+-------------------------|
+| =SPC a g= | =gptel=      | Open chat buffer        |
+| =SPC a G= | =gptel-send= | Send region/buffer to LLM |
+
+Backend: Claude (Anthropic). API key in =~/.authinfo=.

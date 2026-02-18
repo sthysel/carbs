@@ -626,75 +626,8 @@ before packages are loaded."
     (define-key evil-visual-state-map [mouse-2] 'my/wayland-paste-primary)
     (global-set-key [mouse-2] 'my/wayland-paste-primary)
 
-    ;; org general
-    (setq org-agenda-files '("~/org/todo-general.org"))
-    (setq org-capture-templates
-        '(("t" "Todo" entry
-              (file "~/org/todo-general.org")
-              "* TODO %?\nSCHEDULED: %t")))
-
-    ;; org-download — screenshots go to ~/org/roam/assets/YYYY-MM/
-    (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
-    (setq org-download-image-dir "~/org/roam/assets/")
-    (setq org-download-heading-lvl nil)
-    (setq org-download-timestamp "%Y-%m/%Y%m%d_%H%M%S")
-
-    ;; screenshot capture helper
-    (defvar my/org-roam-screenshot-path nil
-      "Path of the last screenshot taken by my/org-roam-screenshot.")
-
-    (defun my/org-roam-screenshot ()
-      "Create a roam note with an inline screenshot.
-Takes a screenshot via grim+slurp, saves it to ~/org/roam/assets/YYYY-MM/,
-and creates a new roam note with the image link embedded."
-      (interactive)
-      (let* ((ts (format-time-string "%Y%m%d_%H%M%S"))
-             (subdir (format-time-string "%Y-%m"))
-             (dir (expand-file-name subdir "~/org/roam/assets/"))
-             (filename (concat ts ".png"))
-             (filepath (expand-file-name filename dir)))
-        (make-directory dir t)
-        (if (= 0 (call-process-shell-command
-                   (format "grim -g \"$(slurp)\" %s" (shell-quote-argument filepath))))
-            (progn
-              (setq my/org-roam-screenshot-path filepath)
-              (org-roam-capture- :goto nil :keys "s"))
-          (message "Screenshot cancelled."))))
-
-    (defun my/org-roam-screenshot-link ()
-      "Return org link to the last screenshot, relative to ~/org/roam/."
-      (if my/org-roam-screenshot-path
-          (let ((rel (file-relative-name my/org-roam-screenshot-path
-                                         (expand-file-name "~/org/roam/"))))
-            (prog1 (format "[[file:%s]]" rel)
-              (setq my/org-roam-screenshot-path nil)))
-        ""))
-
-    (spacemacs/set-leader-keys "a o s" 'my/org-roam-screenshot)
-
-    ;; org roam
-    (setq org-roam-directory (file-truename "~/org/roam/"))
-    (setq org-roam-graph-viewer "firefox-developer-edition")
-    (setq org-roam-db-update-on-save t)
-    (setq org-roam-capture-templates
-        `(("d" "default" plain
-              (file "~/org/templates/roam-default.template")
-              :if-new (file "${slug}.org")
-              :unnarrowed t)
-          ("n" "quick note" plain
-              (file "~/org/templates/roam-default.template")
-              :if-new (file "${slug}.org")
-              :immediate-finish t
-              :unnarrowed t)
-          ("s" "screenshot" plain
-              ,(concat "#+title: ${title}\n"
-                       "#+date: %T\n"
-                       "#+filetags: :screenshot:%^{Tags}\n\n"
-                       "%(my/org-roam-screenshot-link)\n\n%?")
-              :if-new (file "${slug}.org")
-              :unnarrowed t)
-             )
-        )
+    ;; org-mode GTD setup (external config)
+    (load (expand-file-name "org-gtd" (file-name-directory dotspacemacs-filepath)))
 
     ;; gptel - LLM backends
     ;; API keys stored in ~/.authinfo:
