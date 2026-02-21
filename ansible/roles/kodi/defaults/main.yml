@@ -1,3 +1,28 @@
 ---
 kodi_cache_memorysize: 52428800
 kodi_cache_readfactor: 4
+kodi_webserver_enabled: true
+kodi_webserver_port: 8080
+kodi_webserver_username: kodi
+kodi_webserver_password: kodi  # pragma: allowlist secret
+kodi_nfs_server: bigdisk
+kodi_nfs_mounts:
+  - src: /volume1/movies
+    dest: /media/movies
+  - src: /volume1/series
+    dest: /media/series
+  - src: /volume1/documentaries
+    dest: /media/documentaries
+  - src: /volume1/music
+    dest: /media/music
+kodi_sources:
+  video:
+    - name: Movies
+      path: "/media/movies"
+    - name: Series
+      path: "/media/series"
+    - name: Documentaries
+      path: "/media/documentaries"
+  music:
+    - name: Music
+      path: "/media/music"

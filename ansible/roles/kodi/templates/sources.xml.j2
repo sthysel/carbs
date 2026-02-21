@@ -1,0 +1,22 @@
+<sources>
+    <video>
+        <default pathversion="1"></default>
+{% for source in kodi_sources.video %}
+        <source>
+            <name>{{ source.name }}</name>
+            <path pathversion="1">{{ source.path }}</path>
+            <allowsharing>true</allowsharing>
+        </source>
+{% endfor %}
+    </video>
+    <music>
+        <default pathversion="1"></default>
+{% for source in kodi_sources.music %}
+        <source>
+            <name>{{ source.name }}</name>
+            <path pathversion="1">{{ source.path }}</path>
+            <allowsharing>true</allowsharing>
+        </source>
+{% endfor %}
+    </music>
+</sources>

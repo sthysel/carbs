@@ -4,10 +4,22 @@
     name:
       - kodi
       - kodi-eventclients
+      - libcec
       - libva
       - libva-utils
+      - nfs-utils
     state: present
   become: yes
+
+- name: Mount NFS shares via fstab
+  ansible.posix.mount:
+    src: "{{ kodi_nfs_server }}:{{ item.src }}"
+    path: "{{ item.dest }}"
+    fstype: nfs
+    opts: "defaults,soft,timeo=150,retrans=3,_netdev,x-systemd.automount"
+    state: mounted
+  become: true
+  loop: "{{ kodi_nfs_mounts }}"
 
 - name: Install Kodi AUR addons
   become: yes
@@ -26,6 +38,15 @@
     mode: '0755'
     owner: "{{ carbs_user }}"
 
+- name: Deploy Kodi media sources
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.template:
+    src: sources.xml.j2
+    dest: "/home/{{ carbs_user }}/.kodi/userdata/sources.xml"
+    owner: "{{ carbs_user }}"
+    mode: '0644'
+
 - name: Deploy Kodi advancedsettings.xml
   become: true
   become_user: "{{ carbs_user }}"
@@ -34,3 +55,42 @@
     dest: "/home/{{ carbs_user }}/.kodi/userdata/advancedsettings.xml"
     owner: "{{ carbs_user }}"
     mode: '0644'
+
+- name: Install lxml for guisettings management
+  community.general.pacman:
+    name: python-lxml
+    state: present
+  become: yes
+
+- name: Check if guisettings.xml exists
+  ansible.builtin.stat:
+    path: "/home/{{ carbs_user }}/.kodi/userdata/guisettings.xml"
+  register: guisettings
+
+- name: Stop Kodi before modifying guisettings
+  ansible.builtin.command:
+    cmd: pkill -u {{ carbs_user }} kodi
+  become: true
+  failed_when: false
+  changed_when: true
+  when: guisettings.stat.exists
+
+- name: Wait for Kodi to write guisettings and exit
+  ansible.builtin.pause:
+    seconds: 3
+  when: guisettings.stat.exists
+
+- name: Configure Kodi web server settings
+  ansible.builtin.replace:
+    path: "/home/{{ carbs_user }}/.kodi/userdata/guisettings.xml"
+    regexp: '(<setting id="{{ item.id }}")\s+default="[^"]*">([^<]*)(</setting>)'
+    replace: '\1 default="false">{{ item.value }}\3'
+  become: true
+  become_user: "{{ carbs_user }}"
+  when: guisettings.stat.exists
+  loop:
+    - { id: 'services.webserver', value: 'true' }
+    - { id: 'services.webserverport', value: '{{ kodi_webserver_port }}' }
+    - { id: 'services.webserverusername', value: '{{ kodi_webserver_username }}' }
+    - { id: 'services.webserverpassword', value: '{{ kodi_webserver_password }}' }
+    - { id: 'services.esallinterfaces', value: 'true' }

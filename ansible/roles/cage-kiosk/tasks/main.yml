@@ -7,6 +7,13 @@
   become: true
   failed_when: false
 
+- name: Add {{ carbs_user }} to input and video groups
+  ansible.builtin.user:
+    name: "{{ carbs_user }}"
+    groups: input,video
+    append: true
+  become: true
+
 - name: Set default target to multi-user (no graphical login)
   ansible.builtin.command:
     cmd: systemctl set-default multi-user.target
