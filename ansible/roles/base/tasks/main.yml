@@ -1,19 +1,31 @@
 ---
 - import_tasks: users.yml
+
+- name: Bootstrap base-devel (needed for AUR builds)
+  community.general.pacman:
+    name: base-devel
+    state: present
+  become: yes
+
 - import_tasks: reflector.yml
 - import_tasks: locale.yml
 
 - name: Update all packages on the system
-  kewlfft.aur.aur:
+  community.general.pacman:
     update_cache: yes
     upgrade: yes
+  become: yes
 
 - name: Install yay from the AUR using kewlfft.aur.aur
+  become: yes
+  become_user: aur_builder
   kewlfft.aur.aur:
     name: yay
     state: present
 
 - name: Install some common tools and core dependencies
+  become: yes
+  become_user: aur_builder
   kewlfft.aur.aur:
     name:
       - archlinux-keyring

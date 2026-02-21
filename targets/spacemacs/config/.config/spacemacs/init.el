@@ -648,6 +648,11 @@ before packages are loaded."
     (spacemacs/set-leader-keys
         "p w" 'treemacs-switch-workspace)
 
+    ;; Treemacs follows project changes (e.g. SPC f f into a new project)
+    ;; Keep other projects visible when switching
+    (setq treemacs-project-follow-cleanup nil)
+    (treemacs-project-follow-mode t)
+
     ;; Wider treemacs window
     (setq treemacs-width 50)
 

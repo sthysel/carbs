@@ -13,6 +13,7 @@
     enabled: yes
   become: true
   become_user: "{{ carbs_user }}"
+  failed_when: false
 
 - name: Ensure SSH_AUTH_SOCK is set in Hyprland config
   ansible.builtin.lineinfile:

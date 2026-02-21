@@ -1,0 +1,36 @@
+---
+- name: Install Kodi and dependencies
+  community.general.pacman:
+    name:
+      - kodi
+      - kodi-eventclients
+      - libva
+      - libva-utils
+    state: present
+  become: yes
+
+- name: Install Kodi AUR addons
+  become: yes
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - kodi-addon-inputstream-adaptive
+    state: present
+
+- name: Ensure Kodi userdata directory exists
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.file:
+    path: "/home/{{ carbs_user }}/.kodi/userdata/"
+    state: directory
+    mode: '0755'
+    owner: "{{ carbs_user }}"
+
+- name: Deploy Kodi advancedsettings.xml
+  become: true
+  become_user: "{{ carbs_user }}"
+  ansible.builtin.template:
+    src: advancedsettings.xml.j2
+    dest: "/home/{{ carbs_user }}/.kodi/userdata/advancedsettings.xml"
+    owner: "{{ carbs_user }}"
+    mode: '0644'

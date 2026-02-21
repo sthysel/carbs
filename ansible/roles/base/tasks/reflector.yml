@@ -1,14 +1,33 @@
 - name: Install reflector to manage mirrorlist
-  kewlfft.aur.aur:
-    name:
-      reflector
+  community.general.pacman:
+    name: reflector
+    state: present
+  become: yes
 
-- name: Ensure reflector service is enabled and started
+- name: Deploy reflector configuration
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/xdg/reflector/reflector.conf
+    content: |
+      --country Australia
+      --latest 5
+      --age 24
+      --sort rate
+      --save /etc/pacman.d/mirrorlist
+    mode: '0644'
+
+- name: Ensure reflector service is enabled
   become: yes
   ansible.builtin.systemd:
     name: reflector.service
     enabled: yes
+
+- name: Run reflector service
+  become: yes
+  ansible.builtin.systemd:
+    name: reflector.service
     state: started
+  failed_when: false
 
 - name: make sure /etc/pacman.d/hooks/ exist
   become: yes

@@ -8,12 +8,12 @@ Config lives in =~/.config/spacemacs/org-gtd.el=, loaded from =init.el=.
 
 *Capture* -> *Process* -> *Organize* -> *Do* -> *Review*
 
-| Step        | What                              | Key             |
-|-------------+-----------------------------------+-----------------|
-| *Capture*   | Dump everything into inbox        | =SPC a o c t=   |
-| *Process*   | Refile from inbox to proper file  | =SPC m r=       |
-| *Do*        | Work from NEXT actions            | =SPC a o o n=   |
-| *Review*    | Weekly review dashboard           | =SPC a o o w=   |
+| Step      | What                             | Key           |
+|-----------+----------------------------------+---------------|
+| *Capture* | Dump everything into inbox       | =SPC a o c t= |
+| *Process* | Refile from inbox to proper file | =SPC m r=     |
+| *Do*      | Work from NEXT actions           | =SPC a o o n= |
+| *Review*  | Weekly review dashboard          | =SPC a o o w= |
 
 *** TODO States
 
@@ -23,28 +23,28 @@ Config lives in =~/.config/spacemacs/org-gtd.el=, loaded from =init.el=.
 
 Cycle with =t= on a heading or =C-c C-t= and pick by letter shortcut:
 
-| Key | State       | Meaning                              |
-|-----+-------------+--------------------------------------|
-| t   | =TODO=      | Task to be done                      |
-| n   | =NEXT=      | Immediate next action                |
+| Key | State       | Meaning                                    |
+|-----+-------------+--------------------------------------------|
+| t   | =TODO=      | Task to be done                            |
+| n   | =NEXT=      | Immediate next action                      |
 | w   | =WAITING=   | Blocked on someone else (prompts for note) |
-| s   | =SOMEDAY=   | Maybe one day                        |
-| d   | =DONE=      | Completed (timestamps automatically) |
-| c   | =CANCELLED= | Not doing this (prompts for note)    |
+| s   | =SOMEDAY=   | Maybe one day                              |
+| d   | =DONE=      | Completed (timestamps automatically)       |
+| c   | =CANCELLED= | Not doing this (prompts for note)          |
 
 *** Capture Templates
 
 =SPC a o c= then press the key:
 
-| Key | Template        | Lands in        | Notes                     |
-|-----+-----------------+-----------------+---------------------------|
-| t   | Todo            | =inbox.org=     | Basic TODO                |
-| n   | Next action     | =inbox.org=     | Immediate NEXT item       |
-| w   | Waiting for     | =inbox.org=     | Tagged =@work=            |
-| s   | Someday/maybe   | =someday.org=   | Deferred idea             |
-| T   | Tickler         | =tickler.org=   | Prompts for schedule date |
-| j   | Journal         | =journal.org=   | Datetree entry            |
-| m   | Meeting notes   | =meetings.org=  | Datetree with attendees/actions |
+| Key | Template      | Lands in       | Notes                           |
+|-----+---------------+----------------+---------------------------------|
+| t   | Todo          | =inbox.org=    | Basic TODO                      |
+| n   | Next action   | =inbox.org=    | Immediate NEXT item             |
+| w   | Waiting for   | =inbox.org=    | Tagged =@work=                  |
+| s   | Someday/maybe | =someday.org=  | Deferred idea                   |
+| T   | Tickler       | =tickler.org=  | Prompts for schedule date       |
+| j   | Journal       | =journal.org=  | Datetree entry                  |
+| m   | Meeting notes | =meetings.org= | Datetree with attendees/actions |
 
 After capturing, =C-c C-c= to save or =C-c C-k= to cancel.
 
@@ -52,12 +52,12 @@ After capturing, =C-c C-c= to save or =C-c C-k= to cancel.
 
 =SPC a o o= then press the key:
 
-| Key | View            | Shows                                           |
-|-----+-----------------+-------------------------------------------------|
+| Key | View            | Shows                                            |
+|-----+-----------------+--------------------------------------------------|
 | d   | *Dashboard*     | Today + next actions + waiting + items to refile |
 | w   | *Weekly review* | Week agenda + all TODOs + waiting + someday      |
 | n   | *Next actions*  | All NEXT items across files                      |
-| c   | *By context*    | Grouped by =@work= / =@home= / =@errand=       |
+| c   | *By context*    | Grouped by =@work= / =@home= / =@errand=         |
 
 The standard agenda (=SPC a o a=) also works as before.
 
@@ -87,12 +87,12 @@ Available tags and shortcuts (set via =C-c C-q= on a heading):
 
 Set with =SPC m ,= or =S-up= / =S-down= on a heading:
 
-| Priority | Meaning         |
-|----------+-----------------|
-| =[#A]=   | Urgent          |
-| =[#B]=   | Normal (default)|
-| =[#C]=   | Low             |
-| =[#D]=   | Someday-ish     |
+| Priority | Meaning          |
+|----------+------------------|
+| =[#A]=   | Urgent           |
+| =[#B]=   | Normal (default) |
+| =[#C]=   | Low              |
+| =[#D]=   | Someday-ish      |
 
 *** Refile
 
@@ -153,11 +153,11 @@ Done/cancelled items can be archived to =archive.org=:
 
 *** Capture Templates
 
-| Key             | Binding          | Description                            |
-|-----------------+------------------+----------------------------------------|
+| Key             | Binding          | Description                             |
+|-----------------+------------------+-----------------------------------------|
 | =SPC a o r f=   | Roam find/create | Roam note -- prompts for title and tags |
-| =SPC a o r f n= | Quick note       | Roam note -- immediate finish          |
-| =SPC a o s=     | Screenshot note  | Screenshot + new roam note (see below) |
+| =SPC a o r f n= | Quick note       | Roam note -- immediate finish           |
+| =SPC a o s=     | Screenshot note  | Screenshot + new roam note (see below)  |
 
 *** Screenshot Workflow
 
@@ -174,9 +174,10 @@ screenshots into existing notes.
 
 ** gptel (LLM)
 
-| Key       | Command      | Description             |
-|-----------+--------------+-------------------------|
-| =SPC a g= | =gptel=      | Open chat buffer        |
+| Key       | Command      | Description               |
+|-----------+--------------+---------------------------|
+| =SPC a g= | =gptel=      | Open chat buffer          |
 | =SPC a G= | =gptel-send= | Send region/buffer to LLM |
+|           |              |                           |
 
 Backend: Claude (Anthropic). API key in =~/.authinfo=.

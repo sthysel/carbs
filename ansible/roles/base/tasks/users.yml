@@ -14,6 +14,14 @@
     groups: wheel
     append: yes
 
+- name: Allow wheel group to use sudo
+  become: yes
+  ansible.builtin.copy:
+    dest: /etc/sudoers.d/10-wheel
+    content: '%wheel ALL=(ALL:ALL) ALL'
+    mode: '0440'
+    validate: 'visudo -cf %s'
+
 - name: Create the `aur_builder` user
   become: yes
   ansible.builtin.user:

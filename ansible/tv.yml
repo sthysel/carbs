@@ -1,0 +1,21 @@
+---
+- name: Provision tv media center
+  hosts: tv
+  remote_user: thys
+  become: true
+  roles:
+    - role: base
+    - role: audio
+      tags:
+        - audio
+    - role: fonts
+      tags:
+        - fonts
+    - role: ssh
+    - role: kodi
+      tags:
+        - kodi
+        - media
+    - role: cage-kiosk
+      tags:
+        - kiosk

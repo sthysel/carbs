@@ -1,0 +1,11 @@
+---
+- name: Reload systemd daemon
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
+
+- name: Restart getty
+  ansible.builtin.systemd:
+    name: "getty@{{ kiosk_tty }}.service"
+    state: restarted
+  become: true

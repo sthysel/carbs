@@ -1,0 +1,6 @@
+# Kiosk auto-start on {{ kiosk_tty }}
+if [ "$(tty)" = "/dev/{{ kiosk_tty }}" ]; then
+    export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+    export LIBVA_DRIVER_NAME=i965
+    exec kodi --standalone --windowing=gbm
+fi

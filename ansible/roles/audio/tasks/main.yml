@@ -22,7 +22,6 @@
       - pipewire-bluetooth
       - qpwgraph
       - helvum
-      - coppwr
 
 - name: Enable and start pipewire user services
   ansible.builtin.systemd:
@@ -36,6 +35,7 @@
     - pipewire
     - pipewire-pulse
     - wireplumber
+  failed_when: false
 
 - name: Music and video players
   kewlfft.aur.aur:
@@ -80,3 +80,4 @@
     scope: user
     enabled: yes
     state: started
+  failed_when: false

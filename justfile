@@ -39,6 +39,15 @@ deploy limit="localhost" tags="all" playbook="desktop":
     --tags {{tags}} \
     ansible/{{playbook}}.yml
 
+[doc('Bootstrap fresh tv media center (connects as root)')]
+tv-bootstrap:
+    uv run ansible-playbook -v \
+    -e ansible_user=root \
+    --ask-pass \
+    --ask-become-pass \
+    --inventory ansible/inventory/ \
+    ansible/tv.yml
+
 [doc('Deploy to local WSL')]
 deploy-wsl tags="all":
     just deploy localhost {{tags}} wsl

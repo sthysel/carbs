@@ -1,0 +1,46 @@
+---
+- name: Disable any display manager
+  ansible.builtin.systemd:
+    name: display-manager.service
+    enabled: false
+    state: stopped
+  become: true
+  failed_when: false
+
+- name: Set default target to multi-user (no graphical login)
+  ansible.builtin.command:
+    cmd: systemctl set-default multi-user.target
+  become: true
+  changed_when: true
+
+- name: Create getty@{{ kiosk_tty }} override directory
+  ansible.builtin.file:
+    path: "/etc/systemd/system/getty@{{ kiosk_tty }}.service.d"
+    state: directory
+    mode: '0755'
+  become: true
+
+- name: Deploy getty autologin override
+  ansible.builtin.template:
+    src: getty-autologin.conf.j2
+    dest: "/etc/systemd/system/getty@{{ kiosk_tty }}.service.d/autologin.conf"
+    mode: '0644'
+  become: true
+  notify:
+    - Reload systemd daemon
+    - Restart getty
+
+- name: Deploy kiosk auto-start profile
+  ansible.builtin.template:
+    src: kiosk-profile.sh.j2
+    dest: "/home/{{ carbs_user }}/.zprofile"
+    owner: "{{ carbs_user }}"
+    mode: '0644'
+  become: true
+
+- name: Enable and start NetworkManager
+  ansible.builtin.systemd:
+    name: NetworkManager
+    enabled: true
+    state: started
+  become: true
