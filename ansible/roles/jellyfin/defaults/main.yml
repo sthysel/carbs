@@ -1,0 +1,12 @@
+---
+jellyfin_port: 8096
+jellyfin_nfs_server: bigdisk
+jellyfin_nfs_mounts:
+  - src: /volume1/movies
+    dest: /media/movies
+  - src: /volume1/series
+    dest: /media/series
+  - src: /volume1/documentaries
+    dest: /media/documentaries
+  - src: /volume1/music
+    dest: /media/music

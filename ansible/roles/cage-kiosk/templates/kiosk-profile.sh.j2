@@ -2,5 +2,6 @@
 if [ "$(tty)" = "/dev/{{ kiosk_tty }}" ]; then
     export XDG_RUNTIME_DIR="/run/user/$(id -u)"
     export LIBVA_DRIVER_NAME=i965
-    exec kodi --standalone --windowing=gbm
+    systemctl --user start pipewire pipewire-pulse wireplumber 2>/dev/null || true
+    {{ kiosk_command }}
 fi

@@ -12,9 +12,9 @@
       tags:
         - fonts
     - role: ssh
-    - role: kodi
+    - role: jellyfin
       tags:
-        - kodi
+        - jellyfin
         - media
     - role: cage-kiosk
       tags:

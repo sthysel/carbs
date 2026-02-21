@@ -1,2 +1,3 @@
 ---
 kiosk_tty: "tty1"
+kiosk_command: "exec kodi --standalone --windowing=gbm"

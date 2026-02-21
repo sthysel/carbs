@@ -1,4 +1,26 @@
 ---
+- name: Install cage and seatd
+  community.general.pacman:
+    name:
+      - cage
+      - seatd
+    state: present
+  become: true
+
+- name: Enable and start seatd
+  ansible.builtin.systemd:
+    name: seatd.service
+    enabled: true
+    state: started
+  become: true
+
+- name: Add {{ carbs_user }} to seat group
+  ansible.builtin.user:
+    name: "{{ carbs_user }}"
+    groups: seat
+    append: true
+  become: true
+
 - name: Disable any display manager
   ansible.builtin.systemd:
     name: display-manager.service

@@ -1,0 +1,63 @@
+---
+- name: Remove Kodi packages
+  community.general.pacman:
+    name:
+      - kodi
+      - kodi-eventclients
+      - kodi-addon-inputstream-adaptive
+    state: absent
+  become: true
+  failed_when: false
+
+- name: Install Jellyfin and dependencies
+  community.general.pacman:
+    name:
+      - jellyfin-server
+      - jellyfin-web
+      - jellyfin-ffmpeg
+      - libva
+      - libva-utils
+      - libva-intel-driver
+      - nfs-utils
+    state: present
+  become: true
+
+- name: Install Jellyfin Media Player from AUR
+  become: true
+  become_user: aur_builder
+  kewlfft.aur.aur:
+    name:
+      - jellyfin-media-player
+    state: present
+
+- name: Add jellyfin user to render and video groups
+  ansible.builtin.user:
+    name: jellyfin
+    groups: render,video
+    append: true
+  become: true
+
+- name: Mount NFS shares via fstab
+  ansible.posix.mount:
+    src: "{{ jellyfin_nfs_server }}:{{ item.src }}"
+    path: "{{ item.dest }}"
+    fstype: nfs
+    opts: "defaults,soft,timeo=150,retrans=3,_netdev,x-systemd.automount"
+    state: mounted
+  become: true
+  loop: "{{ jellyfin_nfs_mounts }}"
+
+- name: Ensure NFS mount directories are readable by jellyfin
+  ansible.builtin.file:
+    path: "{{ item.dest }}"
+    state: directory
+    mode: '0755'
+  become: true
+  loop: "{{ jellyfin_nfs_mounts }}"
+
+- name: Enable and start Jellyfin
+  ansible.builtin.systemd:
+    name: jellyfin.service
+    enabled: true
+    state: started
+  become: true

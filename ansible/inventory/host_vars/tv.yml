@@ -1,0 +1,2 @@
+---
+kiosk_command: "exec cage -- jellyfin-media-player --platform xcb"
