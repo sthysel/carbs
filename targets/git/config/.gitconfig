@@ -117,7 +117,7 @@ autoSquash = true
 sort = -committerdate
 
 [status]
-showUntrackedFiles = all
+	showUntrackedFiles = normal
 
 [rerere]
 enabled = true

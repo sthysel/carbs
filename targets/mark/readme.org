@@ -1,0 +1,37 @@
+* Mark
+
+[[https://github.com/kovetskiy/mark][Mark]] is a tool for syncing markdown documentation with Atlassian Confluence pages.
+
+** Usage
+
+Add metadata headers to your markdown files:
+
+#+begin_src markdown
+<!-- Space: MYSPACE -->
+<!-- Title: My Page Title -->
+<!-- Parent: Parent Page -->
+
+# Page content here
+#+end_src
+
+Push to Confluence:
+
+#+begin_src sh
+mark -f my-doc.md
+#+end_src
+
+Dry run (compile only, don't publish):
+
+#+begin_src sh
+mark -f my-doc.md --dry-run
+#+end_src
+
+** Authentication
+
+Mark requires Confluence credentials. Set via environment variables:
+
+#+begin_src sh
+export MARK_USERNAME="user@example.com"
+export MARK_PASSWORD="api-token"  # pragma: allowlist secret
+export MARK_BASE_URL="https://your-domain.atlassian.net/wiki"
+#+end_src
