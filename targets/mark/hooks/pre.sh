@@ -5,5 +5,5 @@
 
 arch() {
     yay_install go
-    go install github.com/kovetskiy/mark@latest
+    go install github.com/kovetskiy/mark/cmd/mark@latest
 }

@@ -6,8 +6,8 @@ StopWhenUnneeded=yes
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=-/usr/bin/pkill -STOP -f firefox-developer-edition
-ExecStop=-/usr/bin/pkill -CONT -f firefox-developer-edition
+ExecStart=-/usr/bin/pkill -STOP -x firefox
+ExecStop=-/usr/bin/pkill -CONT -x firefox
 
 [Install]
 WantedBy=sleep.target
