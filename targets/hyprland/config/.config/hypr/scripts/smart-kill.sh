@@ -10,6 +10,6 @@ if echo "$class" | grep -iq "webex\|cisco"; then
     # Nuke Webex from orbit
     kill -9 "$pid"
 else
-    # Normal polite close for everything else
-    hyprctl dispatch killactive
+    # Normal polite close for everything else (lua dispatch form, Hyprland 0.55+)
+    hyprctl dispatch 'hl.dsp.window.close()'
 fi

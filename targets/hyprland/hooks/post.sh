@@ -52,13 +52,6 @@ configure_hyprpanel() {
     fi
 }
 
-configure_local_overrides() {
-    if [ ! -f "$HOME/.config/hypr/local.conf" ]; then
-        echo "# Machine-specific Hyprland overrides" > "$HOME/.config/hypr/local.conf"
-        echo "Created ~/.config/hypr/local.conf for local overrides"
-    fi
-}
-
 configure_audio() {
     echo "Enabling audio services..."
     systemctl --user enable --now pipewire.service 2>/dev/null || true
@@ -94,7 +87,6 @@ configure_display_manager
 configure_network
 configure_uwsm
 configure_hyprpanel
-configure_local_overrides
 configure_audio
 reload_hyprland
 show_summary

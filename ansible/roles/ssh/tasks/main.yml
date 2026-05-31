@@ -15,13 +15,6 @@
   become_user: "{{ carbs_user }}"
   failed_when: false
 
-- name: Ensure SSH_AUTH_SOCK is set in Hyprland config
-  ansible.builtin.lineinfile:
-    path: "{{ hyprland_config_path | default('~/.config/hypr/userprefs.conf') }}"
-    regexp: '^env = SSH_AUTH_SOCK'
-    line: 'env = SSH_AUTH_SOCK,$XDG_RUNTIME_DIR/ssh-agent.socket'
-    create: yes
-
 - name: Ensure AddKeysToAgent is set in SSH config
   ansible.builtin.lineinfile:
     path: ~/.ssh/config

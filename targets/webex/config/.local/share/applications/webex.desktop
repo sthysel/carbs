@@ -1,9 +1,9 @@
 [Desktop Entry]
-Version=45.10.0.33234
+Version=46.4.0.34752
 Name=Webex
 Comment=Webex
-Exec=env QT_QPA_PLATFORM=xcb WAYLAND_DISPLAY='' /opt/Webex/bin/CiscoCollabHost %U
-Icon=/opt/Webex/bin/sparklogosmall.png
+Exec=/opt/Webex/bin/CiscoCollabHost %U
+Icon=/home/thys/.local/share/WebexLauncher/sparklogosmall.png
 Terminal=false
 Type=Application
 Categories=Utility;Application;
