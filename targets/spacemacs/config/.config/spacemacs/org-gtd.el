@@ -168,7 +168,15 @@
 (setq org-download-screenshot-method "grim -g \"$(slurp)\" %s")
 (setq org-download-image-dir "~/org/roam/assets/")
 (setq org-download-heading-lvl nil)
-(setq org-download-timestamp "%Y-%m/%Y%m%d_%H%M%S")
+(setq org-download-timestamp "%Y%m%d_%H%M%S_")
+
+;; Cap inline-image display width (px); Cairo scales natively. Per-image
+;; #+ATTR_ORG: :width still overrides this.
+(setq org-image-actual-width '(600))
+
+;; Open images in an external Wayland viewer (C-c C-o on the link), not inside
+;; Emacs, which is a poor image viewer (no zoom/pan/fit).
+(add-to-list 'org-file-apps '("\\.\\(png\\|jpe?g\\|gif\\|webp\\)\\'" . "imv %s"))
 
 ;;; --- screenshot → roam helper ------------------------------------------------
 

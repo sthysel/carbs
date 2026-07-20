@@ -257,8 +257,8 @@ It should only modify the values of Spacemacs settings."
         ;; fixed-pitch faces. The `:size' can be specified as
         ;; a non-negative integer (pixel size), or a floating-point (point size).
         ;; Point size is recommended, because it's device independent. (default 10.0)
-        dotspacemacs-default-font '("Hack"
-                                       :size 10.0
+        dotspacemacs-default-font '("Iosevka"
+                                       :size 14.0
                                        :weight normal
                                        :width normal)
 
@@ -637,9 +637,9 @@ before packages are loaded."
         :key 'gptel-api-key-from-auth-source
         :stream t)
     (setq gptel-model 'claude-sonnet-4-20250514
-          gptel-backend (gptel-make-anthropic "Claude"
-                            :key 'gptel-api-key-from-auth-source
-                            :stream t))
+        gptel-backend (gptel-make-anthropic "Claude"
+                          :key 'gptel-api-key-from-auth-source
+                          :stream t))
     (spacemacs/set-leader-keys
         "a g" 'gptel
         "a G" 'gptel-send)
