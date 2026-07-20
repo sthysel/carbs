@@ -1,0 +1,21 @@
+* dictd
+
+Local DICT protocol dictionary server with offline dictionaries and thesaurus.
+
+Databases installed:
+- ~dict-gcide~ :: GNU Collaborative International Dictionary of English
+- ~dict-moby-thesaurus~ :: Moby Thesaurus
+- ~dict-foldoc~ :: Free On-line Dictionary of Computing
+
+** Usage
+
+Query with the ~dict~ client (from the ~dictd~ package):
+
+#+begin_src sh
+dict serendipity          # define a word
+dict -t computer          # thesaurus lookup
+dict -d foldoc kernel     # query a specific database
+dict -D                   # list available databases
+#+end_src
+
+The server listens on ~localhost:2628~.

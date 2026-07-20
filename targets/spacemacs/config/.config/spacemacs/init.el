@@ -626,6 +626,16 @@ before packages are loaded."
     (define-key evil-visual-state-map [mouse-2] 'my/wayland-paste-primary)
     (global-set-key [mouse-2] 'my/wayland-paste-primary)
 
+    ;; Dictionary lookups hit the local dictd on localhost:2628 (offline, no
+    ;; "continue with dict.org?" prompt). Requires: dictd + dict-* packages.
+    (setq dictionary-server "localhost")
+
+    ;; Mouse-hover tooltip: point at a word, its definition pops up.
+    ;; NB fires a server query per hover, so ONLY enable with dictd running,
+    ;; else every mouse move spams failed localhost:2628 connections.
+    (setq dictionary-tooltip-dictionary "*")   ; "*" = all DBs; use "gcide" for snappier single-dict
+    (global-dictionary-tooltip-mode 1)
+
     ;; org-mode GTD setup (external config)
     (load (expand-file-name "org-gtd" (file-name-directory dotspacemacs-filepath)))
 
