@@ -37,6 +37,10 @@ This function should only modify configuration layer settings."
              windows-scripts
              html
              (llm-client :variables llm-client-enable-gptel t)
+             ;; claude-code-ide.el - Claude Code CLI in emacs, prefix SPC $ d
+             (claude-code :variables
+                 claude-code-ide-window-side 'right
+                 claude-code-ide-window-width 100)
              javascript
              csv
              toml
@@ -646,10 +650,22 @@ before packages are loaded."
     (gptel-make-perplexity "Perplexity"
         :key 'gptel-api-key-from-auth-source
         :stream t)
-    (setq gptel-model 'claude-sonnet-4-20250514
+    ;; gptel's bundled model list tops out at opus-4-8, so register opus-5
+    ;; ourselves — otherwise gptel has no capabilities/context/cost data for it
+    ;; and silently drops media (image/PDF) support.
+    (setq gptel-model 'claude-opus-5
         gptel-backend (gptel-make-anthropic "Claude"
                           :key 'gptel-api-key-from-auth-source
-                          :stream t))
+                          :stream t
+                          :models (cons '(claude-opus-5
+                                             :description "Most capable model for complex reasoning and advanced coding"
+                                             :capabilities (media tool-use cache)
+                                             :mime-types ("image/jpeg" "image/png" "image/gif" "image/webp" "application/pdf")
+                                             :context-window 1000
+                                             :input-cost 5
+                                             :output-cost 25
+                                             :cutoff-date "2026-01")
+                                      gptel--anthropic-models)))
     (spacemacs/set-leader-keys
         "a g" 'gptel
         "a G" 'gptel-send)
@@ -715,8 +731,8 @@ This function is called at the very end of Spacemacs initialization."
              '(a ace-jump-helm-line ace-link add-node-modules-path aggressive-indent alert
                   all-the-icons anaconda-mode ansible ansible-doc auto-compile
                   auto-highlight-symbol auto-yasnippet bmx-mode browse-at-remote bui
-                  centered-cursor-mode clean-aindent-mode closql code-cells code-review
-                  column-enforce-mode company company-anaconda company-ansible
+                  centered-cursor-mode claude-code-ide clean-aindent-mode closql code-cells
+                  code-review column-enforce-mode company company-anaconda company-ansible
                   company-emoji company-lua company-web counsel counsel-css csv-mode
                   cython-mode dap-mode deferred define-word devdocs diff-hl diminish
                   dired-quick-sort disable-mouse dotenv-mode drag-stuff dumb-jump eat
@@ -759,8 +775,8 @@ This function is called at the very end of Spacemacs initialization."
                   treemacs-magit treemacs-persp treemacs-projectile treepy undo-fu
                   undo-fu-session unfill uuidgen uv verb vi-tilde-fringe
                   volatile-highlights vterm vundo web-beautify web-completion-data web-mode
-                  websocket wgrep winum with-editor writeroom-mode ws-butler yaml yaml-mode
-                  yapfify yasnippet yasnippet-snippets))
+                  web-server websocket wgrep winum with-editor writeroom-mode ws-butler
+                  yaml yaml-mode yapfify yasnippet yasnippet-snippets))
         '(safe-local-variable-values '((just-indent-offset . 4))))
     (custom-set-faces
         ;; custom-set-faces was added by Custom.

@@ -175,8 +175,10 @@
 (setq org-image-actual-width '(600))
 
 ;; Open images in an external Wayland viewer (C-c C-o on the link), not inside
-;; Emacs, which is a poor image viewer (no zoom/pan/fit).
-(add-to-list 'org-file-apps '("\\.\\(png\\|jpe?g\\|gif\\|webp\\)\\'" . "imv %s"))
+;; Emacs, which is a poor image viewer (no zoom/pan/fit). Deferred until org
+;; loads, since `org-file-apps' is defined by org.el.
+(with-eval-after-load 'org
+    (add-to-list 'org-file-apps '("\\.\\(png\\|jpe?g\\|gif\\|webp\\)\\'" . "imv %s")))
 
 ;;; --- screenshot → roam helper ------------------------------------------------
 
