@@ -609,10 +609,14 @@ before packages are loaded."
     ;; Disable emoji rendering in org-mode — conflicts with :filetags:
     (add-hook 'org-mode-hook (lambda () (emojify-mode -1)))
 
-    ;; Clipboard settings - pgtk Emacs handles Wayland natively
+    ;; Clipboard settings - pgtk Emacs handles Wayland natively.
+    ;; select-active-regions publishes PRIMARY on every region change, which in
+    ;; Evil means every delete. Clipboard watchers then read it straight back
+    ;; off Emacs, and pgtk can wedge on that handshake ("Waiting for reply from
+    ;; selection owner"). Publishing on region change buys little, so: off.
     (setq select-enable-primary t)
     (setq select-enable-clipboard t)
-    (setq select-active-regions t)
+    (setq select-active-regions nil)
     (setq evil-kill-on-visual-paste nil)
 
     ;; Wayland PRIMARY selection fix - use wl-paste directly

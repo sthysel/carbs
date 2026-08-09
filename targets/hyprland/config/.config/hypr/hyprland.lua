@@ -24,10 +24,19 @@ hl.env("SSH_AUTH_SOCK", "$XDG_RUNTIME_DIR/ssh-agent.socket")
 
 -- See https://wiki.hypr.land/Configuring/Basics/Autostart/
 hl.on("hyprland.start", function()
+	-- Clipboard history. One watcher on the regular clipboard is enough.
+	--
+	-- There used to be four daemons here: a second watcher on PRIMARY plus two
+	-- wl-clip-persist instances. Every one of them reacts to a selection change
+	-- by reading the selection back off whichever app owns it, so a client that
+	-- publishes selections often -- Emacs with select-active-regions on, which
+	-- publishes on every region change -- ends up serving a constant stream of
+	-- read-backs, and can wedge on the handshake.
+	--
+	-- PRIMARY is ephemeral by nature and near-useless in a history, and
+	-- cliphist already survives the copying app exiting, which is all
+	-- wl-clip-persist was there for.
 	hl.exec_cmd("uwsm app -- wl-paste --watch cliphist store")
-	hl.exec_cmd("uwsm app -- wl-paste --primary --watch cliphist store")
-	hl.exec_cmd("uwsm app -- wl-clip-persist --clipboard regular")
-	hl.exec_cmd("uwsm app -- wl-clip-persist --clipboard primary")
 	hl.exec_cmd("uwsm app -- waypaper --restore")
 end)
 
