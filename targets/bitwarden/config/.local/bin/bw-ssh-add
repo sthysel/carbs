@@ -75,7 +75,8 @@ fi
 session_file="$HOME/.bw_session"
 
 if [[ -z "${BW_SESSION:-}" ]] && [[ -f "$session_file" ]]; then
-    export BW_SESSION=$(cat "$session_file")
+    BW_SESSION=$(cat "$session_file")
+    export BW_SESSION
 fi
 
 # Check status

@@ -59,7 +59,8 @@ ensure_session() {
 
     # Try cached session first
     if [[ -z "${BW_SESSION:-}" ]] && [[ -f "$session_file" ]]; then
-        export BW_SESSION=$(cat "$session_file")
+        BW_SESSION=$(cat "$session_file")
+        export BW_SESSION
     fi
 
     # Check status and handle accordingly

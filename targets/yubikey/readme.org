@@ -1,0 +1,178 @@
+* yubikey
+
+Enable YubiKey devices and the smartcard stack.
+
+The target covers three separate YubiKey applications. Each one uses a
+different channel to the key:
+
+| Application  | Used for                       | Channel                   |
+|--------------+--------------------------------+---------------------------|
+| FIDO2 / U2F  | Google, GitHub, browser logins | =/dev/hidraw*= (direct)   |
+| OpenPGP, PIV | gpg keys, ssh, certificates    | =pcscd= (CCID smartcard)  |
+| OATH         | TOTP codes                     | =pcscd= (CCID smartcard)  |
+
+The browser never goes through =pcscd=. This matters for troubleshooting.
+A gpg session that holds the smartcard does not block a Google login.
+
+** What it installs
+
+- =pcsclite= and =ccid=: the PC/SC daemon and the CCID reader driver
+- =pcsc-tools=: =pcsc_scan= for diagnostics
+- =yubikey-manager=: the =ykman= command line tool
+- =yubikey-personalization=: =ykpersonalize= and the =69-yubikey.rules= udev rules
+- =yubico-authenticator-bin=: the desktop TOTP application
+- =pam-u2f= and =libfido2=: FIDO2 and U2F support
+
+** What it enables
+
+The post hook enables =pcscd.socket= and reloads the udev rules.
+
+** Device access
+
+The packages supply the udev rules. The rules use =uaccess=, so the logged-in
+user gets access to the device through an ACL. No extra group is necessary.
+Do not add the user to a =u2f= or =plugdev= group. Old guides say to do this,
+but it is obsolete on Arch.
+
+** Check the setup
+
+#+begin_src sh
+systemctl status pcscd.socket
+pcsc_scan                 # smartcard side
+ykman info                # which applications are enabled
+ykman fido info           # FIDO2 PIN state
+fido2-token -L            # which hidraw node the browser will use
+gpg --card-status         # OpenPGP side
+#+end_src
+
+=fido2-token -L= must print a line. If it prints nothing, the browser cannot
+see the key either.
+
+* Google access in Firefox
+
+Firefox talks to the key over =/dev/hidraw*= with its own FIDO2 stack. Firefox
+114 and later support FIDO2 security keys and passkeys on Linux. The native
+Arch =firefox= package needs no extra configuration.
+
+Google offers two ways to use the key. Pick one, or use both:
+
+- *Passkey*: replaces the password. The credential lives on the key. A FIDO2
+  PIN is required.
+- *Security key*: a second factor after the password. No PIN is required.
+
+** 1. Set a FIDO2 PIN
+
+A passkey needs a FIDO2 PIN. Check the current state first:
+
+#+begin_src sh
+ykman fido info
+#+end_src
+
+If the output reports a PIN, a PIN is already set. To set a new PIN, run:
+
+#+begin_src sh
+ykman fido access change-pin
+#+end_src
+
+The PIN is 4 to 8 characters. It is not the OpenPGP PIN and it is not the PIV
+PIN. Three separate PINs live on one key.
+
+*Warning*: Do not run =ykman fido reset=. The command deletes every FIDO2
+credential on the key. Every site that uses the key for login locks you out.
+
+** 2. Register the key with Google
+
+1. Plug in the key.
+2. Open Firefox.
+3. Go to [[https://myaccount.google.com/signinoptions/passkeys][myaccount.google.com/signinoptions/passkeys]].
+4. Select *Create a passkey*, then *Use another device*.
+5. Enter the FIDO2 PIN when Firefox asks for it.
+6. Touch the gold contact on the key when it blinks.
+7. Name the credential. Use the serial number from =ykman info= in the name.
+
+For a second factor instead of a passkey, go to *Security*, then *2-Step
+Verification*, then *Security key*, and follow the same touch prompt.
+
+*Wait 7 days.* Google holds a new security key for 7 days before it works at
+sign-in. This is an anti-hijack delay. Keep the old second factor until the
+new key works.
+
+** 3. Sign in
+
+1. Enter the Google address.
+2. Select *Use a passkey* or *Use your security key*.
+3. Enter the FIDO2 PIN in the Firefox dialog.
+4. Touch the key.
+
+Firefox shows a native dialog, not a web page. The dialog asks for the PIN
+first and for the touch second.
+
+** Troubleshooting
+
+*Firefox shows no prompt at all.*
+Check that =fido2-token -L= lists the key. If the list is empty, the udev
+rules did not apply. Re-run the post hook:
+
+#+begin_src sh
+caifs add -d targets -h yubikey
+#+end_src
+
+Then unplug the key and plug it in again. A udev reload does not fix a device
+that is already connected.
+
+*Firefox reports that the key is not usable.*
+Check that FIDO2 is enabled on the key:
+
+#+begin_src sh
+ykman info
+#+end_src
+
+=FIDO2= must show =Enabled= for =USB=. To enable it, run
+=ykman config usb --enable FIDO2=.
+
+*Firefox asks for a PIN that you never set.*
+The site requested a passkey. Set a FIDO2 PIN with
+=ykman fido access change-pin=, or register the key as a second factor
+instead.
+
+*The PIN is wrong 8 times.*
+The key blocks the FIDO2 application. Only =ykman fido reset= unblocks it,
+and that reset deletes every credential. Count the attempts.
+
+*Firefox is a Flatpak or a Snap build.*
+The sandbox hides =/dev/hidraw*=. Use the native Arch =firefox= package. This
+target assumes the native package.
+
+*The key works in Firefox but =gpg --card-status= fails.*
+This is the =pcscd= side, not the browser side. Read the =gpg= section below.
+
+* OATH TOTP
+
+Use the desktop application =yubico-authenticator=, or the command line:
+
+#+begin_src sh
+ykman oath accounts list
+ykman oath accounts code <name>
+#+end_src
+
+OATH goes through =pcscd=. If =scdaemon= holds the card, =ykman oath= fails.
+The =pcsc-shared= setting in =scdaemon.conf= prevents this.
+
+* gpg
+
+=config/.gnupg/scdaemon.conf= tells =scdaemon= to go through =pcscd=. If
+=scdaemon= uses its own CCID driver while =pcscd= runs, the two fight for the
+reader.
+
+If the card stops responding, drop the =scdaemon= session:
+
+#+begin_src sh
+gpgconf --kill scdaemon
+gpg --card-status
+#+end_src
+
+* Reference
+
+- [[https://wiki.archlinux.org/title/YubiKey][ArchWiki: YubiKey]]
+- [[https://support.google.com/accounts/answer/6103523][Google: use a security key for 2-Step Verification]]
+- [[https://developers.yubico.com/yubikey-manager/][Yubico: ykman documentation]]

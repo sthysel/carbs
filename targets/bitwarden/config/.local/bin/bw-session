@@ -23,7 +23,8 @@ status() {
         return 1
     fi
 
-    export BW_SESSION=$(cat "$SESSION_FILE")
+    BW_SESSION=$(cat "$SESSION_FILE")
+    export BW_SESSION
     local status
     status=$(bw status 2>/dev/null | grep -oP '"status":"\K[^"]+' || echo "error")
     echo "Status: $status"
@@ -32,7 +33,8 @@ status() {
 
 lock_session() {
     if [[ -f "$SESSION_FILE" ]]; then
-        export BW_SESSION=$(cat "$SESSION_FILE")
+        BW_SESSION=$(cat "$SESSION_FILE")
+        export BW_SESSION
         bw lock 2>/dev/null || true
         rm -f "$SESSION_FILE"
         echo "unset BW_SESSION"

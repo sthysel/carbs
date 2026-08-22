@@ -7,7 +7,7 @@ arch() {
     yay_install nodejs npm jq
 
     mkdir -p ~/.local/lib/node_modules
-    npm config set prefix '~/.local'
+    npm config set prefix "$HOME/.local"
     npm install -g @bitwarden/cli
 }
 
