@@ -30,9 +30,7 @@ The post hook enables =pcscd.socket= and reloads the udev rules.
 ** Device access
 
 The packages supply the udev rules. The rules use =uaccess=, so the logged-in
-user gets access to the device through an ACL. No extra group is necessary.
-Do not add the user to a =u2f= or =plugdev= group. Old guides say to do this,
-but it is obsolete on Arch.
+user gets access to the device through an ACL.
 
 ** Check the setup
 
@@ -145,6 +143,182 @@ target assumes the native package.
 
 *The key works in Firefox but =gpg --card-status= fails.*
 This is the =pcscd= side, not the browser side. Read the =gpg= section below.
+
+* SSH keys stored on the key
+
+Carry the key to any machine and get SSH access there. The private key never
+leaves the YubiKey. A stolen laptop leaks nothing.
+
+This uses a FIDO2 *resident key*, also called a discoverable credential. The
+YubiKey stores the key handle, so no file on disk is necessary.
+
+Requirements:
+
+- YubiKey firmware 5.2.3 or later for =ed25519-sk=.
+- OpenSSH 8.2 or later on the client.
+- A FIDO2 PIN. See the Google section above.
+
+** 1. Decide: touch only, or touch plus PIN
+
+This choice sets how the key feels every day. Make it before you generate.
+
+| Option               | Cost per connection | Protects against                 |
+|----------------------+---------------------+----------------------------------|
+| Touch only           | One touch           | Theft of the laptop alone        |
+| =-O verify-required= | PIN *and* touch     | Theft of laptop and key together |
+
+=-O verify-required= demands the PIN on *every single signature*. No cache
+exists. A =git fetch= asks for the PIN. A loop over ten servers asks ten times.
+
+It also breaks agent use unless an askpass helper is installed. The agent has
+no terminal, so it cannot prompt for the PIN on its own.
+
+*Use touch only.* The PIN still guards the part that matters. A thief with the
+key alone cannot copy the credential to a new machine, because =ssh-add -K=
+and =ssh-keygen -K= both demand the PIN. Touch only keeps the daily cost at
+one touch.
+
+Add a second =verify-required= key later if one target needs the extra step.
+
+** 2. Create the key, once
+
+#+begin_src sh
+ssh-keygen -t ed25519-sk -O resident \
+    -C "yubikey-<serial>" -f ~/.ssh/id_ed25519_sk
+#+end_src
+
+=-O resident= stores the credential on the YubiKey. This makes the key
+portable. Without it, the key works only on machines that hold the handle file.
+
+Enter the FIDO2 PIN, then touch the key. Leave the passphrase empty. The
+passphrase protects the local handle file, not the secret.
+
+Two files appear:
+
+- =~/.ssh/id_ed25519_sk=: the *key handle*, not a private key. It names the
+  credential on the YubiKey. It is useless without the key.
+- =~/.ssh/id_ed25519_sk.pub=: the public key. Type =sk-ssh-ed25519@openssh.com=.
+
+The private key stays inside the YubiKey. No command extracts it.
+
+A resident key uses one of the 25 credential slots on firmware 5.4. Firmware
+5.7 and later have 100 slots. Check the count with =ykman fido credentials list=.
+
+*** More than one key
+
+To keep separate credentials, for example work and personal, give each one a
+different application string:
+
+#+begin_src sh
+ssh-keygen -t ed25519-sk -O resident -O application=ssh:work -f ~/.ssh/id_work_sk
+#+end_src
+
+The application string must start with =ssh:=. Use =-O user=<name>= to store
+several keys under one application string.
+
+** 3. Use the key on any other machine
+
+Plug in the key and run:
+
+#+begin_src sh
+ssh-add -K
+#+end_src
+
+This loads every resident key from the YubiKey into the agent. It writes no
+file to disk. Enter the FIDO2 PIN when it asks.
+
+Now ssh works. Every connection asks for a touch.
+
+The agent forgets the key when the agent stops. Unplug the key and the
+signature fails. Nothing remains on the borrowed machine.
+
+If the machine has no agent, write the handle files to the current directory
+instead:
+
+#+begin_src sh
+ssh-keygen -K
+#+end_src
+
+Delete those files before you leave.
+
+** 4. Register the public key
+
+Print the public key:
+
+#+begin_src sh
+ssh-add -L
+#+end_src
+
+The line starts with =sk-ssh-ed25519@openssh.com=. Add it to:
+
+- GitHub: Settings, then SSH and GPG keys
+- GitLab: Preferences, then SSH Keys
+- A server: append the line to =~/.ssh/authorized_keys= on that server
+
+** 5. The one hard limit: old servers
+
+An =sk-ssh-ed25519= key needs OpenSSH 8.2 or later on the *server*. An older
+=sshd= rejects the key type. It does not fail with a clear message. It reports
+a normal permission denial.
+
+Check a server before you rely on the key:
+
+#+begin_src sh
+ssh -v <host> 2>&1 | grep "remote software version"
+#+end_src
+
+GitHub, GitLab, and Bitbucket all accept these keys. A Debian 10 box or a
+CentOS 7 box does not.
+
+*Fallback for an old server*: use PIV with PKCS#11 instead. PIV presents a
+normal RSA or ECDSA key, so every =sshd= accepts it. The =opensc= package
+supplies the module:
+
+#+begin_src sh
+ssh -I /usr/lib/pkcs11/opensc-pkcs11.so <host>
+ssh-add -s /usr/lib/pkcs11/opensc-pkcs11.so    # load into the agent
+#+end_src
+
+PIV needs setup first. The PIV application on this key still holds the factory
+PIN, PUK, and management key.
+
+** 6. This machine needs an IdentityFile line
+
+=targets/ssh/config/.ssh/config= sets =IdentitiesOnly yes= for =Host *=. With
+that setting, ssh offers only the identities named in the config. It ignores
+the extra keys in the agent.
+
+Name the public key in the config so ssh finds the agent key:
+
+#+begin_src
+Host *
+  IdentityFile ~/.ssh/id_ed25519_sk.pub
+#+end_src
+
+The =.pub= file is correct here. Ssh reads the public half and asks the agent
+for the signature.
+
+This applies to this machine only. A borrowed machine has no such config, so
+=ssh-add -K= is enough there.
+
+** 7. Enroll a second key first
+
+A resident key on one YubiKey is a single point of failure. Lose the key and
+you lose the access.
+
+1. Create the same kind of resident key on a second YubiKey.
+2. Add both public keys to every service and every =authorized_keys= file.
+3. Test the second key before you remove the old software keys.
+4. Store the second key in a different physical place.
+
+** Housekeeping
+
+#+begin_src sh
+ssh-add -L                              # what the agent holds now
+ykman fido credentials list             # what the key stores, needs the PIN
+ykman fido credentials delete <id>      # free a slot
+ssh-add -D                              # clear the agent
+#+end_src
 
 * OATH TOTP
 
