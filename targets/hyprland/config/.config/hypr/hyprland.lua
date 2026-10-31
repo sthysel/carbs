@@ -178,7 +178,11 @@ hl.config({
 ------------------------------
 
 -- Scratchpad: float windows and center them
-hl.workspace_rule({ workspace = "special:magic", on_created_empty = "kitty" })
+hl.on("workspace.created", function(workspace)
+	if workspace.name == "special:magic" and workspace.is_empty then
+		hl.exec_cmd("kitty", { workspace = workspace.name })
+	end
+end)
 hl.window_rule({ match = { workspace = "special:magic" }, float = true })
 hl.window_rule({ match = { workspace = "special:magic" }, size = { "(monitor_w*0.75)", "(monitor_h*0.75)" } })
 hl.window_rule({ match = { workspace = "special:magic" }, center = true })
