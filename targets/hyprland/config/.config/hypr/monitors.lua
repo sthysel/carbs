@@ -13,11 +13,18 @@ local DRM = "/sys/class/drm"
 
 -- Snap to quarter steps and clamp to [1.0, 2.0]. Quarter scales keep clean,
 -- integer-ish framebuffers on common panels (e.g. 3840 / 1.5 = 2560).
-local function dpi_to_scale(dpi)
-	local s = math.floor((dpi / 96) * 4 + 0.5) / 4
+local function dpi_to_scale(dpi, reference)
+	local s = math.floor((dpi / reference) * 4 + 0.5) / 4
 	if s < 1 then return 1 end
 	if s > 2 then return 2 end
 	return s
+end
+
+-- A laptop panel sits closer to the eye than a desktop monitor, so the same DPI
+-- needs less scaling. 132 gives 1.25 on a 13" 1080p panel (166 DPI).
+local function reference_dpi(name)
+	if name:match("^eDP") or name:match("^LVDS") or name:match("^DSI") then return 132 end
+	return 96
 end
 
 -- Hyprland warns about a scale that gives a fractional logical size (1920 / 1.75
@@ -85,7 +92,7 @@ local function apply()
 				local scale = 1
 				if w and hmm > 0 and vmm > 0 then
 					local dpi = ((w / (hmm / 25.4)) + (h / (vmm / 25.4))) / 2
-					scale = valid_scale(dpi_to_scale(dpi), w, h)
+					scale = valid_scale(dpi_to_scale(dpi, reference_dpi(name)), w, h)
 				end
 				hl.monitor({
 					output = name,
