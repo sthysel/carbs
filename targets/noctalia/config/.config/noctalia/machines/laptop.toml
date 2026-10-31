@@ -1,0 +1,6 @@
+[location]
+latitude = -31.95224
+longitude = 115.8614
+
+[widget.clock]
+format = "{:%a %b %d  %H:%M:%S}"

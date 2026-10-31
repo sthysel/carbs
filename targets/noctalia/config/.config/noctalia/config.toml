@@ -1,0 +1,37 @@
+# Settings for all machines. post.sh links machine.toml to the file for this
+# machine in machines/. Noctalia merges every *.toml in this directory, and does
+# not read subdirectories, so only the linked machine file loads.
+#
+# The Settings window writes to ~/.local/state/noctalia/settings.toml, which
+# wins over this file.
+
+[shell]
+launch_apps_as_systemd_services = true # or a service restart kills the apps
+clipboard_enabled = false              # cliphist keeps the history
+
+[wallpaper]
+enabled = false # waypaper sets the wallpaper
+
+[lockscreen]
+enabled = false # hyprlock locks the screen
+
+[weather]
+enabled = true
+
+[bar.main]
+position = "top"
+start = ["workspaces", "active_window"]
+center = ["media"]
+end = [
+  "tray",
+  "volume",
+  "network",
+  "bluetooth",
+  "brightness",
+  "battery",
+  "clock",
+  "weather",
+  "notifications",
+  "control-center",
+  "session",
+]

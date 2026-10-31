@@ -115,6 +115,7 @@ generic() { echo "all OS"; }    # All platforms
 | mimeapps     | Default application associations (mpv, zathura, imv, thunar)     |
 | mpd          | Music Player Daemon config and service                           |
 | nobeep       | Disable PC speaker beep                                          |
+| noctalia     | Noctalia desktop shell (bar, notifications, pop-ups)             |
 | nvidia       | NVIDIA drivers and initcpio update hook                          |
 | nvim         | Neovim (LazyVim) config                                          |
 | oh-my-posh   | Oh My Posh prompt theme                                          |

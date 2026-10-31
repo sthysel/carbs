@@ -1,0 +1,40 @@
+* noctalia
+
+Noctalia is a Wayland desktop shell. This target uses it for the bar, the
+notifications, and the volume and brightness pop-ups. It replaces HyprPanel.
+
+Other tools keep these functions:
+
+| Function    | Tool     | In Noctalia        |
+|-------------+----------+--------------------|
+| Wallpaper   | waypaper | Disabled           |
+| Clipboard   | cliphist | Disabled           |
+| Lock screen | hyprlock | Disabled           |
+| Launcher    | rofi     | Not in the bar     |
+
+The session menu of Noctalia has no lock button, because the lock screen is
+disabled. Use the =hyprlock= key binding in =binds.lua=.
+
+** Configuration
+
+- =config.toml= holds the settings for all machines.
+- =machines/laptop.toml= and =machines/desktop.toml= hold the location and the
+  clock format.
+- =hooks/post.sh= links =~/.config/noctalia/machine.toml= to the file for the
+  machine.
+
+The Settings window writes to =~/.local/state/noctalia/settings.toml=, and this
+file wins over =config.toml=. If a value in =config.toml= has no effect, look in
+this file.
+
+** Service
+
+=noctalia.service= starts the shell with =graphical-session.target=. The service
+conflicts with =hyprpanel.service=, because both shells claim the notification
+name on D-Bus.
+
+** Return to HyprPanel
+
+1. Run =systemctl --user enable hyprpanel.service=.
+2. Run =systemctl --user disable noctalia.service=.
+3. Run =systemctl --user start hyprpanel.service=. The conflict stops Noctalia.
