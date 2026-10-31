@@ -20,6 +20,7 @@ enabled = true
 
 [bar.main]
 position = "top"
+margin_ends = 10 # the default of 180 hides the tray on a laptop panel
 start = ["workspaces", "active_window"]
 center = ["media"]
 end = [

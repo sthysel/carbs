@@ -35,6 +35,11 @@ name on D-Bus.
 
 ** Return to HyprPanel
 
-1. Run =systemctl --user enable hyprpanel.service=.
-2. Run =systemctl --user disable noctalia.service=.
-3. Run =systemctl --user start hyprpanel.service=. The conflict stops Noctalia.
+=hooks/post.sh= disables =hyprpanel.service=. This also removes the link to the
+unit, so make the link again first.
+
+1. Run =caifs add -d targets -l hyprland=.
+2. Run =systemctl --user daemon-reload=.
+3. Run =systemctl --user enable hyprpanel.service=.
+4. Run =systemctl --user disable noctalia.service=.
+5. Run =systemctl --user start hyprpanel.service=. The conflict stops Noctalia.

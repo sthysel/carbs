@@ -4,7 +4,7 @@ Documentation=https://hyprpanel.com
 
 [Service]
 Type=exec
-ExecStart=%h/.config/hypr/scripts/hyprpanel-start.sh
+ExecStart=/usr/bin/hyprpanel
 Restart=on-failure
 
 [Install]
