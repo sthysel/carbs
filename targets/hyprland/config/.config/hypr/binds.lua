@@ -11,7 +11,7 @@ local menu        = "rofi -show drun"
 -- Exit uwsm session
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("uwsm stop"))
 -- Lock screen
-hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("noctalia msg session lock"))
 -- Reload hyprland config
 hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
 
@@ -34,6 +34,8 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("uwsm app -- " .. fileManager))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("uwsm app -- kitty -e yazi"))
 -- Toggle floating
 hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
+-- Clipboard history
+hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("noctalia msg panel-toggle clipboard"))
 -- Application launcher
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd("uwsm app -- " .. menu))
 -- Toggle pseudo tiling (dwindle)

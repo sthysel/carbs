@@ -1,19 +1,24 @@
 * noctalia
 
 Noctalia is a Wayland desktop shell. This target uses it for the bar, the
-notifications, and the volume and brightness pop-ups. It replaces HyprPanel.
+notifications, the volume and brightness pop-ups, the wallpaper, the clipboard
+history, and the lock screen. =rofi= stays the application launcher.
 
-Other tools keep these functions:
+=binds.lua= has these keys for Noctalia:
 
-| Function    | Tool     | In Noctalia        |
-|-------------+----------+--------------------|
-| Wallpaper   | waypaper | Disabled           |
-| Clipboard   | cliphist | Disabled           |
-| Lock screen | hyprlock | Disabled           |
-| Launcher    | rofi     | Not in the bar     |
+| Key                  | Function          |
+|----------------------+-------------------|
+| Super + Ctrl + L     | Lock the screen   |
+| Super + Shift + V    | Clipboard history |
 
-The session menu of Noctalia has no lock button, because the lock screen is
-disabled. Use the =hyprlock= key binding in =binds.lua=.
+** Clipboard
+
+Noctalia reads the regular clipboard only. It does not read PRIMARY, so a client
+that publishes selections often (Emacs with =select-active-regions=) does not
+get a constant stream of read-backs. Do not add a clipboard daemon that watches
+PRIMARY. This type of daemon can stop Emacs.
+
+The history is encrypted on disk. The key is in the Secret Service.
 
 ** Configuration
 
@@ -29,17 +34,12 @@ this file.
 
 ** Service
 
-=noctalia.service= starts the shell with =graphical-session.target=. The service
-conflicts with =hyprpanel.service=, because both shells claim the notification
-name on D-Bus.
+=noctalia.service= starts the shell with =graphical-session.target=. Noctalia
+claims the notification name on D-Bus, so do not run another notification daemon
+at the same time.
 
-** Return to HyprPanel
+** Tray
 
-=hooks/post.sh= disables =hyprpanel.service=. This also removes the link to the
-unit, so make the link again first.
-
-1. Run =caifs add -d targets -l hyprland=.
-2. Run =systemctl --user daemon-reload=.
-3. Run =systemctl --user enable hyprpanel.service=.
-4. Run =systemctl --user disable noctalia.service=.
-5. Run =systemctl --user start hyprpanel.service=. The conflict stops Noctalia.
+The configuration hides the =nm-applet= and =blueman= icons, because the network
+and bluetooth widgets show the same state. The applets keep running. =nm-applet=
+answers the password requests for VPN and 802.1X connections.

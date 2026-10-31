@@ -4,12 +4,12 @@ Documentation=https://docs.noctalia.dev
 PartOf=graphical-session.target
 After=graphical-session.target
 ConditionEnvironment=WAYLAND_DISPLAY
-# Both shells claim the notification name on D-Bus.
-Conflicts=hyprpanel.service
 
 [Service]
 Type=exec
-ExecStart=/usr/bin/noctalia
+# A user service is not in a logind session, so give Noctalia the session ID.
+# Without it, Noctalia ignores `loginctl lock-session` and `unlock-session`.
+ExecStart=/bin/sh -c 'XDG_SESSION_ID=$$(loginctl show-user $$USER -p Display --value) exec /usr/bin/noctalia'
 Restart=on-failure
 RestartSec=1
 

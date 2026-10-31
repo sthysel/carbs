@@ -6,8 +6,6 @@
       - hypridle
       - hyprland
       - hyprland-qtutils
-      - hyprlock
-      - hyprpaper
       - hyprpicker
       - hyprpolkitagent
       - kitty
@@ -20,13 +18,11 @@
       - wofi
     state: present
 
-- name: Ensure hyprpanel and its dependencies are available
+- name: Ensure desktop utilities are available
   kewlfft.aur.aur:
     use: yay
     extra_args: --ask=4
     name:
-      - ags-hyprpanel-git
-      - aylurs-gtk-shell-git
       - bluez
       - bluez-utils
       - brightnessctl
@@ -63,8 +59,6 @@
       - libnotify
       - hyprpicker
       - satty
-      - cliphist
-      - wl-clip-persist
     state: present
 
 - name: Ensure emoji picker dependencies are available
@@ -116,15 +110,6 @@
   become_user: "{{ carbs_user }}"
   ansible.builtin.systemd:
     name: hypridle
-    scope: user
-    enabled: true
-    state: started
-
-- name: Enable and start hyprpaper
-  become: true
-  become_user: "{{ carbs_user }}"
-  ansible.builtin.systemd:
-    name: hyprpaper
     scope: user
     enabled: true
     state: started

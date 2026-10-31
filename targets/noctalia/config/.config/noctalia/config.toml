@@ -7,16 +7,20 @@
 
 [shell]
 launch_apps_as_systemd_services = true # or a service restart kills the apps
-clipboard_enabled = false              # cliphist keeps the history
 
 [wallpaper]
-enabled = false # waypaper sets the wallpaper
+directory = "~/wallpapers"
 
-[lockscreen]
-enabled = false # hyprlock locks the screen
+[wallpaper.default]
+path = "~/wallpapers/still_life_with_star_wars_motif.png"
 
 [weather]
 enabled = true
+
+# The network and bluetooth widgets show the same state. The applets keep
+# running, because nm-applet answers password requests for VPN and 802.1X.
+[widget.tray]
+hidden = ["nm-applet", "blueman"]
 
 [bar.main]
 position = "top"
@@ -25,6 +29,8 @@ start = ["workspaces", "active_window"]
 center = ["media"]
 end = [
   "tray",
+  "clipboard",
+  "wallpaper",
   "volume",
   "network",
   "bluetooth",

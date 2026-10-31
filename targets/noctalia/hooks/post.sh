@@ -25,7 +25,7 @@ configure_machine() {
 configure_service() {
     echo "Enabling noctalia service..."
     systemctl --user daemon-reload
-    systemctl --user disable hyprpanel.service 2>/dev/null || true
+    systemctl --user disable --now hyprpaper.service 2>/dev/null || true
     systemctl --user enable --now noctalia.service
 }
 

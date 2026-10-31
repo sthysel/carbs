@@ -34,24 +34,6 @@ configure_uwsm() {
     uwsm select hyprland 2>/dev/null || true
 }
 
-configure_hyprpanel() {
-    echo "Enabling hyprpanel service..."
-    systemctl --user daemon-reload
-    systemctl --user enable hyprpanel.service 2>/dev/null || true
-
-    config_dir="$HOME/.config/hyprpanel/"
-    config_target="$config_dir/config.json"
-    [ -L "$config_target" ] && rm "$config_target"
-
-    if is_laptop; then
-        ln -sf "$config_dir/config-laptop.json" "$config_target"
-        echo "Linked laptop HyprPanel configuration"
-    else
-        ln -sf "$config_dir/config-desktop.json" "$config_target"
-        echo "Linked desktop HyprPanel configuration"
-    fi
-}
-
 configure_audio() {
     echo "Enabling audio services..."
     systemctl --user enable --now pipewire.service 2>/dev/null || true
@@ -86,7 +68,6 @@ echo "Finalising Hyprland setup..."
 configure_display_manager
 configure_network
 configure_uwsm
-configure_hyprpanel
 configure_audio
 reload_hyprland
 show_summary

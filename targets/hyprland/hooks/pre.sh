@@ -7,12 +7,8 @@ arch() {
     # Core Hyprland packages
     yay_install \
         hyprland \
-        hyprlock \
         hypridle \
-        hyprpaper \
         xdg-desktop-portal-hyprland
-
-    yay_install waypaper
 
     # Panel/Bar
     yay_install waybar
@@ -32,8 +28,6 @@ arch() {
     # Clipboard management
     yay_install \
         wl-clipboard \
-        cliphist \
-        wl-clip-persist \
         xclip
 
     # Display manager and session management
@@ -60,11 +54,6 @@ arch() {
         ttf-font-awesome \
         ttf-nerd-fonts-symbols \
         ttf-sourcecodepro-nerd
-
-    # AUR packages
-    yay_install \
-        ags-hyprpanel-git \
-        aylurs-gtk-shell-git
 
     # Laptop-specific packages
     if is_mobile; then
