@@ -20,6 +20,21 @@ local function dpi_to_scale(dpi)
 	return s
 end
 
+-- Hyprland warns about a scale that gives a fractional logical size (1920 / 1.75
+-- = 1097.14) and replaces it. Scales are multiples of 1/120, so pick the nearest
+-- multiple in [1.0, 2.0] that divides both sides (1920x1080 at 1.75 -> 5/3).
+local function valid_scale(s, w, h)
+	local target = math.floor(s * 120 + 0.5)
+	local function fits(n)
+		return n >= 120 and n <= 240 and (w * 120) % n == 0 and (h * 120) % n == 0
+	end
+	for i = 0, 120 do
+		if fits(target - i) then return (target - i) / 120 end
+		if fits(target + i) then return (target + i) / 120 end
+	end
+	return 1
+end
+
 -- Preferred WxH (px) and physical size (mm) for a DRM output dir, or nil.
 local function read_output(dir)
 	local mf = io.open(dir .. "/modes", "r")
@@ -70,7 +85,7 @@ local function apply()
 				local scale = 1
 				if w and hmm > 0 and vmm > 0 then
 					local dpi = ((w / (hmm / 25.4)) + (h / (vmm / 25.4))) / 2
-					scale = dpi_to_scale(dpi)
+					scale = valid_scale(dpi_to_scale(dpi), w, h)
 				end
 				hl.monitor({
 					output = name,
